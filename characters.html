@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Blazing — Characters</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="css/characters.css" />
+  <link rel="stylesheet" href="css/bottombar.css" />
+</head>
+<body class="page-characters">
+  <div id="char-bg"></div>
+  <main class="char-content">
+    <h1 class="page-title">CHARACTERS</h1>
+    <section class="char-grid" aria-label="Character Grid"></section>
+  </main>
+
+  <div id="char-modal" aria-hidden="true">
+    <div class="char-modal-panel">
+      <div class="char-modal-art">
+        <img id="char-modal-img" src="" alt="Character full art" />
+      </div>
+      <div class="char-modal-info">
+        <div class="nameplate">
+          <div class="nameplate-main">
+            <div class="nameplate-name" id="nameplate-name">Character</div>
+            <div class="nameplate-version" id="nameplate-version">Version</div>
+          </div>
+        </div>
+        <div class="nameplate-stars" id="nameplate-stars"></div>
+
+        <div class="char-tabs">
+          <button class="tab-btn is-active" data-tab="status">Status</button>
+          <button class="tab-btn" data-tab="skills">Ninjutsu</button>
+          <button class="tab-btn" data-tab="support">F/B Skills</button>
+        </div>
+
+        <div class="tab-panels">
+          <section class="tab-panel is-active" id="tab-status">
+            <div class="stats-grid" id="char-stats"></div>
+            <div class="growth-ops">
+              <div class="level-strip">
+                <span class="level-badge">
+                  <span class="lv">Lv</span> <span id="status-level">1</span>
+                </span>
+                <span class="cap-sep">/</span>
+                <span id="status-cap">70</span>
+              </div>
+              <div class="growth-buttons">
+                <button class="btn-darkgold" id="btn-levelup">Level Up</button>
+                <button class="btn-dark" id="btn-addcopy">Add Copy</button>
+                <button class="btn-dark" id="btn-removecopy">Remove Copy</button>
+                <button class="btn-awaken" id="btn-awaken" disabled>Awaken</button>
+              </div>
+              <div class="tip-line" id="awaken-tip"></div>
+            </div>
+          </section>
+
+          <section class="tab-panel" id="tab-skills">
+            <div id="char-skills" class="skills-wrap"></div>
+          </section>
+
+          <section class="tab-panel" id="tab-support">
+            <div class="support-wrap" id="char-support"></div>
+          </section>
+        </div>
+
+        <div class="char-modal-actions">
+          <button class="char-close-btn" id="char-modal-close">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bottom-bar">
+    <div class="bottom-bar-content">
+      <button class="hud-button" id="btn-summon" aria-label="Summon">
+        <img src="assets/icons/summon_icon.png" alt="Summon" />
+      </button>
+      <button class="hud-button" id="btn-missions" aria-label="Missions">
+        <img src="assets/icons/missions_icon.png" alt="Missions" />
+      </button>
+      <button class="hud-button" id="btn-characters" aria-label="Characters">
+        <img src="assets/icons/characters_icon.png" alt="Characters" />
+      </button>
+    </div>
+  </div>
+
+  <script src="js/character_inv.js"></script>
+  <script src="js/progression.js"></script>
+  <script src="js/characters.js"></script>
+
+  <script>
+    (function () {
+      function go(url) {
+        document.body.style.transition = "opacity .2s linear";
+        document.body.style.opacity = "0";
+        setTimeout(() => (window.location.href = url), 200);
+      }
+      document.getElementById("btn-summon")?.addEventListener("click", () => go("summon.html"));
+      document.getElementById("btn-missions")?.addEventListener("click", () => go("missions.html"));
+      document.getElementById("btn-characters")?.addEventListener("click", () => go("characters.html"));
+    })();
+  </script>
+</body>
+</html>
