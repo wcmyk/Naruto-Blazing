@@ -1,0 +1,132 @@
+/* ==========================================
+   css/background.css  (Final — Crisp & Responsive)
+   ========================================== */
+
+/* --- Base Background Style --- */
+#full-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background-size: cover;          /* Fill screen without distortion */
+  background-position: center;
+  background-repeat: no-repeat;
+  transition: opacity 0.5s ease-in-out;
+  opacity: 1;
+
+  /* --- Crisp Rendering Enhancements --- */
+  image-rendering: optimizeSpeed;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+  image-rendering: pixelated;
+  -ms-interpolation-mode: nearest-neighbor;
+}
+
+/* --- INDIVIDUAL BACKGROUND IMAGE CLASSES --- */
+/* Correct relative paths: css → ../assets/Main Background/ */
+.bg-1  { background-image: url("../assets/Main Background/Background.gif"); }
+.bg-2  { background-image: url("../assets/Main Background/Background2.gif"); }
+.bg-3  { background-image: url("../assets/Main Background/Background3.gif"); }
+.bg-4  { background-image: url("../assets/Main Background/Background4.gif"); }
+.bg-5  { background-image: url("../assets/Main Background/Background5.gif"); }
+.bg-6  { background-image: url("../assets/Main Background/Background6.gif"); }
+.bg-7  { background-image: url("../assets/Main Background/Background7.gif"); }
+.bg-8  { background-image: url("../assets/Main Background/Background8.gif"); }
+.bg-9  { background-image: url("../assets/Main Background/Background9.gif"); }
+.bg-10 { background-image: url("../assets/Main Background/Background10.gif"); }
+
+/* --- PAGE-SPECIFIC BACKGROUNDS --- */
+
+/* missions Page (blurred + darker tone) */
+.page-missions #full-bg {
+  background-image: url("../assets/Main Background/Background.gif");
+  filter: blur(5px) brightness(0.7);
+  transform: scale(1.05);
+}
+
+/* Summon Page */
+.page-summon #full-bg {
+  background-image: url("../assets/Main Background/Background.gif");
+}
+
+/* characters Page */
+.page-characters #full-bg {
+  background-image: url("../assets/Main Background/Background.gif");
+}
+
+/* ==========================================
+   HUD & Button Layout
+   ========================================== */
+
+/* --- Bottom Bar --- */
+.bottom-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: clamp(60px, 8vh, 80px); /* Scales smoothly between 60–80px */
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 clamp(10px, 2vw, 25px);
+  box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(6px);
+  z-index: 10;
+  box-sizing: border-box;
+}
+
+.bottom-bar-content {
+  display: flex;
+  gap: clamp(10px, 2vw, 20px);
+}
+
+.hud-button {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.hud-button:hover {
+  transform: scale(1.08);
+}
+
+.hud-button img {
+  width: clamp(36px, 4vw, 48px);
+  height: clamp(36px, 4vw, 48px);
+  object-fit: contain;
+}
+
+/* --- Change BG Button --- */
+#bg-toggle {
+  font-family: 'Arial Black', sans-serif;
+  font-size: clamp(12px, 1.2vw, 16px);
+  font-weight: bold;
+  border: 2px solid #fff;
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  border-radius: 10px;
+  padding: clamp(6px, 1vh, 10px) clamp(12px, 2vw, 18px);
+  cursor: pointer;
+  transition: background 0.25s ease, transform 0.2s ease;
+  white-space: nowrap; /* Prevent wrapping */
+  max-width: 20vw;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#bg-toggle:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.05);
+
+
+.page-characters #full-bg {
+  background-image: url("../assets/Main Background/Characters Background/2.png"); /* 👈 your image */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  filter: brightness(0.95); /* optional tweak */
+}
+}
+
