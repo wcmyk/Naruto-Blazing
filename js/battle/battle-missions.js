@@ -1,0 +1,428 @@
+// js/battle_missions.js - Mission, Stage, and Wave Management
+(() => {
+  "use strict";
+
+  const BattleMissions = {
+    /**
+     * Initialize the missions module
+     * @param {Object} battleManager - Reference to BattleManager
+     */
+    init(battleManager) {
+      console.log("[Missions] Initializing missions module");
+      this.loadStage(battleManager, 0);
+    },
+
+    /**
+     * Load a specific stage
+     * @param {Object} bm - BattleManager reference
+     * @param {number} stageIndex - Index of the stage to load
+     */
+    loadStage(bm, stageIndex) {
+      bm.currentStageIndex = stageIndex;
+      const stages = bm.missionData.difficulties?.[bm.difficulty];
+
+      if (!Array.isArray(stages) || !stages[stageIndex]) {
+        this.declareVictory(bm);
+        return;
+      }
+
+      const stageData = stages[stageIndex];
+      console.log(`[Missions] Loading stage ${stageIndex + 1}/${stages.length}`);
+
+      this.setSceneBackground(bm, stageData);
+      this.loadWave(bm, stageData.waves || [], 0);
+    },
+
+    /**
+     * Set the background image for the battle scene
+     * @param {Object} bm - BattleManager reference
+     * @param {Object} stageData - Stage configuration data
+     */
+    setSceneBackground(bm, stageData) {
+      const mapPath = stageData?.map || bm.missionData?.map || null;
+      if (!mapPath || !bm.dom.scene) return;
+
+      const img = new Image();
+      img.onload = () => {
+        bm.dom.scene.style.backgroundImage = `url("${mapPath}")`;
+        bm.dom.scene.style.backgroundSize = "cover";
+        bm.dom.scene.style.backgroundPosition = "center";
+        console.log("[Missions] Map loaded:", mapPath);
+      };
+      img.onerror = () => console.warn("[Missions] Failed to load map:", mapPath);
+      img.src = mapPath;
+    },
+
+    /**
+     * Load a specific wave within the current stage
+     * @param {Object} bm - BattleManager reference
+     * @param {Array} waves - Array of wave configurations
+     * @param {number} waveIndex - Index of the wave to load
+     */
+    loadWave(bm, waves, waveIndex) {
+      bm.currentWaveIndex = waveIndex;
+      const waveData = waves[waveIndex] || { enemies: [] };
+
+      console.log(`[Missions] Loading wave ${waveIndex + 1}/${waves.length}`);
+
+      if (bm.dom.waveCurrent) bm.dom.waveCurrent.textContent = waveIndex + 1;
+      if (bm.dom.waveTotal) bm.dom.waveTotal.textContent = waves.length;
+
+      // Create enemy team
+      bm.enemyTeam = (waveData.enemies || []).map((enemyId, i) => {
+        const base = bm.enemiesData.find(e => e.id === enemyId) || {
+          id: enemyId,
+          name: enemyId,
+          portrait: "assets/characters/common/silhouette.png",
+          stats: { hp: 800, atk: 80, def: 30, speed: 90, chakra: 5 }
+        };
+
+        // Use modular units.createCombatant or fallback
+        const unit = bm.units ?
+          bm.units.createCombatant({
+            ...base,
+            isPlayer: false,
+            stats: { ...base.stats },
+            pos: { x: 70 + (i % 2 * 15), y: 25 + Math.floor(i / 2) * 25 }
+          }) :
+          {
+            id: base.id,
+            name: base.name,
+            portrait: base.portrait || "assets/characters/common/silhouette.png",
+            isPlayer: false,
+            stats: { ...base.stats, maxHP: base.stats.hp },
+            pos: { x: 70 + (i % 2 * 15), y: 25 + Math.floor(i / 2) * 25 },
+            chakra: 0,
+            maxChakra: 10,
+            speedGauge: Math.floor(Math.random() * 200),
+            isPaused: false
+          };
+        unit._ref = { enemy: base };
+        return unit;
+      });
+
+      // Reset active team state for new wave
+      bm.activeTeam.forEach(p => {
+        p.speedGauge = Math.floor(Math.random() * 200);
+        p.isGuarding = false;
+      });
+
+      bm.updateCombatants();
+      bm.renderAllUnits();
+      bm.isPaused = false;
+
+      console.log(`[Missions] Wave loaded with ${bm.enemyTeam.length} enemies`);
+    },
+
+    /**
+     * Handle wave completion - check if there are more waves or stages
+     * @param {Object} bm - BattleManager reference
+     */
+    handleWaveComplete(bm) {
+      console.log("[Missions] Wave complete!");
+
+      const stages = bm.missionData.difficulties[bm.difficulty];
+      const currentStage = stages[bm.currentStageIndex];
+      const totalWaves = currentStage.waves?.length || 0;
+
+      // Check if there are more waves in current stage
+      if (bm.currentWaveIndex < totalWaves - 1) {
+        console.log(`[Missions] Loading next wave: ${bm.currentWaveIndex + 2}/${totalWaves}`);
+
+        // Show wave transition message
+        this.showWaveTransition(bm, bm.currentWaveIndex + 2, totalWaves);
+
+        setTimeout(() => {
+          this.loadWave(bm, currentStage.waves, bm.currentWaveIndex + 1);
+        }, 2000);
+      }
+      // Check if there are more stages
+      else if (bm.currentStageIndex < stages.length - 1) {
+        console.log(`[Missions] Stage complete! Loading next stage: ${bm.currentStageIndex + 2}/${stages.length}`);
+
+        // Show stage transition message
+        this.showStageTransition(bm, bm.currentStageIndex + 2, stages.length);
+
+        setTimeout(() => {
+          this.loadStage(bm, bm.currentStageIndex + 1);
+        }, 2500);
+      }
+      // Mission complete!
+      else {
+        console.log("[Missions] All stages and waves complete!");
+        setTimeout(() => this.declareVictory(bm), 1000);
+      }
+    },
+
+    /**
+     * Show wave transition message
+     * @param {Object} bm - BattleManager reference
+     * @param {number} nextWave - Next wave number
+     * @param {number} totalWaves - Total waves in stage
+     */
+    showWaveTransition(bm, nextWave, totalWaves) {
+      if (!bm.dom.scene) return;
+
+      const transition = document.createElement('div');
+      transition.className = 'wave-transition';
+      transition.style.position = 'absolute';
+      transition.style.inset = '0';
+      transition.style.display = 'flex';
+      transition.style.flexDirection = 'column';
+      transition.style.alignItems = 'center';
+      transition.style.justifyContent = 'center';
+      transition.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
+      transition.style.zIndex = '999';
+      transition.style.animation = 'fadeInOut 2s ease-in-out';
+
+      transition.innerHTML = `
+        <div style="font-size: 3rem; font-weight: bold; color: #fff; text-shadow: 0 0 20px rgba(88, 183, 255, 0.8);">
+          WAVE ${nextWave}
+        </div>
+        <div style="font-size: 1.5rem; color: #aaa; margin-top: 1rem;">
+          ${nextWave} / ${totalWaves}
+        </div>
+      `;
+
+      bm.dom.scene.appendChild(transition);
+
+      setTimeout(() => transition.remove(), 2000);
+    },
+
+    /**
+     * Show stage transition message
+     * @param {Object} bm - BattleManager reference
+     * @param {number} nextStage - Next stage number
+     * @param {number} totalStages - Total stages in mission
+     */
+    showStageTransition(bm, nextStage, totalStages) {
+      if (!bm.dom.scene) return;
+
+      const transition = document.createElement('div');
+      transition.className = 'stage-transition';
+      transition.style.position = 'absolute';
+      transition.style.inset = '0';
+      transition.style.display = 'flex';
+      transition.style.flexDirection = 'column';
+      transition.style.alignItems = 'center';
+      transition.style.justifyContent = 'center';
+      transition.style.backgroundColor = 'rgba(0, 0, 0, 0.85)';
+      transition.style.zIndex = '999';
+      transition.style.animation = 'fadeInOut 2.5s ease-in-out';
+
+      transition.innerHTML = `
+        <div style="font-size: 2rem; color: #2ecc71; margin-bottom: 1rem;">
+          ✓ STAGE COMPLETE
+        </div>
+        <div style="font-size: 3.5rem; font-weight: bold; color: #fff; text-shadow: 0 0 30px rgba(255, 215, 0, 0.8);">
+          STAGE ${nextStage}
+        </div>
+        <div style="font-size: 1.5rem; color: #aaa; margin-top: 1rem;">
+          ${nextStage} / ${totalStages}
+        </div>
+      `;
+
+      bm.dom.scene.appendChild(transition);
+
+      setTimeout(() => transition.remove(), 2500);
+    },
+
+    /**
+     * Declare victory and show results
+     * @param {Object} bm - BattleManager reference
+     */
+    declareVictory(bm) {
+      console.log("🏆 VICTORY!");
+
+      bm.isPaused = true;
+
+      if (bm.speedGaugeInterval) {
+        clearInterval(bm.speedGaugeInterval);
+      }
+
+      // Calculate statistics
+      const stats = this.calculateBattleStats(bm);
+
+      this.showResult(bm, true, stats);
+    },
+
+    /**
+     * Declare defeat and show results
+     * @param {Object} bm - BattleManager reference
+     */
+    declareDefeat(bm) {
+      console.log("💀 DEFEAT!");
+
+      bm.isPaused = true;
+
+      if (bm.speedGaugeInterval) {
+        clearInterval(bm.speedGaugeInterval);
+      }
+
+      // Calculate statistics
+      const stats = this.calculateBattleStats(bm);
+
+      this.showResult(bm, false, stats);
+    },
+
+    /**
+     * Calculate battle statistics
+     * @param {Object} bm - BattleManager reference
+     * @returns {Object} Battle statistics
+     */
+    calculateBattleStats(bm) {
+      const teamHP = bm.activeTeam.reduce((sum, u) => sum + u.stats.hp, 0);
+      const maxTeamHP = bm.activeTeam.reduce((sum, u) => sum + u.stats.maxHP, 0);
+      const survivingUnits = bm.activeTeam.filter(u => u.stats.hp > 0).length;
+
+      return {
+        stage: bm.currentStageIndex + 1,
+        wave: bm.currentWaveIndex + 1,
+        teamHP,
+        maxTeamHP,
+        hpPercent: maxTeamHP > 0 ? Math.round((teamHP / maxTeamHP) * 100) : 0,
+        survivingUnits,
+        totalUnits: bm.activeTeam.length
+      };
+    },
+
+    /**
+     * Show battle result screen
+     * @param {Object} bm - BattleManager reference
+     * @param {boolean} isVictory - Whether the player won
+     * @param {Object} stats - Battle statistics
+     */
+    showResult(bm, isVictory, stats) {
+      if (!bm.dom.battleResult) return;
+
+      // Set title with proper class
+      bm.dom.resultTitle.textContent = isVictory ? "VICTORY" : "DEFEAT";
+      bm.dom.resultTitle.className = isVictory ? "result-title victory" : "result-title defeat";
+
+      // Create professional stats HTML
+      bm.dom.resultStats.innerHTML = `
+        <div class="result-subtitle">
+          ${isVictory ? "Mission Accomplished" : "Mission Failed"}
+        </div>
+
+        <div class="result-stats">
+          <!-- Mission Info -->
+          <div class="stat-row">
+            <span class="stat-label">Mission</span>
+            <span class="stat-value gold">${bm.missionData.name}</span>
+          </div>
+
+          <div class="stat-row">
+            <span class="stat-label">Difficulty</span>
+            <span class="stat-value gold">${bm.difficulty}-Rank</span>
+          </div>
+
+          <div class="stat-divider"></div>
+
+          <!-- Progress Info -->
+          <div class="stat-row">
+            <span class="stat-label">Stage Reached</span>
+            <span class="stat-value">${stats.stage}</span>
+          </div>
+
+          <div class="stat-row">
+            <span class="stat-label">Wave Completed</span>
+            <span class="stat-value">${stats.wave}</span>
+          </div>
+
+          <div class="stat-divider"></div>
+
+          <!-- Team Status -->
+          <div class="result-summary">
+            <div class="summary-row">
+              <span class="summary-label">Units Surviving</span>
+              <span class="summary-value ${stats.survivingUnits > 0 ? 'success' : 'danger'}">
+                ${stats.survivingUnits} / ${stats.totalUnits}
+              </span>
+            </div>
+            <div class="summary-row">
+              <span class="summary-label">Team HP</span>
+              <span class="summary-value ${stats.hpPercent > 50 ? 'success' : stats.hpPercent > 25 ? 'warning' : 'danger'}">
+                ${stats.teamHP.toLocaleString()} / ${stats.maxTeamHP.toLocaleString()}
+              </span>
+            </div>
+            <div class="summary-row">
+              <span class="summary-label">HP Remaining</span>
+              <span class="summary-value ${stats.hpPercent > 50 ? 'success' : stats.hpPercent > 25 ? 'warning' : 'danger'}">
+                ${stats.hpPercent}%
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="result-buttons">
+          <button class="result-btn primary" id="btn-continue-battle">
+            ${isVictory ? "Continue" : "Return"}
+          </button>
+          ${!isVictory ? '<button class="result-btn secondary" id="btn-retry-battle">Retry</button>' : ''}
+        </div>
+      `;
+
+      // Add event listeners
+      const btnContinue = document.getElementById('btn-continue-battle');
+      const btnRetry = document.getElementById('btn-retry-battle');
+
+      if (btnContinue) {
+        btnContinue.addEventListener('click', () => {
+          window.location.href = 'missions.html';
+        });
+      }
+
+      if (btnRetry && !isVictory) {
+        btnRetry.addEventListener('click', () => {
+          window.location.reload();
+        });
+      }
+
+      bm.dom.battleResult.classList.remove("hidden");
+
+      // Trigger screen effect
+      if (window.BattleAnimations) {
+        window.BattleAnimations.screenFlash(
+          isVictory ? 'rgba(255, 215, 0, 0.15)' : 'rgba(184, 134, 11, 0.1)',
+          500,
+          bm.dom
+        );
+      }
+    }
+  };
+
+  // Export to window
+  window.BattleMissions = BattleMissions;
+
+  // Add CSS animations for transitions
+  const style = document.createElement('style');
+  style.textContent = `
+    @keyframes fadeInOut {
+      0% {
+        opacity: 0;
+        transform: scale(0.9);
+      }
+      20% {
+        opacity: 1;
+        transform: scale(1);
+      }
+      80% {
+        opacity: 1;
+        transform: scale(1);
+      }
+      100% {
+        opacity: 0;
+        transform: scale(0.9);
+      }
+    }
+
+    .wave-transition, .stage-transition {
+      animation: fadeInOut 2s ease-in-out;
+    }
+  `;
+  document.head.appendChild(style);
+
+  console.log("[BattleMissions] Module loaded");
+
+})();
