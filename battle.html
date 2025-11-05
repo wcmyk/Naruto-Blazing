@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Blazing — Battle</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="css/battle.css" />
+  <link rel="stylesheet" href="css/battle-ui-fixes.css" />
+  <link rel="stylesheet" href="css/battle-result-professional.css" />
+</head>
+<body class="page-battle">
+  <header class="battle-hud">
+    <div class="hud-left">
+      <span class="hud-label">Team HP</span>
+      <div class="hp-track">
+        <div id="team-hp-bar" class="hp-fill"></div>
+      </div>
+      <span id="team-hp-text" class="hp-text">0 / 0</span>
+    </div>
+    <div class="hud-right">
+      <span id="mission-title">Mission</span>
+      <span class="wave">Wave <span id="wave-current">1</span>/<span id="wave-total">1</span></span>
+    </div>
+  </header>
+  <main id="battle-scene">
+    <div id="speed-gauge-track"></div>
+    <div id="turn-icons"></div>
+    <div id="bench-units"></div>
+    <div id="battlefield-grid"></div>
+    <div id="damage-numbers"></div>
+    <div id="effects-layer"></div>
+    <div id="action-panel" class="hidden">
+      <img id="action-portrait" alt="Active unit portrait"
+           src="assets/characters/common/silhouette.png" />
+      <div class="action-meta">
+        <div id="action-name">Name</div>
+        <div id="action-hp">HP: —</div>
+        <div id="action-chakra">Chakra: —</div>
+        <div class="skills-row">
+          <span id="action-skill-name">—</span>
+          <span id="action-ult-name">Locked</span>
+        </div>
+      </div>
+      <div class="action-buttons">
+        <button id="btn-attack">Attack</button>
+        <button id="btn-jutsu">Jutsu</button>
+        <button id="btn-ultimate">Ultimate</button>
+        <button id="btn-secret">Secret</button>
+        <button id="btn-guard">Guard</button>
+        <button id="btn-auto">Auto</button>
+        <button id="btn-speed">×1</button>
+      </div>
+    </div>
+  </main>
+
+  <!-- ===== RESULT SCREEN ===== -->
+  <div id="battle-result" class="hidden">
+    <div class="result-container">
+      <h1 id="result-title" class="result-title"></h1>
+      <div id="result-stats" class="result-content"></div>
+    </div>
+  </div>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"
+          onerror="this.onerror=null;this.src='js/lib/anime.min.js';"></script>
+  <script defer src="js/character_inv.js"></script>
+  <script defer src="js/progression.js"></script>
+  <script defer src="js/battle/battle-chakra.js"></script>
+  <script defer src="js/battle/battle-combat.js"></script>
+  <script defer src="js/battle/battle-units.js"></script>
+  <script defer src="js/battle/battle-drag.js"></script>
+  <script defer src="js/battle/battle-swap.js"></script>
+  <script defer src="js/battle/battle-buffs.js"></script>
+  <script defer src="js/battle/battle-turns.js"></script>
+  <script defer src="js/battle/battle-core.js"></script>
+  <script defer src="js/battle/battle-animations.js"></script>
+  <script defer src="js/battle/battle-missions.js"></script>
+  <script defer src="js/battle/battle-narrator.js"></script> 
+  <script defer src="js/battle/battle-hp-fix.js"></script>
+  <script defer src="js/battle.js"></script>
+</body>
+</html>
