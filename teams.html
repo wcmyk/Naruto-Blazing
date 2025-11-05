@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Blazing — Team Setup</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="css/teams.css" />
+  <link rel="stylesheet" href="css/bottombar.css" />
+</head>
+<body class="page-teams">
+  <div id="team-bg"></div>
+
+  <main class="team-content">
+    <h1 class="page-title">TEAM SETUP</h1>
+
+    <div class="team-selector">
+      <button class="team-tab active" data-team="1">Team 1</button>
+      <button class="team-tab" data-team="2">Team 2</button>
+      <button class="team-tab" data-team="3">Team 3</button>
+    </div>
+
+    <section class="team-formation">
+      <div class="formation-header">
+        <h2>Formation</h2>
+        <div class="team-stats">
+          <span>Total Cost: <strong id="total-cost">0</strong> / <strong>408</strong></span>
+          <span>Total Health: <strong id="total-health">0</strong></span>
+        </div>
+      </div>
+
+      <div class="formation-section">
+        <h3 class="section-label">Front Row</h3>
+        <div class="slot-row">
+          <div class="team-slot" data-slot="front-1" data-type="active">
+            <div class="slot-empty">Empty</div>
+          </div>
+          <div class="team-slot" data-slot="front-2" data-type="active">
+            <div class="slot-empty">Empty</div>
+          </div>
+          <div class="team-slot" data-slot="front-3" data-type="active">
+            <div class="slot-empty">Empty</div>
+          </div>
+          <div class="team-slot" data-slot="front-4" data-type="active">
+            <div class="slot-empty">Empty</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="formation-section">
+        <h3 class="section-label">Back Row</h3>
+        <div class="slot-row">
+          <div class="team-slot" data-slot="back-1" data-type="active">
+            <div class="slot-empty">Empty</div>
+          </div>
+          <div class="team-slot" data-slot="back-2" data-type="active">
+            <div class="slot-empty">Empty</div>
+          </div>
+          <div class="team-slot" data-slot="back-3" data-type="active">
+            <div class="slot-empty">Empty</div>
+          </div>
+          <div class="team-slot" data-slot="back-4" data-type="active">
+            <div class="slot-empty">Empty</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="team-actions">
+        <button class="btn-darkgold" id="btn-save-team">Save Team</button>
+        <button class="btn-dark" id="btn-clear-team">Clear All</button>
+      </div>
+    </section>
+
+    <section class="char-selection">
+      <div class="selection-header">
+        <h2>Select Character</h2>
+        <input type="text" id="char-filter" placeholder="Search by name..." />
+      </div>
+      <div class="char-grid" id="team-char-grid"></div>
+    </section>
+  </main>
+
+  <div id="char-preview-modal" aria-hidden="true">
+    <div class="preview-panel">
+      <button class="preview-close" id="preview-close">×</button>
+      <img id="preview-img" src="" alt="Character" />
+      <div class="preview-info">
+        <h3 id="preview-name"></h3>
+        <p id="preview-version"></p>
+        <div id="preview-stars"></div>
+        <div class="preview-stats" id="preview-stats"></div>
+        <button class="btn-darkgold" id="btn-assign-char">Assign to Slot</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="bottom-bar">
+    <div class="bottom-bar-content">
+      <button class="hud-button" id="btn-summon" aria-label="Summon">
+        <img src="assets/icons/summon_icon.png" alt="Summon" />
+      </button>
+      <button class="hud-button" id="btn-missions" aria-label="Missions">
+        <img src="assets/icons/missions_icon.png" alt="Missions" />
+      </button>
+      <button class="hud-button" id="btn-characters" aria-label="Characters">
+        <img src="assets/icons/characters_icon.png" alt="Characters" />
+      </button>
+    </div>
+  </div>
+
+  <script src="js/character_inv.js"></script>
+  <script src="js/progression.js"></script>
+  <script src="js/team_manager.js"></script>
+
+  <script>
+    (function () {
+      function go(url) {
+        document.body.style.transition = "opacity .2s linear";
+        document.body.style.opacity = "0";
+        setTimeout(() => (window.location.href = url), 200);
+      }
+      document.getElementById("btn-summon")?.addEventListener("click", () => go("summon.html"));
+      document.getElementById("btn-missions")?.addEventListener("click", () => go("missions.html"));
+      document.getElementById("btn-characters")?.addEventListener("click", () => go("characters.html"));
+    })();
+  </script>
+
+  <script>
+  (function () {
+    const params = new URLSearchParams(location.search);
+    if (params.get("mode") !== "prebattle") return;
+
+    const footer = document.createElement("div");
+    footer.id = "prebattle-footer";
+    footer.innerHTML = `
+      <span class="ctx" id="mission-context"></span>
+      <button id="btn-start-battle" class="btn-darkgold">Start Mission</button>
+    `;
+    document.body.appendChild(footer);
+
+    const css = document.createElement("style");
+    css.textContent = `
+      :root { --bottom-bar-h: 80px; }
+      #prebattle-footer{
+        position: fixed; left: 0; right: 0;
+        bottom: var(--bottom-bar-h);
+        z-index: 1001;
+        display: flex; gap: 12px; align-items: center; justify-content: center;
+        padding: 12px 16px;
+        background: rgba(10,10,12,.92);
+        border-top: 1px solid rgba(255,215,120,.15);
+        box-shadow: 0 -8px 24px rgba(0,0,0,.35);
+      }
+      #prebattle-footer .ctx { color:#d9b362; font-weight:700; white-space:nowrap; }
+      #btn-start-battle[disabled]{ opacity:.5; cursor:not-allowed; }
+      .team-content{ padding-bottom: calc(var(--bottom-bar-h) + 90px); }
+    `;
+    document.head.appendChild(css);
+
+    function applyBottomOffsets() {
+      const bar = document.querySelector(".bottom-bar");
+      const h = bar ? bar.offsetHeight : 80;
+      document.documentElement.style.setProperty("--bottom-bar-h", h + "px");
+    }
+    applyBottomOffsets();
+    window.addEventListener("resize", applyBottomOffsets);
+
+    (async () => {
+      const missionId = localStorage.getItem("currentMissionId");
+      const diff = localStorage.getItem("currentDifficulty") || "";
+      let name = localStorage.getItem("currentMissionName") || "Mission";
+      if (!localStorage.getItem("currentMissionName") && missionId) {
+        try {
+          const res = await fetch("data/missions.json");
+          const all = await res.json();
+          const m = (Array.isArray(all) ? all : []).find(x => String(x.id) === String(missionId));
+          if (m?.name) name = m.name;
+        } catch {}
+      }
+      document.getElementById("mission-context").textContent = `Ready: ${name} — Rank ${diff}`;
+    })();
+
+    const btn = document.getElementById("btn-start-battle");
+    function hasTeam() {
+      try {
+        const raw = localStorage.getItem("blazing_teams_v1");
+        const t = raw ? JSON.parse(raw) : {};
+        const team = t[1] || t["1"] || {};
+        return Object.values(team).some(x => x && x.uid);
+      } catch { return false; }
+    }
+    function refreshBtn() {
+      const ok = hasTeam();
+      btn.disabled = !ok;
+      btn.textContent = ok ? "Start Mission" : "Select at least 1 unit";
+    }
+    refreshBtn();
+    window.addEventListener("storage", e => { if (e.key === "blazing_teams_v1") refreshBtn(); });
+
+    btn.addEventListener("click", () => {
+      if (btn.disabled) return;
+      document.body.style.transition = "opacity .2s linear";
+      document.body.style.opacity = "0";
+      setTimeout(() => (window.location.href = "battle.html"), 200);
+    });
+  })();
+  </script>
+</body>
+</html>
