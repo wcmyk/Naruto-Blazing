@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Summon</title>
+  <link rel="stylesheet" href="css/summon.css">
+  <link rel="stylesheet" href="css/gembox.css">
+  <link rel="stylesheet" href="css/primobox.css">
+</head>
+<body>
+  <div id="full-bg" aria-hidden="true"></div>
+
+  <div class="gem-container">
+    <img src="assets/Shinobite.png" alt="Gem Icon" class="gem-icon" />
+    <div class="gem-box"><span id="gemValue">0</span></div>
+  </div>
+  <div class="primo-container">
+    <img src="assets/primogems.png" alt="Primogem Icon" class="primo-icon" />
+    <div class="primo-box"><span id="primoValue">0</span></div>
+  </div>
+
+  <main class="summon-container">
+    <div class="summon-gate">
+      <h1 class="summon-title">Character Summon</h1>
+      <p class="summon-description">Use your Gems to summon a new ally!</p>
+      <button id="summon-button" class="summon-btn">
+        <span class="cost">500 Gems</span>
+        <span class="text">Summon x1</span>
+      </button>
+    </div>
+  </main>
+
+  <div id="summon-result-modal" class="modal-overlay">
+    <div class="modal-content">
+      <div id="summon-reveal-animation"></div>
+      <img id="summon-result-img" src="" alt="Summoned Character">
+      <h2 id="summon-result-name"></h2>
+      <p id="summon-result-rarity"></p>
+      <button id="modal-close-button">Continue</button>
+    </div>
+  </div>
+
+  <a href="index.html" class="back-button">Back to Main Menu</a>
+
+  <script src="js/currency.js"></script>
+  <script src="js/character_inv.js"></script>
+  <script src="js/summon.js"></script>
+</body>
+</html>
