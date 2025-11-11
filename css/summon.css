@@ -1,0 +1,18 @@
+/* css/summon.css */
+body { margin: 0; font-family: sans-serif; color: white; }
+#full-bg { position: fixed; inset: 0; z-index: -1; background: url("../assets/summon_background.png") center/cover no-repeat; filter: brightness(0.8); }
+.summon-container { display: grid; place-items: center; height: 100vh; }
+.summon-gate { text-align: center; background: rgba(10, 10, 20, 0.6); padding: 40px; border-radius: 20px; border: 2px solid #556; backdrop-filter: blur(8px); }
+.summon-title { font-family: "Georgia", serif; color: #ffe9b0; font-size: 2.5em; margin: 0 0 10px 0; }
+.summon-description { font-size: 1.1em; color: #ccc; margin-bottom: 30px; }
+.summon-btn { padding: 20px 40px; border-radius: 15px; background: linear-gradient(145deg, #a85f3f, #e99a61); color: white; font-size: 1.8em; font-weight: bold; cursor: pointer; display: flex; flex-direction: column; align-items: center; }
+.summon-btn:hover { transform: scale(1.05); }
+.summon-btn .cost { font-size: 0.5em; font-weight: normal; opacity: 0.8; }
+.modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.8); display: grid; place-items: center; opacity: 0; visibility: hidden; transition: opacity 0.3s ease; }
+.modal-overlay.open { opacity: 1; visibility: visible; }
+.modal-content { background: #1a1a2a; padding: 30px; border-radius: 15px; text-align: center; border: 2px solid #778; transform: scale(0.8); transition: transform 0.3s ease; }
+.modal-overlay.open .modal-content { transform: scale(1); }
+#summon-result-img { max-width: 300px; max-height: 400px; object-fit: contain; margin-bottom: 20px; }
+#summon-result-name { margin: 0; color: #ffe9b0; font-size: 2em; }
+#summon-result-rarity { font-size: 1.5em; margin: 5px 0 20px 0; color: #ffc107; }
+.back-button { position: absolute; bottom: 20px; left: 20px; color: #ccc; text-decoration: none; }
