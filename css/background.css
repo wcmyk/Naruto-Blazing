@@ -24,7 +24,7 @@
 
 /* --- INDIVIDUAL BACKGROUND IMAGE CLASSES --- */
 /* Correct relative paths: css → ../assets/Main Background/ */
-.bg-1  { background-image: url("../assets/Main Background/Background.gif"); }
+.bg-1  { background-image: url("../assets/Main Background/Background.png"); }
 .bg-2  { background-image: url("../assets/Main Background/Background2.gif"); }
 .bg-3  { background-image: url("../assets/Main Background/Background3.gif"); }
 .bg-4  { background-image: url("../assets/Main Background/Background4.gif"); }
