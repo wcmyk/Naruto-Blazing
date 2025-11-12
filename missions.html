@@ -1,17 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Missions — Blazing</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="css/background.css" />
-  <link rel="stylesheet" href="css/missions.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Select Mission</title>
+  <link rel="stylesheet" href="css/missions.css">
 </head>
-
 <body>
-  <div id="full-bg" class="bg-1"></div>
-
-  <!-- Bottom Navigation Bar -->
+  <div id="full-bg" aria-hidden="true"></div>
+  <div class="mission-page-container">
+    <h1 class="page-title">Select Mission</h1>
+    <div class="mission-tabs"></div>
+    <div class="mission-list-container">
+      <div class="mission-list">
+        <p>Loading missions...</p>
+      </div>
+    </div>
+  </div>
+  <a href="index.html" class="back-button">Back to Main Menu</a>
+  
+  <!-- Bottom HUD Bar -->
   <div class="bottom-bar">
     <div class="bottom-bar-content">
       <button class="hud-button" id="btn-summon" aria-label="Summon">
@@ -29,80 +37,27 @@
       <button class="hud-button" id="btn-addchar" aria-label="Add Character">
         <img src="assets/icons/add_icon.png" alt="Add Character">
       </button>
-    </div>
-    <button id="bg-toggle" title="Change Background">Change BG</button>
-  </div>
-
-  <!-- Missions Content -->
-  <div class="missions-container">
-    <h1 class="missions-title">📜 Missions</h1>
-
-    <div class="missions-grid">
-      <div class="mission-card">
-        <h3>Story Mission 1</h3>
-        <p>Complete the first chapter</p>
-        <button class="mission-btn">Start</button>
-      </div>
-
-      <div class="mission-card">
-        <h3>Daily Mission</h3>
-        <p>Collect 100 coins</p>
-        <button class="mission-btn">Start</button>
-      </div>
-
-      <div class="mission-card">
-        <h3>Weekly Challenge</h3>
-        <p>Defeat 10 enemies</p>
-        <button class="mission-btn">Start</button>
-      </div>
+      <button class="hud-button" id="btn-settings" aria-label="Settings">
+        <img src="assets/icons/settings_icon.png" alt="Settings">
+      </button>
     </div>
   </div>
 
-  <script src="js/character_inv.js"></script>
+  <script src="js/missions.js"></script>
   <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      // Background cycling
-      const el = document.getElementById("full-bg");
-      const total = 10;
-      let current = 1;
+    // Navigation
+    function navigateTo(url) {
+      document.body.style.transition = "opacity 0.2s linear";
+      document.body.style.opacity = "0";
+      setTimeout(() => { window.location.href = url; }, 200);
+    }
 
-      function updateBG(n) {
-        for (let i = 1; i <= total; i++) el.classList.remove(`bg-${i}`);
-        el.classList.add(`bg-${n}`);
-      }
-
-      document.getElementById("bg-toggle")?.addEventListener("click", () => {
-        current = current < total ? current + 1 : 1;
-        updateBG(current);
-      });
-
-      // Navigation
-      function navigateTo(url) {
-        document.body.style.transition = "opacity 0.2s linear";
-        document.body.style.opacity = "0";
-        setTimeout(() => { window.location.href = url; }, 200);
-      }
-
-      document.getElementById("btn-summon")?.addEventListener("click", () => navigateTo("summon.html"));
-      document.getElementById("btn-missions")?.addEventListener("click", () => navigateTo("missions.html"));
-      document.getElementById("btn-characters")?.addEventListener("click", () => navigateTo("characters.html"));
-      document.getElementById("btn-teams")?.addEventListener("click", () => navigateTo("teams.html"));
-
-      document.getElementById("btn-addchar")?.addEventListener("click", () => {
-        const id = prompt("Enter Character ID from characters.json (e.g. 'naruto_01')");
-        if (id && typeof window.addCharacterById === "function") {
-          window.addCharacterById(id.trim());
-        } else {
-          alert("The Add Character system isn't ready yet. Please reload the page.");
-        }
-      });
-
-      // Mission buttons
-      document.querySelectorAll(".mission-btn").forEach(btn => {
-        btn.addEventListener("click", () => {
-          alert("Mission system coming soon!");
-        });
-      });
+    document.getElementById("btn-summon")?.addEventListener("click", () => navigateTo("summon.html"));
+    document.getElementById("btn-missions")?.addEventListener("click", () => navigateTo("missions.html"));
+    document.getElementById("btn-characters")?.addEventListener("click", () => navigateTo("characters.html"));
+    document.getElementById("btn-teams")?.addEventListener("click", () => navigateTo("teams.html"));
+    document.getElementById("btn-settings")?.addEventListener("click", () => {
+      alert("Settings menu coming soon!");
     });
   </script>
 </body>
