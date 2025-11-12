@@ -1,114 +1,109 @@
-/* ==========================================
-   Navy Blue Background for Missions Page
-   ========================================== */
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Missions — Blazing</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="css/background.css" />
+  <link rel="stylesheet" href="css/missions.css" />
+</head>
 
-/* Override the background for missions page */
-body {
-  background: #0a1628;
-}
+<body>
+  <div id="full-bg" class="bg-1"></div>
 
-#full-bg {
-  background: linear-gradient(
-    135deg,
-    #0a0e1a 0%,
-    #121b3a 25%,
-    #1a2952 50%,
-    #121b3a 75%,
-    #0a0e1a 100%
-  ) !important;
-  background-size: 400% 400% !important;
-  animation: royalGradient 15s ease infinite !important;
-}
+  <!-- Bottom Navigation Bar -->
+  <div class="bottom-bar">
+    <div class="bottom-bar-content">
+      <button class="hud-button" id="btn-summon" aria-label="Summon">
+        <img src="assets/icons/summon_icon.png" alt="Summon">
+      </button>
+      <button class="hud-button active" id="btn-missions" aria-label="Missions">
+        <img src="assets/icons/missions_icon.png" alt="Missions">
+      </button>
+      <button class="hud-button" id="btn-characters" aria-label="Characters">
+        <img src="assets/icons/characters_icon.png" alt="Characters">
+      </button>
+      <button class="hud-button" id="btn-teams" aria-label="Teams">
+        <img src="assets/icons/teams_icon.png" alt="Teams">
+      </button>
+      <button class="hud-button" id="btn-addchar" aria-label="Add Character">
+        <img src="assets/icons/add_icon.png" alt="Add Character">
+      </button>
+    </div>
+    <button id="bg-toggle" title="Change Background">Change BG</button>
+  </div>
 
-#full-bg::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: 
-    radial-gradient(circle at 20% 30%, rgba(218, 165, 32, 0.08) 0%, transparent 50%),
-    radial-gradient(circle at 80% 70%, rgba(138, 43, 226, 0.06) 0%, transparent 50%);
-  pointer-events: none;
-}
+  <!-- Missions Content -->
+  <div class="missions-container">
+    <h1 class="missions-title">📜 Missions</h1>
 
-@keyframes royalGradient {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-}
+    <div class="missions-grid">
+      <div class="mission-card">
+        <h3>Story Mission 1</h3>
+        <p>Complete the first chapter</p>
+        <button class="mission-btn">Start</button>
+      </div>
 
-/* ==========================================
-   Existing Missions Styles
-   ========================================== */
+      <div class="mission-card">
+        <h3>Daily Mission</h3>
+        <p>Collect 100 coins</p>
+        <button class="mission-btn">Start</button>
+      </div>
 
-.missions-container {
-  position: relative;
-  z-index: 10;
-  padding: 40px 20px;
-  max-width: 1200px;
-  margin: 0 auto;
-  color: white;
-  font-family: sans-serif;
-}
+      <div class="mission-card">
+        <h3>Weekly Challenge</h3>
+        <p>Defeat 10 enemies</p>
+        <button class="mission-btn">Start</button>
+      </div>
+    </div>
+  </div>
 
-.missions-title {
-  text-align: center;
-  font-size: 3rem;
-  margin-bottom: 40px;
-  text-shadow: 2px 2px 8px rgba(0,0,0,0.8);
-  color: #daa520;
-}
+  <script src="js/character_inv.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // Background cycling
+      const el = document.getElementById("full-bg");
+      const total = 10;
+      let current = 1;
 
-.missions-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 20px;
-  padding: 20px;
-}
+      function updateBG(n) {
+        for (let i = 1; i <= total; i++) el.classList.remove(`bg-${i}`);
+        el.classList.add(`bg-${n}`);
+      }
 
-.mission-card {
-  background: rgba(0, 0, 0, 0.7);
-  border: 2px solid rgba(218, 165, 32, 0.3);
-  border-radius: 12px;
-  padding: 24px;
-  text-align: center;
-  transition: transform 0.2s, box-shadow 0.2s;
-}
+      document.getElementById("bg-toggle")?.addEventListener("click", () => {
+        current = current < total ? current + 1 : 1;
+        updateBG(current);
+      });
 
-.mission-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(218, 165, 32, 0.3);
-  border-color: rgba(218, 165, 32, 0.5);
-}
+      // Navigation
+      function navigateTo(url) {
+        document.body.style.transition = "opacity 0.2s linear";
+        document.body.style.opacity = "0";
+        setTimeout(() => { window.location.href = url; }, 200);
+      }
 
-.mission-card h3 {
-  margin: 0 0 12px 0;
-  font-size: 1.5rem;
-  color: #daa520;
-}
+      document.getElementById("btn-summon")?.addEventListener("click", () => navigateTo("summon.html"));
+      document.getElementById("btn-missions")?.addEventListener("click", () => navigateTo("missions.html"));
+      document.getElementById("btn-characters")?.addEventListener("click", () => navigateTo("characters.html"));
+      document.getElementById("btn-teams")?.addEventListener("click", () => navigateTo("teams.html"));
 
-.mission-card p {
-  margin: 0 0 20px 0;
-  color: #ccc;
-  font-size: 1rem;
-}
+      document.getElementById("btn-addchar")?.addEventListener("click", () => {
+        const id = prompt("Enter Character ID from characters.json (e.g. 'naruto_01')");
+        if (id && typeof window.addCharacterById === "function") {
+          window.addCharacterById(id.trim());
+        } else {
+          alert("The Add Character system isn't ready yet. Please reload the page.");
+        }
+      });
 
-.mission-btn {
-  background: linear-gradient(135deg, #ff8c00, #ffa500);
-  border: none;
-  color: white;
-  padding: 12px 32px;
-  border-radius: 8px;
-  font-size: 1rem;
-  font-weight: bold;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.mission-btn:hover {
-  background: linear-gradient(135deg, #ffa500, #ffb84d);
-  transform: scale(1.05);
-  box-shadow: 0 4px 12px rgba(255, 165, 0, 0.5);
-}
-
-.mission-btn:active {
-  transform: scale(0.98);
-}
+      // Mission buttons
+      document.querySelectorAll(".mission-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          alert("Mission system coming soon!");
+        });
+      });
+    });
+  </script>
+</body>
+</html>
