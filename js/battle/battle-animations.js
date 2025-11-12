@@ -1,4 +1,4 @@
-// js/battle-animations.js - Animation System for Battle
+// js/battle-animations.js - Animation System for Battle (WITH MP4 SUPPORT)
 (() => {
   "use strict";
 
@@ -38,49 +38,139 @@
     },
 
     /**
-     * Play skill animation (jutsu or ultimate)
+     * Play skill animation (jutsu, ultimate, or secret)
+     * SUPPORTS: GIF, MP4, WEBM, and other video formats
      * @param {Object} unit - The unit casting the skill
-     * @param {string} skillType - "jutsu" or "ultimate"
-     * @param {string} gifPath - Path to animation GIF
+     * @param {string} skillType - "jutsu", "ultimate", or "secret"
+     * @param {string} mediaPath - Path to animation GIF or video file
      * @param {Object} dom - DOM references from BattleManager
      */
-    playSkillAnimation(unit, skillType, gifPath, dom) {
+    playSkillAnimation(unit, skillType, mediaPath, dom) {
       // Try to get animation from multiple sources
-      if (!gifPath) {
+      if (!mediaPath) {
         const base = unit._ref?.base;
         if (skillType === "ultimate") {
-          gifPath = base?.ultimateAnimation || base?.skills?.ultimate?.animationGif;
+          mediaPath = base?.ultimateAnimation ||
+                      base?.skills?.ultimate?.animationGif ||
+                      base?.skills?.ultimate?.video;
+        } else if (skillType === "secret") {
+          mediaPath = base?.secretAnimation ||
+                      base?.skills?.secret?.animationGif ||
+                      base?.skills?.secret?.video;
         } else {
-          gifPath = base?.jutsuAnimation || base?.skills?.jutsu?.animationGif;
+          mediaPath = base?.jutsuAnimation ||
+                      base?.skills?.jutsu?.animationGif;
         }
       }
 
-      if (!gifPath || !dom.effectsLayer) {
+      if (!mediaPath || !dom.effectsLayer) {
         console.log("[Animations] No animation path for", skillType);
         return;
       }
 
-      const unitEl = dom.scene?.querySelector(`[data-unit-id="${unit.id}"]`);
-      if (!unitEl) return;
+      // ✅ CHECK IF IT'S A VIDEO FILE
+      const isVideo = /\.(mp4|webm|mov|avi|m4v)$/i.test(mediaPath);
 
-      const rect = unitEl.getBoundingClientRect();
-      const sceneRect = dom.scene.getBoundingClientRect();
+      // ✅ FULLSCREEN MODE for ultimate/secret videos
+      const isFullscreen = isVideo && (skillType === "ultimate" || skillType === "secret");
 
       const animEl = document.createElement("div");
-      animEl.className = `skill-animation ${skillType}`;
-      animEl.style.position = "absolute";
-      animEl.style.left = `${rect.left - sceneRect.left - 100}px`;
-      animEl.style.top = `${rect.top - sceneRect.top - 100}px`;
-      animEl.style.width = "300px";
-      animEl.style.height = "300px";
+      animEl.className = `skill-animation ${skillType} ${isFullscreen ? 'fullscreen' : ''}`;
+
+      if (isFullscreen) {
+        // FULLSCREEN CINEMATIC MODE
+        animEl.style.position = "fixed";
+        animEl.style.inset = "0";
+        animEl.style.width = "100%";
+        animEl.style.height = "100%";
+        animEl.style.backgroundColor = "rgba(0, 0, 0, 0.9)";
+        animEl.style.display = "flex";
+        animEl.style.alignItems = "center";
+        animEl.style.justifyContent = "center";
+        animEl.style.zIndex = "9999";
+      } else {
+        // NORMAL OVERLAY MODE (for jutsu or GIFs)
+        const unitEl = dom.scene?.querySelector(`[data-unit-id="${unit.id}"]`);
+        if (!unitEl) return;
+
+        const rect = unitEl.getBoundingClientRect();
+        const sceneRect = dom.scene.getBoundingClientRect();
+
+        animEl.style.position = "absolute";
+        animEl.style.left = `${rect.left - sceneRect.left - 150}px`;
+        animEl.style.top = `${rect.top - sceneRect.top - 150}px`;
+        animEl.style.width = "400px";
+        animEl.style.height = "400px";
+        animEl.style.zIndex = "200";
+      }
+
       animEl.style.pointerEvents = "none";
-      animEl.style.zIndex = "200";
 
-      animEl.innerHTML = `<img src="${gifPath}" style="width: 100%; height: 100%; object-fit: contain;" alt="skill" onerror="this.style.display='none'">`;
+      if (isVideo) {
+        console.log(`[Animations] 🎬 Playing ${isFullscreen ? 'FULLSCREEN' : ''} VIDEO animation: ${mediaPath}`);
 
-      dom.effectsLayer.appendChild(animEl);
+        // Create video element with autoplay
+        const video = document.createElement('video');
+        video.src = mediaPath;
+        video.autoplay = true;
+        video.muted = true;
+        video.playsInline = true;
 
-      setTimeout(() => animEl.remove(), skillType === "ultimate" ? 2000 : 1500);
+        if (isFullscreen) {
+          video.style.maxWidth = '90%';
+          video.style.maxHeight = '90%';
+          video.style.objectFit = 'contain';
+        } else {
+          video.style.width = '100%';
+          video.style.height = '100%';
+          video.style.objectFit = 'contain';
+        }
+
+        // Remove animation when video ends
+        video.onended = () => {
+          console.log("[Animations] ✅ Video finished playing");
+          animEl.remove();
+        };
+
+        // Error handling
+        video.onerror = (e) => {
+          console.error("[Animations] ❌ Video failed to load:", mediaPath, e);
+          animEl.remove();
+        };
+
+        animEl.appendChild(video);
+      } else {
+        console.log(`[Animations] 🖼️ Playing GIF animation: ${mediaPath}`);
+
+        // Create image/GIF element
+        const img = document.createElement('img');
+        img.src = mediaPath;
+        img.style.width = '100%';
+        img.style.height = '100%';
+        img.style.objectFit = 'contain';
+        img.alt = 'skill animation';
+
+        // Error handling
+        img.onerror = () => {
+          console.error("[Animations] ❌ GIF failed to load:", mediaPath);
+          img.style.display = 'none';
+        };
+
+        animEl.appendChild(img);
+      }
+
+      // ✅ Append to the right container
+      if (isFullscreen) {
+        document.body.appendChild(animEl);  // Fullscreen = body
+      } else {
+        dom.effectsLayer.appendChild(animEl);  // Normal = effects layer
+      }
+
+      // Auto-remove GIF animations after duration (videos remove themselves)
+      if (!isVideo) {
+        const duration = skillType === "ultimate" || skillType === "secret" ? 2500 : 1500;
+        setTimeout(() => animEl.remove(), duration);
+      }
     },
 
     /**
@@ -382,16 +472,23 @@
       transition: opacity 0.3s ease-out;
     }
 
+    .skill-animation.ultimate video,
     .skill-animation.ultimate img {
       filter: drop-shadow(0 0 15px rgba(255, 77, 77, 0.8));
     }
 
+    .skill-animation.jutsu video,
     .skill-animation.jutsu img {
       filter: drop-shadow(0 0 15px rgba(88, 183, 255, 0.8));
+    }
+
+    .skill-animation.secret video,
+    .skill-animation.secret img {
+      filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.9));
     }
   `;
   document.head.appendChild(style);
 
-  console.log("[BattleAnimations] Module loaded");
+  console.log("[BattleAnimations] Module loaded ✅ (GIF + MP4 support)");
 
 })();
