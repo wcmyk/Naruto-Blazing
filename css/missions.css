@@ -1,27 +1,13 @@
 /* ==========================================
-   css/missions.css — Royal Navy Blue Theme
+   Navy Blue Background for Missions Page
    ========================================== */
 
-/* --- Base Styles --- */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
+/* Override the background for missions page */
 body {
-  font-family: 'Cinzel', 'Georgia', serif;
-  color: #f0e6d1;
-  overflow-x: hidden;
-  background: #0a0e1a;
-  min-height: 100vh;
+  background: #0a1628;
 }
 
-/* --- Royal Navy Blue Background --- */
 #full-bg {
-  position: fixed;
-  inset: 0;
-  z-index: -1;
   background: linear-gradient(
     135deg,
     #0a0e1a 0%,
@@ -29,9 +15,9 @@ body {
     #1a2952 50%,
     #121b3a 75%,
     #0a0e1a 100%
-  );
-  background-size: 400% 400%;
-  animation: royalGradient 15s ease infinite;
+  ) !important;
+  background-size: 400% 400% !important;
+  animation: royalGradient 15s ease infinite !important;
 }
 
 #full-bg::before {
@@ -44,266 +30,85 @@ body {
   pointer-events: none;
 }
 
-#full-bg::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0l2 2-2 2-2-2 2-2zm0 56l2 2-2 2-2-2 2-2z' fill='%23daa520' fill-opacity='0.03'/%3E%3C/svg%3E");
-  opacity: 0.3;
-  pointer-events: none;
-}
-
 @keyframes royalGradient {
   0%, 100% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
 }
 
-/* --- Page Container --- */
-.mission-page-container {
+/* ==========================================
+   Existing Missions Styles
+   ========================================== */
+
+.missions-container {
   position: relative;
+  z-index: 10;
+  padding: 40px 20px;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 40px 20px 120px 20px;
-  min-height: 100vh;
-  z-index: 1;
+  color: white;
+  font-family: sans-serif;
 }
 
-/* --- Royal Title --- */
-.page-title {
-  font-family: 'Cinzel Decorative', 'Cinzel', serif;
-  font-size: clamp(32px, 5vw, 56px);
-  font-weight: 700;
+.missions-title {
   text-align: center;
+  font-size: 3rem;
   margin-bottom: 40px;
+  text-shadow: 2px 2px 8px rgba(0,0,0,0.8);
   color: #daa520;
-  text-shadow: 
-    0 0 20px rgba(218, 165, 32, 0.5),
-    0 0 40px rgba(218, 165, 32, 0.3),
-    2px 2px 4px rgba(0, 0, 0, 0.8);
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  position: relative;
-  padding-bottom: 20px;
 }
 
-.page-title::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 200px;
-  height: 3px;
-  background: linear-gradient(90deg, transparent, #daa520, transparent);
-  box-shadow: 0 0 10px rgba(218, 165, 32, 0.6);
-}
-
-/* --- Mission Tabs --- */
-.mission-tabs {
-  display: flex;
-  justify-content: center;
-  gap: 15px;
-  margin-bottom: 30px;
-  flex-wrap: wrap;
-}
-
-.mission-tab {
-  font-family: 'Cinzel', serif;
-  font-size: 16px;
-  font-weight: 600;
-  padding: 12px 28px;
-  border: 2px solid rgba(218, 165, 32, 0.4);
-  background: rgba(10, 14, 26, 0.8);
-  color: #d4af37;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-  backdrop-filter: blur(5px);
-}
-
-.mission-tab:hover {
-  background: rgba(218, 165, 32, 0.15);
-  border-color: #daa520;
-  transform: translateY(-2px);
-  box-shadow: 
-    0 6px 20px rgba(218, 165, 32, 0.3),
-    0 0 15px rgba(218, 165, 32, 0.2);
-}
-
-.mission-tab.active {
-  background: linear-gradient(135deg, rgba(218, 165, 32, 0.25), rgba(184, 134, 11, 0.25));
-  border-color: #daa520;
-  color: #fff;
-  box-shadow: 
-    0 0 20px rgba(218, 165, 32, 0.5),
-    inset 0 0 10px rgba(218, 165, 32, 0.2);
-}
-
-/* --- Mission List Container --- */
-.mission-list-container {
-  background: rgba(10, 14, 26, 0.7);
-  border: 2px solid rgba(218, 165, 32, 0.3);
-  border-radius: 16px;
-  padding: 30px;
-  backdrop-filter: blur(10px);
-  box-shadow: 
-    0 8px 32px rgba(0, 0, 0, 0.5),
-    inset 0 1px 0 rgba(255, 255, 255, 0.05);
-}
-
-.mission-list {
-  display: flex;
-  flex-direction: column;
+.missions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 20px;
+  padding: 20px;
 }
 
-/* --- Mission Cards --- */
 .mission-card {
-  background: linear-gradient(135deg, rgba(18, 27, 58, 0.9), rgba(26, 41, 82, 0.8));
+  background: rgba(0, 0, 0, 0.7);
   border: 2px solid rgba(218, 165, 32, 0.3);
   border-radius: 12px;
   padding: 24px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
-}
-
-.mission-card::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(218, 165, 32, 0.1), transparent);
-  transition: left 0.5s ease;
-}
-
-.mission-card:hover::before {
-  left: 100%;
+  text-align: center;
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .mission-card:hover {
-  border-color: #daa520;
-  transform: translateX(8px);
-  box-shadow: 
-    0 8px 24px rgba(0, 0, 0, 0.6),
-    0 0 20px rgba(218, 165, 32, 0.2);
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(218, 165, 32, 0.3);
+  border-color: rgba(218, 165, 32, 0.5);
 }
 
 .mission-card h3 {
-  font-family: 'Cinzel', serif;
-  font-size: 22px;
+  margin: 0 0 12px 0;
+  font-size: 1.5rem;
   color: #daa520;
-  margin-bottom: 12px;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .mission-card p {
-  font-family: 'Georgia', serif;
-  font-size: 15px;
-  color: #c9b896;
-  line-height: 1.6;
-  margin-bottom: 8px;
+  margin: 0 0 20px 0;
+  color: #ccc;
+  font-size: 1rem;
 }
 
-.mission-card .mission-reward {
-  display: inline-block;
-  margin-top: 12px;
-  padding: 6px 14px;
-  background: rgba(218, 165, 32, 0.15);
-  border: 1px solid rgba(218, 165, 32, 0.4);
-  border-radius: 6px;
-  font-size: 14px;
-  color: #f0d98d;
-  font-weight: 600;
-}
-
-/* --- Back Button --- */
-.back-button {
-  position: fixed;
-  bottom: 30px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-family: 'Cinzel', serif;
-  font-size: 16px;
-  font-weight: 600;
-  padding: 14px 32px;
-  background: linear-gradient(135deg, rgba(218, 165, 32, 0.2), rgba(184, 134, 11, 0.2));
-  border: 2px solid rgba(218, 165, 32, 0.5);
-  border-radius: 10px;
-  color: #daa520;
-  text-decoration: none;
-  text-transform: uppercase;
-  letter-spacing: 2px;
+.mission-btn {
+  background: linear-gradient(135deg, #ff8c00, #ffa500);
+  border: none;
+  color: white;
+  padding: 12px 32px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: bold;
   cursor: pointer;
-  transition: all 0.3s ease;
-  backdrop-filter: blur(10px);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
-  z-index: 100;
+  transition: all 0.2s;
 }
 
-.back-button:hover {
-  background: linear-gradient(135deg, rgba(218, 165, 32, 0.3), rgba(184, 134, 11, 0.3));
-  border-color: #daa520;
-  transform: translateX(-50%) translateY(-2px);
-  box-shadow: 
-    0 6px 24px rgba(0, 0, 0, 0.6),
-    0 0 20px rgba(218, 165, 32, 0.3);
-  color: #ffd700;
+.mission-btn:hover {
+  background: linear-gradient(135deg, #ffa500, #ffb84d);
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(255, 165, 0, 0.5);
 }
 
-.back-button:active {
-  transform: translateX(-50%) translateY(0);
-}
-
-/* --- Loading State --- */
-.mission-list p {
-  text-align: center;
-  font-size: 18px;
-  color: #c9b896;
-  font-style: italic;
-}
-
-/* --- Responsive Design --- */
-@media (max-width: 768px) {
-  .mission-page-container {
-    padding: 20px 15px 100px 15px;
-  }
-
-  .page-title {
-    font-size: 28px;
-    margin-bottom: 25px;
-  }
-
-  .mission-tabs {
-    gap: 10px;
-  }
-
-  .mission-tab {
-    font-size: 14px;
-    padding: 10px 20px;
-  }
-
-  .mission-list-container {
-    padding: 20px;
-  }
-
-  .mission-card {
-    padding: 18px;
-  }
-
-  .mission-card h3 {
-    font-size: 18px;
-  }
-
-  .back-button {
-    padding: 12px 24px;
-    font-size: 14px;
-  }
+.mission-btn:active {
+  transform: scale(0.98);
 }
