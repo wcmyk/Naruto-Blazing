@@ -8,6 +8,7 @@
 </head>
 <body>
   <div id="full-bg" aria-hidden="true"></div>
+  
   <div class="mission-page-container">
     <h1 class="page-title">Select Mission</h1>
     <div class="mission-tabs"></div>
@@ -17,6 +18,7 @@
       </div>
     </div>
   </div>
+  
   <a href="index.html" class="back-button">Back to Main Menu</a>
   
   <!-- Bottom HUD Bar -->
@@ -47,18 +49,14 @@
   <script>
     // Navigation
     function navigateTo(url) {
-      document.body.style.transition = "opacity 0.2s linear";
-      document.body.style.opacity = "0";
-      setTimeout(() => { window.location.href = url; }, 200);
+      window.location.href = url;
     }
 
     document.getElementById("btn-summon")?.addEventListener("click", () => navigateTo("summon.html"));
     document.getElementById("btn-missions")?.addEventListener("click", () => navigateTo("missions.html"));
     document.getElementById("btn-characters")?.addEventListener("click", () => navigateTo("characters.html"));
     document.getElementById("btn-teams")?.addEventListener("click", () => navigateTo("teams.html"));
-    document.getElementById("btn-settings")?.addEventListener("click", () => {
-      alert("Settings menu coming soon!");
-    });
+    document.getElementById("btn-settings")?.addEventListener("click", () => alert("Settings coming soon!"));
   </script>
 </body>
 </html>
