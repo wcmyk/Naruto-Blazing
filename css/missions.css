@@ -237,3 +237,12 @@ body {
   font-size: 14px;
   padding: 50px 20px;
 }
+
+
+.back-button,
+a[href="index.html"] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
