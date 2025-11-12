@@ -42,45 +42,36 @@
   <script src="js/character_inv.js"></script> <!-- Must load first so addCharacterById exists -->
 
   <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const el = document.getElementById("full-bg");
-      const total = 10;
-      let current = 1;
+  document.addEventListener("DOMContentLoaded", () => {
+    // Navigation buttons
+    function navigateTo(url) {
+      document.body.style.transition = "opacity 0.2s linear";
+      document.body.style.opacity = "0";
+      setTimeout(() => { window.location.href = url; }, 200);
+    }
 
-      function updateBG(n) {
-        for (let i = 1; i <= total; i++) el.classList.remove(`bg-${i}`);
-        el.classList.add(`bg-${n}`);
+    document.getElementById("btn-summon")?.addEventListener("click", () => navigateTo("summon.html"));
+    document.getElementById("btn-missions")?.addEventListener("click", () => navigateTo("missions.html"));
+    document.getElementById("btn-characters")?.addEventListener("click", () => navigateTo("characters.html"));
+    document.getElementById("btn-teams")?.addEventListener("click", () => navigateTo("teams.html"));
+
+    // Add Character Button
+    document.getElementById("btn-addchar")?.addEventListener("click", () => {
+      const id = prompt("Enter Character ID from characters.json (e.g. 'naruto_01')");
+      if (id && typeof window.addCharacterById === "function") {
+        window.addCharacterById(id.trim());
+      } else {
+        console.error("⚠️ addCharacterById not loaded yet — check script order");
+        alert("The Add Character system isn't ready yet. Please reload the page.");
       }
-
-      // Manual toggle button (cycles backgrounds)
-      document.getElementById("bg-toggle").addEventListener("click", () => {
-        current = current < total ? current + 1 : 1;
-        updateBG(current);
-      });
-
-      // Navigation buttons
-      function navigateTo(url) {
-        document.body.style.transition = "opacity 0.2s linear";
-        document.body.style.opacity = "0";
-        setTimeout(() => { window.location.href = url; }, 200);
-      }
-
-      document.getElementById("btn-summon")?.addEventListener("click", () => navigateTo("summon.html"));
-      document.getElementById("btn-missions")?.addEventListener("click", () => navigateTo("missions.html"));
-      document.getElementById("btn-characters")?.addEventListener("click", () => navigateTo("characters.html"));
-      document.getElementById("btn-teams")?.addEventListener("click", () => navigateTo("teams.html"));
-
-      // ✅ Add Character Button — works now since addCharacterById is defined
-      document.getElementById("btn-addchar")?.addEventListener("click", () => {
-        const id = prompt("Enter Character ID from characters.json (e.g. 'naruto_01')");
-        if (id && typeof window.addCharacterById === "function") {
-          window.addCharacterById(id.trim());
-        } else {
-          console.error("⚠️ addCharacterById not loaded yet — check script order");
-          alert("The Add Character system isn't ready yet. Please reload the page.");
-        }
-      });
     });
-  </script>
+
+    // Settings Button
+    document.getElementById("btn-settings")?.addEventListener("click", () => {
+      alert("Settings menu coming soon!");
+      // TODO: Create settings modal
+    });
+  });
+</script>
 </body>
 </html>
