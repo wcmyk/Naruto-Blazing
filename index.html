@@ -5,72 +5,136 @@
   <title>Blazing — Manual Background Switch (Responsive)</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="css/background.css" />
-  <link rel="stylesheet" href="css/bottombar.css" /> <!-- ← ADD THIS LINE -->
 </head>
 
 <body>
   <!-- Default background -->
   <div id="full-bg" class="bg-1"></div>
-  
-  <!-- HUD Bottom Bar -->
-<div class="bottom-bar">
-  <div class="bottom-bar-content">
-    <button class="hud-button" id="btn-summon" aria-label="Summon">
-      <img src="assets/icons/summon_icon.png" alt="Summon">
-    </button>
-    <button class="hud-button" id="btn-missions" aria-label="Missions">
-      <img src="assets/icons/missions_icon.png" alt="Missions">
-    </button>
-    <button class="hud-button" id="btn-characters" aria-label="Characters">
-      <img src="assets/icons/characters_icon.png" alt="Characters">
-    </button>
-    <button class="hud-button" id="btn-teams" aria-label="Teams">
-      <img src="assets/icons/teams_icon.png" alt="Teams">
-    </button>
-    <button class="hud-button" id="btn-addchar" aria-label="Add Character">
-      <img src="assets/icons/add_icon.png" alt="Add Character">
-    </button>
-    <button class="hud-button" id="btn-settings" aria-label="Settings">
-      <img src="assets/icons/settings_icon.png" alt="Settings">
-    </button>
-  </div>
-</div>
 
-   
-  <!-- ✅ Scripts (order matters!) -->
-  <script src="js/character_inv.js"></script> <!-- Must load first so addCharacterById exists -->
+  <!-- HUD Bottom Bar -->
+  <div class="bottom-bar">
+    <div class="bottom-bar-content">
+      <button class="hud-button" id="btn-summon" aria-label="Summon">
+        <img src="assets/icons/summon_icon.png" alt="Summon">
+      </button>
+      <button class="hud-button" id="btn-missions" aria-label="Missions">
+        <img src="assets/icons/missions_icon.png" alt="Missions">
+      </button>
+      <button class="hud-button" id="btn-characters" aria-label="Characters">
+        <img src="assets/icons/characters_icon.png" alt="Characters">
+      </button>
+      <button class="hud-button" id="btn-teams" aria-label="Teams">
+        <img src="assets/icons/teams_icon.png" alt="Teams">
+      </button>
+      <button class="hud-button" id="btn-addchar" aria-label="Add Character">
+        <img src="assets/icons/add_icon.png" alt="Add Character">
+      </button>
+      <button class="hud-button" id="btn-settings" aria-label="Settings">
+        <img src="assets/icons/settings_icon.png" alt="Settings">
+      </button>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/character_inv.js"></script>
 
   <script>
-  document.addEventListener("DOMContentLoaded", () => {
-    // Navigation buttons
-    function navigateTo(url) {
-      document.body.style.transition = "opacity 0.2s linear";
-      document.body.style.opacity = "0";
-      setTimeout(() => { window.location.href = url; }, 200);
-    }
+    document.addEventListener("DOMContentLoaded", () => {
+      console.log("✅ JavaScript loaded!");
 
-    document.getElementById("btn-summon")?.addEventListener("click", () => navigateTo("summon.html"));
-    document.getElementById("btn-missions")?.addEventListener("click", () => navigateTo("missions.html"));
-    document.getElementById("btn-characters")?.addEventListener("click", () => navigateTo("characters.html"));
-    document.getElementById("btn-teams")?.addEventListener("click", () => navigateTo("teams.html"));
+      // Background cycling
+      const el = document.getElementById("full-bg");
+      const total = 10;
+      let current = 1;
 
-    // Add Character Button
-    document.getElementById("btn-addchar")?.addEventListener("click", () => {
-      const id = prompt("Enter Character ID from characters.json (e.g. 'naruto_01')");
-      if (id && typeof window.addCharacterById === "function") {
-        window.addCharacterById(id.trim());
-      } else {
-        console.error("⚠️ addCharacterById not loaded yet — check script order");
-        alert("The Add Character system isn't ready yet. Please reload the page.");
+      function updateBG(n) {
+        for (let i = 1; i <= total; i++) {
+          el.classList.remove(`bg-${i}`);
+        }
+        el.classList.add(`bg-${n}`);
+        console.log(`🎨 Background changed to bg-${n}`);
       }
-    });
 
-    // Settings Button
-    document.getElementById("btn-settings")?.addEventListener("click", () => {
-      alert("Settings menu coming soon!");
-      // TODO: Create settings modal
+      // Navigation function
+      function navigateTo(url) {
+        console.log(`🚀 Navigating to: ${url}`);
+        document.body.style.transition = "opacity 0.2s linear";
+        document.body.style.opacity = "0";
+        setTimeout(() => { 
+          window.location.href = url; 
+        }, 200);
+      }
+
+      // Wire up navigation buttons
+      const btnSummon = document.getElementById("btn-summon");
+      if (btnSummon) {
+        btnSummon.addEventListener("click", () => {
+          console.log("🔮 Summon clicked");
+          navigateTo("summon.html");
+        });
+      }
+
+      const btnMissions = document.getElementById("btn-missions");
+      if (btnMissions) {
+        btnMissions.addEventListener("click", () => {
+          console.log("📜 Missions clicked");
+          navigateTo("missions.html");
+        });
+      }
+
+      const btnCharacters = document.getElementById("btn-characters");
+      if (btnCharacters) {
+        btnCharacters.addEventListener("click", () => {
+          console.log("👤 Characters clicked");
+          navigateTo("characters.html");
+        });
+      }
+
+      const btnTeams = document.getElementById("btn-teams");
+      if (btnTeams) {
+        btnTeams.addEventListener("click", () => {
+          console.log("👥 Teams clicked");
+          navigateTo("teams.html");
+        });
+      }
+
+      // Add Character button
+      const btnAddChar = document.getElementById("btn-addchar");
+      if (btnAddChar) {
+        btnAddChar.addEventListener("click", () => {
+          console.log("➕ Add Character clicked");
+          const id = prompt("Enter Character ID from characters.json (e.g. 'naruto_01')");
+          if (id && typeof window.addCharacterById === "function") {
+            window.addCharacterById(id.trim());
+            console.log(`✅ Added character: ${id}`);
+          } else if (id) {
+            console.error("⚠️ addCharacterById not loaded yet");
+            alert("The Add Character system isn't ready yet. Please reload the page.");
+          }
+        });
+      }
+
+      // Settings button (with background changer)
+      const btnSettings = document.getElementById("btn-settings");
+      if (btnSettings) {
+        btnSettings.addEventListener("click", () => {
+          console.log("⚙️ Settings clicked");
+          const choice = prompt("Settings Menu:\n1. Change Background (enter 1-10)\n2. Cancel\n\nEnter background number (1-10):");
+          
+          if (choice) {
+            const num = parseInt(choice);
+            if (num >= 1 && num <= 10) {
+              current = num;
+              updateBG(current);
+            } else {
+              alert("Invalid background number. Please enter 1-10.");
+            }
+          }
+        });
+      }
+
+      console.log("✅ All event listeners attached!");
     });
-  });
-</script>
+  </script>
 </body>
 </html>
