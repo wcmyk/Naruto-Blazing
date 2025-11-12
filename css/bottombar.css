@@ -1,56 +1,60 @@
-/* Bottom HUD (RED BORDER REMOVED) */
+/* Bottom HUD - DEFINITIVE NO BORDER VERSION */
 .bottom-bar {
-  position: fixed; 
-  bottom: 0; 
-  left: 0;
-  width: 100%; 
-  height: 80px;
-  z-index: 1000;
-  display: flex; 
-  align-items: center; 
-  justify-content: center;
-  background: rgba(30, 30, 35, 0.4);
-  backdrop-filter: blur(6px);
-  box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.3);
-  border: none !important; /* ← ADD THIS TO REMOVE RED BORDER */
-  outline: none !important; /* ← AND THIS */
+  position: fixed !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 80px !important;
+  z-index: 1000 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: rgba(30, 30, 35, 0.4) !important;
+  backdrop-filter: blur(6px) !important;
+  box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.3) !important;
+  border: 0px solid transparent !important;
+  outline: 0px solid transparent !important;
+  border-width: 0 !important;
+  border-style: none !important;
 }
 
 .bottom-bar::before {
-  content: ""; 
-  position: absolute; 
-  top: -3px; 
+  content: "";
+  position: absolute;
+  top: -3px;
   left: 0;
-  width: 100%; 
+  width: 100%;
   height: 5px;
   background-image: url("../assets/bottom_hud/hud_bg1.png");
-  background-size: cover; 
+  background-size: cover;
   background-position: center;
-  opacity: 0.9; 
+  opacity: 0.9;
   pointer-events: none;
+  border: none !important;
 }
 
 .bottom-bar-content {
-  width: 100%; 
+  width: 100%;
   max-width: 400px;
-  display: flex; 
-  justify-content: center; 
+  display: flex;
+  justify-content: center;
   align-items: center;
   gap: 30px;
-  border: none !important; /* ← ADD THIS TOO */
+  border: 0px solid transparent !important;
+  outline: 0px solid transparent !important;
 }
 
 .hud-button {
-  width: 65px; 
+  width: 65px;
   height: 65px;
   border-radius: 50%;
   background-color: rgba(20, 20, 30, 0.7);
   border: 2px solid rgba(255, 255, 255, 0.5);
   box-shadow: 0 4px 10px rgba(0,0,0,0.5), inset 0 1px 1px rgba(255,255,255,0.1);
-  display: grid; 
+  display: grid;
   place-items: center;
-  padding: 0; 
-  cursor: pointer; 
+  padding: 0;
+  cursor: pointer;
   position: relative;
   transition: all 0.2s ease-in-out;
 }
@@ -61,39 +65,45 @@
   background-color: rgba(40, 40, 55, 0.9);
 }
 
-.hud-button:active { 
-  transform: scale(0.98); 
-  filter: brightness(0.9); 
+.hud-button:active {
+  transform: scale(0.98);
+  filter: brightness(0.9);
 }
 
 .hud-button img {
-  width: 60%; 
+  width: 60%;
   height: 60%;
-  object-fit: contain; 
+  object-fit: contain;
   border-radius: 15%;
 }
 
 .hud-button::after {
-  content: attr(aria-label); 
+  content: attr(aria-label);
   position: absolute;
-  bottom: 80px; 
-  left: 50%; 
+  bottom: 80px;
+  left: 50%;
   transform: translateX(-50%);
-  background: rgba(20, 20, 25, 0.9); 
+  background: rgba(20, 20, 25, 0.9);
   color: #f4efe3;
-  font-family: "Times New Roman", serif; 
+  font-family: "Times New Roman", serif;
   font-size: 16px;
-  padding: 6px 12px; 
+  padding: 6px 12px;
   border-radius: 8px;
-  opacity: 0; 
-  pointer-events: none; 
+  opacity: 0;
+  pointer-events: none;
   white-space: nowrap;
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
   border: 1px solid rgba(255, 215, 100, 0.3);
   transition: opacity 0.2s ease-out, transform 0.2s ease-out;
 }
 
-.hud-button:hover::after { 
-  opacity: 1; 
-  transform: translateX(-50%) translateY(-5px); 
+.hud-button:hover::after {
+  opacity: 1;
+  transform: translateX(-50%) translateY(-5px);
+}
+
+/* KILL ALL RED BORDERS GLOBALLY */
+div[class*="bottom"] {
+  border: none !important;
+  outline: none !important;
 }
