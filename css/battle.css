@@ -32,7 +32,7 @@ html, body.page-battle {
   z-index: 1;
 }
 
-/* === HUD Header (EVEN SMALLER) === */
+/* === HUD Header === */
 .battle-hud {
   position: absolute;
   top: 0;
@@ -93,50 +93,26 @@ html, body.page-battle {
   font-weight: 600;
 }
 
-/* === Speed Bar (FIXED - Compact & Properly Positioned) === */
+/* === HIDE SPEED BAR COMPLETELY (NOT WORKING) === */
 #speed-gauge-track {
-  position: absolute;
-  top: 35px;
-  right: 10px;
-  width: 180px;
-  height: 35px;
-  background: rgba(10, 10, 15, 0.65);
-  border: 1px solid rgba(217, 179, 98, 0.4);
-  border-radius: 6px;
-  z-index: 45;
-  display: flex !important;
-  visibility: visible !important;
-  align-items: center;
-  padding: 0 6px;
-  gap: 5px;
-  overflow: hidden;
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
 }
 
 #turn-icons {
-  position: absolute;
-  top: 38px;
-  right: 14px;
-  display: flex !important;
-  visibility: visible !important;
-  align-items: center;
-  gap: 5px;
-  z-index: 46;
-}
-
-#turn-icons img {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  border: 2px solid rgba(217, 179, 98, 0.6);
-  object-fit: cover;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
 }
 
 /* === Narration Banner === */
 #narration-banner,
 .narration-banner {
   position: absolute;
-  top: 80px;
+  top: 40px;
   left: 50%;
   transform: translateX(-50%);
   text-align: center;
@@ -157,9 +133,6 @@ html, body.page-battle {
   width: 100%;
   height: calc(100% - 125px);
   z-index: 5;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 #effects-layer {
@@ -172,7 +145,7 @@ html, body.page-battle {
   pointer-events: none;
 }
 
-/* === Unit Portraits (FIXED - PROPERLY CENTERED) === */
+/* === CHARACTER PORTRAITS (SMALLER & PERFECTLY CENTERED) === */
 .unit-card,
 .unit-wrapper {
   position: absolute !important;
@@ -180,44 +153,46 @@ html, body.page-battle {
   flex-direction: column !important;
   align-items: center !important;
   justify-content: center !important;
-  width: 100px;
-  height: 120px;
+  width: 80px !important;
+  height: 100px !important;
 }
 
 .unit-portrait,
-#battlefield-grid img {
-  width: 88px !important;
-  height: 88px !important;
+#battlefield-grid img,
+.unit-card img {
+  width: 70px !important;
+  height: 70px !important;
+  min-width: 70px !important;
+  min-height: 70px !important;
+  max-width: 70px !important;
+  max-height: 70px !important;
   object-fit: contain !important;
   object-position: center center !important;
   border-radius: 8px;
   image-rendering: crisp-edges;
   display: block !important;
-  margin: auto !important;
+  margin: 0 auto !important;
   position: relative !important;
-  top: 50%;
-  transform: translateY(-50%);
+  left: 50% !important;
+  top: 50% !important;
+  transform: translate(-50%, -50%) !important;
 }
 
 .unit-large {
-  width: 110px !important;
-  height: 110px !important;
+  width: 90px !important;
+  height: 90px !important;
+  min-width: 90px !important;
+  min-height: 90px !important;
+  max-width: 90px !important;
+  max-height: 90px !important;
 }
 
-/* === Prevent Overflow Issues === */
+/* === Prevent Any Weird Positioning === */
 .unit-card {
   overflow: visible !important;
 }
 
-.unit-card[style*="right"] {
-  right: 30px !important;
-}
-
-.unit-card[style*="left"] {
-  left: 30px !important;
-}
-
-/* === Bench Units (Bottom Bar) === */
+/* === Bench Units === */
 #bench-units {
   position: absolute;
   bottom: 0;
@@ -240,6 +215,10 @@ html, body.page-battle {
 #bench-units img {
   width: 60px !important;
   height: 60px !important;
+  min-width: 60px !important;
+  min-height: 60px !important;
+  max-width: 60px !important;
+  max-height: 60px !important;
   border-radius: 8px;
   border: 2px solid rgba(217, 179, 98, 0.6);
   object-fit: cover;
@@ -259,7 +238,7 @@ html, body.page-battle {
   cursor: grabbing;
 }
 
-/* === Action Panel (SMALLER & MORE COMPACT) === */
+/* === Action Panel === */
 #action-panel {
   position: absolute;
   bottom: 95px;
@@ -412,11 +391,5 @@ html, body.page-battle {
 
 /* === Utility Classes === */
 .hidden {
-  display: none !important;
-}
-
-/* === Hide That White Box === */
-#speed-gauge-track::before,
-#speed-gauge-track::after {
   display: none !important;
 }
