@@ -1,4 +1,6 @@
-
+/* ==========================================
+   CSS/MISSIONS.CSS (Polished and Corrected)
+   ========================================== */
 
 /* --- Page Layout --- */
 body {
@@ -63,14 +65,14 @@ body {
   flex-shrink: 0;
   overflow-x: auto; /* Allow tabs to scroll on small screens */
 }
-
+/* ... (rest of tab styles are fine) ... */
 
 /* --- Mission List & Cards --- */
 .mission-list-container {
   overflow-y: auto;
   padding: 0 20px 20px 20px;
 }
-/
+/* ... (rest of mission list and card styles are fine) ... */
 
 /* --- Back Button --- */
 .back-button {
