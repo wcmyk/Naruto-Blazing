@@ -1,13 +1,3 @@
-/* ======================================================
-   characters.css — Complete Character Screen Styling
-   Includes:
-   - Character grid + card styling
-   - Nameplate & stars positioning
-   - Tabs (Status / Ninjutsu / F/B Skills)
-   - Buttons (darkgold aesthetic)
-   - Level bar restored (Cinzel font, black rectangle)
-   ====================================================== */
-
 /* ---------- Base Layout ---------- */
 @import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&display=swap");
 
