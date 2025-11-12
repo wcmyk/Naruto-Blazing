@@ -1,109 +1,92 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>Missions — Blazing</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="css/background.css" />
-  <link rel="stylesheet" href="css/missions.css" />
-</head>
 
-<body>
-  <div id="full-bg" class="bg-1"></div>
 
-  <!-- Bottom Navigation Bar -->
-  <div class="bottom-bar">
-    <div class="bottom-bar-content">
-      <button class="hud-button" id="btn-summon" aria-label="Summon">
-        <img src="assets/icons/summon_icon.png" alt="Summon">
-      </button>
-      <button class="hud-button active" id="btn-missions" aria-label="Missions">
-        <img src="assets/icons/missions_icon.png" alt="Missions">
-      </button>
-      <button class="hud-button" id="btn-characters" aria-label="Characters">
-        <img src="assets/icons/characters_icon.png" alt="Characters">
-      </button>
-      <button class="hud-button" id="btn-teams" aria-label="Teams">
-        <img src="assets/icons/teams_icon.png" alt="Teams">
-      </button>
-      <button class="hud-button" id="btn-addchar" aria-label="Add Character">
-        <img src="assets/icons/add_icon.png" alt="Add Character">
-      </button>
-    </div>
-    <button id="bg-toggle" title="Change Background">Change BG</button>
-  </div>
+/* --- Page Layout --- */
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  font-family: sans-serif;
+  color: white;
+  opacity: 1;
+  transition: opacity 0.2s linear;
+}
 
-  <!-- Missions Content -->
-  <div class="missions-container">
-    <h1 class="missions-title">📜 Missions</h1>
+/* --- Main Panel Container (using your panel aesthetic) --- */
+.mission-page-container {
+  width: 95%;
+  max-width: 900px;
+  height: 85vh;
+  border-radius: 25px;
+  overflow: hidden;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
 
-    <div class="missions-grid">
-      <div class="mission-card">
-        <h3>Story Mission 1</h3>
-        <p>Complete the first chapter</p>
-        <button class="mission-btn">Start</button>
-      </div>
+  background-image:
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.4) 40%, rgba(0, 0, 0, 0.65) 100%),
+    url("../assets/hud_bg1.png");
+  background-size: cover;
+  background-position: center;
 
-      <div class="mission-card">
-        <h3>Daily Mission</h3>
-        <p>Collect 100 coins</p>
-        <button class="mission-btn">Start</button>
-      </div>
+  border: 3px solid transparent;
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  border-image: linear-gradient(145deg, #b98e2c, #86631b, #5e4312, #c49f34) 1;
 
-      <div class="mission-card">
-        <h3>Weekly Challenge</h3>
-        <p>Defeat 10 enemies</p>
-        <button class="mission-btn">Start</button>
-      </div>
-    </div>
-  </div>
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+}
 
-  <script src="js/character_inv.js"></script>
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      // Background cycling
-      const el = document.getElementById("full-bg");
-      const total = 10;
-      let current = 1;
+.page-title {
+  text-align: center;
+  font-family: "Times New Roman", serif;
+  font-size: 22px;
+  font-weight: bold;
+  color: #ffe9b0;
+  letter-spacing: 1px;
+  padding: 12px 0;
+  margin: 0 0 20px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  background: linear-gradient(180deg, rgba(255,220,120,0.15), rgba(0,0,0,0.3));
+  text-shadow: 0 1px 2px rgba(0,0,0,0.8), 0 0 8px rgba(240,200,90,0.4);
+  flex-shrink: 0;
+}
 
-      function updateBG(n) {
-        for (let i = 1; i <= total; i++) el.classList.remove(`bg-${i}`);
-        el.classList.add(`bg-${n}`);
-      }
+/* --- Tab Navigation --- */
+.mission-tabs {
+  display: flex;
+  gap: 10px;
+  margin: 0 20px 20px 20px;
+  border-bottom: 2px solid #445;
+  padding-bottom: 15px;
+  flex-shrink: 0;
+  overflow-x: auto; /* Allow tabs to scroll on small screens */
+}
 
-      document.getElementById("bg-toggle")?.addEventListener("click", () => {
-        current = current < total ? current + 1 : 1;
-        updateBG(current);
-      });
 
-      // Navigation
-      function navigateTo(url) {
-        document.body.style.transition = "opacity 0.2s linear";
-        document.body.style.opacity = "0";
-        setTimeout(() => { window.location.href = url; }, 200);
-      }
+/* --- Mission List & Cards --- */
+.mission-list-container {
+  overflow-y: auto;
+  padding: 0 20px 20px 20px;
+}
+/
 
-      document.getElementById("btn-summon")?.addEventListener("click", () => navigateTo("summon.html"));
-      document.getElementById("btn-missions")?.addEventListener("click", () => navigateTo("missions.html"));
-      document.getElementById("btn-characters")?.addEventListener("click", () => navigateTo("characters.html"));
-      document.getElementById("btn-teams")?.addEventListener("click", () => navigateTo("teams.html"));
-
-      document.getElementById("btn-addchar")?.addEventListener("click", () => {
-        const id = prompt("Enter Character ID from characters.json (e.g. 'naruto_01')");
-        if (id && typeof window.addCharacterById === "function") {
-          window.addCharacterById(id.trim());
-        } else {
-          alert("The Add Character system isn't ready yet. Please reload the page.");
-        }
-      });
-
-      // Mission buttons
-      document.querySelectorAll(".mission-btn").forEach(btn => {
-        btn.addEventListener("click", () => {
-          alert("Mission system coming soon!");
-        });
-      });
-    });
-  </script>
-</body>
-</html>
+/* --- Back Button --- */
+.back-button {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #ccc;
+  text-decoration: none;
+  background: rgba(0,0,0,0.5);
+  padding: 8px 15px;
+  border-radius: 20px;
+  transition: all 0.2s ease;
+  z-index: 200;
+}
+.back-button:hover {
+  color: #fff;
+  background: rgba(0,0,0,0.8);
+}
