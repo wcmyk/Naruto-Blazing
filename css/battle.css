@@ -32,7 +32,7 @@ html, body.page-battle {
   z-index: 1;
 }
 
-/* === HUD Header (FIXED - Made Smaller, No Gap) === */
+/* === HUD Header (FIXED - Even Smaller, Semi-Transparent) === */
 .battle-hud {
   position: absolute;
   top: 0;
@@ -41,29 +41,34 @@ html, body.page-battle {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 4px 16px;
-  height: 48px;
-  background: rgba(10, 10, 15, 0.75);
-  border-bottom: 1px solid rgba(217, 179, 98, 0.5);
+  padding: 3px 14px;
+  height: 32px;
+  background: rgba(10, 10, 15, 0.5);
+  border-bottom: 1px solid rgba(217, 179, 98, 0.3);
   font-family: "Cinzel", serif;
-  font-size: 12px;
+  font-size: 10px;
   color: #f0e6d1;
   z-index: 50;
+  pointer-events: none;
 }
 
 .battle-hud .hud-left,
 .battle-hud .hud-right {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
+}
+
+.battle-hud .hud-label {
+  font-size: 9px;
 }
 
 .hp-track {
-  width: 160px;
-  height: 10px;
+  width: 140px;
+  height: 8px;
   background: #2a2520;
   border: 1px solid #b29356;
-  border-radius: 5px;
+  border-radius: 4px;
   overflow: hidden;
 }
 
@@ -73,58 +78,70 @@ html, body.page-battle {
   transition: width 0.3s ease-in-out;
 }
 
-.wave {
-  font-size: 11px;
-  color: #f7e7c5;
-  margin-left: 4px;
+.hp-text {
+  font-size: 9px;
 }
 
-/* === Speed Bar (FIXED - Now Visible) === */
+.wave {
+  font-size: 9px;
+  color: #f7e7c5;
+  margin-left: 3px;
+}
+
+#mission-title {
+  font-size: 10px;
+  font-weight: 600;
+}
+
+/* === Speed Bar (FIXED - Now Visible & Positioned Correctly) === */
 #speed-gauge-track {
   position: absolute;
-  top: 60px;
-  right: 20px;
-  width: 200px;
-  height: 40px;
+  top: 45px;
+  right: 15px;
+  width: 220px;
+  height: 45px;
   background: rgba(10, 10, 15, 0.75);
   border: 1px solid rgba(217, 179, 98, 0.5);
   border-radius: 8px;
   z-index: 45;
-  display: flex;
+  display: flex !important;
+  visibility: visible !important;
   align-items: center;
-  padding: 0 8px;
-  gap: 6px;
+  padding: 0 10px;
+  gap: 8px;
 }
 
 #turn-icons {
   position: absolute;
-  top: 62px;
-  right: 24px;
-  display: flex;
+  top: 48px;
+  right: 20px;
+  display: flex !important;
+  visibility: visible !important;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   z-index: 46;
 }
 
 #turn-icons img {
-  width: 32px;
-  height: 32px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   border: 2px solid rgba(217, 179, 98, 0.7);
   object-fit: cover;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
 }
 
 /* === Narration Banner === */
 #narration-banner,
 .narration-banner {
   position: absolute;
-  top: 110px;
+  top: 100px;
   left: 50%;
   transform: translateX(-50%);
   text-align: center;
   font-family: "Cinzel", serif;
   font-weight: 600;
-  font-size: 24px;
+  font-size: 22px;
   letter-spacing: 1px;
   color: #ffb5b5;
   text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.75);
@@ -139,6 +156,7 @@ html, body.page-battle {
   width: 100%;
   height: 100%;
   z-index: 5;
+  padding-top: 50px;
 }
 
 #effects-layer {
@@ -151,25 +169,45 @@ html, body.page-battle {
   pointer-events: none;
 }
 
-/* === Unit Portraits === */
+/* === Unit Portraits (FIXED - Centered Properly) === */
+.unit-card,
+.unit-wrapper {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
 .unit-portrait,
 #battlefield-grid img {
-  width: auto !important;
-  height: auto !important;
-  max-width: 96px;
-  max-height: 96px;
+  width: 96px !important;
+  height: 96px !important;
   object-fit: contain;
+  object-position: center;
   border-radius: 8px;
   image-rendering: crisp-edges;
+  display: block;
+  margin: 0 auto;
 }
 
 .unit-large {
   width: 128px !important;
-  height: auto !important;
-  max-height: 128px;
+  height: 128px !important;
 }
 
-/* === Bench Units (FIXED - Bottom, Contained Height) === */
+/* === Prevent Right-Side Character Overflow (FIXED) === */
+.unit-card {
+  max-width: 100px;
+  left: auto !important;
+  right: auto !important;
+}
+
+.unit-card[style*="right"] {
+  right: 20px !important;
+}
+
+/* === Bench Units (Bottom Bar) === */
 #bench-units {
   position: absolute;
   bottom: 0;
@@ -190,14 +228,16 @@ html, body.page-battle {
 }
 
 #bench-units img {
-  width: 64px;
-  height: 64px;
+  width: 64px !important;
+  height: 64px !important;
   border-radius: 8px;
   border: 2px solid rgba(217, 179, 98, 0.7);
   object-fit: cover;
+  object-position: center;
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.5);
   transition: transform 0.15s ease;
   cursor: grab;
+  display: block;
 }
 
 #bench-units img:hover {
@@ -209,7 +249,7 @@ html, body.page-battle {
   cursor: grabbing;
 }
 
-/* === Action Panel (FIXED - Positioned Above Bench) === */
+/* === Action Panel === */
 #action-panel {
   position: absolute;
   bottom: 110px;
@@ -236,6 +276,7 @@ html, body.page-battle {
   border-radius: 6px;
   border: 1px solid #cfa85f;
   object-fit: cover;
+  object-position: center;
 }
 
 .action-meta {
@@ -361,4 +402,9 @@ html, body.page-battle {
 /* === Utility Classes === */
 .hidden {
   display: none !important;
+}
+
+/* === Fix for any stray right-side elements === */
+[style*="right: "] {
+  max-width: 100px !important;
 }
