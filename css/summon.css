@@ -23,8 +23,44 @@ body.page-summon {
 #summon-bg {
   position: fixed;
   inset: 0;
-  background: url('../assets/Main Background/summon_bg.png') center/cover no-repeat;
+  background: url('../assets/backgrounds/summon_bg.png') center/cover no-repeat;
   z-index: -1;
+}
+
+/* Flowing Wind Particles Animation */
+.wind-particles {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.wind-particle {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+  animation: windFlow linear infinite;
+}
+
+@keyframes windFlow {
+  0% {
+    transform: translateX(-100vw) translateY(0) scale(1);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(200vw) translateY(-50vh) scale(0.5);
+    opacity: 0;
+  }
 }
 
 /* Currency HUD (Top Right) */
@@ -115,7 +151,7 @@ body.page-summon {
   text-align: center;
 }
 
-/* Banner Preview Container */
+/* Banner Preview Container WITH LABELS */
 .banner-preview-container {
   position: fixed;
   top: 100px;
@@ -129,14 +165,16 @@ body.page-summon {
   display: flex;
   gap: 15px;
   padding: 10px;
+  transition: transform 0.4s ease;
 }
 
 .preview-item {
+  position: relative;
   flex-shrink: 0;
   width: 140px;
   height: 80px;
   border-radius: 8px;
-  overflow: hidden;
+  overflow: visible;
   border: 2px solid rgba(255, 255, 255, 0.3);
   cursor: pointer;
   transition: all 0.3s ease;
@@ -155,38 +193,28 @@ body.page-summon {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  border-radius: 6px;
 }
 
-/* Banner Mode Toggle */
-.banner-mode-toggle {
-  position: fixed;
-  bottom: 650px;
+/* Preview Label - ATTACHED TO BANNER */
+.preview-label {
+  position: absolute;
+  top: -10px;
   left: 50%;
   transform: translateX(-50%);
-  z-index: 89;
-}
-
-.mode-btn {
-  background: rgba(40, 40, 40, 0.85);
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  border-radius: 8px;
-  padding: 12px 32px;
-  color: #fff;
-  font-size: 16px;
+  background: linear-gradient(135deg, rgba(255, 140, 0, 0.95), rgba(255, 100, 0, 0.9));
+  padding: 4px 12px;
+  border-radius: 6px;
+  font-size: 11px;
   font-weight: 700;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  color: #fff;
   text-transform: uppercase;
-  letter-spacing: 2px;
-  backdrop-filter: blur(10px);
-}
-
-.mode-btn:hover,
-.mode-btn.active {
-  background: rgba(60, 60, 60, 0.9);
-  border-color: rgba(255, 255, 255, 0.6);
-  transform: scale(1.05);
+  letter-spacing: 1px;
+  white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(255, 200, 0, 0.8);
+  z-index: 10;
+  pointer-events: none;
 }
 
 /* Main Banner Carousel */
@@ -430,7 +458,7 @@ body.page-summon {
   color: #fff;
 }
 
-/* Bottom Action Bar */
+/* Bottom Action Bar - SMALLER BUTTONS */
 .bottom-action-bar {
   position: fixed;
   bottom: 90px;
@@ -438,20 +466,20 @@ body.page-summon {
   transform: translateX(-50%);
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 10px;
   z-index: 95;
 }
 
 .action-btn {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   background: rgba(40, 40, 40, 0.85);
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 6px;
-  padding: 10px 20px;
+  padding: 6px 12px;
   color: #fff;
-  font-size: 13px;
+  font-size: 11px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -466,8 +494,12 @@ body.page-summon {
 }
 
 .action-btn img {
-  width: 20px;
-  height: 20px;
+  width: 16px;
+  height: 16px;
+}
+
+.action-btn.dropdown {
+  padding: 6px 10px;
 }
 
 /* Bottom Navigation - CIRCULAR ICONS */
@@ -667,5 +699,15 @@ body.page-summon {
   .btn-summon {
     width: 100%;
     max-width: 350px;
+  }
+  
+  .bottom-action-bar {
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+  
+  .action-btn {
+    font-size: 10px;
+    padding: 5px 10px;
   }
 }
