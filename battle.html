@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="css/battle.css" />
   <link rel="stylesheet" href="css/battle-ui-fixes.css" />
   <link rel="stylesheet" href="css/battle-result-professional.css" />
+  <link rel="stylesheet" href="css/status_effects.css" />
 </head>
 <body class="page-battle">
   <header class="battle-hud">
@@ -39,6 +40,8 @@
           <span id="action-skill-name">—</span>
           <span id="action-ult-name">Locked</span>
         </div>
+        <!-- Status Effects Display -->
+        <div id="action-status-effects" class="status-effects-container"></div>
       </div>
       <div class="action-buttons">
         <button id="btn-attack">Attack</button>
@@ -60,19 +63,20 @@
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" onerror="this.onerror=null;this.src='js/lib/anime.min.js';"></script>
   <script defer src="js/character_inv.js"></script>
   <script defer src="js/progression.js"></script>
+  <script defer src="js/status_effects.js"></script>
+  <script defer src="js/status_ui.js"></script>
   <script defer src="js/battle/battle-core.js"></script>
-<script defer src="js/battle/battle-chakra.js"></script>
-<script defer src="js/battle/battle-combat.js"></script>
-<script defer src="js/battle/battle-units.js"></script>
-<script defer src="js/battle/battle-drag.js"></script>
-<script defer src="js/battle/battle-swap.js"></script>
-<script defer src="js/battle/battle-buffs.js"></script>
-<script defer src="js/battle/battle-turns.js"></script>
-<script defer src="js/battle/battle-animations.js"></script>
-<script defer src="js/battle/battle-missions.js"></script>
-<script defer src="js/battle/battle-narrator.js"></script>
-<script defer src="js/battle/battle-hp-fix.js"></script>
-<script defer src="js/battle.js"></script>
-
+  <script defer src="js/battle/battle-chakra.js"></script>
+  <script defer src="js/battle/battle-combat.js"></script>
+  <script defer src="js/battle/battle-units.js"></script>
+  <script defer src="js/battle/battle-drag.js"></script>
+  <script defer src="js/battle/battle-swap.js"></script>
+  <script defer src="js/battle/battle-buffs.js"></script>
+  <script defer src="js/battle/battle-turns.js"></script>
+  <script defer src="js/battle/battle-animations.js"></script>
+  <script defer src="js/battle/battle-missions.js"></script>
+  <script defer src="js/battle/battle-narrator.js"></script>
+  <script defer src="js/battle/battle-hp-fix.js"></script>
+  <script defer src="js/battle.js"></script>
 </body>
 </html>
