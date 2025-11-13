@@ -21,7 +21,7 @@ body.page-summon {
 #summon-bg {
   position: fixed;
   inset: 0;
-  background: url('../assets/Main Backgrounds/summon_bg.png') center/cover no-repeat;
+  background: url('../assets/Main Background/summon_bg.png') center/cover no-repeat;
   z-index: -1;
 }
 
