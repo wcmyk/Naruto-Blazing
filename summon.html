@@ -1,50 +1,204 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Summon</title>
-  <link rel="stylesheet" href="css/summon.css">
-  <link rel="stylesheet" href="css/gembox.css">
-  <link rel="stylesheet" href="css/primobox.css">
+  <meta charset="UTF-8" />
+  <title>Summon — Blazing</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="css/summon.css" />
 </head>
-<body>
-  <div id="full-bg" aria-hidden="true"></div>
+<body class="page-summon">
+  <!-- Background -->
+  <div id="summon-bg"></div>
 
-  <div class="gem-container">
-    <img src="assets/Shinobite.png" alt="Gem Icon" class="gem-icon" />
-    <div class="gem-box"><span id="gemValue">0</span></div>
-  </div>
-  <div class="primo-container">
-    <img src="assets/primogems.png" alt="Primogem Icon" class="primo-icon" />
-    <div class="primo-box"><span id="primoValue">0</span></div>
-  </div>
-
-  <main class="summon-container">
-    <div class="summon-gate">
-      <h1 class="summon-title">Character Summon</h1>
-      <p class="summon-description">Use your Gems to summon a new ally!</p>
-      <button id="summon-button" class="summon-btn">
-        <span class="cost">500 Gems</span>
-        <span class="text">Summon x1</span>
-      </button>
+  <!-- Top HUD -->
+  <header class="summon-hud">
+    <div class="hud-left">
+      <div class="resource-display">
+        <img src="assets/icons/coins_icon.png" alt="Coins" class="resource-icon">
+        <span id="player-coins" class="resource-amount">88,557,860</span>
+      </div>
     </div>
-  </main>
+    <div class="hud-center">
+      <span id="player-name" class="player-name">Naruto</span>
+    </div>
+    <div class="hud-right">
+      <div class="resource-display">
+        <img src="assets/icons/pearl_icon.png" alt="Pearls" class="resource-icon">
+        <span id="player-pearls" class="resource-amount">233</span>
+      </div>
+      <button class="btn-add-resource">+</button>
+    </div>
+  </header>
 
-  <div id="summon-result-modal" class="modal-overlay">
+  <!-- Stamina Bar -->
+  <div class="stamina-bar">
+    <img src="assets/icons/stamina_icon.png" alt="Stamina" class="stamina-icon">
+    <div class="stamina-track">
+      <div class="stamina-fill" style="width: 100%"></div>
+      <span class="stamina-text">281/281</span>
+    </div>
+    <div class="rank-display">
+      <span class="rank-icon">🔥</span>
+      <span class="rank-text">262</span>
+    </div>
+    <div class="exp-bar">
+      <div class="exp-fill" style="width: 24%"></div>
+      <span class="exp-text">161548/670000</span>
+    </div>
+  </div>
+
+  <!-- Back Button -->
+  <button class="btn-back" onclick="window.location.href='index.html'">
+    <span class="back-icon">◀</span>
+    <span class="back-text">Back</span>
+  </button>
+
+  <!-- Main Title -->
+  <h1 class="summon-title">Summon</h1>
+
+  <!-- Banner Preview Carousel (Small) -->
+  <div class="banner-preview-container">
+    <div class="preview-scroll" id="preview-scroll">
+      <div class="preview-item">
+        <img src="assets/summon/preview/itachi_prev.png" alt="Banner 1">
+      </div>
+      <div class="preview-item">
+        <img src="assets/summon/preview/blazing_prev.png" alt="Banner 2">
+      </div>
+      <div class="preview-item">
+        <img src="assets/summon/preview/newyear_prev.png" alt="Banner 3">
+      </div>
+    </div>
+  </div>
+
+  <!-- Banner Mode Toggle -->
+  <div class="banner-mode-toggle">
+    <button class="mode-btn active" data-mode="single">Single/Multi</button>
+  </div>
+
+  <!-- Main Banner Carousel -->
+  <div class="banner-carousel-container">
+    <button class="carousel-arrow left" id="arrow-left">◀</button>
+    <div class="banner-carousel" id="banner-carousel">
+      <!-- Banners loaded dynamically -->
+    </div>
+    <button class="carousel-arrow right" id="arrow-right">▶</button>
+    
+    <!-- Carousel Dots -->
+    <div class="carousel-dots" id="carousel-dots"></div>
+  </div>
+
+  <!-- Banner Info Panel -->
+  <div class="banner-info-panel">
+    <h2 id="banner-name" class="banner-name">Loading...</h2>
+    <p id="banner-description" class="banner-description"></p>
+    <p id="banner-timer" class="banner-timer"></p>
+  </div>
+
+  <!-- Step Progress (for step-up banners) -->
+  <div id="step-progress" class="step-progress hidden">
+    <div class="step-indicator">
+      <span class="step-label">Summon Level</span>
+      <span class="step-current" id="step-current">1</span>
+      <span class="step-divider">/</span>
+      <span class="step-total" id="step-total">4</span>
+    </div>
+  </div>
+
+  <!-- Summon Buttons -->
+  <div class="summon-actions">
+    <button class="btn-summon single" id="btn-single" disabled>
+      <span class="summon-label">Single</span>
+      <div class="summon-cost">
+        <img src="assets/icons/pearl_icon.png" alt="Pearl" class="cost-icon">
+        <span class="cost-amount" id="single-cost">5</span>
+      </div>
+    </button>
+    
+    <button class="btn-summon multi" id="btn-multi">
+      <span class="summon-label">Multi</span>
+      <div class="summon-cost">
+        <img src="assets/icons/pearl_icon.png" alt="Pearl" class="cost-icon">
+        <span class="cost-amount" id="multi-cost">30</span>
+      </div>
+    </button>
+  </div>
+
+  <!-- Bottom Action Bar -->
+  <div class="bottom-action-bar">
+    <button class="action-btn" id="btn-featured">
+      <img src="assets/icons/featured_icon.png" alt="Featured">
+      <span>View Extra Effect Characters</span>
+    </button>
+    
+    <button class="action-btn dropdown" id="btn-more">
+      <span class="dropdown-icon">▼</span>
+    </button>
+    
+    <button class="action-btn" id="btn-contents">
+      <img src="assets/icons/contents_icon.png" alt="Contents">
+      <span>Summon Contents</span>
+    </button>
+    
+    <button class="action-btn" id="btn-rates">
+      <img src="assets/icons/rates_icon.png" alt="Rates">
+      <span>Drop Rate</span>
+    </button>
+  </div>
+
+  <!-- Bottom Navigation -->
+  <nav class="bottom-nav">
+    <button class="nav-btn" onclick="window.location.href='index.html'">
+      <img src="assets/icons/village_icon.png" alt="Villages">
+      <span>Villages</span>
+    </button>
+    <button class="nav-btn" onclick="window.location.href='teams.html'">
+      <img src="assets/icons/teams_icon.png" alt="Teams">
+      <span>Teams</span>
+    </button>
+    <button class="nav-btn active">
+      <img src="assets/icons/summon_icon.png" alt="Summon">
+      <span>Summon</span>
+    </button>
+    <button class="nav-btn" onclick="window.location.href='characters.html'">
+      <img src="assets/icons/shop_icon.png" alt="Shop">
+      <span>Shop</span>
+    </button>
+    <button class="nav-btn" onclick="window.location.href='missions.html'">
+      <img src="assets/icons/friends_icon.png" alt="Friends">
+      <span>Friends</span>
+    </button>
+    <button class="nav-btn">
+      <img src="assets/icons/other_icon.png" alt="Other">
+      <span>Other</span>
+    </button>
+  </nav>
+
+  <!-- Summon Result Modal -->
+  <div id="summon-modal" class="summon-modal hidden">
+    <div class="modal-overlay"></div>
     <div class="modal-content">
-      <div id="summon-reveal-animation"></div>
-      <img id="summon-result-img" src="" alt="Summoned Character">
-      <h2 id="summon-result-name"></h2>
-      <p id="summon-result-rarity"></p>
-      <button id="modal-close-button">Continue</button>
+      <div class="summon-animation">
+        <video id="summon-video" class="summon-video" autoplay muted>
+          <source src="assets/summon/animations/summon_portal.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div id="result-display" class="result-display hidden">
+        <div class="result-grid" id="result-grid">
+          <!-- Results populated dynamically -->
+        </div>
+        <button class="btn-continue" id="btn-continue">Continue</button>
+      </div>
     </div>
   </div>
 
-  <a href="index.html" class="back-button">Back to Main Menu</a>
-
-  <script src="js/currency.js"></script>
+  <!-- Scripts -->
   <script src="js/character_inv.js"></script>
+  <script src="js/summon/summon-data.js"></script>
+  <script src="js/summon/summon-carousel.js"></script>
+  <script src="js/summon/summon-engine.js"></script>
+  <script src="js/summon/summon-ui.js"></script>
+  <script src="js/summon/summon-animation.js"></script>
   <script src="js/summon.js"></script>
 </body>
 </html>
