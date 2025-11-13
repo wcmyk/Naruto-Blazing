@@ -9,6 +9,9 @@
 <body class="page-summon">
   <!-- Background -->
   <div id="summon-bg"></div>
+  
+  <!-- Animated Wind Particles -->
+  <div class="wind-particles" id="wind-particles"></div>
 
   <!-- Currency HUD (Top Right) -->
   <div class="currency-hud">
@@ -31,24 +34,22 @@
   <!-- Main Title -->
   <h1 class="summon-title">SUMMON</h1>
 
-  <!-- Banner Preview Carousel (Small) -->
+  <!-- Banner Preview Carousel (with labels) -->
   <div class="banner-preview-container">
     <div class="preview-scroll" id="preview-scroll">
-      <div class="preview-item">
+      <div class="preview-item" data-banner="0">
         <img src="assets/summon/preview/itachi_prev.png" alt="Banner 1">
+        <div class="preview-label">Single/Multi</div>
       </div>
-      <div class="preview-item">
+      <div class="preview-item" data-banner="1">
         <img src="assets/summon/preview/blazing_prev.png" alt="Banner 2">
+        <div class="preview-label">Step Up</div>
       </div>
-      <div class="preview-item">
+      <div class="preview-item" data-banner="2">
         <img src="assets/summon/preview/newyear_prev.png" alt="Banner 3">
+        <div class="preview-label">Single/Multi</div>
       </div>
     </div>
-  </div>
-
-  <!-- Banner Mode Toggle -->
-  <div class="banner-mode-toggle">
-    <button class="mode-btn active" data-mode="single">Single/Multi</button>
   </div>
 
   <!-- Main Banner Carousel -->
@@ -83,7 +84,7 @@
   <!-- Summon Buttons -->
   <div class="summon-actions">
     <button class="btn-summon single" id="btn-single" disabled>
-      <span class="summon-label">Single</span>
+      <span class="summon-label">SINGLE</span>
       <div class="summon-cost">
         <img src="assets/icons/pearl_icon.png" alt="Pearl" class="cost-icon">
         <span class="cost-amount" id="single-cost">5</span>
@@ -91,7 +92,7 @@
     </button>
     
     <button class="btn-summon multi" id="btn-multi">
-      <span class="summon-label">Multi</span>
+      <span class="summon-label">MULTI</span>
       <div class="summon-cost">
         <img src="assets/icons/pearl_icon.png" alt="Pearl" class="cost-icon">
         <span class="cost-amount" id="multi-cost">30</span>
@@ -99,7 +100,7 @@
     </button>
   </div>
 
-  <!-- Bottom Action Bar -->
+  <!-- Bottom Action Bar - SMALLER BUTTONS -->
   <div class="bottom-action-bar">
     <button class="action-btn" id="btn-featured">
       <img src="assets/icons/featured_icon.png" alt="Featured">
@@ -125,27 +126,27 @@
   <nav class="bottom-nav">
     <button class="nav-btn" onclick="window.location.href='index.html'">
       <img src="assets/icons/village_icon.png" alt="Villages">
-      <span>Villages</span>
+      <span>VILLAGES</span>
     </button>
     <button class="nav-btn" onclick="window.location.href='teams.html'">
       <img src="assets/icons/teams_icon.png" alt="Teams">
-      <span>Teams</span>
+      <span>TEAMS</span>
     </button>
     <button class="nav-btn active">
       <img src="assets/icons/summon_icon.png" alt="Summon">
-      <span>Summon</span>
+      <span>SUMMON</span>
     </button>
     <button class="nav-btn" onclick="window.location.href='characters.html'">
       <img src="assets/icons/shop_icon.png" alt="Shop">
-      <span>Shop</span>
+      <span>SHOP</span>
     </button>
     <button class="nav-btn" onclick="window.location.href='missions.html'">
       <img src="assets/icons/friends_icon.png" alt="Friends">
-      <span>Friends</span>
+      <span>FRIENDS</span>
     </button>
     <button class="nav-btn">
       <img src="assets/icons/other_icon.png" alt="Other">
-      <span>Other</span>
+      <span>OTHER</span>
     </button>
   </nav>
 
@@ -175,5 +176,24 @@
   <script src="js/summon/summon-ui.js"></script>
   <script src="js/summon/summon-animation.js"></script>
   <script src="js/summon.js"></script>
+  
+  <!-- Wind Animation Script -->
+  <script>
+    // Generate wind particles
+    (function() {
+      const container = document.getElementById('wind-particles');
+      const particleCount = 30;
+      
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'wind-particle';
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.top = Math.random() * 100 + '%';
+        particle.style.animationDelay = Math.random() * 10 + 's';
+        particle.style.animationDuration = (15 + Math.random() * 10) + 's';
+        container.appendChild(particle);
+      }
+    })();
+  </script>
 </body>
 </html>
