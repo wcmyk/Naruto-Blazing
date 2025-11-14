@@ -333,7 +333,7 @@
   "starMaxCode": "7S",
   "portrait": "assets/characters/takimitsuha/portrait_7S.png",
   "full": "assets/characters/takimitsuha/full_7S.png",
-    "ultimateAnimation": "assets/animations/takimitsuha/itomori_meteor.mp4",
+  "ultimateAnimation": "assets/animations/takimitsuha/itomori_meteor.mp4",
   "secretAnimation": "assets/animations/takimitsuha/fate_threads.gif",
   "artByTier": {
     "7S": {
@@ -374,6 +374,9 @@
   "luck": { "base": 15, "max": 99 },
   "cost": { "base": 80, "max": 60 },
   "affiliation": "Bonds of Fate",
+  "passiveIcons": {
+    "7S": ["atk_up", "heal_up", "heal_up", "def_up", "speed_up", "speed_up", "speed_up"]
+  },
   "skills": {
     "ultimate": {
       "name": "Celestial Impact — The Meteor of Itomori",
