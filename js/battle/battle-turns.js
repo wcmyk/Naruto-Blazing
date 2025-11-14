@@ -246,22 +246,37 @@
       const jCost = Number(skills.jutsu?.data?.chakraCost ?? 4);
       const uCost = Number(skills.ultimate?.data?.chakraCost ?? 8);
 
-      // Check if skills are usable
-      const canJutsu = !!skills.jutsu && unit.chakra >= jCost;
-      const canUlt = !!skills.ultimate && unit.chakra >= uCost;
+      // Check unlock status
+      const jutsuUnlocked = window.BattleCombat?.isJutsuUnlocked(unit) ?? true;
+      const ultUnlocked = window.BattleCombat?.isUltimateUnlocked(unit) ?? true;
+      const unitLevel = window.BattleCombat?.getUnitLevel(unit) ?? 1;
+
+      // Check if skills are usable (both unlocked AND have enough chakra)
+      const canJutsu = !!skills.jutsu && jutsuUnlocked && unit.chakra >= jCost;
+      const canUlt = !!skills.ultimate && ultUnlocked && unit.chakra >= uCost;
 
       // Update button states
       core.dom.btnJutsu?.classList.toggle("disabled", !canJutsu);
       core.dom.btnUltimate?.classList.toggle("disabled", !canUlt);
 
-      // Update skill names
+      // Update skill names with lock status
       if (core.dom.actionSkillName) {
-        core.dom.actionSkillName.textContent = skills.jutsu ?
-          `${skills.jutsu.meta.name} (${jCost})` : "—";
+        if (!skills.jutsu) {
+          core.dom.actionSkillName.textContent = "—";
+        } else if (!jutsuUnlocked) {
+          core.dom.actionSkillName.textContent = `🔒 LOCKED (Lv ${unitLevel}/20)`;
+        } else {
+          core.dom.actionSkillName.textContent = `${skills.jutsu.meta.name} (${jCost})`;
+        }
       }
       if (core.dom.actionUltName) {
-        core.dom.actionUltName.textContent = skills.ultimate ?
-          `${skills.ultimate.meta.name} (${uCost})` : "Locked";
+        if (!skills.ultimate) {
+          core.dom.actionUltName.textContent = "—";
+        } else if (!ultUnlocked) {
+          core.dom.actionUltName.textContent = `🔒 LOCKED (Lv ${unitLevel}/50)`;
+        } else {
+          core.dom.actionUltName.textContent = `${skills.ultimate.meta.name} (${uCost})`;
+        }
       }
 
       core.dom.actionPanel.classList.remove("hidden");
@@ -294,7 +309,28 @@
       const skills = window.BattleCombat?.getUnitSkills(this.currentUnit);
       const cost = Number(skills?.jutsu?.data?.chakraCost ?? 4);
 
-      if (!skills?.jutsu || this.currentUnit.chakra < cost) return;
+      // Check if jutsu exists
+      if (!skills?.jutsu) {
+        console.warn("[Turns] No jutsu skill available");
+        return;
+      }
+
+      // Check if jutsu is unlocked
+      const jutsuUnlocked = window.BattleCombat?.isJutsuUnlocked(this.currentUnit) ?? true;
+      if (!jutsuUnlocked) {
+        const level = window.BattleCombat?.getUnitLevel(this.currentUnit) ?? 1;
+        console.warn(`[Turns] Jutsu locked - Level ${level}/20`);
+        if (window.BattleNarrator) {
+          window.BattleNarrator.narrate(`Jutsu is locked! Requires Level 20.`, core);
+        }
+        return;
+      }
+
+      // Check chakra
+      if (this.currentUnit.chakra < cost) {
+        console.warn("[Turns] Not enough chakra for jutsu");
+        return;
+      }
 
       core.queuedAction = "jutsu";
       this.highlightEnemies(core);
@@ -308,10 +344,30 @@
       if (!this.currentUnit) return;
 
       const skills = window.BattleCombat?.getUnitSkills(this.currentUnit);
-      if (!skills?.ultimate) return;
 
+      // Check if ultimate exists
+      if (!skills?.ultimate) {
+        console.warn("[Turns] No ultimate skill available");
+        return;
+      }
+
+      // Check if ultimate is unlocked
+      const ultUnlocked = window.BattleCombat?.isUltimateUnlocked(this.currentUnit) ?? true;
+      if (!ultUnlocked) {
+        const level = window.BattleCombat?.getUnitLevel(this.currentUnit) ?? 1;
+        console.warn(`[Turns] Ultimate locked - Level ${level}/50`);
+        if (window.BattleNarrator) {
+          window.BattleNarrator.narrate(`Ultimate is locked! Requires Level 50.`, core);
+        }
+        return;
+      }
+
+      // Check chakra
       const cost = Number(skills.ultimate.data?.chakraCost ?? 8);
-      if (this.currentUnit.chakra < cost) return;
+      if (this.currentUnit.chakra < cost) {
+        console.warn("[Turns] Not enough chakra for ultimate");
+        return;
+      }
 
       core.queuedAction = "ultimate";
       this.highlightEnemies(core);

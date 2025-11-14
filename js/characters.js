@@ -299,12 +299,20 @@
     const { jutsu=null, ultimate=null, secret=null } = c.skills || {};
     const cards = [];
 
+    // Get character level for unlock checks
+    const charLevel = Number(inst?.level || 1);
+    const jutsuUnlocked = charLevel >= 20;
+    const ultimateUnlocked = charLevel >= 50;
+
     if (jutsu) {
       const e = pickTierSkillEntry(jutsu, tier, minT);
       if (e) {
+        // Check if jutsu is unlocked by level
+        const lockStatus = jutsuUnlocked ? '' : ` <span style="color:#d8b86a">🔒 (Requires Lv 20)</span>`;
+        const cardClass = jutsuUnlocked ? '' : ' locked';
         cards.push(`
-          <div class="skill-card">
-            <div class="skill-header"><span class="skill-type">Ninjutsu</span><span class="skill-name">${safeStr(jutsu.name,"Ninjutsu")}</span></div>
+          <div class="skill-card${cardClass}">
+            <div class="skill-header"><span class="skill-type">Ninjutsu</span><span class="skill-name">${safeStr(jutsu.name,"Ninjutsu")}${lockStatus}</span></div>
             <div class="skill-meta">
               <span>Chakra: <strong>${safeNum(e.chakraCost,"-")}</strong></span>
               <span>CD: <strong>${safeNum(e.cooldown,"-")}</strong></span>
@@ -321,9 +329,12 @@
     if (ultimate) {
       const e = pickTierSkillEntry(ultimate, tier, null);
       if (e) {
+        // Check if ultimate is unlocked by level
+        const lockStatus = ultimateUnlocked ? '' : ` <span style="color:#d8b86a">🔒 (Requires Lv 50)</span>`;
+        const cardClass = ultimateUnlocked ? '' : ' locked';
         cards.push(`
-          <div class="skill-card ultimate">
-            <div class="skill-header"><span class="skill-type">Ultimate</span><span class="skill-name">${safeStr(ultimate.name,"Ultimate")}</span></div>
+          <div class="skill-card ultimate${cardClass}">
+            <div class="skill-header"><span class="skill-type">Ultimate</span><span class="skill-name">${safeStr(ultimate.name,"Ultimate")}${lockStatus}</span></div>
             <div class="skill-meta">
               <span>Chakra: <strong>${safeNum(e.chakraCost,"-")}</strong></span>
               <span>CD: <strong>${safeNum(e.cooldown,"-")}</strong></span>
@@ -336,8 +347,8 @@
         `);
       } else {
         cards.push(`
-          <div class="skill-card ultimate">
-            <div class="skill-header"><span class="skill-type">Ultimate</span><span class="skill-name">${safeStr(ultimate.name,"Ultimate")} <span style="color:#d8b86a">(Locked)</span></span></div>
+          <div class="skill-card ultimate locked">
+            <div class="skill-header"><span class="skill-type">Ultimate</span><span class="skill-name">${safeStr(ultimate.name,"Ultimate")} <span style="color:#d8b86a">🔒 (Tier Locked)</span></span></div>
             <div class="skill-desc">Unlocks upon awakening to a higher star tier.</div>
           </div>
         `);

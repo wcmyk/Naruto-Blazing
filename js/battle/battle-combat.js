@@ -54,6 +54,54 @@
       };
     },
 
+    /* ===== Skill Unlocking System ===== */
+
+    /**
+     * Get character level from unit reference
+     */
+    getUnitLevel(unit) {
+      return Number(unit._ref?.inst?.level || 1);
+    },
+
+    /**
+     * Check if jutsu is unlocked (requires level 20)
+     */
+    isJutsuUnlocked(unit) {
+      const level = this.getUnitLevel(unit);
+      return level >= 20;
+    },
+
+    /**
+     * Check if ultimate is unlocked (requires level 50)
+     */
+    isUltimateUnlocked(unit) {
+      const level = this.getUnitLevel(unit);
+      return level >= 50;
+    },
+
+    /**
+     * Check if secret technique is unlocked (requires tier 6S+)
+     */
+    isSecretUnlocked(unit) {
+      const tier = this.getTierForUnit(unit);
+      const tierOrder = ['3S', '4S', '5S', '6S', '6SB', '7S', '7SL', '8S', '8SM', '9S', '9ST', '10SO'];
+      const currentIndex = tierOrder.indexOf(tier);
+      const minIndex = tierOrder.indexOf('6S');
+      return currentIndex >= minIndex;
+    },
+
+    /**
+     * Get unlock requirements for skill type
+     */
+    getSkillUnlockRequirement(skillType) {
+      const requirements = {
+        jutsu: { level: 20, tier: null },
+        ultimate: { level: 50, tier: null },
+        secret: { level: null, tier: '6S+' }
+      };
+      return requirements[skillType] || null;
+    },
+
     /* ===== Damage Calculation ===== */
 
     /**
@@ -148,6 +196,16 @@
         return false;
       }
 
+      // Check if jutsu is unlocked
+      if (!this.isJutsuUnlocked(attacker)) {
+        const level = this.getUnitLevel(attacker);
+        console.warn(`[Combat] ${attacker.name}'s jutsu is locked (Level ${level}/20)`);
+        if (window.BattleNarrator) {
+          window.BattleNarrator.narrate(`${attacker.name}'s jutsu is locked! Requires Level 20.`, core);
+        }
+        return false;
+      }
+
       const cost = Number(j.data.chakraCost ?? 4);
 
       // Check and spend chakra
@@ -219,6 +277,16 @@
 
       if (!u) {
         console.warn(`[Combat] ${attacker.name} has no ultimate skill`);
+        return false;
+      }
+
+      // Check if ultimate is unlocked
+      if (!this.isUltimateUnlocked(attacker)) {
+        const level = this.getUnitLevel(attacker);
+        console.warn(`[Combat] ${attacker.name}'s ultimate is locked (Level ${level}/50)`);
+        if (window.BattleNarrator) {
+          window.BattleNarrator.narrate(`${attacker.name}'s ultimate is locked! Requires Level 50.`, core);
+        }
         return false;
       }
 
