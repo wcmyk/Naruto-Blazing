@@ -1,69 +1,34 @@
-// js/characters_abilities.js - DEBUG VERSION
-console.log('🚀 [DEBUG] Script file loaded at:', new Date().toLocaleTimeString());
+// js/characters_abilities.js - Character Passive Ability Icon System
+// Displays tier-based passive icons on the right side of character art
 
 class CharacterAbilitiesSystem {
   constructor() {
-    console.log('✅ [DEBUG] Constructor called');
     this.currentCharacter = null;
     this.currentTier = null;
     this.iconContainer = null;
+    console.log('✅ Passive Abilities System initialized');
     this.init();
   }
 
   init() {
-    console.log('🔄 [DEBUG] Init called, waiting for modal...');
-    
-    // Check if modal already exists
-    const modal = document.getElementById('char-modal');
-    if (modal) {
-      console.log('✅ [DEBUG] Modal found immediately');
-      this.setupModalObserver();
-    } else {
-      console.log('⏳ [DEBUG] Modal not found, starting interval check...');
-      this.waitForModal();
-    }
+    this.waitForModal();
   }
 
   waitForModal() {
-    let attempts = 0;
     const checkModal = setInterval(() => {
-      attempts++;
-      console.log(`🔍 [DEBUG] Checking for modal... attempt ${attempts}`);
-      
       const modal = document.getElementById('char-modal');
       if (modal) {
-        console.log('✅ [DEBUG] Modal found after', attempts, 'attempts');
         clearInterval(checkModal);
         this.setupModalObserver();
-      }
-      
-      if (attempts > 50) {
-        console.error('❌ [DEBUG] Modal not found after 50 attempts, giving up');
-        clearInterval(checkModal);
       }
     }, 100);
   }
 
   setupModalObserver() {
-    console.log('🔧 [DEBUG] Setting up modal observer...');
-    
     const modal = document.getElementById('char-modal');
-    if (!modal) {
-      console.error('❌ [DEBUG] Modal disappeared before observer setup');
-      return;
-    }
-
-    const observer = new MutationObserver((mutations) => {
-      console.log('👁️ [DEBUG] Modal class changed');
-      
+    const observer = new MutationObserver(() => {
       if (!modal.classList.contains('hidden')) {
-        console.log('🎯 [DEBUG] Modal is now visible, will render icons in 100ms');
-        setTimeout(() => {
-          console.log('🎨 [DEBUG] Timeout complete, calling renderPassiveIcons()');
-          this.renderPassiveIcons();
-        }, 100);
-      } else {
-        console.log('🙈 [DEBUG] Modal is now hidden');
+        setTimeout(() => this.renderPassiveIcons(), 100);
       }
     });
 
@@ -72,36 +37,102 @@ class CharacterAbilitiesSystem {
       attributeFilter: ['class']
     });
 
-    console.log('✅ [DEBUG] Modal observer active');
+    console.log('✅ Modal observer active');
   }
 
   renderPassiveIcons() {
-    console.log('═══════════════════════════════════════');
-    console.log('🎨 [DEBUG] renderPassiveIcons() START');
-    console.log('═══════════════════════════════════════');
+    console.log('🎨 Rendering passive icons...');
     
-    // Test: Create a simple red box
-    const testBox = document.createElement('div');
-    testBox.style.cssText = `
-      position: fixed;
-      top: 50%;
-      right: 20px;
-      width: 50px;
-      height: 50px;
-      background: red;
-      z-index: 9999;
-      border: 2px solid white;
-    `;
-    testBox.textContent = 'TEST';
-    document.body.appendChild(testBox);
-    console.log('🔴 [DEBUG] Red test box added to body');
+    // Get the currently displayed character
+    const uid = this.getCurrentCharacterUID();
+    if (!uid) {
+      console.log('⚠️ No character UID found');
+      return;
+    }
 
-    // Find art container
-    const artContainer = document.querySelector('.char-modal-art');
-    console.log('🎭 [DEBUG] Art container:', artContainer);
+    // Get character data
+    const character = this.getCharacterData(uid);
+    if (!character) {
+      console.log('⚠️ No character data found');
+      return;
+    }
+
+    this.currentCharacter = character;
+    this.currentTier = character.tierCode || character.starMinCode;
+
+    // Get passive icons for current tier
+    const icons = this.getPassiveIconsForTier();
+    if (!icons || icons.length === 0) {
+      console.log('⚠️ No passive icons for this character/tier');
+      this.removeIconContainer();
+      return;
+    }
+
+    // Render the icons
+    this.createIconContainer();
+    this.populateIcons(icons);
+    console.log('✅ Passive icons rendered:', icons.length);
+  }
+
+  getCurrentCharacterUID() {
+    // Try to get UID from modal dataset
+    const modal = document.getElementById('char-modal');
+    let uid = modal?.dataset?.currentUid;
     
+    if (uid) return uid;
+
+    // Fallback: get from selected card
+    const selected = document.querySelector('.char-card.selected');
+    uid = selected?.dataset?.uid;
+    
+    return uid || null;
+  }
+
+  getCharacterData(uid) {
+    if (!window.CharacterInventory) {
+      console.error('❌ CharacterInventory not found');
+      return null;
+    }
+    
+    const instances = window.CharacterInventory.getInstances();
+    const instance = instances.find(i => i.uid === uid);
+    
+    if (!instance) return null;
+
+    // Get base character data
+    const baseChar = window.CharacterInventory.getCharacterById(instance.charId);
+    
+    return {
+      ...instance,
+      passiveIcons: baseChar?.passiveIcons,
+      tierCode: instance.tierCode || baseChar?.starMinCode
+    };
+  }
+
+  getPassiveIconsForTier() {
+    if (!this.currentCharacter?.passiveIcons) return null;
+
+    const tier = this.currentTier;
+    const passiveIcons = this.currentCharacter.passiveIcons;
+
+    // Try current tier first
+    if (passiveIcons[tier]) {
+      return passiveIcons[tier];
+    }
+
+    // Fallback to lowest tier
+    const minTier = this.currentCharacter.starMinCode;
+    return passiveIcons[minTier] || null;
+  }
+
+  createIconContainer() {
+    // Remove existing container if present
+    this.removeIconContainer();
+
+    // Find the character art container
+    const artContainer = document.querySelector('.char-modal-art');
     if (!artContainer) {
-      console.error('❌ [DEBUG] .char-modal-art not found!');
+      console.error('❌ Art container not found');
       return;
     }
 
@@ -109,53 +140,96 @@ class CharacterAbilitiesSystem {
     this.iconContainer = document.createElement('div');
     this.iconContainer.id = 'char-passive-icons';
     this.iconContainer.className = 'passive-icons-right';
-    this.iconContainer.style.cssText = `
-      position: absolute;
-      right: 20px;
-      top: 50%;
-      transform: translateY(-50%);
-      background: lime;
-      padding: 10px;
-      z-index: 100;
-    `;
-    
-    this.iconContainer.textContent = 'ICONS HERE';
-    
+
+    // Append to art container
     artContainer.appendChild(this.iconContainer);
-    console.log('🟢 [DEBUG] Green icon container added to art container');
-    
-    // Test icon
-    const testIcon = document.createElement('div');
-    testIcon.style.cssText = `
-      width: 48px;
-      height: 48px;
-      background: blue;
-      border: 2px solid yellow;
-      margin: 5px;
-    `;
-    testIcon.textContent = 'ICON';
-    this.iconContainer.appendChild(testIcon);
-    console.log('🔵 [DEBUG] Blue test icon added');
-    
-    console.log('═══════════════════════════════════════');
-    console.log('🎨 [DEBUG] renderPassiveIcons() END');
-    console.log('═══════════════════════════════════════');
+  }
+
+  populateIcons(icons) {
+    if (!this.iconContainer) return;
+
+    // Clear existing icons
+    this.iconContainer.innerHTML = '';
+
+    // Add each icon
+    icons.forEach((iconId, index) => {
+      const iconElement = document.createElement('div');
+      iconElement.className = 'passive-icon';
+      
+      // Add tier class for special styling
+      if (this.currentTier) {
+        const tierNum = this.currentTier.replace(/\D/g, '');
+        iconElement.classList.add(`tier-${tierNum}`);
+      }
+
+      // Add tooltip as data attribute
+      iconElement.setAttribute('data-tooltip', this.getIconTooltip(iconId));
+
+      const img = document.createElement('img');
+      img.src = `assets/icons/passives/${iconId}.png`;
+      img.alt = iconId;
+      
+      // Fallback to default icon on error
+      img.onerror = () => {
+        console.log(`⚠️ Icon not found: ${iconId}.png, using default`);
+        img.src = 'assets/icons/passives/default.png';
+        iconElement.classList.add('error');
+      };
+
+      iconElement.appendChild(img);
+      this.iconContainer.appendChild(iconElement);
+    });
+
+    console.log(`✅ Added ${icons.length} passive icons`);
+  }
+
+  getIconTooltip(iconId) {
+    const tooltips = {
+      'atk_up': 'Attack Up',
+      'def_up': 'Defense Up',
+      'hp_up': 'HP Up',
+      'crit_up': 'Critical Rate Up',
+      'crit_dmg': 'Critical Damage Up',
+      'heal_up': 'Healing Boost',
+      'regen': 'HP Regeneration',
+      'chakra_restore': 'Chakra Restore',
+      'speed_up': 'Speed Up',
+      'haste': 'Haste',
+      'damage_reduction': 'Damage Reduction',
+      'barrier': 'Barrier',
+      'dodge': 'Dodge',
+      'counter': 'Counter Attack',
+      'pierce': 'Defense Pierce',
+      'element_boost': 'Element Boost',
+      'element_resist': 'Element Resistance',
+      'field_heal': 'Field Healing',
+      'buddy_heal': 'Buddy Healing',
+      'slip_damage': 'Slip Damage',
+      'burn': 'Burn',
+      'poison': 'Poison',
+      'stun_inflict': 'Stun',
+      'seal_inflict': 'Seal'
+    };
+
+    return tooltips[iconId] || iconId.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+  }
+
+  removeIconContainer() {
+    if (this.iconContainer) {
+      this.iconContainer.remove();
+      this.iconContainer = null;
+    } else {
+      const existing = document.getElementById('char-passive-icons');
+      if (existing) existing.remove();
+    }
   }
 }
 
-// Initialize
-console.log('🚀 [DEBUG] About to initialize system...');
-console.log('🚀 [DEBUG] document.readyState:', document.readyState);
-
+// Initialize the system when DOM is ready
 if (document.readyState === 'loading') {
-  console.log('⏳ [DEBUG] Waiting for DOMContentLoaded...');
   document.addEventListener('DOMContentLoaded', () => {
-    console.log('✅ [DEBUG] DOMContentLoaded fired');
     window.characterAbilities = new CharacterAbilitiesSystem();
   });
 } else {
-  console.log('✅ [DEBUG] DOM already loaded, initializing immediately');
   window.characterAbilities = new CharacterAbilitiesSystem();
 }
-
-console.log('🏁 [DEBUG] Script execution complete');
