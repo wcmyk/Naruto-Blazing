@@ -1,5 +1,6 @@
 // js/characters_abilities.js - Character Passive Ability Icon System
 // Displays tier-based passive icons on the right side of character art
+console.log('🚀 characters_abilities.js file loaded!');
 
 class CharacterAbilitiesSystem {
   constructor() {
