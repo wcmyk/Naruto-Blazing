@@ -250,7 +250,13 @@
         <div class="stat-row"><span class="stat-label">Chakra</span><span class="stat-value">${s.chakra ?? "-"}</span></div>`;
     }
 
-    const cap   = tierCap(c, tier);
+    let cap = tierCap(c, tier);
+
+    // Apply extended level cap from limit breaks
+    if (hasLimitBreak && inst.limitBreakLevel && inst.limitBreakLevel > 0) {
+      cap = window.LimitBreak.getExtendedLevelCap(tier, inst.limitBreakLevel);
+    }
+
     const level = Math.max(1, safeNum(inst.level, 1));
     const isMax = level >= cap;
 
@@ -428,8 +434,14 @@
 
   function wireStatusButtons(c, inst, tierOrNull) {
     BTN_LVUP.onclick = async () => {
-      const t   = tierOrNull || (inst.tierCode || (c ? minTier(c) : "3S"));
-      const cap = c ? tierCap(c, t) : 100;
+      const t = tierOrNull || (inst.tierCode || (c ? minTier(c) : "3S"));
+      let cap = c ? tierCap(c, t) : 100;
+
+      // Apply extended level cap from limit breaks
+      if (hasLimitBreak && inst.limitBreakLevel && inst.limitBreakLevel > 0) {
+        cap = window.LimitBreak.getExtendedLevelCap(t, inst.limitBreakLevel);
+      }
+
       const upd = window.InventoryChar.levelUpInstance(inst.uid, 1, cap);
       LV_VALUE_EL.textContent = (upd.level >= cap) ? "MAX" : String(upd.level);
       if (c) window.renderStatusTab(c, upd, t);

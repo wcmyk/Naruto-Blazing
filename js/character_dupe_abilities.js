@@ -132,20 +132,21 @@ class CharacterDupeAbilitiesSystem {
     // Remove existing container if present
     this.removeAbilitiesContainer();
 
-    // Find the character art container
-    const artContainer = document.querySelector('.char-modal-art');
-    if (!artContainer) {
-      console.error('❌ Art container not found');
+    // Find the abilities tab wrapper
+    const abilitiesWrap = document.getElementById('char-abilities');
+    if (!abilitiesWrap) {
+      console.error('❌ Abilities tab wrapper not found');
       return;
     }
 
-    // Create abilities container - positioned on the LEFT side
+    // Create abilities container - positioned in the ABILITIES TAB
     this.abilitiesContainer = document.createElement('div');
     this.abilitiesContainer.id = 'char-dupe-abilities';
-    this.abilitiesContainer.className = 'dupe-abilities-left';
+    this.abilitiesContainer.className = 'dupe-abilities-tab';
 
-    // Append to art container
-    artContainer.appendChild(this.abilitiesContainer);
+    // Clear and append to abilities tab
+    abilitiesWrap.innerHTML = '';
+    abilitiesWrap.appendChild(this.abilitiesContainer);
   }
 
   populateAbilities(abilities, unlockedCount) {
@@ -219,7 +220,7 @@ class CharacterDupeAbilitiesSystem {
       // Add unlock status indicator
       const statusIndicator = document.createElement('div');
       statusIndicator.className = 'ability-status unlocked';
-      statusIndicator.innerHTML = '<span class="status-icon">✓</span>';
+      statusIndicator.innerHTML = '<span class="status-icon">★</span>';
       abilityDiv.appendChild(statusIndicator);
     } else {
       // Show locked state
