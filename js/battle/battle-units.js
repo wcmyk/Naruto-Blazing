@@ -79,11 +79,18 @@
      * Create combatant unit object
      */
     createCombatant(data) {
+      const isPlayer = data.isPlayer || false;
+
+      // Give enemies a head start (600-800 gauge) so they can act before fast players
+      const initialGauge = isPlayer
+        ? Math.floor(Math.random() * 200)  // Players: 0-200
+        : 600 + Math.floor(Math.random() * 200);  // Enemies: 600-800
+
       const unit = {
         id: data.uid || `unit-${Date.now()}-${Math.random()}`,
         name: data.name || "Unknown",
         portrait: data.portrait || "assets/characters/common/silhouette.png",
-        isPlayer: data.isPlayer || false,
+        isPlayer: isPlayer,
         positionId: data.positionId || 0,
         isActive: data.isActive !== undefined ? data.isActive : true,
         isBench: data.isBench || false,
@@ -91,7 +98,7 @@
         stats: data.stats,
         chakra: 0,
         maxChakra: 10,
-        speedGauge: Math.floor(Math.random() * 200),
+        speedGauge: initialGauge,
         isPaused: false,
         isGuarding: false,
         statusEffects: [],
