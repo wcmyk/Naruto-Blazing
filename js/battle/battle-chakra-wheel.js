@@ -64,12 +64,16 @@
       this.wheelCache.set(unit.id, wheel);
 
       // Attach wheel to portrait container
-      // If it's already a .portrait-container (team holder), append directly
-      // Otherwise it's an img element, so wrap it first
-      if (portraitContainerOrImg.classList && portraitContainerOrImg.classList.contains('portrait-container')) {
-        // Team holder - already has .portrait-container
+      // Check if it's a team holder portrait container (active or bench)
+      const isTeamHolderContainer =
+        portraitContainerOrImg.classList &&
+        (portraitContainerOrImg.classList.contains('active-portrait-container') ||
+         portraitContainerOrImg.classList.contains('bench-portrait-container'));
+
+      if (isTeamHolderContainer) {
+        // Team holder - append directly to portrait container
         portraitContainerOrImg.appendChild(wheel);
-        console.log(`[ChakraWheel] Attached wheel to portrait-container for ${unit.name}`);
+        console.log(`[ChakraWheel] Attached wheel to ${isBench ? 'bench' : 'active'} portrait for ${unit.name}`);
       } else {
         // Legacy support - wrap img element
         if (portraitContainerOrImg.parentElement) {
@@ -195,87 +199,31 @@
     /* ===== Chakra Gain Animation ===== */
 
     /**
-     * Animate chakra gain with blue orb flying into wheel
+     * Update chakra wheel when chakra is gained
+     * NO ORBS, NO FLYING PARTICLES - segments simply appear
      * @param {Object} unit - The unit gaining chakra
      * @param {number} amount - Amount of chakra gained
      * @param {Object} core - Battle core reference
      */
     animateChakraGain(unit, amount, core) {
+      // Simply update the wheel display - segments appear/fade in
+      this.updateChakraWheel(unit, core);
+
+      // Flash the newest segments with arriving animation
       const wheel = this.wheelCache.get(unit.id);
       if (!wheel) return;
 
-      const portraitElement = wheel.previousElementSibling; // Portrait is wrapped before wheel
-      if (!portraitElement) return;
-
-      // Get portrait position
-      const portraitRect = portraitElement.getBoundingClientRect();
-      const wheelRect = wheel.getBoundingClientRect();
-
-      // Animate each chakra point gained
-      for (let i = 0; i < amount; i++) {
-        setTimeout(() => {
-          this.createChakraOrb(portraitRect, wheelRect, unit, core);
-        }, i * 150); // Stagger multiple orbs
-      }
-    },
-
-    /**
-     * Create and animate a single chakra orb
-     */
-    createChakraOrb(portraitRect, wheelRect, unit, core) {
-      const orb = document.createElement('div');
-      orb.className = 'chakra-orb flying';
-
-      // Start position: near portrait
-      const startX = portraitRect.left + portraitRect.width / 2 + (Math.random() * 20 - 10);
-      const startY = portraitRect.top + portraitRect.height / 2 + (Math.random() * 20 - 10);
-
-      orb.style.position = 'fixed';
-      orb.style.left = `${startX}px`;
-      orb.style.top = `${startY}px`;
-      orb.style.zIndex = '1000';
-
-      document.body.appendChild(orb);
-
-      // Animate to wheel
-      const endX = wheelRect.left + wheelRect.width / 2;
-      const endY = wheelRect.top + wheelRect.height / 2;
-
-      // Use CSS animation with transform
-      setTimeout(() => {
-        orb.style.transition = 'all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-        orb.style.left = `${endX}px`;
-        orb.style.top = `${endY}px`;
-        orb.style.transform = 'scale(0.5)';
-        orb.style.opacity = '0';
-      }, 10);
-
-      // Remove orb and update wheel after animation
-      setTimeout(() => {
-        orb.remove();
-        this.updateChakraWheel(unit, core);
-
-        // Flash the newest segment
-        this.flashNewestSegment(unit);
-      }, 450);
-    },
-
-    /**
-     * Flash the most recently added chakra segment
-     */
-    flashNewestSegment(unit) {
-      const wheel = this.wheelCache.get(unit.id);
-      if (!wheel) return;
-
-      // Find all visible segments
       const segments = Array.from(wheel.querySelectorAll('.chakra-segment'));
-      const newest = segments[segments.length - 1];
+      const startIndex = Math.max(0, segments.length - amount);
 
-      if (newest) {
-        newest.classList.add('arriving');
-        setTimeout(() => {
-          newest.classList.remove('arriving');
-        }, 500);
+      for (let i = startIndex; i < segments.length; i++) {
+        const segment = segments[i];
+        if (segment) {
+          segment.classList.add('arriving');
+          setTimeout(() => {
+            segment.classList.remove('arriving');
+          }, 500);
+        }
       }
     },
 
@@ -399,18 +347,24 @@
       const lightning = document.createElement('div');
       lightning.className = `lightning-effect ${type}`;
 
-      // Create lightning bolts
-      const boltCount = type === 'gold' ? 10 : 8;
+      // Create lightning bolts (9 for red, 10 for gold)
+      const boltCount = type === 'gold' ? 10 : 9;
       for (let i = 0; i < boltCount; i++) {
         const bolt = document.createElement('div');
         bolt.className = 'lightning-bolt';
         lightning.appendChild(bolt);
       }
 
-      wheel.appendChild(lightning);
+      // Attach to parent container (not wheel directly)
+      const parent = wheel.parentElement;
+      if (parent) {
+        parent.appendChild(lightning);
+      } else {
+        wheel.appendChild(lightning);
+      }
 
       // Remove after animation completes
-      const duration = type === 'gold' ? 700 : 400;
+      const duration = type === 'gold' ? 1100 : 750;
       setTimeout(() => {
         lightning.remove();
       }, duration);
