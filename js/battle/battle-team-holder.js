@@ -41,7 +41,7 @@
 
     /**
      * Render all player units in team holder
-     * Creates 4 unit cards, each with nested active+bench portraits
+     * ALWAYS creates 4 unit cards (4 active + 4 bench), each with nested active+bench portraits
      */
     renderTeamHolder(core) {
       if (!this.teamHolder) {
@@ -53,15 +53,16 @@
       console.log('[TeamHolder] Active team:', core.activeTeam?.length || 0, 'units');
       console.log('[TeamHolder] Bench team:', core.benchTeam?.length || 0, 'units');
 
-      // Pair up active + bench units into cards
-      const numCards = Math.max(core.activeTeam?.length || 0, core.benchTeam?.length || 0);
+      // ALWAYS render exactly 4 unit cards (4 active + 4 bench)
+      const TEAM_SIZE = 4;
 
       this.teamHolder.innerHTML = '';
 
-      for (let i = 0; i < numCards; i++) {
+      for (let i = 0; i < TEAM_SIZE; i++) {
         const activeUnit = core.activeTeam?.[i];
         const benchUnit = core.benchTeam?.[i];
 
+        // Create card even if unit is missing (will show placeholder)
         if (activeUnit) {
           const cardHTML = this.createUnitCardHTML(activeUnit, benchUnit, i);
           this.teamHolder.insertAdjacentHTML('beforeend', cardHTML);
@@ -71,7 +72,7 @@
       // Attach chakra wheels to all portraits
       this.attachAllChakraWheels(core);
 
-      console.log('[TeamHolder] ========== TEAM HOLDER RENDERED ==========');
+      console.log('[TeamHolder] ========== TEAM HOLDER RENDERED (4 active + 4 bench) ==========');
     },
 
     /**
@@ -109,7 +110,7 @@
     },
 
     /**
-     * Attach chakra wheels to all unit portraits
+     * Attach chakra wheels to all unit portraits and add switch listeners
      */
     attachAllChakraWheels(core) {
       // Attach to active portraits
@@ -125,7 +126,7 @@
         }
       });
 
-      // Attach to bench portraits
+      // Attach to bench portraits and add click listeners for switching
       this.teamHolder.querySelectorAll('[data-unit-type="bench"]').forEach(container => {
         const unitId = container.dataset.unitId;
         const unit = core.benchTeam.find(u => u.id === unitId);
@@ -136,6 +137,13 @@
           }
           window.BattleChakraWheel.updateChakraWheel(unit, core);
         }
+
+        // Add click listener for switching
+        container.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const cardIndex = container.closest('.unit-card').dataset.cardIndex;
+          this.switchUnits(parseInt(cardIndex), core);
+        });
       });
     },
 
@@ -161,6 +169,96 @@
           // Update wheel display
           window.BattleChakraWheel.updateChakraWheel(unit, window.BattleManager || {});
         }
+      }
+    },
+
+    /* ===== Unit Switching ===== */
+
+    /**
+     * Switch active and bench units with animation
+     * @param {number} cardIndex - Index of the unit card (0-3)
+     * @param {Object} core - Battle core reference
+     */
+    switchUnits(cardIndex, core) {
+      const activeUnit = core.activeTeam[cardIndex];
+      const benchUnit = core.benchTeam[cardIndex];
+
+      if (!activeUnit || !benchUnit) {
+        console.warn(`[TeamHolder] Cannot switch - missing unit at index ${cardIndex}`);
+        return;
+      }
+
+      console.log(`[TeamHolder] Switching ${activeUnit.name} ↔ ${benchUnit.name}`);
+
+      // Get the card element
+      const card = this.teamHolder.querySelector(`[data-card-index="${cardIndex}"]`);
+      if (!card) return;
+
+      const activeContainer = card.querySelector('.active-portrait-container');
+      const benchContainer = card.querySelector('.bench-portrait-container');
+
+      if (!activeContainer || !benchContainer) return;
+
+      // Add switching animation classes
+      activeContainer.classList.add('switching');
+      benchContainer.classList.add('switching');
+
+      // Create sparkle trail effects
+      this.createSparkleTrail(benchContainer);
+
+      // Perform the swap after animation starts
+      setTimeout(() => {
+        // Swap units in the team arrays
+        [core.activeTeam[cardIndex], core.benchTeam[cardIndex]] =
+          [core.benchTeam[cardIndex], core.activeTeam[cardIndex]];
+
+        // Remove chakra wheels (they'll be recreated)
+        if (window.BattleChakraWheel) {
+          window.BattleChakraWheel.removeChakraWheel(activeUnit.id);
+          window.BattleChakraWheel.removeChakraWheel(benchUnit.id);
+        }
+
+        // Re-render the specific card
+        const newCardHTML = this.createUnitCardHTML(
+          core.activeTeam[cardIndex],
+          core.benchTeam[cardIndex],
+          cardIndex
+        );
+        card.outerHTML = newCardHTML;
+
+        // Re-attach chakra wheels and listeners
+        setTimeout(() => {
+          this.attachAllChakraWheels(core);
+        }, 50);
+
+      }, 200); // Half-way through the animation
+
+      // Remove animation classes after animation completes
+      setTimeout(() => {
+        activeContainer.classList.remove('switching');
+        benchContainer.classList.remove('switching');
+      }, 400);
+    },
+
+    /**
+     * Create blue chakra sparkle trail during switch
+     */
+    createSparkleTrail(element) {
+      const rect = element.getBoundingClientRect();
+      const sparkleCount = 5;
+
+      for (let i = 0; i < sparkleCount; i++) {
+        setTimeout(() => {
+          const sparkle = document.createElement('div');
+          sparkle.className = 'chakra-sparkle';
+          sparkle.style.left = `${rect.left + rect.width / 2}px`;
+          sparkle.style.top = `${rect.top + rect.height / 2}px`;
+          document.body.appendChild(sparkle);
+
+          setTimeout(() => {
+            sparkle.remove();
+          }, 600);
+        }, i * 80);
       }
     },
 
