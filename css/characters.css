@@ -87,6 +87,16 @@ body.page-characters {
   font-weight: 600;
   letter-spacing: .4px;
 }
+.char-card-level .limit-break {
+  color: #DC143C !important;
+  font-weight: 600;
+  letter-spacing: .4px;
+}
+.char-card-level .limit-break-max {
+  color: #DC143C !important;
+  font-weight: 700;
+  letter-spacing: .4px;
+}
 
 /* ---------- Modal Overlay ---------- */
 #char-modal {
