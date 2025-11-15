@@ -14,9 +14,10 @@
       'BattleDrag',
       'BattleSwap',
       'BattleTurns',
-        'BattleBuffs',
-        'BattleNarrator'
-
+      'BattleBuffs',
+      'BattleNarrator',
+      'BattleTeamHolder',
+      'BattleChakraWheel'
     ];
 
     const allLoaded = requiredModules.every(mod => window[mod]);
@@ -48,9 +49,16 @@
         this.drag = window.BattleDrag;
         this.swap = window.BattleSwap;
         this.turns = window.BattleTurns;
+        this.teamHolder = window.BattleTeamHolder;
 
         // Call BattleCore init
         await window.BattleCore.init.call(this);
+
+        // Initialize and render team holder
+        if (this.teamHolder) {
+          this.teamHolder.init(this);
+          this.teamHolder.renderTeamHolder(this);
+        }
 
         console.log("[Battle] ✅ Battle system ready with all modules");
       },

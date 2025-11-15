@@ -376,9 +376,14 @@
           this.showChakraGain(unit, gained, core);
         }
 
-        // Animate chakra wheel (blue orb flying in)
+        // Animate chakra wheel (blue orb flying in) and update display
         if (window.BattleChakraWheel) {
           window.BattleChakraWheel.animateChakraGain(unit, gained, core);
+        }
+
+        // Update team holder chakra display
+        if (core.teamHolder) {
+          core.teamHolder.updateUnitChakra(unit, core);
         }
       }
 
