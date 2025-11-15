@@ -83,9 +83,12 @@
         // Use modular units.createCombatant or fallback
         const unit = bm.units ?
           bm.units.createCombatant({
-            ...base,
+            id: base.id,
+            name: base.name,
             portrait: portrait,
             isPlayer: false,
+            isActive: true,
+            isBench: false,
             stats: { ...base.stats, maxHP: base.stats.hp },
             pos: { x: 70 + (i % 2 * 15), y: 25 + Math.floor(i / 2) * 25 }
           }) :
