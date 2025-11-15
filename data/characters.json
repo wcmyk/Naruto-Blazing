@@ -23,6 +23,11 @@
     "growthCurve": { "hp": 1.12, "atk": 1.18, "def": 1.08, "speed": 1.05, "chakra": 1.00 },
     "powerRank": 260,
     "powerWeights": { "hp": 0.35, "atk": 0.35, "def": 0.15, "speed": 0.10, "chakra": 0.05 },
+    "passiveIcons": {
+      "3S": ["hp_up", "heal_up"],
+      "4S": ["hp_up", "heal_up", "atk_up"],
+      "5S": ["hp_up", "heal_up", "atk_up", "def_up"]
+    },
     "abilities": [
       {
         "name": "Never Give Up",
@@ -67,6 +72,11 @@
     "growthCurve": { "hp": 1.10, "atk": 1.22, "def": 1.05, "speed": 1.10, "chakra": 1.00 },
     "powerRank": 280,
     "powerWeights": { "hp": 0.25, "atk": 0.45, "def": 0.10, "speed": 0.15, "chakra": 0.05 },
+    "passiveIcons": {
+      "3S": ["atk_up", "speed_up"],
+      "4S": ["atk_up", "speed_up", "crit_up"],
+      "5S": ["atk_up", "speed_up", "crit_up", "pierce"]
+    },
     "abilities": [
       {
         "name": "Sharingan Awakening",
@@ -103,6 +113,10 @@
     "growthCurve": { "hp": 1.08, "atk": 1.06, "def": 1.12, "speed": 1.02, "chakra": 1.00 },
     "powerRank": 240,
     "powerWeights": { "hp": 0.40, "atk": 0.15, "def": 0.25, "speed": 0.07, "chakra": 0.13 },
+    "passiveIcons": {
+      "3S": ["heal_up", "def_up"],
+      "4S": ["heal_up", "heal_up", "def_up", "hp_up"]
+    },
     "abilities": [
       {
         "name": "Medical Ninjutsu",
