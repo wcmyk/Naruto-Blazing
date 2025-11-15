@@ -145,9 +145,12 @@
       return { ok: false, reason: "CHARACTER_MISMATCH" };
     }
 
-    // Initialize unlockedAbilities if not present
+    // Initialize unlockedAbilities and dupeUnlocks if not present
     if (!Array.isArray(main.unlockedAbilities)) {
       main.unlockedAbilities = [];
+    }
+    if (typeof main.dupeUnlocks !== 'number') {
+      main.dupeUnlocks = 0;
     }
 
     const maxAbilities = character.abilities.length;
@@ -158,12 +161,16 @@
     // Unlock next ability
     const nextAbilityIndex = main.unlockedAbilities.length;
     main.unlockedAbilities.push(nextAbilityIndex);
+    main.dupeUnlocks = (main.dupeUnlocks || 0) + 1;
 
     // Remove the dupe
     removeOneByUid(dupeUid);
 
-    // Save the main instance
-    updateInstance(mainUid, { unlockedAbilities: main.unlockedAbilities });
+    // Save the main instance with both unlocked abilities and dupeUnlocks
+    updateInstance(mainUid, {
+      unlockedAbilities: main.unlockedAbilities,
+      dupeUnlocks: main.dupeUnlocks
+    });
 
     return {
       ok: true,
