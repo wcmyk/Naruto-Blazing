@@ -27,6 +27,7 @@
   const BTN_LVUP      = document.getElementById("btn-levelup");
   const BTN_FEEDDUPE  = document.getElementById("btn-feeddupe");
   const BTN_REMOVE    = document.getElementById("btn-removecopy");
+  const BTN_FEEDDUPE  = document.getElementById("btn-feeddupe");
   const BTN_AWAKEN    = document.getElementById("btn-awaken");
   const BTN_LIMITBREAK = document.getElementById("btn-limitbreak");
 
@@ -38,6 +39,11 @@
 
   const SKILLS_WRAP   = document.getElementById("char-skills");
   const SUPPORT_WRAP  = document.getElementById("char-support");
+  const ABILITIES_WRAP = document.getElementById("char-abilities");
+
+  const DUPE_MODAL    = document.getElementById("dupe-selector-modal");
+  const DUPE_GRID     = document.getElementById("dupe-grid");
+  const DUPE_CANCEL   = document.getElementById("dupe-modal-cancel");
 
   if (!GRID || !MODAL) {
     console.warn("[characters] Missing .char-grid or #char-modal in DOM");
@@ -185,6 +191,7 @@
     renderStatusTab(c, inst, tier);
     renderSkillsTab(c, inst, tier);
     renderSupportTab(c);
+    renderAbilitiesTab(c, inst);
     setActiveTab("status");
 
     showModal();
@@ -291,6 +298,101 @@
   }
   window.renderStatusTab = renderStatusTab;
 
+  /* ---------- Dupe Selector Modal ---------- */
+  function openDupeSelector(mainInst, character) {
+    const dupes = window.InventoryChar.instancesOf(character.id)
+      .filter(inst => inst.uid !== mainInst.uid); // Exclude the main character
+
+    if (dupes.length === 0) {
+      alert("No duplicates available to feed!");
+      return;
+    }
+
+    // Render dupe grid
+    DUPE_GRID.innerHTML = dupes.map(dupe => {
+      const tier = dupe.tierCode || minTier(character);
+      const art = resolveTierArt(character, tier);
+      return `
+        <div class="dupe-card" data-uid="${dupe.uid}">
+          <img class="dupe-card-portrait" src="${safeStr(art.portrait, character.portrait)}" alt="${character.name}"
+               onerror="this.onerror=null;this.src='assets/characters/_common/silhouette.png';" />
+          <div class="dupe-card-level">Lv ${dupe.level || 1}</div>
+        </div>
+      `;
+    }).join("");
+
+    // Wire up clicks
+    DUPE_GRID.querySelectorAll('.dupe-card').forEach(card => {
+      card.addEventListener('click', async () => {
+        const dupeUid = card.getAttribute('data-uid');
+        await handleDupeFeeding(mainInst.uid, dupeUid, character);
+        closeDupeModal();
+      });
+    });
+
+    showDupeModal();
+  }
+
+  function showDupeModal() {
+    DUPE_MODAL.classList.add("open");
+    DUPE_MODAL.setAttribute("aria-hidden", "false");
+  }
+
+  function closeDupeModal() {
+    DUPE_MODAL.classList.remove("open");
+    DUPE_MODAL.setAttribute("aria-hidden", "true");
+  }
+
+  async function handleDupeFeeding(mainUid, dupeUid, character) {
+    const result = window.InventoryChar.feedDupe(mainUid, dupeUid, character);
+
+    if (!result.ok) {
+      const messages = {
+        'NO_ABILITIES_TO_UNLOCK': "This character has no abilities to unlock!",
+        'MAIN_NOT_FOUND': "Main character not found!",
+        'DUPE_NOT_FOUND': "Duplicate not found!",
+        'CHARACTER_MISMATCH': "Characters don't match!",
+        'ALL_ABILITIES_UNLOCKED': "All abilities are already unlocked!"
+      };
+      alert(messages[result.reason] || "Failed to feed duplicate!");
+      return;
+    }
+
+    // Success! Update the UI
+    const freshInst = window.InventoryChar.getByUid(mainUid);
+    const tier = freshInst.tierCode || minTier(character);
+
+    renderGrid();
+    renderAbilitiesTab(character, freshInst);
+
+    // Update Feed Dupe button state
+    const hasDupes = window.InventoryChar.instancesOf(character.id).length > 1;
+    const allUnlocked = result.totalUnlocked >= result.maxAbilities;
+    if (BTN_FEEDDUPE) {
+      BTN_FEEDDUPE.disabled = !hasDupes || allUnlocked;
+    }
+
+    // Trigger daily mission
+    if (window.DailyMissions) {
+      const dailyResult = await window.DailyMissions.incrementDaily('daily_feed_dupe');
+      if (dailyResult && dailyResult.completed) {
+        alert(`Daily Mission Completed!\n${dailyResult.dailyName}`);
+      }
+    }
+
+    alert(`Ability unlocked!\n\n${result.unlockedAbility.name}\n${result.unlockedAbility.description || result.unlockedAbility}\n\nTotal: ${result.totalUnlocked}/${result.maxAbilities} abilities unlocked`);
+  }
+
+  if (DUPE_CANCEL) {
+    DUPE_CANCEL.addEventListener('click', closeDupeModal);
+  }
+
+  if (DUPE_MODAL) {
+    DUPE_MODAL.addEventListener('click', (e) => {
+      if (e.target === DUPE_MODAL) closeDupeModal();
+    });
+  }
+
   /* ---------- Materials Display ---------- */
   async function renderMaterials(inst, c, tier) {
     if (!hasAwakening || !hasResources) {
@@ -325,13 +427,21 @@
   }
 
   function wireStatusButtons(c, inst, tierOrNull) {
-    BTN_LVUP.onclick = () => {
+    BTN_LVUP.onclick = async () => {
       const t   = tierOrNull || (inst.tierCode || (c ? minTier(c) : "3S"));
       const cap = c ? tierCap(c, t) : 100;
       const upd = window.InventoryChar.levelUpInstance(inst.uid, 1, cap);
       LV_VALUE_EL.textContent = (upd.level >= cap) ? "MAX" : String(upd.level);
       if (c) window.renderStatusTab(c, upd, t);
       renderGrid();
+
+      // Trigger daily mission
+      if (window.DailyMissions) {
+        const result = await window.DailyMissions.incrementDaily('daily_level_up');
+        if (result && result.completed) {
+          alert(`Daily Mission Completed!\n${result.dailyName}`);
+        }
+      }
     };
 
     BTN_FEEDDUPE.onclick = () => {
@@ -414,6 +524,23 @@
       closeModal();
     };
 
+    // Feed Dupe button
+    if (BTN_FEEDDUPE) {
+      // Check if character has abilities and if there are duplicates available
+      const hasDupes = window.InventoryChar.instancesOf(c.id).length > 1;
+      const hasAbilities = c.abilities && Array.isArray(c.abilities) && c.abilities.length > 0;
+      const unlockedCount = (inst.unlockedAbilities || []).length;
+      const maxAbilities = c.abilities ? c.abilities.length : 0;
+      const allUnlocked = unlockedCount >= maxAbilities;
+
+      BTN_FEEDDUPE.disabled = !hasDupes || !hasAbilities || allUnlocked;
+
+      BTN_FEEDDUPE.onclick = () => {
+        if (BTN_FEEDDUPE.disabled) return;
+        openDupeSelector(inst, c);
+      };
+    }
+
     BTN_AWAKEN.onclick = async () => {
       if (!c) return;
       if (!(hasProg && typeof window.Progression.canAwaken === "function" && window.Progression.canAwaken(inst, c))) return;
@@ -456,6 +583,14 @@
       await window.renderStatusTab(c, fresh, newTier);
       renderSkillsTab(c, fresh, newTier);
       renderGrid();
+
+      // Trigger daily mission
+      if (window.DailyMissions) {
+        const dailyResult = await window.DailyMissions.incrementDaily('daily_awaken');
+        if (dailyResult && dailyResult.completed) {
+          alert(`Daily Mission Completed!\n${dailyResult.dailyName}`);
+        }
+      }
 
       alert(`Successfully awakened ${c.name} to ${starsFromTier(newTier)} stars!`);
     };
@@ -612,10 +747,39 @@
     if (Array.isArray(c.syncSkills) && c.syncSkills.length) {
       blocks.push(`<div class="support-box"><strong>Sync Skills</strong><ul>${c.syncSkills.map(s => `<li>${s.type ? `<em>${s.type}:</em> ` : ""}${s.effect || s}</li>`).join("")}</ul></div>`);
     }
-    if (Array.isArray(c.abilities) && c.abilities.length) {
-      blocks.push(`<div class="support-box"><strong>Abilities</strong><ul>${c.abilities.map(a => `<li>${a}</li>`).join("")}</ul></div>`);
-    }
     SUPPORT_WRAP.innerHTML = blocks.length ? blocks.join("") : `<div class="support-box">No support skills.</div>`;
+  }
+
+  /* ---------- ABILITIES tab ---------- */
+  function renderAbilitiesTab(c, inst) {
+    if (!c.abilities || !Array.isArray(c.abilities) || c.abilities.length === 0) {
+      ABILITIES_WRAP.innerHTML = `<div class="no-abilities">This character has no passive abilities.</div>`;
+      return;
+    }
+
+    const unlockedAbilities = inst.unlockedAbilities || [];
+    const totalAbilities = c.abilities.length;
+
+    let html = `<div class="abilities-progress">Abilities Unlocked: ${unlockedAbilities.length}/${totalAbilities}</div>`;
+
+    c.abilities.forEach((ability, index) => {
+      const isUnlocked = unlockedAbilities.includes(index);
+      const lockClass = isUnlocked ? '' : 'locked';
+      const statusText = isUnlocked ? 'UNLOCKED' : 'LOCKED';
+      const statusClass = isUnlocked ? '' : 'locked';
+
+      html += `
+        <div class="ability-card ${lockClass}">
+          <div class="ability-header">
+            <div class="ability-name">${ability.name || `Ability ${index + 1}`}</div>
+            <div class="ability-unlock-status ${statusClass}">${statusText}</div>
+          </div>
+          <div class="ability-description">${ability.description || ability}</div>
+        </div>
+      `;
+    });
+
+    ABILITIES_WRAP.innerHTML = html;
   }
 
   /* ---------- Grid clicks ---------- */

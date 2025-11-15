@@ -130,6 +130,49 @@
     return res;
   }
 
+  // ---------- Dupe Feeding for Abilities ----------
+  function feedDupe(mainUid, dupeUid, character) {
+    if (!character || !character.abilities) {
+      return { ok: false, reason: "NO_ABILITIES_TO_UNLOCK" };
+    }
+
+    const main = getByUid(mainUid);
+    const dupe = getByUid(dupeUid);
+
+    if (!main) return { ok: false, reason: "MAIN_NOT_FOUND" };
+    if (!dupe) return { ok: false, reason: "DUPE_NOT_FOUND" };
+    if (main.charId !== dupe.charId) {
+      return { ok: false, reason: "CHARACTER_MISMATCH" };
+    }
+
+    // Initialize unlockedAbilities if not present
+    if (!Array.isArray(main.unlockedAbilities)) {
+      main.unlockedAbilities = [];
+    }
+
+    const maxAbilities = character.abilities.length;
+    if (main.unlockedAbilities.length >= maxAbilities) {
+      return { ok: false, reason: "ALL_ABILITIES_UNLOCKED" };
+    }
+
+    // Unlock next ability
+    const nextAbilityIndex = main.unlockedAbilities.length;
+    main.unlockedAbilities.push(nextAbilityIndex);
+
+    // Remove the dupe
+    removeOneByUid(dupeUid);
+
+    // Save the main instance
+    updateInstance(mainUid, { unlockedAbilities: main.unlockedAbilities });
+
+    return {
+      ok: true,
+      unlockedAbility: character.abilities[nextAbilityIndex],
+      totalUnlocked: main.unlockedAbilities.length,
+      maxAbilities
+    };
+  }
+
   // ---------- Migration ----------
   function migrateIfNeeded() {
     let changed = false;
@@ -164,6 +207,7 @@
     _mutate,
     levelUpInstance,
     promoteTier,
+    feedDupe,
   };
 })(window);
 
