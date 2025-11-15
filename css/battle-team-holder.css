@@ -62,7 +62,7 @@
   z-index: 1;
 }
 
-/* === Bench Portrait Container (Small, overlaps active at 7 o'clock) === */
+/* === Bench Portrait Container (Small, staggered nested below active) === */
 .bench-portrait-container {
   position: absolute;
   width: 40%;  /* 40% of active portrait */
@@ -72,9 +72,9 @@
   border: 2px solid rgba(139, 115, 85, 0.6);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
   overflow: visible;
-  /* Position at 7 o'clock */
-  left: -12%;
-  bottom: -12%;
+  /* Exact Naruto Blazing stagger positioning */
+  left: -25%;  /* X offset: -25% of active width */
+  top: 35%;    /* Y offset: +35% of active height */
   z-index: 2;
 }
 
@@ -144,4 +144,71 @@
 .unit-card.is-dead .active-portrait-container,
 .unit-card.is-dead .bench-portrait-container {
   border-color: rgba(100, 100, 100, 0.4);
+}
+
+/* === Unit Switch Animation === */
+/* Bench portraits are clickable to swap with active */
+.bench-portrait-container {
+  cursor: pointer;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.bench-portrait-container:hover {
+  transform: scale(1.1);
+  border-color: rgba(212, 175, 55, 0.8);
+}
+
+/* Switch animation states */
+.active-portrait-container.switching {
+  animation: activeSpin 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.bench-portrait-container.switching {
+  animation: benchSwap 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+/* Active portrait spins in place */
+@keyframes activeSpin {
+  0% { transform: rotate(0deg) scale(1); }
+  50% { transform: rotate(180deg) scale(1.15); }
+  100% { transform: rotate(360deg) scale(1); }
+}
+
+/* Bench portrait moves in curved arc */
+@keyframes benchSwap {
+  0% {
+    transform: translate(0, 0) scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: translate(30px, -40px) scale(1.3);
+    opacity: 0.7;
+  }
+  100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 1;
+  }
+}
+
+/* Sparkle trail effect */
+.chakra-sparkle {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: radial-gradient(circle, rgba(100, 180, 255, 1) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 100;
+  animation: sparkleTrail 0.6s ease-out forwards;
+}
+
+@keyframes sparkleTrail {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.3) translateY(20px);
+  }
 }
