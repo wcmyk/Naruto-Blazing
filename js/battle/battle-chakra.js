@@ -80,9 +80,10 @@
      * @param {Object} core - Reference to BattleManager
      */
     handleEnemyTarget(targetUnit, core) {
-      if (!core.queuedAction || !core.currentUnit) return;
+      const currentUnit = core.turns?.currentUnit || core.currentUnit;
+      if (!core.queuedAction || !currentUnit) return;
 
-      console.log(`[Chakra] 🎯 ${core.currentUnit.name} targets ${targetUnit.name} with ${core.queuedAction}`);
+      console.log(`[Chakra] 🎯 ${currentUnit.name} targets ${targetUnit.name} with ${core.queuedAction}`);
 
       if (core.queuedAction === "attack") {
         this.executeAttack(targetUnit, core);
@@ -97,23 +98,33 @@
      * Execute basic attack
      */
     executeAttack(target, core) {
-      if (window.BattleCombat) {
-        window.BattleCombat.performAttack(core.currentUnit, target, core);
+      const currentUnit = core.turns?.currentUnit || core.currentUnit;
+      if (window.BattleCombat && currentUnit) {
+        window.BattleCombat.performAttack(currentUnit, target, core);
       }
-      core.endTurn();
+      if (core.turns) {
+        core.turns.endTurn(core);
+      } else {
+        core.endTurn();
+      }
     },
 
     /**
      * Execute jutsu attack
      */
     executeJutsu(target, core) {
-      if (window.BattleCombat) {
-        const success = window.BattleCombat.performJutsu(core.currentUnit, target, core);
+      const currentUnit = core.turns?.currentUnit || core.currentUnit;
+      if (window.BattleCombat && currentUnit) {
+        const success = window.BattleCombat.performJutsu(currentUnit, target, core);
         if (success) {
-          core.endTurn();
+          if (core.turns) {
+            core.turns.endTurn(core);
+          } else {
+            core.endTurn();
+          }
         } else {
           console.log("[Chakra] ❌ Jutsu failed (insufficient chakra)");
-          this.resetChakraMode(core.currentUnit, core);
+          this.resetChakraMode(currentUnit, core);
         }
       }
     },
@@ -122,15 +133,20 @@
      * Execute ultimate (hits all enemies)
      */
     executeUltimate(core) {
+      const currentUnit = core.turns?.currentUnit || core.currentUnit;
       const targets = core.enemyTeam.filter(u => u.stats.hp > 0);
 
-      if (window.BattleCombat) {
-        const success = window.BattleCombat.performUltimate(core.currentUnit, targets, core);
+      if (window.BattleCombat && currentUnit) {
+        const success = window.BattleCombat.performUltimate(currentUnit, targets, core);
         if (success) {
-          core.endTurn();
+          if (core.turns) {
+            core.turns.endTurn(core);
+          } else {
+            core.endTurn();
+          }
         } else {
           console.log("[Chakra] ❌ Ultimate failed (insufficient chakra)");
-          this.resetChakraMode(core.currentUnit, core);
+          this.resetChakraMode(currentUnit, core);
         }
       }
     },
@@ -274,17 +290,20 @@
      * @param {Object} core - Reference to BattleManager
      */
     handleUnitClick(unit, core) {
+      const isPlayerTurn = core.turns?.isPlayerTurn ?? core.isPlayerTurn;
+      const currentUnit = core.turns?.currentUnit || core.currentUnit;
+
       // Click on own unit during own turn = chakra activation
       if (unit.isPlayer &&
-          core.isPlayerTurn &&
-          core.currentUnit &&
-          unit.id === core.currentUnit.id) {
+          isPlayerTurn &&
+          currentUnit &&
+          unit.id === currentUnit.id) {
         this.handleChakraClick(unit, core);
       }
       // Click on enemy during player turn = target selection
       else if (!unit.isPlayer &&
-               core.isPlayerTurn &&
-               core.currentUnit &&
+               isPlayerTurn &&
+               currentUnit &&
                unit.stats.hp > 0) {
         this.handleEnemyTarget(unit, core);
       }
