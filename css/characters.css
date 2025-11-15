@@ -241,6 +241,8 @@ body.page-characters {
 }
 .level-badge .lv { margin-right: 3px; color: #fff; }
 .level-badge .max { color: var(--gold); font-weight: 600; }
+.level-badge .limit-break { color: #DC143C !important; font-weight: 600; }
+.level-badge .limit-break-max { color: #DC143C !important; font-weight: 700; }
 
 .growth-buttons {
   display: flex;
