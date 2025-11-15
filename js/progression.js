@@ -130,8 +130,9 @@
    *  - statsMax  (LvCap at max tierCode)
    *  - growthCurve (number or per-stat object)
    *  - powerRank + powerWeights (optional lore normalization)
+   *  - extendedCap: optional parameter for limit break extended cap
    * ========================================== */
-  function computeEffectiveStatsLoreTier(c, level, tierCode, { normalize = true } = {}) {
+  function computeEffectiveStatsLoreTier(c, level, tierCode, { normalize = true, extendedCap = null } = {}) {
     const { minCode, maxCode } = getTierBounds(c);
     const tier = validCode(tierCode) || minCode;
 
@@ -141,7 +142,8 @@
     const iMax = idxOf(maxCode);
     const clampedTier = TIER_ORDER[clamp(i, iMin, iMax)];
 
-    const cap = levelCapForCode(clampedTier);
+    const baseCap = levelCapForCode(clampedTier);
+    const cap = extendedCap || baseCap; // Use extended cap if provided (for limit breaks)
     const base = c?.statsBase || c?.stats || {};
     const max  = c?.statsMax  || null;
     const gc   = c?.growthCurve;
