@@ -155,6 +155,11 @@
       // Pause all other units
       this.pauseAllOtherUnits(core);
 
+      // Apply turn start effects (buffs, regen, etc.)
+      if (window.BattleBuffs) {
+        window.BattleBuffs.onTurnStart(core, unit);
+      }
+
       // Reset unit state
       unit.isGuarding = false;
 
@@ -188,6 +193,11 @@
       if (!this.currentUnit) return;
 
       console.log(`[Turns] ${this.currentUnit.name} turn end`);
+
+      // Apply turn end effects (buff duration tick, expiration)
+      if (window.BattleBuffs) {
+        window.BattleBuffs.onTurnEnd(core, this.currentUnit);
+      }
 
       // Reset chakra mode if using chakra system
       if (core.chakra) {
