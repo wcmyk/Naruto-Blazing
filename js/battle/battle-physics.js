@@ -105,6 +105,7 @@
           const wobble = Math.sin(progress * Math.PI * 4) * 3 * (1 - progress);
           unitEl.style.transform = `translate(-50%, -50%) rotate(${wobble}deg)`;
         } else {
+          // Reset to base transform
           unitEl.style.transform = 'translate(-50%, -50%)';
         }
 
