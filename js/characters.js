@@ -225,7 +225,16 @@
     // Compute stats (with limit break if applicable)
     let stats = {};
     if (hasProg && window.Progression.computeEffectiveStatsLoreTier) {
-      const comp = window.Progression.computeEffectiveStatsLoreTier(c, safeNum(inst.level,1), tier, { normalize:true });
+      // Calculate extended cap if limit breaks are present
+      let extendedCap = null;
+      if (hasLimitBreak && inst.limitBreakLevel && inst.limitBreakLevel > 0) {
+        extendedCap = window.LimitBreak.getExtendedLevelCap(tier, inst.limitBreakLevel);
+      }
+
+      const comp = window.Progression.computeEffectiveStatsLoreTier(c, safeNum(inst.level,1), tier, {
+        normalize: true,
+        extendedCap: extendedCap
+      });
       stats = comp?.stats || {};
 
       // Apply limit break bonuses if present
@@ -259,7 +268,17 @@
     const level = Math.max(1, safeNum(inst.level, 1));
     const isMax = level >= cap;
 
-    LV_VALUE_EL.textContent = isMax ? "MAX" : String(level);
+    // Update level display with red color when level > 100 or at MAX (150)
+    if (level >= 150) {
+      LV_VALUE_EL.textContent = "MAX";
+      LV_VALUE_EL.style.color = "#DC143C"; // Dark red (crimson)
+    } else if (level > 100) {
+      LV_VALUE_EL.textContent = String(level);
+      LV_VALUE_EL.style.color = "#DC143C"; // Dark red (crimson)
+    } else {
+      LV_VALUE_EL.textContent = isMax ? "MAX" : String(level);
+      LV_VALUE_EL.style.color = ""; // Reset to default
+    }
     LV_CAP_EL.textContent   = String(cap);
 
     // Awakening check
