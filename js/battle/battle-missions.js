@@ -171,16 +171,44 @@
       transition.style.flexDirection = 'column';
       transition.style.alignItems = 'center';
       transition.style.justifyContent = 'center';
-      transition.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
+      transition.style.backgroundColor = 'rgba(10, 15, 30, 0.95)';
       transition.style.zIndex = '999';
       transition.style.animation = 'fadeInOut 2s ease-in-out';
+      transition.style.backdropFilter = 'blur(8px)';
 
       transition.innerHTML = `
-        <div style="font-size: 3rem; font-weight: bold; color: #fff; text-shadow: 0 0 20px rgba(88, 183, 255, 0.8);">
-          WAVE ${nextWave}
+        <div style="
+          font-family: 'Cinzel', serif;
+          font-size: 1.2rem;
+          font-weight: 600;
+          color: rgba(212, 175, 55, 0.8);
+          letter-spacing: 0.3em;
+          text-transform: uppercase;
+          margin-bottom: 1rem;
+        ">
+          Wave
         </div>
-        <div style="font-size: 1.5rem; color: #aaa; margin-top: 1rem;">
-          ${nextWave} / ${totalWaves}
+        <div style="
+          font-family: 'Cinzel', serif;
+          font-size: 5rem;
+          font-weight: 700;
+          color: #ffd700;
+          text-shadow:
+            0 0 30px rgba(255, 215, 0, 0.6),
+            0 0 60px rgba(255, 215, 0, 0.4),
+            0 4px 8px rgba(0, 0, 0, 0.8);
+          letter-spacing: 0.1em;
+        ">
+          ${nextWave}
+        </div>
+        <div style="
+          font-family: 'Cinzel', serif;
+          font-size: 1rem;
+          color: rgba(212, 175, 55, 0.6);
+          margin-top: 0.5rem;
+          letter-spacing: 0.2em;
+        ">
+          ${nextWave} of ${totalWaves}
         </div>
       `;
 
@@ -206,19 +234,62 @@
       transition.style.flexDirection = 'column';
       transition.style.alignItems = 'center';
       transition.style.justifyContent = 'center';
-      transition.style.backgroundColor = 'rgba(0, 0, 0, 0.85)';
+      transition.style.backgroundColor = 'rgba(10, 15, 30, 0.95)';
       transition.style.zIndex = '999';
       transition.style.animation = 'fadeInOut 2.5s ease-in-out';
+      transition.style.backdropFilter = 'blur(10px)';
 
       transition.innerHTML = `
-        <div style="font-size: 2rem; color: #2ecc71; margin-bottom: 1rem;">
-          ✓ STAGE COMPLETE
+        <div style="
+          font-family: 'Cinzel', serif;
+          font-size: 1.5rem;
+          font-weight: 600;
+          color: #2ecc71;
+          letter-spacing: 0.2em;
+          text-transform: uppercase;
+          margin-bottom: 2rem;
+          text-shadow: 0 0 20px rgba(46, 204, 113, 0.6);
+        ">
+          Stage Complete
         </div>
-        <div style="font-size: 3.5rem; font-weight: bold; color: #fff; text-shadow: 0 0 30px rgba(255, 215, 0, 0.8);">
-          STAGE ${nextStage}
+        <div style="
+          width: 120px;
+          height: 2px;
+          background: linear-gradient(90deg, transparent, #d4af37, transparent);
+          margin-bottom: 2rem;
+        "></div>
+        <div style="
+          font-family: 'Cinzel', serif;
+          font-size: 1.2rem;
+          font-weight: 600;
+          color: rgba(212, 175, 55, 0.8);
+          letter-spacing: 0.3em;
+          text-transform: uppercase;
+          margin-bottom: 1rem;
+        ">
+          Next Stage
         </div>
-        <div style="font-size: 1.5rem; color: #aaa; margin-top: 1rem;">
-          ${nextStage} / ${totalStages}
+        <div style="
+          font-family: 'Cinzel', serif;
+          font-size: 6rem;
+          font-weight: 700;
+          color: #ffd700;
+          text-shadow:
+            0 0 40px rgba(255, 215, 0, 0.7),
+            0 0 80px rgba(255, 215, 0, 0.5),
+            0 6px 12px rgba(0, 0, 0, 0.9);
+          letter-spacing: 0.1em;
+        ">
+          ${nextStage}
+        </div>
+        <div style="
+          font-family: 'Cinzel', serif;
+          font-size: 1rem;
+          color: rgba(212, 175, 55, 0.6);
+          margin-top: 1rem;
+          letter-spacing: 0.2em;
+        ">
+          ${nextStage} of ${totalStages}
         </div>
       `;
 
@@ -401,24 +472,41 @@
     @keyframes fadeInOut {
       0% {
         opacity: 0;
-        transform: scale(0.9);
+        transform: scale(0.92) translateY(20px);
+      }
+      15% {
+        opacity: 1;
+        transform: scale(1.02) translateY(-5px);
       }
       20% {
-        opacity: 1;
-        transform: scale(1);
+        transform: scale(1) translateY(0);
       }
       80% {
         opacity: 1;
-        transform: scale(1);
+        transform: scale(1) translateY(0);
       }
       100% {
         opacity: 0;
-        transform: scale(0.9);
+        transform: scale(0.95) translateY(-10px);
+      }
+    }
+
+    @keyframes goldShimmer {
+      0%, 100% {
+        filter: brightness(1);
+      }
+      50% {
+        filter: brightness(1.3);
       }
     }
 
     .wave-transition, .stage-transition {
       animation: fadeInOut 2s ease-in-out;
+    }
+
+    .wave-transition > div:nth-child(2),
+    .stage-transition > div:nth-child(4) {
+      animation: fadeInOut 2s ease-in-out, goldShimmer 1.5s ease-in-out infinite;
     }
   `;
   document.head.appendChild(style);
