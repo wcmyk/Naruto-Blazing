@@ -94,13 +94,17 @@
             name: base.name,
             portrait: portrait,
             isPlayer: false,
+            isActive: true,
+            isBench: false,
             stats: { ...base.stats, maxHP: base.stats.hp },
             pos: { x: 70 + (i % 2 * 15), y: 25 + Math.floor(i / 2) * 25 },
             chakra: 0,
             maxChakra: 10,
             speedGauge: Math.floor(Math.random() * 200),
             isPaused: false,
-            statusEffects: []
+            isGuarding: false,
+            statusEffects: [],
+            chakraMode: "NONE"
           };
         unit._ref = { enemy: base, base };
 
