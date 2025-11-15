@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Blazing — Shop</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="css/shop.css" />
+  <link rel="stylesheet" href="css/bottombar.css" />
+</head>
+<body class="page-shop">
+  <div id="shop-bg"></div>
+
+  <!-- Resource Display -->
+  <div class="resource-bar">
+    <div class="resource-item">
+      <img src="assets/icons/ryo_icon.png" alt="Ryo" onerror="this.style.display='none'">
+      <span class="resource-label">Ryo:</span>
+      <span id="player-ryo" class="resource-value">0</span>
+    </div>
+    <div class="resource-item">
+      <img src="assets/icons/pearl_icon.png" alt="Pearls" onerror="this.style.display='none'">
+      <span class="resource-label">Pearls:</span>
+      <span id="player-pearls" class="resource-value">0</span>
+    </div>
+  </div>
+
+  <main class="shop-content">
+    <h1 class="page-title">NINJA SHOP</h1>
+
+    <!-- Shop Tabs -->
+    <div class="shop-tabs">
+      <button class="shop-tab active" data-tab="ramen">Training Ramen</button>
+      <button class="shop-tab" data-tab="materials">Materials</button>
+      <button class="shop-tab" data-tab="resources">Resources</button>
+    </div>
+
+    <!-- Ramen Tab -->
+    <div class="shop-tab-content active" id="tab-ramen">
+      <div class="shop-grid" id="ramen-grid"></div>
+    </div>
+
+    <!-- Materials Tab -->
+    <div class="shop-tab-content" id="tab-materials">
+      <div class="shop-grid" id="materials-grid"></div>
+    </div>
+
+    <!-- Resources Tab -->
+    <div class="shop-tab-content" id="tab-resources">
+      <div class="shop-grid" id="resources-grid"></div>
+    </div>
+  </main>
+
+  <!-- Purchase Confirmation Modal -->
+  <div id="purchase-modal" class="modal hidden">
+    <div class="modal-content">
+      <h2 class="modal-title">Confirm Purchase</h2>
+      <div class="purchase-preview">
+        <img id="purchase-item-icon" src="" alt="Item">
+        <div class="purchase-details">
+          <div class="purchase-item-name" id="purchase-item-name"></div>
+          <div class="purchase-item-desc" id="purchase-item-desc"></div>
+        </div>
+      </div>
+      <div class="quantity-selector">
+        <label>Quantity:</label>
+        <button class="qty-btn" id="qty-minus">-</button>
+        <input type="number" id="qty-input" value="1" min="1" max="99">
+        <button class="qty-btn" id="qty-plus">+</button>
+      </div>
+      <div class="purchase-cost">
+        <span>Total Cost:</span>
+        <span id="purchase-total-cost"></span>
+      </div>
+      <div class="modal-buttons">
+        <button class="btn-confirm" id="btn-confirm-purchase">Purchase</button>
+        <button class="btn-cancel" id="btn-cancel-purchase">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Success Modal -->
+  <div id="success-modal" class="modal hidden">
+    <div class="modal-content success-content">
+      <h2 class="success-title">Purchase Successful!</h2>
+      <div class="success-message" id="success-message"></div>
+      <button class="btn-confirm" id="btn-close-success">OK</button>
+    </div>
+  </div>
+
+  <!-- Bottom Navigation Bar -->
+  <div class="bottom-bar">
+    <div class="bottom-bar-content">
+      <button class="hud-button" id="btn-home" aria-label="Home">
+        <img src="assets/icons/home_icon.png" alt="Home">
+      </button>
+      <button class="hud-button" id="btn-team" aria-label="Team">
+        <img src="assets/icons/team_icon.png" alt="Team">
+      </button>
+      <button class="hud-button active" id="btn-shop" aria-label="Shop">
+        <img src="assets/icons/shop_icon.png" alt="Shop">
+      </button>
+      <button class="hud-button" id="btn-fusion" aria-label="Fusion">
+        <img src="assets/icons/fusion_icon.png" alt="Fusion">
+      </button>
+      <button class="hud-button" id="btn-missions" aria-label="Missions">
+        <img src="assets/icons/mission_icon.png" alt="Missions">
+      </button>
+    </div>
+  </div>
+
+  <script defer src="js/shop.js"></script>
+</body>
+</html>
