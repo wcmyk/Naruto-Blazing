@@ -223,10 +223,10 @@
           font-family: 'Cinzel', serif;
           font-size: 5rem;
           font-weight: 700;
-          color: #ffd700;
+          color: #d4af37;
           text-shadow:
-            0 0 30px rgba(255, 215, 0, 0.6),
-            0 0 60px rgba(255, 215, 0, 0.4),
+            0 0 20px rgba(212, 175, 55, 0.4),
+            0 0 40px rgba(212, 175, 55, 0.2),
             0 4px 8px rgba(0, 0, 0, 0.8);
           letter-spacing: 0.1em;
         ">
@@ -275,11 +275,11 @@
           font-family: 'Cinzel', serif;
           font-size: 1.5rem;
           font-weight: 600;
-          color: #2ecc71;
+          color: #b8985f;
           letter-spacing: 0.2em;
           text-transform: uppercase;
           margin-bottom: 2rem;
-          text-shadow: 0 0 20px rgba(46, 204, 113, 0.6);
+          text-shadow: 0 0 15px rgba(184, 152, 95, 0.4);
         ">
           Stage Complete
         </div>
@@ -304,10 +304,10 @@
           font-family: 'Cinzel', serif;
           font-size: 6rem;
           font-weight: 700;
-          color: #ffd700;
+          color: #d4af37;
           text-shadow:
-            0 0 40px rgba(255, 215, 0, 0.7),
-            0 0 80px rgba(255, 215, 0, 0.5),
+            0 0 25px rgba(212, 175, 55, 0.5),
+            0 0 50px rgba(212, 175, 55, 0.3),
             0 6px 12px rgba(0, 0, 0, 0.9);
           letter-spacing: 0.1em;
         ">
