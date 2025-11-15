@@ -1,0 +1,34 @@
+{
+  "fusions": [
+    {
+      "id": "fusion_001",
+      "name": "Example Fusion",
+      "description": "Combine two units to create a powerful fusion",
+      "requirements": {
+        "unit1": "naruto_01",
+        "unit2": "sasuke_01",
+        "minLevel": 50,
+        "materials": {
+          "ryo": 100000,
+          "scrolls": 10
+        }
+      },
+      "result": {
+        "characterId": "naruto_sasuke_fusion",
+        "tier": "6S",
+        "level": 1,
+        "bonusStats": {
+          "hp": 500,
+          "atk": 200,
+          "def": 100
+        }
+      }
+    }
+  ],
+  "fusionRules": {
+    "preserveHighestLevel": true,
+    "transferAbilities": true,
+    "costMultiplier": 1.5,
+    "successRate": 100
+  }
+}
