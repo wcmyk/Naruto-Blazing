@@ -454,6 +454,19 @@
           const {damage, isCritical, breakdown} = this.calculateDamage(attacker, target, mult);
           target.stats.hp = Math.max(0, target.stats.hp - damage);
 
+          // Check for ultimate finish (final enemy defeated)
+          const remainingEnemies = core.enemyTeam.filter(e => e.stats.hp > 0).length;
+          const isUltimateFinish = window.BattleFinish?.isUltimateFinish(target, remainingEnemies, true);
+
+          if (isUltimateFinish) {
+            // Trigger ultimate finish animation
+            setTimeout(() => {
+              if (window.BattleFinish) {
+                window.BattleFinish.playUltimateFinish(attacker, target, core);
+              }
+            }, 300);
+          }
+
           // Apply knockback for ultimate
           if (window.BattlePhysics) {
             window.BattlePhysics.applyKnockback(target, attacker, 60, core);

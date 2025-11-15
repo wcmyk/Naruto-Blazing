@@ -107,6 +107,16 @@
         window.BattleMissions.init(this);
       }
 
+      // Initialize modifiers if available
+      if (window.BattleModifiers) {
+        window.BattleModifiers.init(this);
+      }
+
+      // Play entrance animations if available
+      if (window.BattleEntrance) {
+        await window.BattleEntrance.playEntranceSequence(this);
+      }
+
       // Start speed gauge system if turns module available
       if (this.turns) {
         this.turns.startSpeedGaugeTick(this);
