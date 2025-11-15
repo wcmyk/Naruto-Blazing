@@ -375,6 +375,11 @@
         if (window.BattleAnimations) {
           this.showChakraGain(unit, gained, core);
         }
+
+        // Animate chakra wheel (blue orb flying in)
+        if (window.BattleChakraWheel) {
+          window.BattleChakraWheel.animateChakraGain(unit, gained, core);
+        }
       }
 
       return gained;
@@ -396,6 +401,11 @@
       unit.chakra -= cost;
       console.log(`[Chakra] 💸 ${unit.name} spent ${cost} chakra (${unit.chakra}/${unit.maxChakra} remaining)`);
       this.updateUnitChakraDisplay(unit, core);
+
+      // Update chakra wheel display
+      if (window.BattleChakraWheel) {
+        window.BattleChakraWheel.updateChakraWheel(unit, core);
+      }
 
       return true;
     },

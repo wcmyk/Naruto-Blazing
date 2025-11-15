@@ -97,7 +97,7 @@
         isBench: data.isBench || false,
         pos: data.pos || { x: 50, y: 50 },
         stats: data.stats,
-        chakra: 0,
+        chakra: 2,  // Start with 2 chakra so wheels are visible
         maxChakra: 10,
         speedGauge: initialGauge,
         isPaused: false,
@@ -263,11 +263,23 @@
         `;
       }).join('');
 
-      // Add drag handlers
+      // Add drag handlers and chakra wheels
       core.dom.benchContainer.querySelectorAll(".bench-unit").forEach(el => {
         if (core.swap) {
           el.addEventListener("dragstart", (e) => core.swap.handleBenchDragStart(e, core));
           el.addEventListener("dragend", (e) => core.drag.handleDragEnd(e, core));
+        }
+
+        // Create chakra wheel for bench unit portrait
+        const unitId = el.dataset.unitId;
+        const unit = core.benchTeam.find(u => u.id === unitId);
+        const portrait = el.querySelector('img');
+
+        if (unit && portrait && window.BattleChakraWheel) {
+          if (!window.BattleChakraWheel.getWheel(unit.id)) {
+            window.BattleChakraWheel.createChakraWheel(unit, portrait, true); // true = bench unit
+          }
+          window.BattleChakraWheel.updateChakraWheel(unit, core);
         }
       });
     },

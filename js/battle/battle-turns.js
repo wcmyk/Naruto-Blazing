@@ -277,6 +277,14 @@
       // Update portrait and basic info
       if (core.dom.actionPortrait) {
         core.dom.actionPortrait.src = unit.portrait;
+
+        // Create/update chakra wheel for active unit
+        if (window.BattleChakraWheel && !window.BattleChakraWheel.getWheel(unit.id)) {
+          window.BattleChakraWheel.createChakraWheel(unit, core.dom.actionPortrait, false);
+        }
+        if (window.BattleChakraWheel) {
+          window.BattleChakraWheel.updateChakraWheel(unit, core);
+        }
       }
       if (core.dom.actionName) {
         core.dom.actionName.textContent = `${unit.name} [Pos ${unit.positionId}]`;
