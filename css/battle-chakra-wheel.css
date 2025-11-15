@@ -175,6 +175,7 @@
 
 /* === LIGHTNING EFFECT (Jagged Bolts Around Chakra Wheel Rim) === */
 /* Lightning wraps around the wheel's edge, NOT radiating outward */
+/* IMPORTANT: pointer-events MUST be none so drag targeting works */
 .lightning-effect {
   position: absolute;
   top: 50%;
@@ -182,7 +183,7 @@
   width: 160%;
   height: 160%;
   transform: translate(-50%, -50%);
-  pointer-events: none;
+  pointer-events: none !important; /* CRITICAL: Must not block dragging */
   z-index: 200;
   animation: lightningFlicker 0.3s steps(3) infinite;
 }
@@ -305,6 +306,53 @@
 }
 
 /* Segment sizing is handled by the ::before pseudo-element above */
+
+/* === Attack Type Selected Feedback === */
+.chakra-wheel.attack-selected {
+  filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.8));
+  animation: attackSelectedPulse 0.5s ease-out;
+}
+
+@keyframes attackSelectedPulse {
+  0% { transform: translate(-50%, -50%) scale(1); }
+  50% { transform: translate(-50%, -50%) scale(1.08); }
+  100% { transform: translate(-50%, -50%) scale(1); }
+}
+
+/* === Targeting Overlay (Drag-to-Target System) === */
+.targeting-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.2);
+  pointer-events: none;
+  z-index: 999;
+}
+
+.targeting-indicator {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  border: 3px solid rgba(212, 175, 55, 0.9);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(212, 175, 55, 0.3) 0%, transparent 70%);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  animation: targetingPulse 0.8s ease-in-out infinite;
+}
+
+@keyframes targetingPulse {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.2);
+    opacity: 1;
+  }
+}
 
 /* === Debug/Development Helper === */
 .chakra-wheel.debug {

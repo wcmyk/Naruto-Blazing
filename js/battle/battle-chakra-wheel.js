@@ -231,6 +231,7 @@
 
     /**
      * Handle wheel click for double/triple-click detection
+     * DOES NOT EXECUTE ATTACKS - only routes to input manager to set attack type
      */
     handleWheelClick(unit, wheel, event) {
       event.stopPropagation();
@@ -256,83 +257,24 @@
         const clickCount = tracking.count;
         tracking.count = 0;
 
-        // Determine action based on click count
-        if (clickCount === 2) {
-          this.handleDoubleClick(unit, wheel);
-        } else if (clickCount >= 3) {
-          this.handleTripleClick(unit, wheel);
+        // Route to input manager - DOES NOT EXECUTE, only sets attack type
+        if (window.BattleInputManager) {
+          if (clickCount === 1) {
+            window.BattleInputManager.handleSingleClick(unit);
+          } else if (clickCount === 2) {
+            window.BattleInputManager.handleDoubleClick(unit);
+          } else if (clickCount >= 3) {
+            window.BattleInputManager.handleTripleClick(unit);
+          }
         }
       }, this.CLICK_DELAY);
     },
 
-    /**
-     * Handle double-click → Ultimate activation (red lightning)
-     */
-    handleDoubleClick(unit, wheel) {
-      console.log(`[ChakraWheel] Double-click detected on ${unit.name}`);
-
-      // Check if unit has ultimate and enough chakra
-      const skills = window.BattleCombat?.getUnitSkills(unit);
-      if (!skills?.ultimate) {
-        console.log(`[ChakraWheel] ${unit.name} has no ultimate skill`);
-        return;
-      }
-
-      const ultCost = Number(skills.ultimate.data?.chakraCost ?? 8);
-      if (unit.chakra < ultCost) {
-        console.log(`[ChakraWheel] Not enough chakra for ultimate (need ${ultCost}, have ${unit.chakra})`);
-        return;
-      }
-
-      // Check if ultimate is unlocked
-      const ultUnlocked = window.BattleCombat?.isUltimateUnlocked(unit) ?? true;
-      if (!ultUnlocked) {
-        console.log(`[ChakraWheel] Ultimate is locked for ${unit.name}`);
-        return;
-      }
-
-      // Show red lightning effect
-      this.showLightningEffect(wheel, 'red');
-
-      // TODO: Queue ultimate action in battle system
-      console.log(`[ChakraWheel] Ultimate ready for ${unit.name}!`);
-    },
+    /* ===== Visual Effects ===== */
 
     /**
-     * Handle triple-click → Secret Technique activation (gold lightning)
-     */
-    handleTripleClick(unit, wheel) {
-      console.log(`[ChakraWheel] Triple-click detected on ${unit.name}`);
-
-      // Check if unit has secret technique and enough chakra
-      const skills = window.BattleCombat?.getUnitSkills(unit);
-      if (!skills?.secret) {
-        console.log(`[ChakraWheel] ${unit.name} has no secret technique`);
-        return;
-      }
-
-      const secretCost = Number(skills.secret.data?.chakraCost ?? 12);
-      if (unit.chakra < secretCost) {
-        console.log(`[ChakraWheel] Not enough chakra for secret (need ${secretCost}, have ${unit.chakra})`);
-        return;
-      }
-
-      // Check if secret is unlocked (requires 6S+ tier)
-      const secretUnlocked = window.BattleCombat?.isSecretUnlocked(unit) ?? false;
-      if (!secretUnlocked) {
-        console.log(`[ChakraWheel] Secret technique is locked for ${unit.name}`);
-        return;
-      }
-
-      // Show gold lightning effect (overrides red)
-      this.showLightningEffect(wheel, 'gold');
-
-      // TODO: Queue secret technique action in battle system
-      console.log(`[ChakraWheel] Secret Technique ready for ${unit.name}!`);
-    },
-
-    /**
-     * Show lightning effect around chakra wheel
+     * Show lightning effect around chakra wheel (visual only, non-blocking)
+     * Called by BattleInputManager when attack type is selected
      * @param {HTMLElement} wheel - The chakra wheel element
      * @param {string} type - 'red' for ultimate, 'gold' for secret
      */
