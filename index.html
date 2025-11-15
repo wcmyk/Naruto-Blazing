@@ -37,10 +37,23 @@
 
   <!-- Scripts -->
   <script src="js/character_inv.js"></script>
+  <script src="js/resources.js"></script>
+  <script src="js/daily-missions.js"></script>
 
   <script>
-    document.addEventListener("DOMContentLoaded", () => {
+    document.addEventListener("DOMContentLoaded", async () => {
       console.log("✅ JavaScript loaded!");
+
+      // Process login bonus
+      if (typeof window.DailyMissions !== "undefined") {
+        const loginResult = await window.DailyMissions.processLogin();
+        if (loginResult.ok && !loginResult.alreadyClaimed) {
+          const rewardText = Object.entries(loginResult.reward)
+            .map(([mat, amt]) => `${mat}: ${amt}`)
+            .join(", ");
+          alert(`Login Bonus Day ${loginResult.loginDay}!\n\nRewards:\n${rewardText}`);
+        }
+      }
 
       // Background cycling
       const el = document.getElementById("full-bg");

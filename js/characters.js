@@ -363,6 +363,14 @@
       BTN_FEEDDUPE.disabled = !hasDupes || allUnlocked;
     }
 
+    // Trigger daily mission
+    if (window.DailyMissions) {
+      const dailyResult = await window.DailyMissions.incrementDaily('daily_feed_dupe');
+      if (dailyResult && dailyResult.completed) {
+        alert(`Daily Mission Completed!\n${dailyResult.dailyName}`);
+      }
+    }
+
     alert(`Ability unlocked!\n\n${result.unlockedAbility.name}\n${result.unlockedAbility.description || result.unlockedAbility}\n\nTotal: ${result.totalUnlocked}/${result.maxAbilities} abilities unlocked`);
   }
 
@@ -410,13 +418,21 @@
   }
 
   function wireStatusButtons(c, inst, tierOrNull) {
-    BTN_LVUP.onclick = () => {
+    BTN_LVUP.onclick = async () => {
       const t   = tierOrNull || (inst.tierCode || (c ? minTier(c) : "3S"));
       const cap = c ? tierCap(c, t) : 100;
       const upd = window.InventoryChar.levelUpInstance(inst.uid, 1, cap);
       LV_VALUE_EL.textContent = (upd.level >= cap) ? "MAX" : String(upd.level);
       if (c) window.renderStatusTab(c, upd, t);
       renderGrid();
+
+      // Trigger daily mission
+      if (window.DailyMissions) {
+        const result = await window.DailyMissions.incrementDaily('daily_level_up');
+        if (result && result.completed) {
+          alert(`Daily Mission Completed!\n${result.dailyName}`);
+        }
+      }
     };
 
     BTN_ADD.onclick = () => {
@@ -490,6 +506,14 @@
       await window.renderStatusTab(c, fresh, newTier);
       renderSkillsTab(c, fresh, newTier);
       renderGrid();
+
+      // Trigger daily mission
+      if (window.DailyMissions) {
+        const dailyResult = await window.DailyMissions.incrementDaily('daily_awaken');
+        if (dailyResult && dailyResult.completed) {
+          alert(`Daily Mission Completed!\n${dailyResult.dailyName}`);
+        }
+      }
 
       alert(`Successfully awakened ${c.name} to ${starsFromTier(newTier)} stars!`);
     };
