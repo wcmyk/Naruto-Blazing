@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="css/bottombar.css" />
   <link rel="stylesheet" href="css/characters_abilities.css" />
   <link rel="stylesheet" href="css/character_dupe_abilities.css" />
+  <link rel="stylesheet" href="css/abilities_tab.css" />
 </head>
 <body class="page-characters">
   <div id="char-bg"></div>
@@ -32,6 +33,7 @@
 
         <div class="char-tabs">
           <button class="tab-btn is-active" data-tab="status">Status</button>
+          <button class="tab-btn" data-tab="abilities">Abilities</button>
           <button class="tab-btn" data-tab="skills">Ninjutsu</button>
           <button class="tab-btn" data-tab="support">F/B Skills</button>
         </div>
@@ -49,7 +51,6 @@
               </div>
               <div class="growth-buttons">
                 <button class="btn-darkgold" id="btn-levelup">Level Up</button>
-                <button class="btn-dark" id="btn-feeddupe">Feed Duplicate</button>
                 <button class="btn-dark" id="btn-removecopy">Remove Copy</button>
                 <button class="btn-awaken" id="btn-awaken" disabled>Awaken</button>
                 <button class="btn-limitbreak" id="btn-limitbreak" disabled>Limit Break</button>
@@ -61,6 +62,10 @@
               <div class="tip-line" id="awaken-tip"></div>
               <div class="materials-display" id="materials-display"></div>
             </div>
+          </section>
+
+          <section class="tab-panel" id="tab-abilities">
+            <div id="char-abilities-tab" class="abilities-tab-wrap"></div>
           </section>
 
           <section class="tab-panel" id="tab-skills">

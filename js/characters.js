@@ -25,7 +25,6 @@
   const TIP_EL        = document.getElementById("awaken-tip");
 
   const BTN_LVUP      = document.getElementById("btn-levelup");
-  const BTN_FEEDDUPE  = document.getElementById("btn-feeddupe");
   const BTN_REMOVE    = document.getElementById("btn-removecopy");
   const BTN_AWAKEN    = document.getElementById("btn-awaken");
   const BTN_LIMITBREAK = document.getElementById("btn-limitbreak");
@@ -38,6 +37,7 @@
 
   const SKILLS_WRAP   = document.getElementById("char-skills");
   const SUPPORT_WRAP  = document.getElementById("char-support");
+  const ABILITIES_TAB = document.getElementById("char-abilities-tab");
 
   if (!GRID || !MODAL) {
     console.warn("[characters] Missing .char-grid or #char-modal in DOM");
@@ -92,9 +92,23 @@
   /* ---------- Level badge (grid cards) ---------- */
   function levelBadgeHTML(c, inst) {
     const t   = inst.tierCode || minTier(c);
-    const cap = tierCap(c, t);
+    const baseCap = tierCap(c, t);
     const lv  = safeNum(inst.level, 1);
-    const isMax = lv >= cap;
+
+    // Calculate actual cap including limit break
+    let actualCap = baseCap;
+    if (hasLimitBreak && inst.limitBreakLevel && inst.limitBreakLevel > 0) {
+      const lbBonus = window.LimitBreak.getLevelCapBonus(inst.limitBreakLevel);
+      actualCap = baseCap + lbBonus;
+    }
+
+    const isMax = lv >= actualCap;
+
+    // Special case: Level 150 should show MAX in dark red
+    if (lv >= 150) {
+      return `<span class="lv">Lv</span> <span class="max max-150">MAX</span>`;
+    }
+
     return isMax
       ? `<span class="lv">Lv</span> <span class="max">MAX</span>`
       : `<span class="lv">Lv</span> ${lv}`;
@@ -183,6 +197,7 @@
     MODAL_IMG.alt = `${c.name} full artwork`;
 
     renderStatusTab(c, inst, tier);
+    renderAbilitiesTab(c, inst, tier);
     renderSkillsTab(c, inst, tier);
     renderSupportTab(c);
     setActiveTab("status");
@@ -243,12 +258,34 @@
         <div class="stat-row"><span class="stat-label">Chakra</span><span class="stat-value">${s.chakra ?? "-"}</span></div>`;
     }
 
-    const cap   = tierCap(c, tier);
+    const baseCap = tierCap(c, tier);
     const level = Math.max(1, safeNum(inst.level, 1));
-    const isMax = level >= cap;
 
-    LV_VALUE_EL.textContent = isMax ? "MAX" : String(level);
-    LV_CAP_EL.textContent   = String(cap);
+    // Calculate actual cap including limit break
+    let actualCap = baseCap;
+    if (hasLimitBreak && inst.limitBreakLevel && inst.limitBreakLevel > 0) {
+      const lbBonus = window.LimitBreak.getLevelCapBonus(inst.limitBreakLevel);
+      actualCap = baseCap + lbBonus;
+    }
+
+    const isMax = level >= actualCap;
+
+    // Special case: Level 150 should show MAX in dark red
+    if (level >= 150) {
+      LV_VALUE_EL.textContent = "MAX";
+      LV_VALUE_EL.style.color = "#8B0000"; // Dark red
+      LV_VALUE_EL.style.fontWeight = "bold";
+    } else if (isMax) {
+      LV_VALUE_EL.textContent = "MAX";
+      LV_VALUE_EL.style.color = ""; // Reset to default
+      LV_VALUE_EL.style.fontWeight = "";
+    } else {
+      LV_VALUE_EL.textContent = String(level);
+      LV_VALUE_EL.style.color = ""; // Reset to default
+      LV_VALUE_EL.style.fontWeight = "";
+    }
+
+    LV_CAP_EL.textContent = String(actualCap);
 
     // Awakening check
     const canAwaken = hasProg && typeof window.Progression.canAwaken === "function" && isMax && window.Progression.canAwaken(inst, c);
@@ -326,86 +363,35 @@
 
   function wireStatusButtons(c, inst, tierOrNull) {
     BTN_LVUP.onclick = () => {
-      const t   = tierOrNull || (inst.tierCode || (c ? minTier(c) : "3S"));
-      const cap = c ? tierCap(c, t) : 100;
-      const upd = window.InventoryChar.levelUpInstance(inst.uid, 1, cap);
-      LV_VALUE_EL.textContent = (upd.level >= cap) ? "MAX" : String(upd.level);
+      const t = tierOrNull || (inst.tierCode || (c ? minTier(c) : "3S"));
+      const baseCap = c ? tierCap(c, t) : 100;
+
+      // Calculate actual cap including limit break
+      let actualCap = baseCap;
+      if (hasLimitBreak && inst.limitBreakLevel && inst.limitBreakLevel > 0) {
+        const lbBonus = window.LimitBreak.getLevelCapBonus(inst.limitBreakLevel);
+        actualCap = baseCap + lbBonus;
+      }
+
+      const upd = window.InventoryChar.levelUpInstance(inst.uid, 1, actualCap);
+
+      // Update display with special handling for level 150
+      if (upd.level >= 150) {
+        LV_VALUE_EL.textContent = "MAX";
+        LV_VALUE_EL.style.color = "#8B0000"; // Dark red
+        LV_VALUE_EL.style.fontWeight = "bold";
+      } else if (upd.level >= actualCap) {
+        LV_VALUE_EL.textContent = "MAX";
+        LV_VALUE_EL.style.color = "";
+        LV_VALUE_EL.style.fontWeight = "";
+      } else {
+        LV_VALUE_EL.textContent = String(upd.level);
+        LV_VALUE_EL.style.color = "";
+        LV_VALUE_EL.style.fontWeight = "";
+      }
+
       if (c) window.renderStatusTab(c, upd, t);
       renderGrid();
-    };
-
-    BTN_FEEDDUPE.onclick = () => {
-      if (!c?.id) return;
-
-      // Check if character has abilities that can be unlocked
-      const hasAbilities = c.abilities && c.abilities.length > 0;
-      const currentUnlocks = inst.dupeUnlocks || 0;
-      const canUnlockMore = hasAbilities && currentUnlocks < c.abilities.length;
-
-      if (!canUnlockMore) {
-        alert(hasAbilities
-          ? "All abilities already unlocked!"
-          : "This character has no abilities to unlock.");
-        return;
-      }
-
-      // Get all duplicates of the same character (excluding current one)
-      const allCopies = window.InventoryChar.instancesOf(c.id);
-      const duplicates = allCopies.filter(copy => copy.uid !== inst.uid);
-
-      if (duplicates.length === 0) {
-        alert("No duplicates available to feed!\n\nYou need another copy of this character to unlock abilities.");
-        return;
-      }
-
-      // Build selection dialog
-      const nextAbility = c.abilities[currentUnlocks];
-      let message = `Feed a duplicate to unlock the next ability:\n\n`;
-      message += `Ability ${currentUnlocks + 1}/${c.abilities.length}: ${nextAbility.name}\n`;
-      message += `${nextAbility.description}\n\n`;
-      message += `Available duplicates:\n`;
-      duplicates.forEach((dupe, idx) => {
-        const dupeStars = starsFromTier(dupe.tierCode || minTier(c));
-        message += `${idx + 1}. Lv ${dupe.level} (${dupeStars}★) - UID: ${dupe.uid.substring(0, 8)}\n`;
-      });
-      message += `\nEnter the number of the duplicate to feed (1-${duplicates.length}):`;
-
-      const selection = prompt(message);
-      if (!selection) return;
-
-      const selectedIdx = parseInt(selection) - 1;
-      if (isNaN(selectedIdx) || selectedIdx < 0 || selectedIdx >= duplicates.length) {
-        alert("Invalid selection!");
-        return;
-      }
-
-      const selectedDupe = duplicates[selectedIdx];
-
-      // Confirm the feeding
-      const dupeStars = starsFromTier(selectedDupe.tierCode || minTier(c));
-      const confirmMsg = `Are you sure you want to feed this duplicate?\n\n` +
-                        `Feeding: Lv ${selectedDupe.level} (${dupeStars}★)\n` +
-                        `To unlock: ${nextAbility.name}\n\n` +
-                        `This will permanently remove the duplicate from your inventory.`;
-
-      if (!confirm(confirmMsg)) return;
-
-      // Feed the duplicate
-      if (window.characterDupeAbilities) {
-        const result = window.characterDupeAbilities.unlockNextAbility(inst.uid);
-        if (result.success) {
-          // Remove the fed duplicate from inventory
-          window.InventoryChar.removeOneByUid(selectedDupe.uid);
-
-          alert(`✅ Ability Unlocked!\n\n${result.abilityName}\n${result.abilityDescription}\n\nProgress: ${result.unlockedCount}/${result.maxAbilities}`);
-
-          // Refresh displays
-          window.characterDupeAbilities.refresh();
-          renderGrid();
-        } else {
-          alert(`⚠️ ${result.message}`);
-        }
-      }
     };
 
     BTN_REMOVE.onclick = () => {
@@ -454,6 +440,7 @@
       NP_STARS.innerHTML = renderStars(starsFromTier(newTier));
 
       await window.renderStatusTab(c, fresh, newTier);
+      renderAbilitiesTab(c, fresh, newTier);
       renderSkillsTab(c, fresh, newTier);
       renderGrid();
 
@@ -504,6 +491,7 @@
         const fresh = window.InventoryChar.getByUid(inst.uid);
 
         await window.renderStatusTab(c, fresh, tier);
+        renderAbilitiesTab(c, fresh, tier);
         renderGrid();
 
         alert(`Limit Break successful! ${c.name} is now LB${res.limitBreakLevel}!`);
@@ -603,6 +591,148 @@
     SKILLS_WRAP.innerHTML = cards.length ? cards.join("") : `<div class="skill-card">No skills available.</div>`;
   }
   window.renderSkillsTab = renderSkillsTab;
+
+  /* ---------- ABILITIES tab ---------- */
+  function renderAbilitiesTab(c, inst, tier) {
+    if (!ABILITIES_TAB) return;
+
+    const abilities = c?.abilities || [];
+    const currentUnlocks = inst?.dupeUnlocks || 0;
+
+    if (abilities.length === 0) {
+      ABILITIES_TAB.innerHTML = `
+        <div class="abilities-empty">
+          <div class="abilities-empty-icon">🔒</div>
+          <div class="abilities-empty-text">This character has no abilities to unlock.</div>
+        </div>
+      `;
+      return;
+    }
+
+    // Build abilities list HTML
+    let html = `
+      <div class="abilities-header-tab">
+        <div class="abilities-title-tab">Character Abilities</div>
+        <div class="abilities-progress">${currentUnlocks}/${abilities.length} Unlocked</div>
+      </div>
+      <div class="abilities-list-tab">
+    `;
+
+    abilities.forEach((ability, index) => {
+      const isUnlocked = index < currentUnlocks;
+      html += `
+        <div class="ability-card ${isUnlocked ? 'unlocked' : 'locked'}">
+          <div class="ability-number">${index + 1}</div>
+          <div class="ability-content-card">
+            ${isUnlocked ? `
+              <div class="ability-name-card">${ability.name}</div>
+              <div class="ability-desc-card">${ability.description}</div>
+              <div class="ability-status-badge unlocked">✓ Unlocked</div>
+            ` : `
+              <div class="ability-name-card locked-text">Locked Ability</div>
+              <div class="ability-desc-card locked-text">Feed duplicates to unlock this ability.</div>
+              <div class="ability-status-badge locked">🔒 Locked</div>
+            `}
+          </div>
+        </div>
+      `;
+    });
+
+    html += `</div>`;
+
+    // Add feed duplicate section
+    const allCopies = window.InventoryChar.instancesOf(c.id);
+    const duplicates = allCopies.filter(copy => copy.uid !== inst.uid);
+    const canUnlockMore = currentUnlocks < abilities.length;
+
+    html += `
+      <div class="abilities-feed-section">
+        <div class="feed-section-title">Unlock Abilities</div>
+        <div class="feed-section-info">Feed duplicates of this character to unlock abilities (1 duplicate = 1 ability)</div>
+    `;
+
+    if (!canUnlockMore) {
+      html += `
+        <div class="feed-section-message success">
+          🎉 All abilities unlocked!
+        </div>
+      `;
+    } else if (duplicates.length === 0) {
+      html += `
+        <div class="feed-section-message warning">
+          ⚠️ No duplicates available. Obtain another copy of this character to unlock more abilities.
+        </div>
+      `;
+    } else {
+      const nextAbility = abilities[currentUnlocks];
+      html += `
+        <div class="feed-section-next">
+          <div class="next-ability-label">Next Ability:</div>
+          <div class="next-ability-name">${nextAbility.name}</div>
+          <div class="next-ability-desc">${nextAbility.description}</div>
+        </div>
+        <div class="feed-duplicates-list">
+          <div class="duplicates-list-title">Available Duplicates (${duplicates.length}):</div>
+      `;
+
+      duplicates.forEach((dupe, idx) => {
+        const dupeStars = starsFromTier(dupe.tierCode || minTier(c));
+        html += `
+          <button class="duplicate-item" data-dupe-uid="${dupe.uid}">
+            <span class="dupe-info">Lv ${dupe.level} (${dupeStars}★)</span>
+            <span class="dupe-feed-btn">Feed to Unlock</span>
+          </button>
+        `;
+      });
+
+      html += `</div>`;
+    }
+
+    html += `</div>`;
+
+    ABILITIES_TAB.innerHTML = html;
+
+    // Wire up duplicate feed buttons
+    if (canUnlockMore && duplicates.length > 0) {
+      const dupeButtons = ABILITIES_TAB.querySelectorAll('.duplicate-item');
+      dupeButtons.forEach(btn => {
+        btn.onclick = () => {
+          const dupeUid = btn.dataset.dupeUid;
+          const selectedDupe = duplicates.find(d => d.uid === dupeUid);
+          if (!selectedDupe) return;
+
+          const dupeStars = starsFromTier(selectedDupe.tierCode || minTier(c));
+          const nextAbility = abilities[currentUnlocks];
+
+          const confirmMsg = `Feed this duplicate to unlock an ability?\n\n` +
+                            `Feeding: Lv ${selectedDupe.level} (${dupeStars}★)\n` +
+                            `To unlock: ${nextAbility.name}\n\n` +
+                            `This will permanently remove the duplicate from your inventory.`;
+
+          if (!confirm(confirmMsg)) return;
+
+          // Feed the duplicate
+          if (window.characterDupeAbilities) {
+            const result = window.characterDupeAbilities.unlockNextAbility(inst.uid);
+            if (result.success) {
+              // Remove the fed duplicate from inventory
+              window.InventoryChar.removeOneByUid(selectedDupe.uid);
+
+              alert(`✅ Ability Unlocked!\n\n${result.abilityName}\n${result.abilityDescription}\n\nProgress: ${result.unlockedCount}/${result.maxAbilities}`);
+
+              // Refresh displays
+              const freshInst = window.InventoryChar.getByUid(inst.uid);
+              renderAbilitiesTab(c, freshInst, tier);
+              renderGrid();
+            } else {
+              alert(`⚠️ ${result.message}`);
+            }
+          }
+        };
+      });
+    }
+  }
+  window.renderAbilitiesTab = renderAbilitiesTab;
 
   /* ---------- F/B SKILLS tab ---------- */
   function renderSupportTab(c) {
@@ -721,6 +851,9 @@
 
         if (typeof window.renderStatusTab === "function") {
           window.renderStatusTab(c, updated, newTier);
+        }
+        if (typeof window.renderAbilitiesTab === "function") {
+          window.renderAbilitiesTab(c, updated, newTier);
         }
         if (typeof window.renderSkillsTab === "function") {
           window.renderSkillsTab(c, updated, newTier);
