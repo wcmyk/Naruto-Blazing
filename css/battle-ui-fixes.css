@@ -198,18 +198,25 @@
 /* Unit Container - Ensure proper stacking */
 .battle-unit {
   position: absolute;
-  width: 64px;
-  height: 80px; /* Increased to accommodate bars */
+  width: 70px;
+  height: 70px;
   display: flex;
   flex-direction: column;
   align-items: center;
   z-index: 1;
+  transform: translate(-50%, -50%);
+  pointer-events: auto;
+  cursor: grab;
+}
+
+.battle-unit:active {
+  cursor: grabbing;
 }
 
 /* Unit Sprite Container */
 .unit-sprite {
-  width: 64px;
-  height: 64px;
+  width: 70px;
+  height: 70px;
   position: relative;
   border-radius: 8px;
   overflow: hidden;
@@ -226,14 +233,16 @@
 
 /* HP Bar Container - BELOW sprite */
 .unit-hp-bar {
-  position: relative;
-  width: 58px;
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 64px;
   height: 6px;
   background: rgba(0, 0, 0, 0.8);
   border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 3px;
   overflow: hidden;
-  margin-top: 2px;
   z-index: 1;
 }
 
@@ -263,14 +272,16 @@
 
 /* Chakra Bar - BELOW HP bar */
 .unit-chakra-bar {
-  position: relative;
-  width: 58px;
+  position: absolute;
+  bottom: -18px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 64px;
   height: 4px;
   background: rgba(0, 0, 0, 0.8);
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 2px;
   overflow: hidden;
-  margin-top: 1px;
   z-index: 1;
 }
 
@@ -433,18 +444,18 @@
 
 @media (max-width: 768px) {
   .battle-unit {
-    width: 48px;
-    height: 64px;
+    width: 60px;
+    height: 60px;
   }
 
   .unit-sprite {
-    width: 48px;
-    height: 48px;
+    width: 60px;
+    height: 60px;
   }
 
   .unit-hp-bar,
   .unit-chakra-bar {
-    width: 44px;
+    width: 54px;
   }
 
   #action-panel button {
