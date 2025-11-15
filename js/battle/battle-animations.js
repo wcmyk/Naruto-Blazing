@@ -36,23 +36,76 @@
       const rect = unitEl.getBoundingClientRect();
       const sceneRect = dom.scene.getBoundingClientRect();
 
-      // Main damage number
+      // Determine damage type for color coding
+      let damageType = 'normal';
+      if (isHeal) {
+        damageType = 'heal';
+      } else if (isCritical) {
+        damageType = 'crit';
+      } else if (amount < 50) {
+        damageType = 'weak';  // Low damage
+      } else if (breakdown?.guard) {
+        damageType = 'resist';  // Blocked/reduced damage
+      }
+
+      // Show impact flash effect using particle system
+      if (!isHeal && window.BattleParticles) {
+        window.BattleParticles.createImpactFlash(unit, damageType, dom.scene);
+      }
+
+      // Main damage number with enhanced styling
       const damageEl = document.createElement("div");
-      damageEl.className = `damage-number ${isCritical ? 'critical' : ''} ${isHeal ? 'heal' : ''}`;
+      damageEl.className = `damage-number damage-${damageType}`;
       damageEl.textContent = isHeal ? `+${amount}` : `-${amount}`;
       damageEl.style.position = 'absolute';
       damageEl.style.left = `${rect.left - sceneRect.left + rect.width / 2}px`;
       damageEl.style.top = `${rect.top - sceneRect.top}px`;
       damageEl.style.transform = 'translate(-50%, -100%)';
-      damageEl.style.animation = 'damageFloat 1s ease-out forwards';
-      damageEl.style.fontSize = isCritical ? '4.5rem' : '3.5rem';
-      damageEl.style.fontWeight = 'bold';
-      damageEl.style.color = isHeal ? '#2ecc71' : (isCritical ? '#ff4444' : '#ffffff');
-      damageEl.style.textShadow = '3px 3px 6px rgba(0,0,0,0.9), 0 0 10px rgba(0,0,0,0.5)';
-      damageEl.style.zIndex = '500';
       damageEl.style.pointerEvents = 'none';
       damageEl.style.fontFamily = "'Cinzel', serif";
       damageEl.style.letterSpacing = '2px';
+      damageEl.style.fontWeight = 'bold';
+      damageEl.style.zIndex = '500';
+
+      // Type-specific styling
+      const styles = {
+        heal: {
+          color: '#5efc82',
+          size: '3.5rem',
+          shadow: '3px 3px 6px rgba(0,0,0,0.9), 0 0 15px rgba(94,252,130,0.8)',
+          animation: 'healFloat 1s ease-out forwards'
+        },
+        crit: {
+          color: '#ffd700',
+          size: '4.5rem',
+          shadow: '3px 3px 6px rgba(0,0,0,0.9), 0 0 20px rgba(255,215,0,0.9)',
+          animation: 'damageCritFloat 1s ease-out forwards'
+        },
+        normal: {
+          color: '#ffffff',
+          size: '3.5rem',
+          shadow: '3px 3px 6px rgba(0,0,0,0.9), 0 0 10px rgba(0,0,0,0.5)',
+          animation: 'damageFloat 1s ease-out forwards'
+        },
+        weak: {
+          color: '#999999',
+          size: '2.8rem',
+          shadow: '2px 2px 4px rgba(0,0,0,0.7)',
+          animation: 'damageFloat 1s ease-out forwards'
+        },
+        resist: {
+          color: '#4488ff',
+          size: '3rem',
+          shadow: '2px 2px 5px rgba(0,0,0,0.8), 0 0 10px rgba(68,136,255,0.6)',
+          animation: 'damageFloat 1s ease-out forwards'
+        }
+      };
+
+      const style = styles[damageType] || styles.normal;
+      damageEl.style.fontSize = style.size;
+      damageEl.style.color = style.color;
+      damageEl.style.textShadow = style.shadow;
+      damageEl.style.animation = style.animation;
 
       // Add critical hit indicator
       if (isCritical) {
@@ -62,22 +115,23 @@
         critText.style.left = `${rect.left - sceneRect.left + rect.width / 2}px`;
         critText.style.top = `${rect.top - sceneRect.top - 40}px`;
         critText.style.transform = 'translate(-50%, -100%)';
-        critText.style.fontSize = '1.2rem';
+        critText.style.fontSize = '1.3rem';
         critText.style.fontWeight = 'bold';
         critText.style.color = '#ffcc00';
-        critText.style.textShadow = '2px 2px 4px rgba(0,0,0,0.8)';
+        critText.style.textShadow = '2px 2px 4px rgba(0,0,0,0.8), 0 0 15px rgba(255,204,0,0.7)';
         critText.style.zIndex = '501';
         critText.style.pointerEvents = 'none';
         critText.style.animation = 'damageFloat 1s ease-out forwards';
+        critText.style.fontFamily = "'Cinzel', serif";
         dom.damageLayer.appendChild(critText);
         setTimeout(() => critText.remove(), 1000);
       }
 
       dom.damageLayer.appendChild(damageEl);
-      console.log(`[Animations] ✅ Damage number created and appended`, {
+      console.log(`[Animations] ✅ Enhanced damage number created`, {
         text: damageEl.textContent,
-        position: { left: damageEl.style.left, top: damageEl.style.top },
-        color: damageEl.style.color
+        type: damageType,
+        color: style.color
       });
 
       setTimeout(() => {
