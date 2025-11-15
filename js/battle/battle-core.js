@@ -456,10 +456,23 @@
     updateCombatants() {
       // Only active (non-benched) units participate in combat
       this.combatants = [...this.activeTeam, ...this.enemyTeam].filter(u => !u.isBench && u.isActive);
-      console.log("[BattleCore] Combatants updated:", this.combatants.length);
-      console.log("[BattleCore] Active team:", this.activeTeam.map(u => `${u.name} (Player: ${u.isPlayer})`));
-      console.log("[BattleCore] Enemy team:", this.enemyTeam.map(u => `${u.name} (Player: ${u.isPlayer})`));
-      console.log("[BattleCore] Final combatants:", this.combatants.map(u => `${u.name} (Player: ${u.isPlayer}, Active: ${u.isActive}, Bench: ${u.isBench})`));
+      console.log("[BattleCore] ========== COMBATANTS UPDATE ==========");
+      console.log("[BattleCore] Total combatants:", this.combatants.length);
+      console.log("[BattleCore] Active team count:", this.activeTeam.length);
+      console.log("[BattleCore] Enemy team count:", this.enemyTeam.length);
+
+      // Detailed breakdown
+      console.log("[BattleCore] --- PLAYERS ---");
+      this.activeTeam.forEach(u => {
+        console.log(`  ${u.name}: isActive=${u.isActive}, isBench=${u.isBench}, inCombatants=${this.combatants.includes(u)}`);
+      });
+
+      console.log("[BattleCore] --- ENEMIES ---");
+      this.enemyTeam.forEach(u => {
+        console.log(`  ${u.name}: isActive=${u.isActive}, isBench=${u.isBench}, isPaused=${u.isPaused}, inCombatants=${this.combatants.includes(u)}`);
+      });
+
+      console.log("[BattleCore] ========================================");
     },
 
     updateTeamHP() {
