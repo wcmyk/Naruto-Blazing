@@ -26,6 +26,9 @@
       <button class="hud-button" id="btn-teams" aria-label="Teams">
         <img src="assets/icons/teams_icon.png" alt="Teams">
       </button>
+      <button class="hud-button" id="btn-fusion" aria-label="Fusion">
+        <img src="assets/icons/fusion_icon.png" alt="Fusion">
+      </button>
       <button class="hud-button" id="btn-addchar" aria-label="Add Character">
         <img src="assets/icons/add_icon.png" alt="Add Character">
       </button>
@@ -108,6 +111,15 @@
         btnTeams.addEventListener("click", () => {
           console.log("👥 Teams clicked");
           navigateTo("teams.html");
+        });
+      }
+
+      // Fusion button
+      const btnFusion = document.getElementById("btn-fusion");
+      if (btnFusion) {
+        btnFusion.addEventListener("click", () => {
+          console.log("⚡ Fusion clicked");
+          navigateTo("fusion.html");
         });
       }
 

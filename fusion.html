@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Blazing — Character Fusion</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="css/fusion.css" />
+  <link rel="stylesheet" href="css/bottombar.css" />
+</head>
+<body class="page-fusion">
+  <div id="fusion-bg"></div>
+
+  <main class="fusion-content">
+    <h1 class="page-title">CHARACTER FUSION</h1>
+
+    <div class="fusion-container">
+      <!-- Left Unit Slot -->
+      <div class="fusion-slot-container">
+        <div class="fusion-slot" id="slot-1" data-slot="1">
+          <div class="slot-placeholder">
+            <div class="slot-icon">+</div>
+            <div class="slot-label">Select Unit 1</div>
+          </div>
+        </div>
+        <div class="fusion-unit-info" id="info-1"></div>
+      </div>
+
+      <!-- Fusion Symbol -->
+      <div class="fusion-symbol">
+        <div class="fusion-arrows">
+          <div class="arrow-top">→</div>
+          <div class="fusion-icon">⚡</div>
+          <div class="arrow-bottom">←</div>
+        </div>
+      </div>
+
+      <!-- Right Unit Slot -->
+      <div class="fusion-slot-container">
+        <div class="fusion-slot" id="slot-2" data-slot="2">
+          <div class="slot-placeholder">
+            <div class="slot-icon">+</div>
+            <div class="slot-label">Select Unit 2</div>
+          </div>
+        </div>
+        <div class="fusion-unit-info" id="info-2"></div>
+      </div>
+
+      <!-- Equals Symbol -->
+      <div class="fusion-equals">=</div>
+
+      <!-- Result Slot -->
+      <div class="fusion-slot-container">
+        <div class="fusion-result-slot" id="result-slot">
+          <div class="slot-placeholder">
+            <div class="slot-icon">?</div>
+            <div class="slot-label">Fusion Result</div>
+          </div>
+        </div>
+        <div class="fusion-result-info" id="result-info"></div>
+      </div>
+    </div>
+
+    <!-- Requirements Panel -->
+    <div class="fusion-requirements" id="fusion-requirements" style="display: none;">
+      <h3 class="requirements-title">Fusion Requirements</h3>
+      <div class="requirements-grid" id="requirements-grid"></div>
+    </div>
+
+    <!-- Fusion Button -->
+    <div class="fusion-actions">
+      <button class="btn-fusion" id="btn-fuse" disabled>
+        <span class="btn-icon">⚡</span>
+        <span class="btn-text">Perform Fusion</span>
+      </button>
+      <button class="btn-clear" id="btn-clear">Clear Selection</button>
+    </div>
+
+    <!-- Available Fusions List -->
+    <div class="fusions-list">
+      <h2 class="section-title">Available Fusions</h2>
+      <div class="fusions-grid" id="fusions-grid"></div>
+    </div>
+  </main>
+
+  <!-- Unit Selection Modal -->
+  <div id="unit-selector-modal" class="modal" aria-hidden="true">
+    <div class="modal-panel">
+      <h2 class="modal-title">Select Character</h2>
+      <div class="modal-filters">
+        <input type="text" class="search-input" id="unit-search" placeholder="Search by name...">
+        <select class="tier-filter" id="tier-filter">
+          <option value="">All Tiers</option>
+          <option value="3S">3★</option>
+          <option value="4S">4★</option>
+          <option value="5S">5★</option>
+          <option value="6S">6★</option>
+          <option value="7S">7★</option>
+        </select>
+      </div>
+      <div class="units-grid" id="units-grid"></div>
+      <div class="modal-actions">
+        <button class="btn-dark" id="modal-cancel">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Success Modal -->
+  <div id="fusion-success-modal" class="modal" aria-hidden="true">
+    <div class="modal-panel success-panel">
+      <div class="success-icon">✨</div>
+      <h2 class="success-title">Fusion Successful!</h2>
+      <div class="success-result" id="success-result"></div>
+      <div class="modal-actions">
+        <button class="btn-gold" id="success-close">Continue</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Navigation Bar -->
+  <div class="bottom-bar">
+    <div class="bottom-bar-content">
+      <button class="hud-button" id="btn-summon" aria-label="Summon">
+        <img src="assets/icons/summon_icon.png" alt="Summon">
+      </button>
+      <button class="hud-button" id="btn-missions" aria-label="Missions">
+        <img src="assets/icons/missions_icon.png" alt="Missions">
+      </button>
+      <button class="hud-button" id="btn-characters" aria-label="Characters">
+        <img src="assets/icons/characters_icon.png" alt="Characters">
+      </button>
+      <button class="hud-button" id="btn-teams" aria-label="Teams">
+        <img src="assets/icons/teams_icon.png" alt="Teams">
+      </button>
+      <button class="hud-button" id="btn-fusion" aria-label="Fusion" class="active">
+        <img src="assets/icons/fusion_icon.png" alt="Fusion">
+      </button>
+      <button class="hud-button" id="btn-home" aria-label="Home">
+        <img src="assets/icons/home_icon.png" alt="Home">
+      </button>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/character_inv.js"></script>
+  <script src="js/resources.js"></script>
+  <script src="js/fusion.js"></script>
+
+  <script>
+    // Navigation
+    document.getElementById('btn-summon')?.addEventListener('click', () => window.location.href = 'summon.html');
+    document.getElementById('btn-missions')?.addEventListener('click', () => window.location.href = 'missions.html');
+    document.getElementById('btn-characters')?.addEventListener('click', () => window.location.href = 'characters.html');
+    document.getElementById('btn-teams')?.addEventListener('click', () => window.location.href = 'teams.html');
+    document.getElementById('btn-home')?.addEventListener('click', () => window.location.href = 'index.html');
+  </script>
+</body>
+</html>
