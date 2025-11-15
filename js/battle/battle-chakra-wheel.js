@@ -34,7 +34,12 @@
      * Creates the wheel structure and attaches to portrait
      */
     createChakraWheel(unit, portraitElement, isBench = false) {
-      if (!unit || !portraitElement) return null;
+      if (!unit || !portraitElement) {
+        console.warn('[ChakraWheel] Cannot create wheel - missing unit or portrait');
+        return null;
+      }
+
+      console.log(`[ChakraWheel] Creating wheel for ${unit.name} (${isBench ? 'bench' : 'active'}), chakra: ${unit.chakra}/${unit.maxChakra}`);
 
       // Create wheel container
       const wheel = document.createElement('div');
@@ -65,6 +70,9 @@
         portraitElement.parentElement.insertBefore(wrapper, portraitElement);
         wrapper.appendChild(portraitElement);
         wrapper.appendChild(wheel);
+        console.log(`[ChakraWheel] Wrapped portrait for ${unit.name}, wheel attached`);
+      } else {
+        console.warn(`[ChakraWheel] Cannot wrap portrait for ${unit.name} - no parent element`);
       }
 
       return wheel;
@@ -75,11 +83,16 @@
      */
     updateChakraWheel(unit, core) {
       const wheel = this.wheelCache.get(unit.id);
-      if (!wheel) return;
+      if (!wheel) {
+        console.warn(`[ChakraWheel] No wheel found for ${unit.name} (${unit.id})`);
+        return;
+      }
 
       const currentChakra = unit.chakra || 0;
       const maxChakra = unit.maxChakra || 10;
       const chakraToShow = Math.min(currentChakra, maxChakra);
+
+      console.log(`[ChakraWheel] Updating ${unit.name}: ${chakraToShow}/${maxChakra} chakra`);
 
       // Determine which rings should be visible and how many segments each has
       const ringData = this.calculateRingDistribution(chakraToShow);

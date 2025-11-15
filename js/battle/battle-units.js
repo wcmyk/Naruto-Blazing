@@ -97,7 +97,7 @@
         isBench: data.isBench || false,
         pos: data.pos || { x: 50, y: 50 },
         stats: data.stats,
-        chakra: 0,
+        chakra: 2,  // Start with 2 chakra so wheels are visible
         maxChakra: 10,
         speedGauge: initialGauge,
         isPaused: false,
