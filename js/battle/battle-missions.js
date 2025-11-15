@@ -130,15 +130,19 @@
       bm.isPaused = false;
 
       console.log(`[Missions] Wave loaded with ${bm.enemyTeam.length} enemies`);
-      console.log(`[Missions] Enemy details:`, bm.enemyTeam.map(e => ({
-        name: e.name,
-        isPlayer: e.isPlayer,
-        isActive: e.isActive,
-        isBench: e.isBench,
-        hp: e.stats.hp,
-        speed: e.stats.speed,
-        speedGauge: e.speedGauge
-      })));
+
+      // Detailed enemy inspection
+      bm.enemyTeam.forEach((enemy, i) => {
+        console.log(`[Missions] ========== ENEMY ${i + 1}: ${enemy.name} ==========`);
+        console.log(`[Missions]   isPlayer: ${enemy.isPlayer}`);
+        console.log(`[Missions]   isActive: ${enemy.isActive}`);
+        console.log(`[Missions]   isBench: ${enemy.isBench}`);
+        console.log(`[Missions]   isPaused: ${enemy.isPaused}`);
+        console.log(`[Missions]   HP: ${enemy.stats.hp}`);
+        console.log(`[Missions]   Speed: ${enemy.stats.speed}`);
+        console.log(`[Missions]   SpeedGauge: ${enemy.speedGauge}`);
+        console.log(`[Missions] ==========================================`);
+      });
     },
 
     /**
