@@ -8,6 +8,31 @@
   <link rel="stylesheet" href="css/battle-ui-fixes.css" />
   <link rel="stylesheet" href="css/battle-result-professional.css" />
   <link rel="stylesheet" href="css/status_effects.css" />
+  <style>
+    /* CRITICAL: Force unit sizing to prevent oversized units */
+    .battle-unit {
+      position: absolute !important;
+      width: 70px !important;
+      height: 70px !important;
+      transform: translate(-50%, -50%) !important;
+    }
+    .unit-sprite {
+      width: 70px !important;
+      height: 70px !important;
+      min-width: 70px !important;
+      min-height: 70px !important;
+      max-width: 70px !important;
+      max-height: 70px !important;
+      overflow: hidden !important;
+    }
+    .unit-sprite img {
+      width: 100% !important;
+      height: 100% !important;
+      max-width: 100% !important;
+      max-height: 100% !important;
+      object-fit: cover !important;
+    }
+  </style>
 </head>
 <body class="page-battle">
   <header class="battle-hud">
