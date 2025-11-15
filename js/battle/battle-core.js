@@ -139,6 +139,7 @@
         actionChakra: document.getElementById("action-chakra"),
         actionSkillName: document.getElementById("action-skill-name"),
         actionUltName: document.getElementById("action-ult-name"),
+        actionSecretName: document.getElementById("action-secret-name"),
 
         btnAttack: document.getElementById("btn-attack"),
         btnJutsu: document.getElementById("btn-jutsu"),
