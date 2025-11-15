@@ -56,6 +56,7 @@
         );
 
         if (ready) {
+          console.log(`[Turns] Unit ready to act: ${ready.name} (isPlayer: ${ready.isPlayer}, gauge: ${ready.speedGauge})`);
           ready.speedGauge = core.GAUGE_MAX; // Cap at max
           this.startTurn(ready, core);
         }

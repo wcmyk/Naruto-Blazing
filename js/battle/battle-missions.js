@@ -123,6 +123,15 @@
       bm.isPaused = false;
 
       console.log(`[Missions] Wave loaded with ${bm.enemyTeam.length} enemies`);
+      console.log(`[Missions] Enemy details:`, bm.enemyTeam.map(e => ({
+        name: e.name,
+        isPlayer: e.isPlayer,
+        isActive: e.isActive,
+        isBench: e.isBench,
+        hp: e.stats.hp,
+        speed: e.stats.speed,
+        speedGauge: e.speedGauge
+      })));
     },
 
     /**
