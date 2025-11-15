@@ -32,10 +32,15 @@
       await this.delay(500);
       await this.entranceEnemyTeam(core);
 
+      // Make sure all units are unpaused after entrance
+      core.combatants.forEach(unit => {
+        unit.isPaused = false;
+      });
+
       // Resume battle
       core.isPaused = false;
 
-      console.log("[Entrance] Entrance sequence complete");
+      console.log("[Entrance] Entrance sequence complete, all units active");
     },
 
     /**
