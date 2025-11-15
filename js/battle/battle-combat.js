@@ -146,13 +146,26 @@
         barrierHP: 0
       };
 
+      // Get passive ability modifiers from BattlePassives
+      const attackerPassives = window.BattlePassives?.getActiveModifiers?.(attacker) || {
+        atkFlat: 0,
+        critRatePercent: 0,
+        critDmgPercent: 0,
+        jutsuDamagePercent: 0
+      };
+
+      const defenderPassives = window.BattlePassives?.getActiveModifiers?.(defender) || {
+        defFlat: 0,
+        damageReductionPercent: 0
+      };
+
       // Base stats with validation
       const baseAtk = Math.max(0, Number(attacker.stats.atk) || 100);
       const baseDef = Math.max(0, Number(defender.stats.def) || 0);
 
-      // Apply buff modifiers to stats
-      const effectiveAtk = baseAtk + attackerBuffs.atkFlat;
-      const effectiveDef = baseDef + defenderBuffs.defFlat;
+      // Apply buff and passive modifiers to stats
+      const effectiveAtk = baseAtk + attackerBuffs.atkFlat + attackerPassives.atkFlat;
+      const effectiveDef = baseDef + defenderBuffs.defFlat + defenderPassives.defFlat;
 
       // Base damage from ATK stat and multiplier
       let damage = effectiveAtk * mult;
@@ -165,21 +178,22 @@
         damage *= 0.5;
       }
 
-      // Apply damage reduction from buffs
-      if (defenderBuffs.damageReductionPercent > 0) {
-        damage *= (1 - defenderBuffs.damageReductionPercent / 100);
+      // Apply damage reduction from buffs and passives
+      const totalDamageReduction = defenderBuffs.damageReductionPercent + defenderPassives.damageReductionPercent;
+      if (totalDamageReduction > 0) {
+        damage *= (1 - totalDamageReduction / 100);
       }
 
       // Random variance (90% - 110%)
       damage *= (0.9 + Math.random() * 0.2);
 
-      // Critical hit chance (15% base + buff bonus)
-      const critChance = 0.15 + (attackerBuffs.critRatePercent / 100);
+      // Critical hit chance (15% base + buff bonus + passive bonus)
+      const critChance = 0.15 + (attackerBuffs.critRatePercent / 100) + (attackerPassives.critRatePercent / 100);
       const isCritical = Math.random() < critChance;
 
       if (isCritical) {
-        // Critical damage multiplier (1.5x base + buff bonus)
-        const critMultiplier = 1.5 + (attackerBuffs.critDmgPercent / 100);
+        // Critical damage multiplier (1.5x base + buff bonus + passive bonus)
+        const critMultiplier = 1.5 + (attackerBuffs.critDmgPercent / 100) + (attackerPassives.critDmgPercent / 100);
         damage *= critMultiplier;
       }
 
