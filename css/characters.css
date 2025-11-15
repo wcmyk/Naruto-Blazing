@@ -504,3 +504,103 @@ body.page-characters {
 @media (min-width: 901px){
   #char-modal-img{ max-height: 64vh; }
 }
+
+/* ---------- Limit Break Styling ---------- */
+.btn-limitbreak {
+  padding: 10px 18px;
+  font-family: "Cinzel", serif;
+  font-size: 15px;
+  font-weight: 600;
+  color: #fff;
+  background: linear-gradient(180deg, #b362d9 0%, #822ca7 100%);
+  border: 1px solid rgba(179, 98, 217, 0.4);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all .2s ease;
+  box-shadow: 0 4px 12px rgba(130, 44, 167, 0.3);
+}
+.btn-limitbreak:hover:not(:disabled) {
+  background: linear-gradient(180deg, #c47ee6 0%, #9642b8 100%);
+  box-shadow: 0 6px 16px rgba(130, 44, 167, 0.5);
+  transform: translateY(-1px);
+}
+.btn-limitbreak:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  background: #3a3a3e;
+  border-color: #2a2a2e;
+}
+
+.limitbreak-info {
+  margin-top: 12px;
+  padding: 10px 14px;
+  background: rgba(179, 98, 217, 0.08);
+  border: 1px solid rgba(179, 98, 217, 0.2);
+  border-radius: 8px;
+  font-size: 13px;
+}
+
+.lb-level {
+  font-weight: 600;
+  color: #b362d9;
+  margin-bottom: 6px;
+}
+
+.lb-bonus {
+  font-size: 12px;
+  color: #d9b362;
+  line-height: 1.5;
+}
+
+/* ---------- Materials Display ---------- */
+.materials-display {
+  margin-top: 14px;
+  padding: 12px;
+  background: rgba(20, 20, 24, 0.6);
+  border: 1px solid rgba(255, 215, 120, 0.15);
+  border-radius: 8px;
+}
+
+.materials-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--gold);
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.material-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  font-size: 12px;
+}
+
+.material-item:last-child {
+  border-bottom: none;
+}
+
+.material-name {
+  color: #eee6d1;
+}
+
+.material-amount {
+  font-weight: 600;
+}
+
+.material-amount.sufficient {
+  color: #62d98f;
+}
+
+.material-amount.insufficient {
+  color: #d96262;
+}
+
+.no-requirements {
+  font-size: 12px;
+  color: #888;
+  font-style: italic;
+}

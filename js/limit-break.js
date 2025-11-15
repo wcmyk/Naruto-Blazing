@@ -1,0 +1,193 @@
+// js/limit-break.js
+// Limit Break System - extends character capabilities beyond normal tier caps
+// Load AFTER progression.js and resources.js
+
+(function (global) {
+  "use strict";
+
+  // Maximum limit break level per tier
+  const MAX_LIMIT_BREAK_LEVELS = {
+    "6S": 5,
+    "6SB": 5,
+    "7S": 10,
+    "7SL": 10,
+    "8S": 15,
+    "8SM": 15,
+    "9S": 20,
+    "9ST": 20,
+    "10SO": 25
+  };
+
+  // Stat bonuses per limit break level (percentage increase)
+  const LIMIT_BREAK_BONUS_PER_LEVEL = {
+    hp: 0.02,      // 2% per level
+    atk: 0.025,    // 2.5% per level
+    def: 0.02,     // 2% per level
+    speed: 0.015,  // 1.5% per level
+    chakra: 0.01   // 1% per level
+  };
+
+  // Material costs per limit break level
+  function getLimitBreakCost(tierCode, currentLB, character) {
+    const baseCost = {
+      "6S": { limit_break_crystal: 1, ryo: 10000 },
+      "6SB": { limit_break_crystal: 1, dupe_crystal: 1, ryo: 15000 },
+      "7S": { limit_break_crystal: 2, ryo: 20000 },
+      "7SL": { limit_break_crystal: 2, dupe_crystal: 1, ryo: 25000 },
+      "8S": { limit_break_crystal: 3, ryo: 30000 },
+      "8SM": { limit_break_crystal: 3, dupe_crystal: 2, ryo: 35000 },
+      "9S": { limit_break_crystal: 4, ryo: 40000 },
+      "9ST": { limit_break_crystal: 4, dupe_crystal: 3, ryo: 45000 },
+      "10SO": { limit_break_crystal: 5, dupe_crystal: 5, ryo: 50000 }
+    };
+
+    const cost = baseCost[tierCode] || { limit_break_crystal: 1, ryo: 10000 };
+
+    // Multiply costs by current LB level + 1
+    const multiplier = (currentLB || 0) + 1;
+    const finalCost = {};
+    for (const [mat, amt] of Object.entries(cost)) {
+      finalCost[mat] = amt * multiplier;
+    }
+
+    return finalCost;
+  }
+
+  // Check if character can be limit broken
+  function canLimitBreak(inst, character) {
+    if (!inst || !character) return false;
+    if (!global.Progression) return false;
+
+    const tier = inst.tierCode || global.Progression.getTierBounds(character).minCode;
+    const maxLB = MAX_LIMIT_BREAK_LEVELS[tier];
+
+    // Can only limit break if at a tier that supports it
+    if (!maxLB) return false;
+
+    const currentLB = inst.limitBreakLevel || 0;
+
+    // Check if not already at max limit break
+    if (currentLB >= maxLB) return false;
+
+    // Must be at max tier for this character
+    const { maxCode } = global.Progression.getTierBounds(character);
+    if (tier !== maxCode) return false;
+
+    // Must be at max level for this tier
+    const cap = global.Progression.levelCapForCode(tier);
+    const level = Number(inst.level) || 1;
+    if (level < cap) return false;
+
+    return true;
+  }
+
+  // Check if player has materials for limit break
+  function canAffordLimitBreak(inst, character) {
+    if (!canLimitBreak(inst, character)) return false;
+    if (!global.Resources) return false;
+
+    const tier = inst.tierCode || global.Progression.getTierBounds(character).minCode;
+    const currentLB = inst.limitBreakLevel || 0;
+    const cost = getLimitBreakCost(tier, currentLB, character);
+
+    return global.Resources.canAfford(cost);
+  }
+
+  // Perform limit break
+  function performLimitBreak(inst, character) {
+    if (!inst || !character) {
+      return { ok: false, reason: "INVALID_INSTANCE_OR_CHARACTER" };
+    }
+
+    if (!canLimitBreak(inst, character)) {
+      return { ok: false, reason: "CANNOT_LIMIT_BREAK" };
+    }
+
+    if (!global.Resources) {
+      return { ok: false, reason: "RESOURCES_NOT_INITIALIZED" };
+    }
+
+    const tier = inst.tierCode;
+    const currentLB = inst.limitBreakLevel || 0;
+    const cost = getLimitBreakCost(tier, currentLB, character);
+
+    // Check and spend materials
+    const spendResult = global.Resources.spend(cost);
+    if (!spendResult.ok) {
+      return spendResult;
+    }
+
+    // Increase limit break level
+    inst.limitBreakLevel = currentLB + 1;
+
+    // Optionally increase level cap (each LB adds +1 to level cap)
+    // This is stored on the instance for per-character tracking
+
+    return {
+      ok: true,
+      limitBreakLevel: inst.limitBreakLevel,
+      bonusStats: computeLimitBreakBonus(inst.limitBreakLevel)
+    };
+  }
+
+  // Compute stat bonuses from limit breaks
+  function computeLimitBreakBonus(limitBreakLevel) {
+    const lb = Number(limitBreakLevel) || 0;
+    if (lb <= 0) return { hp: 0, atk: 0, def: 0, speed: 0, chakra: 0 };
+
+    return {
+      hp: lb * LIMIT_BREAK_BONUS_PER_LEVEL.hp,
+      atk: lb * LIMIT_BREAK_BONUS_PER_LEVEL.atk,
+      def: lb * LIMIT_BREAK_BONUS_PER_LEVEL.def,
+      speed: lb * LIMIT_BREAK_BONUS_PER_LEVEL.speed,
+      chakra: lb * LIMIT_BREAK_BONUS_PER_LEVEL.chakra
+    };
+  }
+
+  // Apply limit break bonuses to stats
+  function applyLimitBreakToStats(baseStats, limitBreakLevel) {
+    const lb = Number(limitBreakLevel) || 0;
+    if (lb <= 0) return baseStats;
+
+    const bonus = computeLimitBreakBonus(lb);
+
+    return {
+      hp: Math.round(baseStats.hp * (1 + bonus.hp)),
+      atk: Math.round(baseStats.atk * (1 + bonus.atk)),
+      def: Math.round(baseStats.def * (1 + bonus.def)),
+      speed: Math.round(baseStats.speed * (1 + bonus.speed)),
+      chakra: Math.round(baseStats.chakra * (1 + bonus.chakra))
+    };
+  }
+
+  // Get max limit break level for a tier
+  function getMaxLimitBreakLevel(tierCode) {
+    return MAX_LIMIT_BREAK_LEVELS[tierCode] || 0;
+  }
+
+  // Get extended level cap (base cap + limit break bonus levels)
+  function getExtendedLevelCap(tierCode, limitBreakLevel) {
+    if (!global.Progression) return 100;
+
+    const baseCap = global.Progression.levelCapForCode(tierCode);
+    const lb = Number(limitBreakLevel) || 0;
+
+    // Each limit break adds +2 levels to the cap
+    return baseCap + (lb * 2);
+  }
+
+  // Public API
+  global.LimitBreak = {
+    canLimitBreak,
+    canAffordLimitBreak,
+    performLimitBreak,
+    computeLimitBreakBonus,
+    applyLimitBreakToStats,
+    getLimitBreakCost,
+    getMaxLimitBreakLevel,
+    getExtendedLevelCap,
+    MAX_LIMIT_BREAK_LEVELS,
+    LIMIT_BREAK_BONUS_PER_LEVEL
+  };
+
+})(window);
