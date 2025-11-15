@@ -8,16 +8,17 @@
   let _limitBreakCosts = null;
 
   // Maximum limit break level per tier
+  // At +5 levels per LB, 10 LBs = 50 levels (100 -> 150)
   const MAX_LIMIT_BREAK_LEVELS = {
-    "6S": 5,
-    "6SB": 5,
+    "6S": 10,
+    "6SB": 10,
     "7S": 10,
     "7SL": 10,
-    "8S": 15,
-    "8SM": 15,
-    "9S": 20,
-    "9ST": 20,
-    "10SO": 25
+    "8S": 10,
+    "8SM": 10,
+    "9S": 10,
+    "9ST": 10,
+    "10SO": 10
   };
 
   // Stat bonuses per limit break level (percentage increase)
@@ -92,8 +93,13 @@
     const { maxCode } = global.Progression.getTierBounds(character);
     if (tier !== maxCode) return false;
 
-    // Must be at max level for this tier
-    const cap = global.Progression.levelCapForCode(tier);
+    // Must be at max level for current limit break level
+    // Use extended cap if there are existing limit breaks
+    let cap = global.Progression.levelCapForCode(tier);
+    if (currentLB > 0) {
+      cap = getExtendedLevelCap(tier, currentLB);
+    }
+
     const level = Number(inst.level) || 1;
     if (level < cap) return false;
 
@@ -191,8 +197,8 @@
     const baseCap = global.Progression.levelCapForCode(tierCode);
     const lb = Number(limitBreakLevel) || 0;
 
-    // Each limit break adds +2 levels to the cap
-    return baseCap + (lb * 2);
+    // Each limit break adds +5 levels to the cap (max 150 from base 100)
+    return Math.min(baseCap + (lb * 5), 150);
   }
 
   // Public API
