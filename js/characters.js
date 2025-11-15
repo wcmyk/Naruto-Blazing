@@ -370,6 +370,11 @@
     renderGrid();
     renderAbilitiesTab(character, freshInst);
 
+    // Refresh passive icons to show newly unlocked icon
+    if (window.characterAbilities) {
+      window.characterAbilities.renderPassiveIcons();
+    }
+
     // Update Feed Dupe button state
     const hasDupes = window.InventoryChar.instancesOf(character.id).length > 1;
     const allUnlocked = result.totalUnlocked >= result.maxAbilities;
