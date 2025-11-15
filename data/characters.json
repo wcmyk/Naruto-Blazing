@@ -22,7 +22,25 @@
     "statsMax":  { "hp": 846, "atk": 738, "def": 420, "speed": 155, "chakra": 10 },
     "growthCurve": { "hp": 1.12, "atk": 1.18, "def": 1.08, "speed": 1.05, "chakra": 1.00 },
     "powerRank": 260,
-    "powerWeights": { "hp": 0.35, "atk": 0.35, "def": 0.15, "speed": 0.10, "chakra": 0.05 }
+    "powerWeights": { "hp": 0.35, "atk": 0.35, "def": 0.15, "speed": 0.10, "chakra": 0.05 },
+    "abilities": [
+      {
+        "name": "Never Give Up",
+        "description": "Increases HP by 100 and boosts chakra recovery by 10%."
+      },
+      {
+        "name": "Shadow Clone Mastery",
+        "description": "Boosts attack by 150 when HP is above 50%."
+      },
+      {
+        "name": "Nine Tails Chakra",
+        "description": "Restores 5% HP at the start of each turn."
+      },
+      {
+        "name": "Uzumaki Resilience",
+        "description": "Reduces damage taken by 15% when HP is below 30%."
+      }
+    ]
   },
 
   {
@@ -48,7 +66,21 @@
     "statsMax":  { "hp": 9400, "atk": 670, "def": 400, "speed": 165, "chakra": 11 },
     "growthCurve": { "hp": 1.10, "atk": 1.22, "def": 1.05, "speed": 1.10, "chakra": 1.00 },
     "powerRank": 280,
-    "powerWeights": { "hp": 0.25, "atk": 0.45, "def": 0.10, "speed": 0.15, "chakra": 0.05 }
+    "powerWeights": { "hp": 0.25, "atk": 0.45, "def": 0.10, "speed": 0.15, "chakra": 0.05 },
+    "abilities": [
+      {
+        "name": "Sharingan Awakening",
+        "description": "Boosts critical rate by 20% and grants a 15% chance to counter attacks."
+      },
+      {
+        "name": "Chidori Mastery",
+        "description": "Increases ninjutsu damage by 25% and reduces chakra cost by 1."
+      },
+      {
+        "name": "Avenger's Fury",
+        "description": "Increases attack by 200 when an ally is defeated."
+      }
+    ]
   },
 
   {
@@ -70,7 +102,21 @@
     "statsMax":  { "hp": 11000, "atk": 460, "def": 640, "speed": 130, "chakra": 12 },
     "growthCurve": { "hp": 1.08, "atk": 1.06, "def": 1.12, "speed": 1.02, "chakra": 1.00 },
     "powerRank": 240,
-    "powerWeights": { "hp": 0.40, "atk": 0.15, "def": 0.25, "speed": 0.07, "chakra": 0.13 }
+    "powerWeights": { "hp": 0.40, "atk": 0.15, "def": 0.25, "speed": 0.07, "chakra": 0.13 },
+    "abilities": [
+      {
+        "name": "Medical Ninjutsu",
+        "description": "Heals 8% HP to all allies at the start of each turn."
+      },
+      {
+        "name": "Cherry Blossom Impact",
+        "description": "Increases defense by 150 and boosts attack by 100."
+      },
+      {
+        "name": "Inner Sakura",
+        "description": "Grants a 25% chance to resist status ailments and increases HP by 200."
+      }
+    ]
   },
 
   {

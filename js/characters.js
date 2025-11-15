@@ -113,6 +113,12 @@
     BYID = BASE.reduce((acc, c) => (acc[c.id] = c, acc), Object.create(null));
   }
 
+  /* ---------- Global accessor for character data ---------- */
+  window.CharacterInventory = {
+    getCharacterById: (id) => BYID[id] || null,
+    getAllCharacters: () => BASE.slice()
+  };
+
   /* ---------- Grid render ---------- */
   function renderGrid() {
     const instances = window.InventoryChar.allInstances();
@@ -327,6 +333,41 @@
 
     BTN_ADD.onclick = () => {
       if (!c?.id) return;
+
+      // Check if character has abilities that can be unlocked
+      const hasAbilities = c.abilities && c.abilities.length > 0;
+      const currentUnlocks = inst.dupeUnlocks || 0;
+      const canUnlockMore = hasAbilities && currentUnlocks < c.abilities.length;
+
+      if (canUnlockMore) {
+        // Show dialog: Feed dupe to unlock ability OR add new copy
+        const nextAbility = c.abilities[currentUnlocks];
+        const feedDupe = confirm(
+          `Feed duplicate to unlock ability?\n\n` +
+          `Ability ${currentUnlocks + 1}/${c.abilities.length}: ${nextAbility.name}\n` +
+          `${nextAbility.description}\n\n` +
+          `Click OK to unlock this ability\n` +
+          `Click Cancel to add a new copy instead`
+        );
+
+        if (feedDupe) {
+          // Feed the dupe to unlock ability
+          if (window.characterDupeAbilities) {
+            const result = window.characterDupeAbilities.unlockNextAbility(inst.uid);
+            if (result.success) {
+              alert(`✅ Ability Unlocked!\n\n${result.abilityName}\n${result.abilityDescription}\n\nProgress: ${result.unlockedCount}/${result.maxAbilities}`);
+              // Refresh both displays
+              window.characterDupeAbilities.refresh();
+              renderGrid();
+            } else {
+              alert(`⚠️ ${result.message}`);
+            }
+          }
+          return;
+        }
+      }
+
+      // Default: Add a new copy to inventory
       window.InventoryChar.addCopy(c.id, 1);
       renderGrid();
     };
