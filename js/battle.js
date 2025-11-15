@@ -17,7 +17,8 @@
       'BattleBuffs',
       'BattleNarrator',
       'BattleTeamHolder',
-      'BattleChakraWheel'
+      'BattleChakraWheel',
+      'BattleInputManager'
     ];
 
     const allLoaded = requiredModules.every(mod => window[mod]);
@@ -50,9 +51,15 @@
         this.swap = window.BattleSwap;
         this.turns = window.BattleTurns;
         this.teamHolder = window.BattleTeamHolder;
+        this.inputManager = window.BattleInputManager;
 
         // Call BattleCore init
         await window.BattleCore.init.call(this);
+
+        // Initialize input manager (2-stage input system)
+        if (this.inputManager) {
+          this.inputManager.init(this);
+        }
 
         // Initialize and render team holder
         if (this.teamHolder) {

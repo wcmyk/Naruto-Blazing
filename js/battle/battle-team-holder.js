@@ -176,6 +176,7 @@
 
     /**
      * Switch active and bench units with animation
+     * INDEPENDENT of attack selection - does NOT interfere with input state
      * @param {number} cardIndex - Index of the unit card (0-3)
      * @param {Object} core - Battle core reference
      */
@@ -189,6 +190,11 @@
       }
 
       console.log(`[TeamHolder] Switching ${activeUnit.name} ↔ ${benchUnit.name}`);
+
+      // Notify input manager (for tracking only, doesn't affect attack state)
+      if (window.BattleInputManager) {
+        window.BattleInputManager.handleUnitSwitch(cardIndex);
+      }
 
       // Get the card element
       const card = this.teamHolder.querySelector(`[data-card-index="${cardIndex}"]`);
