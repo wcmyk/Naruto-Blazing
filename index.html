@@ -114,21 +114,24 @@
         });
       }
 
-      // Settings button (with background changer)
+      // Settings button (with background changer and resources)
       const btnSettings = document.getElementById("btn-settings");
       if (btnSettings) {
         btnSettings.addEventListener("click", () => {
           console.log("⚙️ Settings clicked");
-          const choice = prompt("Settings Menu:\n1. Change Background (enter 1-10)\n2. Cancel\n\nEnter background number (1-10):");
-          
-          if (choice) {
-            const num = parseInt(choice);
+          const choice = prompt("Settings Menu:\n1. Change Background (1-10)\n2. View Resources\n3. Cancel\n\nEnter your choice:");
+
+          if (choice === "1") {
+            const bgNum = prompt("Enter background number (1-10):");
+            const num = parseInt(bgNum);
             if (num >= 1 && num <= 10) {
               current = num;
               updateBG(current);
             } else {
               alert("Invalid background number. Please enter 1-10.");
             }
+          } else if (choice === "2") {
+            navigateTo("resources.html");
           }
         });
       }

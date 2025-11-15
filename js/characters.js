@@ -28,6 +28,13 @@
   const BTN_ADD       = document.getElementById("btn-addcopy");
   const BTN_REMOVE    = document.getElementById("btn-removecopy");
   const BTN_AWAKEN    = document.getElementById("btn-awaken");
+  const BTN_LIMITBREAK = document.getElementById("btn-limitbreak");
+
+  const LB_INFO       = document.getElementById("limitbreak-info");
+  const LB_CURRENT    = document.getElementById("lb-current");
+  const LB_MAX        = document.getElementById("lb-max");
+  const LB_BONUS      = document.getElementById("lb-bonus");
+  const MATERIALS_DISPLAY = document.getElementById("materials-display");
 
   const SKILLS_WRAP   = document.getElementById("char-skills");
   const SUPPORT_WRAP  = document.getElementById("char-support");
@@ -43,6 +50,9 @@
 
   /* ---------- Safe helpers ---------- */
   const hasProg = typeof window.Progression !== "undefined";
+  const hasAwakening = typeof window.Awakening !== "undefined";
+  const hasLimitBreak = typeof window.LimitBreak !== "undefined";
+  const hasResources = typeof window.Resources !== "undefined";
   const safeStr = (v, d = "") => (typeof v === "string" && v.trim() ? v.trim() : d);
   const safeNum = (v, d = 0) => {
     const n = Number(v);
@@ -196,16 +206,24 @@
   wireTabs();
 
   /* ---------- STATUS tab ---------- */
-  function renderStatusTab(c, inst, tier) {
+  async function renderStatusTab(c, inst, tier) {
+    // Compute stats (with limit break if applicable)
+    let stats = {};
     if (hasProg && window.Progression.computeEffectiveStatsLoreTier) {
       const comp = window.Progression.computeEffectiveStatsLoreTier(c, safeNum(inst.level,1), tier, { normalize:true });
-      const s = comp?.stats || {};
+      stats = comp?.stats || {};
+
+      // Apply limit break bonuses if present
+      if (hasLimitBreak && inst.limitBreakLevel && inst.limitBreakLevel > 0) {
+        stats = window.LimitBreak.applyLimitBreakToStats(stats, inst.limitBreakLevel);
+      }
+
       STATS_WRAP.innerHTML = `
-        <div class="stat-row"><span class="stat-label">Health</span><span class="stat-value">${s.hp ?? "-"}</span></div>
-        <div class="stat-row"><span class="stat-label">Attack</span><span class="stat-value">${s.atk ?? "-"}</span></div>
-        <div class="stat-row"><span class="stat-label">Defense</span><span class="stat-value">${s.def ?? "-"}</span></div>
-        <div class="stat-row"><span class="stat-label">Speed</span><span class="stat-value">${s.speed ?? "-"}</span></div>
-        <div class="stat-row"><span class="stat-label">Chakra</span><span class="stat-value">${s.chakra ?? "-"}</span></div>`;
+        <div class="stat-row"><span class="stat-label">Health</span><span class="stat-value">${stats.hp ?? "-"}</span></div>
+        <div class="stat-row"><span class="stat-label">Attack</span><span class="stat-value">${stats.atk ?? "-"}</span></div>
+        <div class="stat-row"><span class="stat-label">Defense</span><span class="stat-value">${stats.def ?? "-"}</span></div>
+        <div class="stat-row"><span class="stat-label">Speed</span><span class="stat-value">${stats.speed ?? "-"}</span></div>
+        <div class="stat-row"><span class="stat-label">Chakra</span><span class="stat-value">${stats.chakra ?? "-"}</span></div>`;
     } else {
       const s = c.statsBase || {};
       STATS_WRAP.innerHTML = `
@@ -223,14 +241,79 @@
     LV_VALUE_EL.textContent = isMax ? "MAX" : String(level);
     LV_CAP_EL.textContent   = String(cap);
 
+    // Awakening check
     const canAwaken = hasProg && typeof window.Progression.canAwaken === "function" && isMax && window.Progression.canAwaken(inst, c);
 
     BTN_AWAKEN.disabled = !canAwaken;
     TIP_EL.textContent = canAwaken ? "Ready to awaken." : (isMax ? "Max level reached. Awaken when eligible." : "Level up to max to awaken.");
 
+    // Limit break display
+    const maxLB = hasLimitBreak ? window.LimitBreak.getMaxLimitBreakLevel(tier) : 0;
+    const currentLB = inst.limitBreakLevel || 0;
+
+    if (maxLB > 0 && LB_INFO) {
+      LB_INFO.style.display = "block";
+      if (LB_CURRENT) LB_CURRENT.textContent = currentLB;
+      if (LB_MAX) LB_MAX.textContent = maxLB;
+
+      if (LB_BONUS && currentLB > 0) {
+        const bonus = window.LimitBreak.computeLimitBreakBonus(currentLB);
+        LB_BONUS.innerHTML = `Stat Bonus: HP +${(bonus.hp * 100).toFixed(1)}%, ATK +${(bonus.atk * 100).toFixed(1)}%, DEF +${(bonus.def * 100).toFixed(1)}%`;
+      } else if (LB_BONUS) {
+        LB_BONUS.innerHTML = "No limit breaks applied yet.";
+      }
+    } else if (LB_INFO) {
+      LB_INFO.style.display = "none";
+    }
+
+    // Limit break button
+    const canLB = hasLimitBreak && window.LimitBreak.canLimitBreak(inst, c);
+    const canAffordLB = hasLimitBreak && window.LimitBreak.canAffordLimitBreak(inst, c);
+    if (BTN_LIMITBREAK) {
+      BTN_LIMITBREAK.disabled = !canLB || !canAffordLB;
+    }
+
+    // Display awakening materials
+    if (hasAwakening && MATERIALS_DISPLAY) {
+      await renderMaterials(inst, c, tier);
+    }
+
     wireStatusButtons(c, inst, tier);
   }
   window.renderStatusTab = renderStatusTab;
+
+  /* ---------- Materials Display ---------- */
+  async function renderMaterials(inst, c, tier) {
+    if (!hasAwakening || !hasResources) {
+      MATERIALS_DISPLAY.innerHTML = "";
+      return;
+    }
+
+    const reqs = await window.Awakening.getRequirements(tier);
+
+    if (!reqs || !reqs.materials) {
+      MATERIALS_DISPLAY.innerHTML = '<div class="no-requirements">No awakening materials required for this tier.</div>';
+      return;
+    }
+
+    let html = '<div class="materials-title">Awakening Materials Required</div>';
+
+    for (const [matId, required] of Object.entries(reqs.materials)) {
+      const owned = window.Resources.get(matId);
+      const matInfo = window.Resources.getMaterialInfo(matId);
+      const sufficient = owned >= required;
+      const className = sufficient ? "sufficient" : "insufficient";
+
+      html += `
+        <div class="material-item">
+          <span class="material-name">${matInfo.name}</span>
+          <span class="material-amount ${className}">${owned}/${required}</span>
+        </div>
+      `;
+    }
+
+    MATERIALS_DISPLAY.innerHTML = html;
+  }
 
   function wireStatusButtons(c, inst, tierOrNull) {
     BTN_LVUP.onclick = () => {
@@ -254,16 +337,31 @@
       closeModal();
     };
 
-    BTN_AWAKEN.onclick = () => {
+    BTN_AWAKEN.onclick = async () => {
       if (!c) return;
       if (!(hasProg && typeof window.Progression.canAwaken === "function" && window.Progression.canAwaken(inst, c))) return;
 
-      const res = (typeof window.InventoryChar.promoteTier === "function")
-        ? window.InventoryChar.promoteTier(inst.uid, "reset", c)
-        : window.Progression.promoteTier(inst, c, "reset");
+      // Use new Awakening system if available
+      let res;
+      if (hasAwakening) {
+        const canAfford = await window.Awakening.canAffordAwaken(inst, c);
+        if (!canAfford) {
+          alert("You don't have enough materials to awaken this character!");
+          return;
+        }
+
+        res = await window.Awakening.performAwaken(inst, c, "reset");
+      } else {
+        // Fallback to old system
+        res = (typeof window.InventoryChar.promoteTier === "function")
+          ? window.InventoryChar.promoteTier(inst.uid, "reset", c)
+          : window.Progression.promoteTier(inst, c, "reset");
+      }
 
       if (!res?.ok) {
-        alert("Max tier reached or cannot awaken.");
+        alert(res.reason === "INSUFFICIENT_MATERIALS"
+          ? "Insufficient materials for awakening!"
+          : "Max tier reached or cannot awaken.");
         return;
       }
 
@@ -278,10 +376,62 @@
       MODAL_IMG.src = safeStr(art.full, art.portrait);
       NP_STARS.innerHTML = renderStars(starsFromTier(newTier));
 
-      window.renderStatusTab(c, fresh, newTier);
+      await window.renderStatusTab(c, fresh, newTier);
       renderSkillsTab(c, fresh, newTier);
       renderGrid();
+
+      alert(`Successfully awakened ${c.name} to ${starsFromTier(newTier)} stars!`);
     };
+
+    // Limit Break button
+    if (BTN_LIMITBREAK) {
+      BTN_LIMITBREAK.onclick = async () => {
+        if (!c || !hasLimitBreak) return;
+
+        const canLB = window.LimitBreak.canLimitBreak(inst, c);
+        if (!canLB) {
+          alert("This character cannot be limit broken yet. Must be at max tier and max level.");
+          return;
+        }
+
+        const canAfford = window.LimitBreak.canAffordLimitBreak(inst, c);
+        if (!canAfford) {
+          alert("You don't have enough materials for limit break!");
+          return;
+        }
+
+        const tier = inst.tierCode || minTier(c);
+        const cost = window.LimitBreak.getLimitBreakCost(tier, inst.limitBreakLevel || 0, c);
+
+        let costStr = "Cost:\n";
+        for (const [matId, amt] of Object.entries(cost)) {
+          const matInfo = window.Resources.getMaterialInfo(matId);
+          costStr += `${matInfo.name}: ${amt}\n`;
+        }
+
+        if (!confirm(`Limit Break ${c.name}?\n\n${costStr}`)) {
+          return;
+        }
+
+        const res = window.LimitBreak.performLimitBreak(inst, c);
+
+        if (!res?.ok) {
+          alert(res.reason === "INSUFFICIENT_MATERIALS"
+            ? "Insufficient materials!"
+            : "Limit break failed!");
+          return;
+        }
+
+        // Update instance
+        window.InventoryChar.updateInstance(inst.uid, { limitBreakLevel: res.limitBreakLevel });
+        const fresh = window.InventoryChar.getByUid(inst.uid);
+
+        await window.renderStatusTab(c, fresh, tier);
+        renderGrid();
+
+        alert(`Limit Break successful! ${c.name} is now LB${res.limitBreakLevel}!`);
+      };
+    }
   }
 
   /* ---------- SKILLS tab ---------- */
