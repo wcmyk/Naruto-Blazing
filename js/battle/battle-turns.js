@@ -130,16 +130,29 @@
     /* ===== Pause/Resume System ===== */
 
     /**
-     * Pause all units except current actor
-     * Prevents gauge advancement during turn
+     * Pause units based on who is acting
+     * - Player turn: Only pause other players (enemies build gauge)
+     * - Enemy turn: Pause all other units (traditional turn-based)
      */
     pauseAllOtherUnits(core) {
+      const currentIsPlayer = this.currentUnit.isPlayer;
+
       core.combatants.forEach(unit => {
-        if (unit !== this.currentUnit) {
+        if (unit === this.currentUnit) return;
+
+        if (currentIsPlayer) {
+          // Player turn: Only pause other players, let enemies build gauge
+          if (unit.isPlayer) {
+            unit.isPaused = true;
+          }
+        } else {
+          // Enemy turn: Pause all other units
           unit.isPaused = true;
         }
       });
-      console.log(`[Turns] All units paused except ${this.currentUnit.name}`);
+
+      const pausedType = currentIsPlayer ? "player units" : "all units";
+      console.log(`[Turns] ${pausedType} paused except ${this.currentUnit.name}`);
     },
 
     /**
