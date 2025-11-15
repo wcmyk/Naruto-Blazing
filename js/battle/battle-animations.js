@@ -12,8 +12,25 @@
      * @param {boolean} isHeal - Whether this is healing (optional)
      */
     showDamage(unit, amount, isCritical = false, dom, isHeal = false) {
+      console.log(`[Animations] showDamage called:`, {
+        unitId: unit?.id,
+        unitName: unit?.name,
+        amount,
+        isCritical,
+        isHeal,
+        hasDamageLayer: !!dom.damageLayer,
+        hasScene: !!dom.scene
+      });
+
       const unitEl = dom.scene?.querySelector(`[data-unit-id="${unit.id}"]`);
-      if (!unitEl || !dom.damageLayer) return;
+      if (!unitEl) {
+        console.warn(`[Animations] Unit element not found for ${unit?.name} (id: ${unit?.id})`);
+        return;
+      }
+      if (!dom.damageLayer) {
+        console.warn(`[Animations] Damage layer not found in DOM`);
+        return;
+      }
 
       const rect = unitEl.getBoundingClientRect();
       const sceneRect = dom.scene.getBoundingClientRect();
@@ -34,7 +51,16 @@
       damageEl.style.pointerEvents = 'none';
 
       dom.damageLayer.appendChild(damageEl);
-      setTimeout(() => damageEl.remove(), 1000);
+      console.log(`[Animations] ✅ Damage number created and appended`, {
+        text: damageEl.textContent,
+        position: { left: damageEl.style.left, top: damageEl.style.top },
+        color: damageEl.style.color
+      });
+
+      setTimeout(() => {
+        damageEl.remove();
+        console.log(`[Animations] Damage number removed after 1s`);
+      }, 1000);
     },
 
     /**

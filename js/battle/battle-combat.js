@@ -105,35 +105,121 @@
     /* ===== Damage Calculation ===== */
 
     /**
-     * Calculate damage with ATK, DEF, criticals, and variance
+     * Calculate damage with ATK, DEF, buffs, criticals, and variance
      * @param {Object} attacker - Attacking unit
      * @param {Object} defender - Defending unit
      * @param {number} multiplier - Skill multiplier (1.0 = basic attack)
      * @returns {Object} {damage, isCritical}
      */
     calculateDamage(attacker, defender, multiplier = 1) {
-      // Base damage from ATK stat
-      let damage = (attacker.stats.atk || 100) * (Number(multiplier) || 1);
+      // Validate inputs
+      if (!attacker?.stats || !defender?.stats) {
+        console.warn("[Combat] Invalid attacker or defender stats", { attacker, defender });
+        return { damage: 0, isCritical: false };
+      }
+
+      // Validate and parse multiplier
+      let mult = 1;
+      if (typeof multiplier === 'string') {
+        const match = multiplier.match(/([\d.]+)/);
+        mult = match ? parseFloat(match[1]) : 1;
+      } else {
+        mult = Number(multiplier) || 1;
+      }
+
+      // Ensure multiplier is valid
+      if (isNaN(mult) || mult <= 0) {
+        console.warn("[Combat] Invalid multiplier, using 1.0", { multiplier });
+        mult = 1;
+      }
+
+      // Get buff modifiers from BattleBuffs
+      const attackerBuffs = window.BattleBuffs?.aggregateBuffModifiers?.(attacker) || {
+        atkFlat: 0,
+        critRatePercent: 0,
+        critDmgPercent: 0
+      };
+
+      const defenderBuffs = window.BattleBuffs?.aggregateBuffModifiers?.(defender) || {
+        defFlat: 0,
+        damageReductionPercent: 0,
+        barrierHP: 0
+      };
+
+      // Base stats with validation
+      const baseAtk = Math.max(0, Number(attacker.stats.atk) || 100);
+      const baseDef = Math.max(0, Number(defender.stats.def) || 0);
+
+      // Apply buff modifiers to stats
+      const effectiveAtk = baseAtk + attackerBuffs.atkFlat;
+      const effectiveDef = baseDef + defenderBuffs.defFlat;
+
+      // Base damage from ATK stat and multiplier
+      let damage = effectiveAtk * mult;
 
       // Subtract defender's DEF (50% effectiveness)
-      damage -= (defender.stats.def || 0) * 0.5;
+      damage -= effectiveDef * 0.5;
 
       // Guard reduces damage by 50%
       if (defender.isGuarding) {
         damage *= 0.5;
       }
 
+      // Apply damage reduction from buffs
+      if (defenderBuffs.damageReductionPercent > 0) {
+        damage *= (1 - defenderBuffs.damageReductionPercent / 100);
+      }
+
       // Random variance (90% - 110%)
       damage *= (0.9 + Math.random() * 0.2);
 
-      // Critical hit chance (15%)
-      const isCritical = Math.random() < 0.15;
+      // Critical hit chance (15% base + buff bonus)
+      const critChance = 0.15 + (attackerBuffs.critRatePercent / 100);
+      const isCritical = Math.random() < critChance;
+
       if (isCritical) {
-        damage *= 1.5;
+        // Critical damage multiplier (1.5x base + buff bonus)
+        const critMultiplier = 1.5 + (attackerBuffs.critDmgPercent / 100);
+        damage *= critMultiplier;
       }
 
+      // Apply barrier absorption
+      if (defenderBuffs.barrierHP > 0) {
+        // Find barrier buff in defender's status effects
+        const barrierBuff = defender.statusEffects?.find(se =>
+          se.kind === 'buff' && se.payload?.barrierHP > 0
+        );
+
+        if (barrierBuff) {
+          const absorbed = Math.min(damage, barrierBuff.payload.barrierHP);
+          barrierBuff.payload.barrierHP -= absorbed;
+          damage -= absorbed;
+
+          // Remove barrier if depleted
+          if (barrierBuff.payload.barrierHP <= 0) {
+            defender.statusEffects = defender.statusEffects.filter(se => se !== barrierBuff);
+          }
+        }
+      }
+
+      // Ensure minimum damage of 1 (unless fully blocked)
+      const finalDamage = Math.max(0, Math.floor(damage));
+
+      console.log(`[Combat] Damage calculated:`, {
+        attacker: attacker.name,
+        defender: defender.name,
+        multiplier: mult,
+        effectiveAtk,
+        effectiveDef,
+        rawDamage: damage,
+        finalDamage: finalDamage > 0 ? Math.max(1, finalDamage) : 0,
+        isCritical,
+        attackerBuffs,
+        defenderBuffs
+      });
+
       return {
-        damage: Math.max(1, Math.floor(damage)),
+        damage: finalDamage > 0 ? Math.max(1, finalDamage) : 0,
         isCritical
       };
     },
