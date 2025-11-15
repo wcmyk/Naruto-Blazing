@@ -27,7 +27,6 @@
   const BTN_LVUP      = document.getElementById("btn-levelup");
   const BTN_FEEDDUPE  = document.getElementById("btn-feeddupe");
   const BTN_REMOVE    = document.getElementById("btn-removecopy");
-  const BTN_FEEDDUPE  = document.getElementById("btn-feeddupe");
   const BTN_AWAKEN    = document.getElementById("btn-awaken");
   const BTN_LIMITBREAK = document.getElementById("btn-limitbreak");
 
