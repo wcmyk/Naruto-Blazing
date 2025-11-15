@@ -45,36 +45,81 @@
 }
 
 .hud-button {
-  width: 65px;
-  height: 65px;
+  width: 70px;
+  height: 70px;
   border-radius: 50%;
-  background-color: rgba(20, 20, 30, 0.7);
-  border: 2px solid rgba(255, 255, 255, 0.5);
-  box-shadow: 0 4px 10px rgba(0,0,0,0.5), inset 0 1px 1px rgba(255,255,255,0.1);
-  display: grid;
-  place-items: center;
+  background: radial-gradient(circle at 30% 30%, rgba(40, 40, 50, 0.9), rgba(20, 20, 30, 0.9));
+  border: 3px solid rgba(217, 179, 98, 0.4);
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.6),
+    0 0 20px rgba(217, 179, 98, 0.15),
+    inset 0 2px 4px rgba(255, 255, 255, 0.1),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 0;
   cursor: pointer;
   position: relative;
-  transition: all 0.2s ease-in-out;
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+.hud-button::before {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0%,
+    rgba(217, 179, 98, 0.3) 50%,
+    transparent 100%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.hud-button:hover::before {
+  opacity: 1;
+  animation: rotate 3s linear infinite;
+}
+
+@keyframes rotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 .hud-button:hover {
-  transform: scale(1.1);
-  border-color: #ffe9b0;
-  background-color: rgba(40, 40, 55, 0.9);
+  transform: scale(1.15);
+  border-color: rgba(255, 215, 0, 0.8);
+  box-shadow:
+    0 6px 20px rgba(0, 0, 0, 0.7),
+    0 0 30px rgba(217, 179, 98, 0.4),
+    inset 0 2px 6px rgba(255, 255, 255, 0.15);
 }
 
 .hud-button:active {
-  transform: scale(0.98);
-  filter: brightness(0.9);
+  transform: scale(1.05);
+  filter: brightness(0.95);
+}
+
+.hud-button.active {
+  border-color: rgba(255, 215, 0, 1);
+  background: radial-gradient(circle at 30% 30%, rgba(60, 50, 30, 0.9), rgba(40, 35, 25, 0.9));
+  box-shadow:
+    0 6px 20px rgba(0, 0, 0, 0.7),
+    0 0 35px rgba(255, 215, 0, 0.5),
+    inset 0 2px 6px rgba(255, 215, 0, 0.2);
 }
 
 .hud-button img {
-  width: 60%;
-  height: 60%;
+  width: 50%;
+  height: 50%;
   object-fit: contain;
-  border-radius: 15%;
+  position: relative;
+  z-index: 1;
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.6));
 }
 
 .hud-button::after {
