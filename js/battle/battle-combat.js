@@ -205,6 +205,8 @@
       // Ensure minimum damage of 1 (unless fully blocked)
       const finalDamage = Math.max(0, Math.floor(damage));
 
+      const defReduction = Math.floor(effectiveDef * 0.5);
+
       console.log(`[Combat] Damage calculated:`, {
         attacker: attacker.name,
         defender: defender.name,
@@ -220,7 +222,15 @@
 
       return {
         damage: finalDamage > 0 ? Math.max(1, finalDamage) : 0,
-        isCritical
+        isCritical,
+        breakdown: {
+          atk: Math.floor(effectiveAtk),
+          multiplier: mult.toFixed(1),
+          defReduction: defReduction,
+          guard: defender.isGuarding,
+          critical: isCritical,
+          critMultiplier: isCritical ? (1.5 + (attackerBuffs.critDmgPercent / 100)).toFixed(2) : null
+        }
       };
     },
 
@@ -238,8 +248,13 @@
         window.BattleNarrator.narrateAttack(attacker, target, core);
       }
 
-      const {damage, isCritical} = this.calculateDamage(attacker, target, 1.0);
+      const {damage, isCritical, breakdown} = this.calculateDamage(attacker, target, 1.0);
       target.stats.hp = Math.max(0, target.stats.hp - damage);
+
+      // Apply knockback
+      if (window.BattlePhysics) {
+        window.BattlePhysics.applyKnockback(target, attacker, 30, core);
+      }
 
       // Award chakra for attacking
       if (core.chakra) {
@@ -248,9 +263,9 @@
         attacker.chakra = Math.min(attacker.maxChakra, attacker.chakra + 1);
       }
 
-      // Show damage animation
+      // Show damage animation with breakdown
       if (window.BattleAnimations) {
-        window.BattleAnimations.showDamage(target, damage, isCritical, core.dom);
+        window.BattleAnimations.showDamage(target, damage, isCritical, core.dom, false, breakdown);
       }
 
       // Update displays
@@ -323,13 +338,20 @@
       }
 
       // Calculate and apply damage
-      const {damage, isCritical} = this.calculateDamage(attacker, target, mult);
+      const {damage, isCritical, breakdown} = this.calculateDamage(attacker, target, mult);
       target.stats.hp = Math.max(0, target.stats.hp - damage);
+
+      // Apply knockback after animation
+      setTimeout(() => {
+        if (window.BattlePhysics) {
+          window.BattlePhysics.applyKnockback(target, attacker, 50, core);
+        }
+      }, 300);
 
       // Show damage after animation delay
       setTimeout(() => {
         if (window.BattleAnimations) {
-          window.BattleAnimations.showDamage(target, damage, isCritical, core.dom);
+          window.BattleAnimations.showDamage(target, damage, isCritical, core.dom, false, breakdown);
         }
       }, 400);
 
@@ -409,12 +431,17 @@
       // Hit all targets with delay
       targets.forEach((target, i) => {
         setTimeout(() => {
-          const {damage, isCritical} = this.calculateDamage(attacker, target, mult);
+          const {damage, isCritical, breakdown} = this.calculateDamage(attacker, target, mult);
           target.stats.hp = Math.max(0, target.stats.hp - damage);
+
+          // Apply knockback for ultimate
+          if (window.BattlePhysics) {
+            window.BattlePhysics.applyKnockback(target, attacker, 60, core);
+          }
 
           setTimeout(() => {
             if (window.BattleAnimations) {
-              window.BattleAnimations.showDamage(target, damage, isCritical, core.dom);
+              window.BattleAnimations.showDamage(target, damage, isCritical, core.dom, false, breakdown);
             }
           }, 150);
 
@@ -452,11 +479,16 @@
 
       targets.forEach((target, i) => {
         setTimeout(() => {
-          const {damage, isCritical} = this.calculateDamage(attacker, target, 1.0);
+          const {damage, isCritical, breakdown} = this.calculateDamage(attacker, target, 1.0);
           target.stats.hp = Math.max(0, target.stats.hp - damage);
 
+          // Apply knockback
+          if (window.BattlePhysics) {
+            window.BattlePhysics.applyKnockback(target, attacker, 35, core);
+          }
+
           if (window.BattleAnimations) {
-            window.BattleAnimations.showDamage(target, damage, isCritical, core.dom);
+            window.BattleAnimations.showDamage(target, damage, isCritical, core.dom, false, breakdown);
           }
 
           if (core.units) {
@@ -484,6 +516,72 @@
         core.updateTeamHP();
         core.checkBattleEnd();
       }, targets.length * 150 + 300);
+    },
+
+    /**
+     * Perform proximity combo attack
+     * Hits nearby enemies with basic attacks as a combo
+     */
+    performProximityCombo(attacker, targets, core) {
+      if (targets.length === 0) return;
+
+      console.log(`[Combat] ${attacker.name} proximity combo on ${targets.length} targets`);
+
+      // Narrate the combo
+      if (window.BattleNarrator) {
+        window.BattleNarrator.narrate(`${attacker.name} triggers proximity combo!`, core);
+      }
+
+      targets.forEach((target, i) => {
+        setTimeout(() => {
+          const {damage, isCritical, breakdown} = this.calculateDamage(attacker, target, 0.6); // 60% damage for combo
+          target.stats.hp = Math.max(0, target.stats.hp - damage);
+
+          // Apply knockback
+          if (window.BattlePhysics) {
+            window.BattlePhysics.applyKnockback(target, attacker, 40, core);
+          }
+
+          if (window.BattleAnimations) {
+            window.BattleAnimations.showDamage(target, damage, isCritical, core.dom, false, breakdown);
+            // Show combo indicator
+            setTimeout(() => {
+              const comboText = document.createElement('div');
+              comboText.textContent = 'COMBO!';
+              comboText.style.position = 'absolute';
+              comboText.style.fontSize = '1.2rem';
+              comboText.style.fontWeight = 'bold';
+              comboText.style.color = '#ffaa00';
+              comboText.style.textShadow = '2px 2px 4px rgba(0,0,0,0.8)';
+              comboText.style.zIndex = '500';
+              comboText.style.pointerEvents = 'none';
+              comboText.style.animation = 'damageFloat 0.8s ease-out forwards';
+
+              const unitEl = core.dom.scene?.querySelector(`[data-unit-id="${target.id}"]`);
+              if (unitEl && core.dom.damageLayer) {
+                const rect = unitEl.getBoundingClientRect();
+                const sceneRect = core.dom.scene.getBoundingClientRect();
+                comboText.style.left = `${rect.left - sceneRect.left + rect.width / 2}px`;
+                comboText.style.top = `${rect.top - sceneRect.top - 30}px`;
+                comboText.style.transform = 'translate(-50%, -100%)';
+                core.dom.damageLayer.appendChild(comboText);
+                setTimeout(() => comboText.remove(), 800);
+              }
+            }, 100);
+          }
+
+          if (core.units) {
+            core.units.updateUnitDisplay(target, core);
+          } else {
+            core.updateUnitDisplay(target);
+          }
+        }, i * 120);
+      });
+
+      setTimeout(() => {
+        core.updateTeamHP();
+        core.checkBattleEnd();
+      }, targets.length * 120 + 200);
     },
 
     /**
@@ -525,12 +623,17 @@
       // Hit all targets
       targets.forEach((target, i) => {
         setTimeout(() => {
-          const {damage, isCritical} = this.calculateDamage(attacker, target, mult);
+          const {damage, isCritical, breakdown} = this.calculateDamage(attacker, target, mult);
           target.stats.hp = Math.max(0, target.stats.hp - damage);
+
+          // Apply knockback for multi-jutsu
+          if (window.BattlePhysics) {
+            window.BattlePhysics.applyKnockback(target, attacker, 45, core);
+          }
 
           setTimeout(() => {
             if (window.BattleAnimations) {
-              window.BattleAnimations.showDamage(target, damage, isCritical, core.dom);
+              window.BattleAnimations.showDamage(target, damage, isCritical, core.dom, false, breakdown);
             }
           }, 150);
 

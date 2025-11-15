@@ -10,8 +10,9 @@
      * @param {boolean} isCritical - Whether it's a critical hit
      * @param {Object} dom - DOM references from BattleManager
      * @param {boolean} isHeal - Whether this is healing (optional)
+     * @param {Object} breakdown - Optional damage calculation breakdown
      */
-    showDamage(unit, amount, isCritical = false, dom, isHeal = false) {
+    showDamage(unit, amount, isCritical = false, dom, isHeal = false, breakdown = null) {
       console.log(`[Animations] showDamage called:`, {
         unitId: unit?.id,
         unitName: unit?.name,
@@ -35,6 +36,7 @@
       const rect = unitEl.getBoundingClientRect();
       const sceneRect = dom.scene.getBoundingClientRect();
 
+      // Main damage number
       const damageEl = document.createElement("div");
       damageEl.className = `damage-number ${isCritical ? 'critical' : ''} ${isHeal ? 'heal' : ''}`;
       damageEl.textContent = isHeal ? `+${amount}` : `-${amount}`;
@@ -43,12 +45,63 @@
       damageEl.style.top = `${rect.top - sceneRect.top}px`;
       damageEl.style.transform = 'translate(-50%, -100%)';
       damageEl.style.animation = 'damageFloat 1s ease-out forwards';
-      damageEl.style.fontSize = isCritical ? '2.5rem' : '1.8rem';
+      damageEl.style.fontSize = isCritical ? '3rem' : '2.2rem';
       damageEl.style.fontWeight = 'bold';
       damageEl.style.color = isHeal ? '#2ecc71' : (isCritical ? '#ff4444' : '#ffffff');
-      damageEl.style.textShadow = '2px 2px 4px rgba(0,0,0,0.8)';
+      damageEl.style.textShadow = '3px 3px 6px rgba(0,0,0,0.9), 0 0 10px rgba(0,0,0,0.5)';
       damageEl.style.zIndex = '500';
       damageEl.style.pointerEvents = 'none';
+      damageEl.style.fontFamily = "'Cinzel', serif";
+      damageEl.style.letterSpacing = '2px';
+
+      // Add critical hit indicator
+      if (isCritical) {
+        const critText = document.createElement('div');
+        critText.textContent = 'CRITICAL!';
+        critText.style.position = 'absolute';
+        critText.style.left = `${rect.left - sceneRect.left + rect.width / 2}px`;
+        critText.style.top = `${rect.top - sceneRect.top - 40}px`;
+        critText.style.transform = 'translate(-50%, -100%)';
+        critText.style.fontSize = '1.2rem';
+        critText.style.fontWeight = 'bold';
+        critText.style.color = '#ffcc00';
+        critText.style.textShadow = '2px 2px 4px rgba(0,0,0,0.8)';
+        critText.style.zIndex = '501';
+        critText.style.pointerEvents = 'none';
+        critText.style.animation = 'damageFloat 1s ease-out forwards';
+        dom.damageLayer.appendChild(critText);
+        setTimeout(() => critText.remove(), 1000);
+      }
+
+      // Add damage breakdown tooltip (if provided)
+      if (breakdown) {
+        const tooltip = document.createElement('div');
+        tooltip.className = 'damage-breakdown';
+        tooltip.innerHTML = `
+          <div class="breakdown-row"><span>Base ATK:</span><span>${breakdown.atk || 0}</span></div>
+          <div class="breakdown-row"><span>Multiplier:</span><span>${breakdown.multiplier || 1}x</span></div>
+          ${breakdown.defReduction ? `<div class="breakdown-row"><span>DEF Reduction:</span><span>-${breakdown.defReduction}</span></div>` : ''}
+          ${breakdown.guard ? `<div class="breakdown-row"><span>Guard:</span><span>-50%</span></div>` : ''}
+          ${breakdown.critical ? `<div class="breakdown-row critical"><span>Critical:</span><span>×${breakdown.critMultiplier}</span></div>` : ''}
+          <div class="breakdown-row total"><span>Total:</span><span>${amount}</span></div>
+        `;
+        tooltip.style.position = 'absolute';
+        tooltip.style.left = `${rect.left - sceneRect.left + rect.width / 2 + 60}px`;
+        tooltip.style.top = `${rect.top - sceneRect.top - 20}px`;
+        tooltip.style.padding = '6px 10px';
+        tooltip.style.background = 'rgba(0, 0, 0, 0.9)';
+        tooltip.style.border = '1px solid rgba(217, 179, 98, 0.5)';
+        tooltip.style.borderRadius = '6px';
+        tooltip.style.fontSize = '0.75rem';
+        tooltip.style.color = '#f0e6d1';
+        tooltip.style.zIndex = '499';
+        tooltip.style.pointerEvents = 'none';
+        tooltip.style.fontFamily = "'Cinzel', serif";
+        tooltip.style.whiteSpace = 'nowrap';
+        tooltip.style.animation = 'fadeInOut 2s ease-out forwards';
+        dom.damageLayer.appendChild(tooltip);
+        setTimeout(() => tooltip.remove(), 2000);
+      }
 
       dom.damageLayer.appendChild(damageEl);
       console.log(`[Animations] ✅ Damage number created and appended`, {
@@ -492,6 +545,53 @@
         transform: scale(1.1);
         filter: brightness(1.4);
       }
+    }
+
+    @keyframes fadeInOut {
+      0% {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      20% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      80% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+    }
+
+    .damage-breakdown {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .damage-breakdown .breakdown-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 2px 0;
+      border-bottom: 1px solid rgba(217, 179, 98, 0.2);
+    }
+
+    .damage-breakdown .breakdown-row.total {
+      border-top: 2px solid rgba(217, 179, 98, 0.6);
+      border-bottom: none;
+      font-weight: bold;
+      color: #ffd700;
+      margin-top: 2px;
+      padding-top: 4px;
+    }
+
+    .damage-breakdown .breakdown-row.critical {
+      color: #ff4444;
+      font-weight: bold;
     }
 
     .skill-animation {
