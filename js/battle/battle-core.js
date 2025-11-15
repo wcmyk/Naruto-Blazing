@@ -446,6 +446,9 @@
       // Only active (non-benched) units participate in combat
       this.combatants = [...this.activeTeam, ...this.enemyTeam].filter(u => !u.isBench && u.isActive);
       console.log("[BattleCore] Combatants updated:", this.combatants.length);
+      console.log("[BattleCore] Active team:", this.activeTeam.map(u => `${u.name} (Player: ${u.isPlayer})`));
+      console.log("[BattleCore] Enemy team:", this.enemyTeam.map(u => `${u.name} (Player: ${u.isPlayer})`));
+      console.log("[BattleCore] Final combatants:", this.combatants.map(u => `${u.name} (Player: ${u.isPlayer}, Active: ${u.isActive}, Bench: ${u.isBench})`));
     },
 
     updateTeamHP() {
