@@ -58,6 +58,7 @@
       charId,
       level: Number(level) || 1,
       tierCode: tierCode || null,
+      dupeUnlocks: 0, // Track unlocked abilities (starts at 0)
     };
     _instances.push(inst);
     save();
@@ -137,6 +138,11 @@
       if (!inst.tierCode && typeof inst.stars !== "undefined") {
         const key = String(inst.stars);
         inst.tierCode = map[key] || null;
+        changed = true;
+      }
+      // Migrate dupeUnlocks field for existing characters
+      if (typeof inst.dupeUnlocks === "undefined") {
+        inst.dupeUnlocks = 0;
         changed = true;
       }
     });
