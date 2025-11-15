@@ -460,9 +460,12 @@
       } else if (enemiesAlive === 0) {
         this.isPaused = true;
 
-        if (window.BattleMissions) {
-          window.BattleMissions.handleWaveComplete(this);
-        }
+        // Delay to allow HP bars to finish animating to 0
+        setTimeout(() => {
+          if (window.BattleMissions) {
+            window.BattleMissions.handleWaveComplete(this);
+          }
+        }, 600);
       }
     },
 
