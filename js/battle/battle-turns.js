@@ -32,9 +32,25 @@
     startSpeedGaugeTick(core) {
       if (this.speedGaugeInterval) clearInterval(this.speedGaugeInterval);
 
+      let tickCount = 0;
       this.speedGaugeInterval = setInterval(() => {
         // Don't advance if battle paused or turn locked
         if (core.isPaused || this.turnLocked) return;
+
+        // Debug log every 20 ticks (about every 2 seconds)
+        tickCount++;
+        if (tickCount % 20 === 0) {
+          console.log(`[Turns] Tick ${tickCount}: ${core.combatants.length} combatants`);
+          console.log(`[Turns] Combatant details:`, core.combatants.map(u => ({
+            name: u.name,
+            isPlayer: u.isPlayer,
+            isActive: u.isActive,
+            isBench: u.isBench,
+            hp: u.stats.hp,
+            gauge: u.speedGauge,
+            paused: u.isPaused
+          })));
+        }
 
         // Advance all non-paused combatants
         core.combatants.forEach(unit => {
@@ -146,7 +162,17 @@
     startTurn(unit, core) {
       if (core.isPaused || !unit || this.turnLocked) return;
 
-      console.log(`[Turns] ${unit.name} turn start (speed: ${unit.stats.speed}, gauge: ${unit.speedGauge})`);
+      console.log(`[Turns] ========================================`);
+      console.log(`[Turns] ${unit.name} turn start`);
+      console.log(`[Turns] Unit properties:`, {
+        isPlayer: unit.isPlayer,
+        isActive: unit.isActive,
+        isBench: unit.isBench,
+        speed: unit.stats.speed,
+        gauge: unit.speedGauge,
+        hp: unit.stats.hp
+      });
+      console.log(`[Turns] ========================================`);
 
       // Lock turn system
       this.turnLocked = true;
