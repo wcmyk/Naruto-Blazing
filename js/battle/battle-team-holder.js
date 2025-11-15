@@ -27,11 +27,9 @@
      */
     init(core) {
       this.teamHolder = document.getElementById('team-holder');
-      this.activeUnitsRow = document.getElementById('active-units-row');
-      this.benchUnitsRow = document.getElementById('bench-units-row');
 
-      if (!this.teamHolder || !this.activeUnitsRow || !this.benchUnitsRow) {
-        console.error('[TeamHolder] Team holder containers not found!');
+      if (!this.teamHolder) {
+        console.error('[TeamHolder] Team holder element not found!');
         return false;
       }
 
@@ -43,6 +41,7 @@
 
     /**
      * Render all player units in team holder
+     * Creates 4 unit cards, each with nested active+bench portraits
      */
     renderTeamHolder(core) {
       if (!this.teamHolder) {
@@ -53,89 +52,91 @@
       console.log('[TeamHolder] ========== RENDERING TEAM HOLDER ==========');
       console.log('[TeamHolder] Active team:', core.activeTeam?.length || 0, 'units');
       console.log('[TeamHolder] Bench team:', core.benchTeam?.length || 0, 'units');
-      console.log('[TeamHolder] Team holder element:', this.teamHolder);
-      console.log('[TeamHolder] Active row element:', this.activeUnitsRow);
-      console.log('[TeamHolder] Bench row element:', this.benchUnitsRow);
 
-      if (!core.activeTeam || core.activeTeam.length === 0) {
-        console.warn('[TeamHolder] No active team units to render!');
+      // Pair up active + bench units into cards
+      const numCards = Math.max(core.activeTeam?.length || 0, core.benchTeam?.length || 0);
+
+      this.teamHolder.innerHTML = '';
+
+      for (let i = 0; i < numCards; i++) {
+        const activeUnit = core.activeTeam?.[i];
+        const benchUnit = core.benchTeam?.[i];
+
+        if (activeUnit) {
+          const cardHTML = this.createUnitCardHTML(activeUnit, benchUnit, i);
+          this.teamHolder.insertAdjacentHTML('beforeend', cardHTML);
+        }
       }
-      if (!core.benchTeam || core.benchTeam.length === 0) {
-        console.warn('[TeamHolder] No bench team units to render!');
-      }
 
-      // Render active units (frontline)
-      this.renderActiveUnits(core);
-
-      // Render bench units (backline)
-      this.renderBenchUnits(core);
+      // Attach chakra wheels to all portraits
+      this.attachAllChakraWheels(core);
 
       console.log('[TeamHolder] ========== TEAM HOLDER RENDERED ==========');
     },
 
     /**
-     * Render active units row
+     * Create HTML for a unit card (active + bench nested)
      */
-    renderActiveUnits(core) {
-      if (!this.activeUnitsRow) return;
+    createUnitCardHTML(activeUnit, benchUnit, index) {
+      const activeHpPercent = Math.max(0, (activeUnit.stats.hp / activeUnit.stats.maxHP) * 100);
+      const isDead = activeUnit.stats.hp <= 0;
 
-      this.activeUnitsRow.innerHTML = core.activeTeam.map(unit => {
-        return this.createUnitHTML(unit, true);
-      }).join('');
-
-      // Attach chakra wheels
-      this.activeUnitsRow.querySelectorAll('.team-unit').forEach(el => {
-        const unitId = el.dataset.unitId;
-        const unit = core.activeTeam.find(u => u.id === unitId);
-        if (unit) {
-          this.attachChakraWheel(unit, el, true);
-        }
-      });
-    },
-
-    /**
-     * Render bench units row
-     */
-    renderBenchUnits(core) {
-      if (!this.benchUnitsRow) return;
-
-      this.benchUnitsRow.innerHTML = core.benchTeam.map(unit => {
-        return this.createUnitHTML(unit, false);
-      }).join('');
-
-      // Attach chakra wheels
-      this.benchUnitsRow.querySelectorAll('.team-unit').forEach(el => {
-        const unitId = el.dataset.unitId;
-        const unit = core.benchTeam.find(u => u.id === unitId);
-        if (unit) {
-          this.attachChakraWheel(unit, el, false);
-        }
-      });
-    },
-
-    /**
-     * Create HTML for a single unit
-     */
-    createUnitHTML(unit, isActive) {
-      const hpPercent = Math.max(0, (unit.stats.hp / unit.stats.maxHP) * 100);
-      const isDead = unit.stats.hp <= 0;
-
-      return `
-        <div class="team-unit ${isActive ? 'active-unit' : 'bench-unit'} ${isDead ? 'is-dead' : ''}"
-             data-unit-id="${unit.id}"
-             data-position-id="${unit.positionId}">
-          <div class="portrait-container">
-            <img src="${unit.portrait}" alt="${unit.name}"
+      let benchHTML = '';
+      if (benchUnit) {
+        benchHTML = `
+          <div class="bench-portrait-container" data-unit-id="${benchUnit.id}" data-unit-type="bench">
+            <img src="${benchUnit.portrait}" alt="${benchUnit.name}"
                  onerror="this.src='assets/characters/common/silhouette.png';">
           </div>
+        `;
+      }
+
+      return `
+        <div class="unit-card ${isDead ? 'is-dead' : ''}" data-card-index="${index}">
+          <div class="active-portrait-container" data-unit-id="${activeUnit.id}" data-unit-type="active">
+            <img src="${activeUnit.portrait}" alt="${activeUnit.name}"
+                 onerror="this.src='assets/characters/common/silhouette.png';">
+            ${benchHTML}
+          </div>
           <div class="unit-info">
-            <div class="unit-name">${unit.name}</div>
+            <div class="unit-name">${activeUnit.name}</div>
             <div class="unit-hp-bar">
-              <div class="unit-hp-fill" style="width: ${hpPercent}%"></div>
+              <div class="unit-hp-fill" style="width: ${activeHpPercent}%"></div>
             </div>
           </div>
         </div>
       `;
+    },
+
+    /**
+     * Attach chakra wheels to all unit portraits
+     */
+    attachAllChakraWheels(core) {
+      // Attach to active portraits
+      this.teamHolder.querySelectorAll('[data-unit-type="active"]').forEach(container => {
+        const unitId = container.dataset.unitId;
+        const unit = core.activeTeam.find(u => u.id === unitId);
+        if (unit && window.BattleChakraWheel) {
+          if (!window.BattleChakraWheel.getWheel(unit.id)) {
+            console.log(`[TeamHolder] Creating chakra wheel for active unit: ${unit.name}`);
+            window.BattleChakraWheel.createChakraWheel(unit, container, false);
+          }
+          window.BattleChakraWheel.updateChakraWheel(unit, core);
+        }
+      });
+
+      // Attach to bench portraits
+      this.teamHolder.querySelectorAll('[data-unit-type="bench"]').forEach(container => {
+        const unitId = container.dataset.unitId;
+        const unit = core.benchTeam.find(u => u.id === unitId);
+        if (unit && window.BattleChakraWheel) {
+          if (!window.BattleChakraWheel.getWheel(unit.id)) {
+            console.log(`[TeamHolder] Creating chakra wheel for bench unit: ${unit.name}`);
+            window.BattleChakraWheel.createChakraWheel(unit, container, true);
+          }
+          window.BattleChakraWheel.updateChakraWheel(unit, core);
+        }
+      });
     },
 
     /**
