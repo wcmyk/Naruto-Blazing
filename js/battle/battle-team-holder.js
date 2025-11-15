@@ -46,19 +46,31 @@
      */
     renderTeamHolder(core) {
       if (!this.teamHolder) {
-        console.warn('[TeamHolder] Not initialized');
+        console.error('[TeamHolder] Not initialized - teamHolder element not found!');
         return;
       }
 
-      console.log('[TeamHolder] Rendering team holder');
-      console.log('[TeamHolder] Active team:', core.activeTeam.length, 'units');
-      console.log('[TeamHolder] Bench team:', core.benchTeam.length, 'units');
+      console.log('[TeamHolder] ========== RENDERING TEAM HOLDER ==========');
+      console.log('[TeamHolder] Active team:', core.activeTeam?.length || 0, 'units');
+      console.log('[TeamHolder] Bench team:', core.benchTeam?.length || 0, 'units');
+      console.log('[TeamHolder] Team holder element:', this.teamHolder);
+      console.log('[TeamHolder] Active row element:', this.activeUnitsRow);
+      console.log('[TeamHolder] Bench row element:', this.benchUnitsRow);
+
+      if (!core.activeTeam || core.activeTeam.length === 0) {
+        console.warn('[TeamHolder] No active team units to render!');
+      }
+      if (!core.benchTeam || core.benchTeam.length === 0) {
+        console.warn('[TeamHolder] No bench team units to render!');
+      }
 
       // Render active units (frontline)
       this.renderActiveUnits(core);
 
       // Render bench units (backline)
       this.renderBenchUnits(core);
+
+      console.log('[TeamHolder] ========== TEAM HOLDER RENDERED ==========');
     },
 
     /**
