@@ -113,52 +113,56 @@ html, body.page-battle {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
 }
 
-#turn-icons {
-  display: flex;
-  gap: 6px;
-  align-items: center;
-}
-
-.turn-icon {
+/* Speed Marker (actual class used in JavaScript) */
+.speed-marker {
   position: relative;
-  width: 36px;
-  height: 36px;
+  width: 36px !important;
+  height: 36px !important;
+  min-width: 36px !important;
+  min-height: 36px !important;
+  max-width: 36px !important;
+  max-height: 36px !important;
   border-radius: 50%;
   border: 2px solid rgba(217, 179, 98, 0.6);
   overflow: hidden;
   transition: all 0.2s ease;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  flex-shrink: 0;
 }
 
-.turn-icon img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.speed-marker img {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  object-fit: cover !important;
+  display: block !important;
 }
 
-.turn-icon.player {
+.speed-marker.player {
   border-color: #58b7ff;
   box-shadow: 0 0 8px rgba(88, 183, 255, 0.5);
 }
 
-.turn-icon.enemy {
+.speed-marker.enemy {
   border-color: #ff4d4d;
   box-shadow: 0 0 8px rgba(255, 77, 77, 0.5);
 }
 
-.turn-icon.active {
+.speed-marker.acting {
   transform: scale(1.2);
   border-width: 3px;
   box-shadow: 0 0 12px rgba(255, 215, 0, 0.8);
   border-color: #ffd700;
 }
 
-.turn-icon.paused {
+.speed-marker.paused {
   opacity: 0.5;
   filter: grayscale(50%);
 }
 
-.turn-icon .speed-value {
+.speed-marker .speed-label,
+.speed-marker .pos-label {
   position: absolute;
   bottom: -2px;
   right: -2px;
