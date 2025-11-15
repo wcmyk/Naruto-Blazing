@@ -45,9 +45,14 @@
 }
 
 .hud-button {
-  width: 70px;
-  height: 70px;
-  border-radius: 50%;
+  width: 70px !important;
+  height: 70px !important;
+  min-width: 70px !important;
+  min-height: 70px !important;
+  max-width: 70px !important;
+  max-height: 70px !important;
+  aspect-ratio: 1 !important;
+  border-radius: 50% !important;
   background: radial-gradient(circle at 30% 30%, rgba(40, 40, 50, 0.9), rgba(20, 20, 30, 0.9));
   border: 3px solid rgba(217, 179, 98, 0.4);
   box-shadow:
@@ -63,6 +68,7 @@
   position: relative;
   transition: all 0.3s ease;
   overflow: hidden;
+  flex-shrink: 0 !important;
 }
 
 .hud-button:hover {
@@ -89,12 +95,13 @@
 }
 
 .hud-button img {
-  width: 50%;
-  height: 50%;
-  object-fit: cover;
+  width: 50% !important;
+  height: 50% !important;
+  aspect-ratio: 1 !important;
+  object-fit: cover !important;
   position: relative;
   z-index: 1;
-  border-radius: 50%;
+  border-radius: 50% !important;
   filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.6));
 }
 
