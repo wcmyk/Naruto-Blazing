@@ -96,13 +96,27 @@
 
   /* ---------- Level badge (grid cards) ---------- */
   function levelBadgeHTML(c, inst) {
-    const t   = inst.tierCode || minTier(c);
-    const cap = tierCap(c, t);
-    const lv  = safeNum(inst.level, 1);
+    const t = inst.tierCode || minTier(c);
+    let cap = tierCap(c, t);
+
+    // Apply extended level cap from limit breaks
+    if (hasLimitBreak && inst.limitBreakLevel && inst.limitBreakLevel > 0) {
+      cap = window.LimitBreak.getExtendedLevelCap(t, inst.limitBreakLevel);
+    }
+
+    const lv = safeNum(inst.level, 1);
     const isMax = lv >= cap;
-    return isMax
-      ? `<span class="lv">Lv</span> <span class="max">MAX</span>`
-      : `<span class="lv">Lv</span> ${lv}`;
+
+    // Handle limit break levels (> 100)
+    if (lv >= 150) {
+      return `<span class="lv">Lv</span> <span class="limit-break-max">MAX</span>`;
+    } else if (lv > 100) {
+      return `<span class="lv">Lv</span> <span class="limit-break">${lv}</span>`;
+    } else if (isMax) {
+      return `<span class="lv">Lv</span> <span class="max">MAX</span>`;
+    } else {
+      return `<span class="lv">Lv</span> ${lv}`;
+    }
   }
 
   /* ---------- Data ---------- */
