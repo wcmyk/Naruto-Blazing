@@ -197,14 +197,15 @@
 
 /* Unit Container - Ensure proper stacking */
 .battle-unit {
-  position: absolute;
-  width: 70px;
-  height: 70px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  position: absolute !important;
+  width: 70px !important;
+  height: 70px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
   z-index: 1;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%) !important;
   pointer-events: auto;
   cursor: grab;
 }
@@ -215,20 +216,27 @@
 
 /* Unit Sprite Container */
 .unit-sprite {
-  width: 70px;
-  height: 70px;
-  position: relative;
+  width: 70px !important;
+  height: 70px !important;
+  min-width: 70px !important;
+  min-height: 70px !important;
+  max-width: 70px !important;
+  max-height: 70px !important;
+  position: relative !important;
   border-radius: 8px;
-  overflow: hidden;
+  overflow: hidden !important;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
   z-index: 2;
+  flex-shrink: 0 !important;
 }
 
 .unit-sprite img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  object-fit: cover !important;
+  display: block !important;
 }
 
 /* HP Bar Container - BELOW sprite */
