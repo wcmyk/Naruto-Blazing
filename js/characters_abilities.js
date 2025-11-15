@@ -89,19 +89,18 @@ class CharacterAbilitiesSystem {
   }
 
   getCharacterData(uid) {
-    if (!window.CharacterInventory) {
-      console.error('❌ CharacterInventory not found');
+    if (!window.InventoryChar) {
+      console.error('❌ InventoryChar not found');
       return null;
     }
-    
-    const instances = window.CharacterInventory.getInstances();
-    const instance = instances.find(i => i.uid === uid);
-    
+
+    const instance = window.InventoryChar.getByUid(uid);
+
     if (!instance) return null;
 
     // Get base character data
-    const baseChar = window.CharacterInventory.getCharacterById(instance.charId);
-    
+    const baseChar = window.CharacterInventory?.getCharacterById(instance.charId);
+
     return {
       ...instance,
       passiveIcons: baseChar?.passiveIcons,
