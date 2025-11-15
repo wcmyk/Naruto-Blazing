@@ -278,7 +278,11 @@
       }
 
       core.updateTeamHP();
-      core.checkBattleEnd();
+
+      // Delay battle end check to allow HP bar animation to complete
+      setTimeout(() => {
+        core.checkBattleEnd();
+      }, 400);
     },
 
     /* ===== Jutsu (Single Target Skill) ===== */
@@ -514,7 +518,10 @@
 
       setTimeout(() => {
         core.updateTeamHP();
-        core.checkBattleEnd();
+        // Delay battle end check to allow HP bar animation to complete
+        setTimeout(() => {
+          core.checkBattleEnd();
+        }, 400);
       }, targets.length * 150 + 300);
     },
 
@@ -580,7 +587,10 @@
 
       setTimeout(() => {
         core.updateTeamHP();
-        core.checkBattleEnd();
+        // Delay battle end check to allow HP bar animation to complete
+        setTimeout(() => {
+          core.checkBattleEnd();
+        }, 400);
       }, targets.length * 120 + 200);
     },
 
