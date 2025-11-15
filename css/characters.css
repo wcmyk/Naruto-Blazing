@@ -251,7 +251,8 @@ body.page-characters {
 }
 .btn-darkgold,
 .btn-dark,
-.btn-awaken {
+.btn-awaken,
+.btn-feeddupe {
   font-family: "Cinzel", serif;
   border-radius: 8px;
   padding: 6px 14px;
@@ -280,6 +281,22 @@ body.page-characters {
   color: #f6e8b8;
 }
 .btn-awaken:disabled {
+  background: #2c2c2c;
+  color: #777;
+  border-color: #444;
+  cursor: not-allowed;
+}
+.btn-feeddupe {
+  background: linear-gradient(180deg, #3a6d9e 0%, #1f3a5f 100%);
+  border: 1px solid rgba(90, 150, 200, 0.4);
+  color: #e8f4ff;
+  font-weight: 600;
+}
+.btn-feeddupe:hover:not(:disabled) {
+  background: linear-gradient(180deg, #4a7dae 0%, #2f4a6f 100%);
+  box-shadow: 0 4px 12px rgba(58, 109, 158, 0.3);
+}
+.btn-feeddupe:disabled {
   background: #2c2c2c;
   color: #777;
   border-color: #444;
@@ -618,5 +635,167 @@ body.page-characters {
 .no-requirements {
   font-size: 12px;
   color: #888;
+  font-style: italic;
+}
+/* ---------- Dupe Selector Modal ---------- */
+.dupe-modal {
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: rgba(10,10,10,0.85);
+  backdrop-filter: blur(8px);
+  z-index: 1100;
+}
+
+.dupe-modal.open {
+  display: flex;
+}
+
+.dupe-modal-panel {
+  background: #1a1a1c;
+  border: 1px solid rgba(255,215,120,0.15);
+  border-radius: 16px;
+  padding: 24px;
+  max-width: 600px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.7);
+}
+
+.dupe-modal-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--gold);
+  margin-bottom: 16px;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.dupe-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.dupe-card {
+  background: rgba(0,0,0,0.4);
+  border: 1px solid rgba(255,215,120,0.1);
+  border-radius: 8px;
+  padding: 8px;
+  cursor: pointer;
+  transition: all .2s ease;
+  text-align: center;
+}
+
+.dupe-card:hover {
+  border-color: rgba(255,215,120,0.3);
+  background: rgba(255,215,120,0.1);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+}
+
+.dupe-card-portrait {
+  width: 100%;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 6px;
+  margin-bottom: 6px;
+}
+
+.dupe-card-level {
+  font-size: 12px;
+  color: #e8e3d1;
+  font-family: "Cinzel", serif;
+}
+
+.dupe-modal-actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+/* ---------- Abilities Panel ---------- */
+.abilities-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ability-card {
+  background: rgba(0,0,0,0.35);
+  border: 1px solid rgba(255,215,120,0.1);
+  border-radius: 8px;
+  padding: 10px 12px;
+  position: relative;
+}
+
+.ability-card.locked {
+  opacity: 0.4;
+  background: rgba(30,30,35,0.3);
+  border: 1px solid rgba(100,100,110,0.2);
+}
+
+.ability-card.locked::before {
+  content: "🔒";
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  font-size: 16px;
+  opacity: 0.6;
+}
+
+.ability-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.ability-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--gold);
+}
+
+.ability-unlock-status {
+  font-size: 11px;
+  color: #62d98f;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.ability-unlock-status.locked {
+  color: #888;
+}
+
+.ability-description {
+  font-size: 13px;
+  color: #e8e3d1;
+  line-height: 1.5;
+}
+
+.abilities-progress {
+  text-align: center;
+  font-size: 13px;
+  color: var(--gold);
+  margin-bottom: 12px;
+  font-weight: 600;
+  padding: 8px;
+  background: rgba(255,215,120,0.05);
+  border-radius: 6px;
+  border: 1px solid rgba(255,215,120,0.1);
+}
+
+.no-abilities {
+  text-align: center;
+  padding: 40px;
+  color: #888;
+  font-size: 14px;
   font-style: italic;
 }

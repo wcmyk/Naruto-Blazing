@@ -33,6 +33,7 @@
           <button class="tab-btn is-active" data-tab="status">Status</button>
           <button class="tab-btn" data-tab="skills">Ninjutsu</button>
           <button class="tab-btn" data-tab="support">F/B Skills</button>
+          <button class="tab-btn" data-tab="abilities">Abilities</button>
         </div>
 
         <div class="tab-panels">
@@ -50,6 +51,7 @@
                 <button class="btn-darkgold" id="btn-levelup">Level Up</button>
                 <button class="btn-dark" id="btn-addcopy">Add Copy</button>
                 <button class="btn-dark" id="btn-removecopy">Remove Copy</button>
+                <button class="btn-feeddupe" id="btn-feeddupe" disabled>Feed Dupe</button>
                 <button class="btn-awaken" id="btn-awaken" disabled>Awaken</button>
                 <button class="btn-limitbreak" id="btn-limitbreak" disabled>Limit Break</button>
               </div>
@@ -69,11 +71,26 @@
           <section class="tab-panel" id="tab-support">
             <div class="support-wrap" id="char-support"></div>
           </section>
+
+          <section class="tab-panel" id="tab-abilities">
+            <div class="abilities-wrap" id="char-abilities"></div>
+          </section>
         </div>
 
         <div class="char-modal-actions">
           <button class="char-close-btn" id="char-modal-close">Close</button>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dupe Selector Modal -->
+  <div id="dupe-selector-modal" class="dupe-modal" aria-hidden="true">
+    <div class="dupe-modal-panel">
+      <h2 class="dupe-modal-title">Select Duplicate to Feed</h2>
+      <div class="dupe-grid" id="dupe-grid"></div>
+      <div class="dupe-modal-actions">
+        <button class="btn-dark" id="dupe-modal-cancel">Cancel</button>
       </div>
     </div>
   </div>
