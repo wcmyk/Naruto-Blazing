@@ -97,7 +97,13 @@
             speedGauge: Math.floor(Math.random() * 200),
             isPaused: false
           };
-        unit._ref = { enemy: base };
+        unit._ref = { enemy: base, base };
+
+        // Initialize passive abilities (if enemy has any)
+        if (window.BattlePassives) {
+          window.BattlePassives.initializePassives(unit, bm);
+        }
+
         return unit;
       });
 

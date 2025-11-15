@@ -160,6 +160,11 @@
         window.BattleBuffs.onTurnStart(core, unit);
       }
 
+      // Apply passive ability turn start effects (HP regen, chakra boost, etc.)
+      if (window.BattlePassives) {
+        window.BattlePassives.onTurnStart(core, unit);
+      }
+
       // Reset unit state
       unit.isGuarding = false;
 
@@ -197,6 +202,11 @@
       // Apply turn end effects (buff duration tick, expiration)
       if (window.BattleBuffs) {
         window.BattleBuffs.onTurnEnd(core, this.currentUnit);
+      }
+
+      // Apply passive ability turn end effects
+      if (window.BattlePassives) {
+        window.BattlePassives.onTurnEnd(core, this.currentUnit);
       }
 
       // Reset chakra mode if using chakra system

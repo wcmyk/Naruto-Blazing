@@ -242,6 +242,11 @@
 
         unit._ref = { base, inst, tier };
 
+        // Initialize passive abilities
+        if (window.BattlePassives) {
+          window.BattlePassives.initializePassives(unit, this);
+        }
+
         console.log(`[BattleCore] Active unit ${i + 1}:`, unit.name, tier, art.portrait);
         return unit;
       }).filter(Boolean);
@@ -291,6 +296,11 @@
           });
 
         unit._ref = { base, inst, tier };
+
+        // Initialize passive abilities
+        if (window.BattlePassives) {
+          window.BattlePassives.initializePassives(unit, this);
+        }
 
         console.log(`[BattleCore] Bench unit ${i + 1}:`, unit.name, tier);
         return unit;
