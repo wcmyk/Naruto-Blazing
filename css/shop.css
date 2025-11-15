@@ -37,12 +37,12 @@
   display: flex;
   gap: 20px;
   z-index: 100;
-  background: rgba(20, 25, 35, 0.9);
+  background: rgba(20, 25, 35, 0.95);
   backdrop-filter: blur(10px);
   padding: 12px 20px;
   border-radius: 12px;
-  border: 2px solid rgba(212, 175, 55, 0.3);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  border: 2px solid rgba(139, 115, 85, 0.5);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
 }
 
 .resource-item {
@@ -59,13 +59,13 @@
 
 .resource-label {
   font-size: 14px;
-  color: #d4af37;
+  color: #8b7355;
   font-weight: 600;
 }
 
 .resource-value {
   font-size: 16px;
-  color: #ffd700;
+  color: #b8985f;
   font-weight: 700;
   min-width: 60px;
   text-align: right;
@@ -84,13 +84,7 @@
   font-weight: 700;
   text-align: center;
   margin-bottom: 40px;
-  background: linear-gradient(135deg, #8b7355, #d4af37, #ffd700, #d4af37, #8b7355);
-  background-size: 200% 200%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  text-shadow: 0 0 40px rgba(255, 215, 0, 0.3);
-  animation: shimmer 4s ease-in-out infinite;
+  color: #8b7355;
   letter-spacing: 3px;
 }
 
@@ -138,19 +132,17 @@
 }
 
 .shop-tab:hover {
-  border-color: rgba(255, 215, 0, 0.6);
-  color: #ffd700;
+  border-color: rgba(139, 115, 85, 0.8);
+  color: #b8985f;
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
 }
 
 .shop-tab.active {
-  background: linear-gradient(135deg, rgba(139, 115, 85, 0.4), rgba(212, 175, 55, 0.3));
-  border-color: #d4af37;
-  color: #ffd700;
-  box-shadow:
-    0 0 20px rgba(255, 215, 0, 0.4),
-    inset 0 0 15px rgba(255, 215, 0, 0.1);
+  background: linear-gradient(135deg, rgba(139, 115, 85, 0.4), rgba(139, 115, 85, 0.3));
+  border-color: #8b7355;
+  color: #b8985f;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
 }
 
 /* Tab Content */
@@ -188,26 +180,10 @@
   overflow: hidden;
 }
 
-.shop-item::before {
-  content: '';
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: radial-gradient(circle, rgba(255, 215, 0, 0.1), transparent 70%);
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.shop-item:hover::before {
-  opacity: 1;
-}
-
 .shop-item:hover {
   transform: translateY(-5px);
-  border-color: #d4af37;
-  box-shadow: 0 8px 25px rgba(255, 215, 0, 0.3);
+  border-color: #8b7355;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
 }
 
 .item-header {
@@ -242,13 +218,13 @@
 .item-name {
   font-size: 1.2rem;
   font-weight: 700;
-  color: #ffd700;
+  color: #b8985f;
   margin-bottom: 5px;
 }
 
 .item-tier {
   font-size: 0.9rem;
-  color: #d4af37;
+  color: #8b7355;
   margin-bottom: 5px;
 }
 
@@ -273,7 +249,7 @@
   gap: 8px;
   font-size: 1.1rem;
   font-weight: 700;
-  color: #ffd700;
+  color: #b8985f;
 }
 
 .item-cost img {
@@ -286,17 +262,17 @@
   font-size: 1rem;
   font-weight: 600;
   padding: 8px 20px;
-  background: linear-gradient(135deg, #8b7355, #d4af37);
-  border: 2px solid #d4af37;
+  background: linear-gradient(135deg, #8b7355, #a07f50);
+  border: 2px solid #8b7355;
   border-radius: 6px;
-  color: #0a0f1e;
+  color: #f4efe3;
   cursor: pointer;
   transition: all 0.3s ease;
 }
 
 .btn-buy:hover {
-  background: linear-gradient(135deg, #d4af37, #ffd700);
-  box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+  background: linear-gradient(135deg, #a07f50, #b8985f);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
   transform: scale(1.05);
 }
 
@@ -331,12 +307,12 @@
 
 .modal-content {
   background: linear-gradient(145deg, #1e232d, #14181f);
-  border: 3px solid #d4af37;
+  border: 3px solid #8b7355;
   border-radius: 16px;
   padding: 30px;
   max-width: 500px;
   width: 90%;
-  box-shadow: 0 0 40px rgba(255, 215, 0, 0.4);
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.6);
   animation: modalSlideIn 0.3s ease;
 }
 
@@ -350,8 +326,7 @@
   font-weight: 700;
   text-align: center;
   margin-bottom: 25px;
-  color: #ffd700;
-  text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+  color: #b8985f;
 }
 
 .purchase-preview {
@@ -379,7 +354,7 @@
 .purchase-item-name {
   font-size: 1.3rem;
   font-weight: 700;
-  color: #ffd700;
+  color: #b8985f;
   margin-bottom: 8px;
 }
 
@@ -399,7 +374,7 @@
 
 .quantity-selector label {
   font-size: 1.1rem;
-  color: #d4af37;
+  color: #8b7355;
   font-weight: 600;
 }
 
@@ -408,17 +383,17 @@
   height: 40px;
   font-size: 1.5rem;
   font-weight: 700;
-  background: rgba(212, 175, 55, 0.2);
-  border: 2px solid #d4af37;
+  background: rgba(139, 115, 85, 0.2);
+  border: 2px solid #8b7355;
   border-radius: 6px;
-  color: #ffd700;
+  color: #b8985f;
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
 .qty-btn:hover {
-  background: rgba(212, 175, 55, 0.4);
-  box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+  background: rgba(139, 115, 85, 0.4);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
 }
 
 #qty-input {
@@ -429,9 +404,9 @@
   font-weight: 600;
   text-align: center;
   background: rgba(0, 0, 0, 0.5);
-  border: 2px solid #d4af37;
+  border: 2px solid #8b7355;
   border-radius: 6px;
-  color: #ffd700;
+  color: #b8985f;
   outline: none;
 }
 
@@ -445,7 +420,7 @@
   margin-bottom: 25px;
   font-size: 1.2rem;
   font-weight: 700;
-  color: #ffd700;
+  color: #b8985f;
 }
 
 .modal-buttons {
@@ -466,26 +441,26 @@
 }
 
 .btn-confirm {
-  background: linear-gradient(135deg, #8b7355, #d4af37);
-  border-color: #d4af37;
-  color: #0a0f1e;
+  background: linear-gradient(135deg, #8b7355, #a07f50);
+  border-color: #8b7355;
+  color: #f4efe3;
 }
 
 .btn-confirm:hover {
-  background: linear-gradient(135deg, #d4af37, #ffd700);
-  box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+  background: linear-gradient(135deg, #a07f50, #b8985f);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
   transform: translateY(-2px);
 }
 
 .btn-cancel {
   background: rgba(139, 115, 85, 0.3);
-  border-color: rgba(212, 175, 55, 0.5);
-  color: #d4af37;
+  border-color: rgba(139, 115, 85, 0.5);
+  color: #8b7355;
 }
 
 .btn-cancel:hover {
   background: rgba(139, 115, 85, 0.5);
-  border-color: #d4af37;
+  border-color: #8b7355;
   transform: translateY(-2px);
 }
 
