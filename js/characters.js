@@ -269,15 +269,20 @@
     const isMax = level >= cap;
 
     // Update level display with red color when level > 100 or at MAX (150)
+    // Remove any existing special classes first
+    LV_VALUE_EL.classList.remove('limit-break', 'limit-break-max', 'max');
+
     if (level >= 150) {
       LV_VALUE_EL.textContent = "MAX";
-      LV_VALUE_EL.style.color = "#DC143C"; // Dark red (crimson)
+      LV_VALUE_EL.classList.add('limit-break-max');
     } else if (level > 100) {
       LV_VALUE_EL.textContent = String(level);
-      LV_VALUE_EL.style.color = "#DC143C"; // Dark red (crimson)
+      LV_VALUE_EL.classList.add('limit-break');
+    } else if (isMax) {
+      LV_VALUE_EL.textContent = "MAX";
+      LV_VALUE_EL.classList.add('max');
     } else {
-      LV_VALUE_EL.textContent = isMax ? "MAX" : String(level);
-      LV_VALUE_EL.style.color = ""; // Reset to default
+      LV_VALUE_EL.textContent = String(level);
     }
     LV_CAP_EL.textContent   = String(cap);
 
