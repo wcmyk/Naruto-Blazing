@@ -33,8 +33,8 @@
      * Initialize chakra wheel for a unit
      * Creates the wheel structure and attaches to portrait
      */
-    createChakraWheel(unit, portraitElement, isBench = false) {
-      if (!unit || !portraitElement) {
+    createChakraWheel(unit, portraitContainerOrImg, isBench = false) {
+      if (!unit || !portraitContainerOrImg) {
         console.warn('[ChakraWheel] Cannot create wheel - missing unit or portrait');
         return null;
       }
@@ -43,7 +43,7 @@
 
       // Create wheel container
       const wheel = document.createElement('div');
-      wheel.className = `chakra-wheel ${isBench ? 'bench-unit' : 'active-unit'}`;
+      wheel.className = `chakra-wheel`;
       wheel.dataset.unitId = unit.id;
 
       // Create rings (initially all hidden, shown based on chakra amount)
@@ -63,16 +63,25 @@
       // Cache the wheel element
       this.wheelCache.set(unit.id, wheel);
 
-      // Wrap portrait with chakra wheel
-      if (portraitElement.parentElement) {
-        const wrapper = document.createElement('div');
-        wrapper.className = 'portrait-with-chakra';
-        portraitElement.parentElement.insertBefore(wrapper, portraitElement);
-        wrapper.appendChild(portraitElement);
-        wrapper.appendChild(wheel);
-        console.log(`[ChakraWheel] Wrapped portrait for ${unit.name}, wheel attached`);
+      // Attach wheel to portrait container
+      // If it's already a .portrait-container (team holder), append directly
+      // Otherwise it's an img element, so wrap it first
+      if (portraitContainerOrImg.classList && portraitContainerOrImg.classList.contains('portrait-container')) {
+        // Team holder - already has .portrait-container
+        portraitContainerOrImg.appendChild(wheel);
+        console.log(`[ChakraWheel] Attached wheel to portrait-container for ${unit.name}`);
       } else {
-        console.warn(`[ChakraWheel] Cannot wrap portrait for ${unit.name} - no parent element`);
+        // Legacy support - wrap img element
+        if (portraitContainerOrImg.parentElement) {
+          const wrapper = document.createElement('div');
+          wrapper.className = 'portrait-with-chakra';
+          portraitContainerOrImg.parentElement.insertBefore(wrapper, portraitContainerOrImg);
+          wrapper.appendChild(portraitContainerOrImg);
+          wrapper.appendChild(wheel);
+          console.log(`[ChakraWheel] Wrapped portrait for ${unit.name}, wheel attached`);
+        } else {
+          console.warn(`[ChakraWheel] Cannot wrap portrait for ${unit.name} - no parent element`);
+        }
       }
 
       return wheel;
