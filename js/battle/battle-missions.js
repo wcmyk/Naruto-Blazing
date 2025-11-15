@@ -103,7 +103,7 @@
             pos: { x: 70 + (i % 2 * 15), y: 25 + Math.floor(i / 2) * 25 },
             chakra: 0,
             maxChakra: 10,
-            speedGauge: 600 + Math.floor(Math.random() * 200), // Enemies start at 600-800
+            speedGauge: 1100 + Math.floor(Math.random() * 80), // Enemies start at 1100-1180 (almost ready)
             isPaused: false,
             isGuarding: false,
             statusEffects: [],

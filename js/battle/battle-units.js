@@ -81,10 +81,11 @@
     createCombatant(data) {
       const isPlayer = data.isPlayer || false;
 
-      // Give enemies a head start (600-800 gauge) so they can act before fast players
+      // Give enemies a massive head start (1100-1180 gauge, almost at max 1200)
+      // This ensures enemies get their first turn, then normal speed-based turns take over
       const initialGauge = isPlayer
         ? Math.floor(Math.random() * 200)  // Players: 0-200
-        : 600 + Math.floor(Math.random() * 200);  // Enemies: 600-800
+        : 1100 + Math.floor(Math.random() * 80);  // Enemies: 1100-1180 (almost ready)
 
       const unit = {
         id: data.uid || `unit-${Date.now()}-${Math.random()}`,
