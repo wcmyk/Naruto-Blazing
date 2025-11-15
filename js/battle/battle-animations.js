@@ -45,7 +45,7 @@
       damageEl.style.top = `${rect.top - sceneRect.top}px`;
       damageEl.style.transform = 'translate(-50%, -100%)';
       damageEl.style.animation = 'damageFloat 1s ease-out forwards';
-      damageEl.style.fontSize = isCritical ? '3rem' : '2.2rem';
+      damageEl.style.fontSize = isCritical ? '4.5rem' : '3.5rem';
       damageEl.style.fontWeight = 'bold';
       damageEl.style.color = isHeal ? '#2ecc71' : (isCritical ? '#ff4444' : '#ffffff');
       damageEl.style.textShadow = '3px 3px 6px rgba(0,0,0,0.9), 0 0 10px rgba(0,0,0,0.5)';
