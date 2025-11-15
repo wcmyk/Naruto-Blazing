@@ -77,10 +77,14 @@
           stats: { hp: 800, atk: 80, def: 30, speed: 90, chakra: 5 }
         };
 
+        // Convert sprite to portrait for compatibility
+        const portrait = base.portrait || base.sprite || "assets/characters/common/silhouette.png";
+
         // Use modular units.createCombatant or fallback
         const unit = bm.units ?
           bm.units.createCombatant({
             ...base,
+            portrait: portrait,
             isPlayer: false,
             stats: { ...base.stats, maxHP: base.stats.hp },
             pos: { x: 70 + (i % 2 * 15), y: 25 + Math.floor(i / 2) * 25 }
@@ -88,14 +92,15 @@
           {
             id: base.id,
             name: base.name,
-            portrait: base.portrait || "assets/characters/common/silhouette.png",
+            portrait: portrait,
             isPlayer: false,
             stats: { ...base.stats, maxHP: base.stats.hp },
             pos: { x: 70 + (i % 2 * 15), y: 25 + Math.floor(i / 2) * 25 },
             chakra: 0,
             maxChakra: 10,
             speedGauge: Math.floor(Math.random() * 200),
-            isPaused: false
+            isPaused: false,
+            statusEffects: []
           };
         unit._ref = { enemy: base, base };
 

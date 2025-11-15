@@ -716,11 +716,24 @@
      * AI chooses between attack, jutsu, ultimate, or guard
      */
     performAITurn(unit, core) {
+      console.log(`[Combat] AI Turn for ${unit.name} (isPlayer: ${unit.isPlayer})`);
+
       const targets = (unit.isPlayer ? core.enemyTeam : core.activeTeam).filter(u => u.stats.hp > 0);
-      if (targets.length === 0) return;
+
+      console.log(`[Combat] AI found ${targets.length} valid targets:`, targets.map(t => t.name));
+
+      if (targets.length === 0) {
+        console.warn("[Combat] No valid targets for AI turn!");
+        return;
+      }
 
       const target = targets[Math.floor(Math.random() * targets.length)];
       const skills = this.getUnitSkills(unit);
+
+      console.log(`[Combat] AI selected target: ${target.name}, has skills:`, {
+        jutsu: !!skills.jutsu,
+        ultimate: !!skills.ultimate
+      });
 
       // Check if ultimate is available and random chance
       const preferUlt = skills.ultimate &&
@@ -734,14 +747,18 @@
 
       // Execute chosen action
       if (preferUlt) {
+        console.log("[Combat] AI using ultimate");
         this.performUltimate(unit, targets, core);
       } else if (preferJut) {
+        console.log("[Combat] AI using jutsu");
         this.performJutsu(unit, target, core);
       } else if (unit.stats.hp < unit.stats.maxHP * 0.3 && Math.random() > 0.6) {
         // Guard if low HP
+        console.log("[Combat] AI guarding");
         this.performGuard(unit, core);
       } else {
         // Default to basic attack
+        console.log("[Combat] AI attacking");
         this.performAttack(unit, target, core);
       }
     },

@@ -181,9 +181,13 @@
       if (unit.isPlayer && !this.autoMode) {
         this.showActionPanel(unit, core);
       } else {
+        console.log(`[Turns] Starting AI turn for ${unit.name}`);
         setTimeout(() => {
           if (window.BattleCombat) {
+            console.log(`[Turns] Calling performAITurn for ${unit.name}`);
             window.BattleCombat.performAITurn(unit, core);
+          } else {
+            console.error("[Turns] BattleCombat not available!");
           }
           setTimeout(() => this.endTurn(core), 1200);
         }, 500);
