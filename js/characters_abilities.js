@@ -150,11 +150,20 @@ class CharacterAbilitiesSystem {
     // Clear existing icons
     this.iconContainer.innerHTML = '';
 
+    // Get unlocked abilities count to determine locked state
+    const instance = window.InventoryChar?.getByUid(this.currentCharacter?.uid);
+    const unlockedCount = instance?.dupeUnlocks || 0;
+
     // Add each icon
     icons.forEach((iconId, index) => {
       const iconElement = document.createElement('div');
       iconElement.className = 'passive-icon';
-      
+
+      // Add locked class if this icon is beyond the unlocked count
+      if (index >= unlockedCount) {
+        iconElement.classList.add('locked');
+      }
+
       // Add tier class for special styling
       if (this.currentTier) {
         const tierNum = this.currentTier.replace(/\D/g, '');
@@ -167,7 +176,7 @@ class CharacterAbilitiesSystem {
       const img = document.createElement('img');
       img.src = `assets/icons/passives/${iconId}.png`;
       img.alt = iconId;
-      
+
       // Fallback to default icon on error
       img.onerror = () => {
         console.log(`⚠️ Icon not found: ${iconId}.png, using default`);
@@ -179,7 +188,7 @@ class CharacterAbilitiesSystem {
       this.iconContainer.appendChild(iconElement);
     });
 
-    console.log(`✅ Added ${icons.length} passive icons`);
+    console.log(`✅ Added ${icons.length} passive icons (${unlockedCount} unlocked)`);
   }
 
   getIconTooltip(iconId) {

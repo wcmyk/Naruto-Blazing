@@ -23,7 +23,7 @@
   width: 32px;
   height: 32px;
   background: linear-gradient(135deg, rgba(0, 0, 0, 0.85), rgba(20, 20, 20, 0.75));
-  border: 2px solid rgba(255, 200, 0, 0.5);
+  border: 2px solid rgba(139, 117, 0, 0.8);
   border-radius: 8px;
   padding: 4px;
   display: flex;
@@ -39,16 +39,50 @@
   backdrop-filter: blur(8px);
 }
 
+/* Locked State for Passive Icons */
+.passive-icon.locked {
+  position: relative;
+}
+
+.passive-icon.locked::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(128, 128, 128, 0.6);
+  border-radius: 6px;
+  pointer-events: none;
+  z-index: 1;
+  backdrop-filter: grayscale(100%);
+}
+
+.passive-icon.locked img {
+  filter: grayscale(100%) opacity(0.4);
+}
+
 /* Icon Hover Effect */
 .passive-icon:hover {
-  border-color: rgba(255, 220, 0, 1);
+  border-color: rgba(184, 134, 11, 1);
   background: linear-gradient(135deg, rgba(30, 30, 30, 0.9), rgba(50, 50, 50, 0.85));
-  box-shadow: 
-    0 8px 20px rgba(255, 200, 0, 0.5),
+  box-shadow:
+    0 8px 20px rgba(218, 165, 32, 0.5),
     inset 0 1px 4px rgba(255, 255, 255, 0.2),
-    0 0 0 1px rgba(255, 220, 0, 0.3),
-    0 0 20px rgba(255, 200, 0, 0.3);
+    0 0 0 1px rgba(218, 165, 32, 0.3),
+    0 0 20px rgba(255, 215, 0, 0.3);
   transform: scale(1.08) translateX(-3px);
+}
+
+/* Locked icons should not have hover effects */
+.passive-icon.locked:hover {
+  border-color: rgba(100, 100, 100, 0.5);
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.85), rgba(20, 20, 20, 0.75));
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.7),
+    inset 0 1px 3px rgba(255, 255, 255, 0.1),
+    0 0 0 1px rgba(0, 0, 0, 0.5);
+  transform: none;
 }
 
 /* Icon Image Styling */
@@ -61,9 +95,14 @@
 }
 
 .passive-icon:hover img {
-  filter: 
-    drop-shadow(0 2px 8px rgba(255, 200, 0, 0.4))
+  filter:
+    drop-shadow(0 2px 8px rgba(255, 215, 0, 0.4))
     brightness(1.15);
+}
+
+/* Locked icons should keep grayscale filter on hover */
+.passive-icon.locked:hover img {
+  filter: grayscale(100%) opacity(0.4);
 }
 
 /* Tooltip on Hover */
