@@ -65,31 +65,6 @@
   overflow: hidden;
 }
 
-.hud-button::before {
-  content: '';
-  position: absolute;
-  inset: -3px;
-  border-radius: 50%;
-  background: conic-gradient(
-    from 0deg,
-    transparent 0%,
-    rgba(217, 179, 98, 0.3) 50%,
-    transparent 100%
-  );
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.hud-button:hover::before {
-  opacity: 1;
-  animation: rotate 3s linear infinite;
-}
-
-@keyframes rotate {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
 .hud-button:hover {
   transform: scale(1.15);
   border-color: rgba(255, 215, 0, 0.8);
