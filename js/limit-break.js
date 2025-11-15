@@ -5,6 +5,8 @@
 (function (global) {
   "use strict";
 
+  let _limitBreakCosts = null;
+
   // Maximum limit break level per tier
   const MAX_LIMIT_BREAK_LEVELS = {
     "6S": 5,
@@ -27,26 +29,43 @@
     chakra: 0.01   // 1% per level
   };
 
-  // Material costs per limit break level
-  function getLimitBreakCost(tierCode, currentLB, character) {
-    const baseCost = {
-      "6S": { limit_break_crystal: 1, ryo: 10000 },
-      "6SB": { limit_break_crystal: 1, dupe_crystal: 1, ryo: 15000 },
-      "7S": { limit_break_crystal: 2, ryo: 20000 },
-      "7SL": { limit_break_crystal: 2, dupe_crystal: 1, ryo: 25000 },
-      "8S": { limit_break_crystal: 3, ryo: 30000 },
-      "8SM": { limit_break_crystal: 3, dupe_crystal: 2, ryo: 35000 },
-      "9S": { limit_break_crystal: 4, ryo: 40000 },
-      "9ST": { limit_break_crystal: 4, dupe_crystal: 3, ryo: 45000 },
-      "10SO": { limit_break_crystal: 5, dupe_crystal: 5, ryo: 50000 }
-    };
+  // Load limit break costs from JSON
+  async function loadCosts() {
+    if (_limitBreakCosts) return _limitBreakCosts;
 
-    const cost = baseCost[tierCode] || { limit_break_crystal: 1, ryo: 10000 };
+    try {
+      const res = await fetch("data/limit-break-costs.json", { cache: "no-store" });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const data = await res.json();
+      _limitBreakCosts = data.tierCosts || {};
+      return _limitBreakCosts;
+    } catch (err) {
+      console.error("[LimitBreak] Failed to load costs:", err);
+      // Fallback to default costs
+      _limitBreakCosts = {
+        "6S": { limit_break_crystal: 1, ryo: 10000 },
+        "6SB": { limit_break_crystal: 1, dupe_crystal: 1, ryo: 15000 },
+        "7S": { limit_break_crystal: 2, ryo: 20000 },
+        "7SL": { limit_break_crystal: 2, dupe_crystal: 1, ryo: 25000 },
+        "8S": { limit_break_crystal: 3, ryo: 30000 },
+        "8SM": { limit_break_crystal: 3, dupe_crystal: 2, ryo: 35000 },
+        "9S": { limit_break_crystal: 4, ryo: 40000 },
+        "9ST": { limit_break_crystal: 4, dupe_crystal: 3, ryo: 45000 },
+        "10SO": { limit_break_crystal: 5, dupe_crystal: 5, ryo: 50000 }
+      };
+      return _limitBreakCosts;
+    }
+  }
+
+  // Material costs per limit break level
+  async function getLimitBreakCost(tierCode, currentLB, character) {
+    const costs = await loadCosts();
+    const baseCost = costs[tierCode] || { limit_break_crystal: 1, ryo: 10000 };
 
     // Multiply costs by current LB level + 1
     const multiplier = (currentLB || 0) + 1;
     const finalCost = {};
-    for (const [mat, amt] of Object.entries(cost)) {
+    for (const [mat, amt] of Object.entries(baseCost)) {
       finalCost[mat] = amt * multiplier;
     }
 
@@ -82,19 +101,19 @@
   }
 
   // Check if player has materials for limit break
-  function canAffordLimitBreak(inst, character) {
+  async function canAffordLimitBreak(inst, character) {
     if (!canLimitBreak(inst, character)) return false;
     if (!global.Resources) return false;
 
     const tier = inst.tierCode || global.Progression.getTierBounds(character).minCode;
     const currentLB = inst.limitBreakLevel || 0;
-    const cost = getLimitBreakCost(tier, currentLB, character);
+    const cost = await getLimitBreakCost(tier, currentLB, character);
 
     return global.Resources.canAfford(cost);
   }
 
   // Perform limit break
-  function performLimitBreak(inst, character) {
+  async function performLimitBreak(inst, character) {
     if (!inst || !character) {
       return { ok: false, reason: "INVALID_INSTANCE_OR_CHARACTER" };
     }
@@ -109,7 +128,7 @@
 
     const tier = inst.tierCode;
     const currentLB = inst.limitBreakLevel || 0;
-    const cost = getLimitBreakCost(tier, currentLB, character);
+    const cost = await getLimitBreakCost(tier, currentLB, character);
 
     // Check and spend materials
     const spendResult = global.Resources.spend(cost);
@@ -178,6 +197,7 @@
 
   // Public API
   global.LimitBreak = {
+    loadCosts,
     canLimitBreak,
     canAffordLimitBreak,
     performLimitBreak,

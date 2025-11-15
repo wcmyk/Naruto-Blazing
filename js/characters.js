@@ -268,7 +268,7 @@
 
     // Limit break button
     const canLB = hasLimitBreak && window.LimitBreak.canLimitBreak(inst, c);
-    const canAffordLB = hasLimitBreak && window.LimitBreak.canAffordLimitBreak(inst, c);
+    const canAffordLB = hasLimitBreak && await window.LimitBreak.canAffordLimitBreak(inst, c);
     if (BTN_LIMITBREAK) {
       BTN_LIMITBREAK.disabled = !canLB || !canAffordLB;
     }
@@ -394,14 +394,14 @@
           return;
         }
 
-        const canAfford = window.LimitBreak.canAffordLimitBreak(inst, c);
+        const canAfford = await window.LimitBreak.canAffordLimitBreak(inst, c);
         if (!canAfford) {
           alert("You don't have enough materials for limit break!");
           return;
         }
 
         const tier = inst.tierCode || minTier(c);
-        const cost = window.LimitBreak.getLimitBreakCost(tier, inst.limitBreakLevel || 0, c);
+        const cost = await window.LimitBreak.getLimitBreakCost(tier, inst.limitBreakLevel || 0, c);
 
         let costStr = "Cost:\n";
         for (const [matId, amt] of Object.entries(cost)) {
@@ -413,7 +413,7 @@
           return;
         }
 
-        const res = window.LimitBreak.performLimitBreak(inst, c);
+        const res = await window.LimitBreak.performLimitBreak(inst, c);
 
         if (!res?.ok) {
           alert(res.reason === "INSUFFICIENT_MATERIALS"
