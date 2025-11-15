@@ -82,7 +82,7 @@
           bm.units.createCombatant({
             ...base,
             isPlayer: false,
-            stats: { ...base.stats },
+            stats: { ...base.stats, maxHP: base.stats.hp },
             pos: { x: 70 + (i % 2 * 15), y: 25 + Math.floor(i / 2) * 25 }
           }) :
           {
