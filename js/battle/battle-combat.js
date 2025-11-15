@@ -37,20 +37,22 @@
     },
 
     /**
-     * Get all skills for unit (jutsu + ultimate)
+     * Get all skills for unit (jutsu + ultimate + secret)
      */
     getUnitSkills(unit) {
       const base = unit._ref?.base;
       const tier = this.getTierForUnit(unit);
-      if (!base?.skills) return { tier, jutsu: null, ultimate: null };
+      if (!base?.skills) return { tier, jutsu: null, ultimate: null, secret: null };
 
       const j = base.skills.jutsu ? this.getSkillEntry(base.skills.jutsu, tier) : null;
       const u = base.skills.ultimate ? this.getSkillEntry(base.skills.ultimate, tier) : null;
+      const s = base.skills.secret ? this.getSkillEntry(base.skills.secret, tier) : null;
 
       return {
         tier,
         jutsu: j ? { meta: base.skills.jutsu, data: j } : null,
-        ultimate: u ? { meta: base.skills.ultimate, data: u } : null
+        ultimate: u ? { meta: base.skills.ultimate, data: u } : null,
+        secret: s ? { meta: base.skills.secret, data: s } : null
       };
     },
 
@@ -707,6 +709,139 @@
       } else {
         core.updateUnitDisplay(unit);
       }
+    },
+
+    /* ===== Secret Technique (Team Buff) ===== */
+
+    /**
+     * Perform secret technique - buffs all allies
+     * Only available for 6S+ tier characters
+     * @param {Object} caster - Unit casting secret technique
+     * @param {Object} core - BattleCore reference
+     * @returns {boolean} Success status
+     */
+    performSecret(caster, core) {
+      const skills = this.getUnitSkills(caster);
+      const secret = skills.secret;
+
+      if (!secret) {
+        console.warn(`[Combat] ${caster.name} has no secret technique`);
+        return false;
+      }
+
+      // Check if secret is unlocked (6S+ tier)
+      if (!this.isSecretUnlocked(caster)) {
+        const tier = this.getTierForUnit(caster);
+        console.warn(`[Combat] ${caster.name}'s secret is locked (Tier ${tier}, requires 6S+)`);
+        if (window.BattleNarrator) {
+          window.BattleNarrator.narrate(`${caster.name}'s secret technique is locked! Requires 6★ or higher.`, core);
+        }
+        return false;
+      }
+
+      const cost = Number(secret.data.chakraCost ?? 12);
+
+      // Check and spend chakra
+      if (core.chakra) {
+        if (!core.chakra.spendChakra(caster, cost, core)) {
+          return false;
+        }
+      } else {
+        if (caster.chakra < cost) {
+          console.warn(`[Combat] ${caster.name} not enough chakra (has ${caster.chakra}, needs ${cost})`);
+          return false;
+        }
+        caster.chakra -= cost;
+      }
+
+      console.log(`[Combat] ${caster.name} uses SECRET: ${secret.meta.name}`);
+
+      // Narrate action
+      if (window.BattleNarrator) {
+        window.BattleNarrator.showAction(secret.meta.name, "secret", core.dom);
+      }
+
+      // Get effects from secret technique
+      const effects = secret.data.effects;
+
+      if (!effects) {
+        console.warn(`[Combat] No effects defined for ${secret.meta.name}`);
+        return false;
+      }
+
+      // Determine targets based on effects.target
+      let targets = [];
+      if (effects.target === "allAllies") {
+        targets = core.activeTeam.filter(u => u.stats.hp > 0);
+      } else if (effects.target === "self") {
+        targets = [caster];
+      } else {
+        // Default to all allies
+        targets = core.activeTeam.filter(u => u.stats.hp > 0);
+      }
+
+      console.log(`[Combat] Applying ${secret.meta.name} buffs to ${targets.length} allies`);
+
+      // Apply buffs to all targets using BattleBuffs system
+      if (window.BattleBuffs) {
+        window.BattleBuffs.applyBuffEffects(core, caster, targets, effects, "secret");
+      }
+
+      // Show visual effect for buff application
+      if (window.BattleAnimations) {
+        targets.forEach((target, i) => {
+          setTimeout(() => {
+            // Show buff indicator
+            const buffText = document.createElement('div');
+            buffText.textContent = '▲ BUFFED!';
+            buffText.style.cssText = `
+              position: absolute;
+              font-size: 1.5rem;
+              font-weight: bold;
+              color: #5efc82;
+              text-shadow: 0 0 10px rgba(94, 252, 130, 0.8);
+              pointer-events: none;
+              z-index: 1000;
+              animation: floatUp 1.5s ease-out forwards;
+            `;
+
+            const unitEl = core.dom.scene?.querySelector(`[data-unit-id="${target.id}"]`);
+            if (unitEl) {
+              unitEl.appendChild(buffText);
+              setTimeout(() => buffText.remove(), 1500);
+            }
+          }, i * 150);
+        });
+      }
+
+      // Update displays
+      targets.forEach(target => {
+        if (core.units) {
+          core.units.updateUnitDisplay(target, core);
+        } else {
+          core.updateUnitDisplay(target);
+        }
+      });
+
+      if (core.units) {
+        core.units.updateUnitDisplay(caster, core);
+      } else {
+        core.updateUnitDisplay(caster);
+      }
+
+      return true;
+    },
+
+    /**
+     * Get secret technique for unit
+     */
+    getSecretTechnique(unit) {
+      const base = unit._ref?.base;
+      const tier = this.getTierForUnit(unit);
+      if (!base?.skills?.secret) return null;
+
+      const s = this.getSkillEntry(base.skills.secret, tier);
+      return s ? { meta: base.skills.secret, data: s } : null;
     },
 
     /* ===== AI Combat Logic ===== */

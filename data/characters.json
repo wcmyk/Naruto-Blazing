@@ -311,6 +311,29 @@
           "description": "Massive area damage. 60% chance to Knock Back enemies and heal self for 20% of damage dealt."
         }
       }
+    },
+    "secret": {
+      "name": "Nine Tails' Protective Shroud",
+      "type": "Secret",
+      "byTier": {
+        "6S": {
+          "chakraCost": 12,
+          "cooldown": 8,
+          "range": "All Allies",
+          "description": "Channels the Nine Tails chakra to empower all allies.",
+          "effects": {
+            "target": "allAllies",
+            "durationTurns": 5,
+            "atkBoost": 300,
+            "defBoost": 200,
+            "speedBoostPercent": 25,
+            "critRatePercent": 15,
+            "damageReductionPercent": 20,
+            "tag": "nine_tails_shroud",
+            "unique": true
+          }
+        }
+      }
     }
   }
 },

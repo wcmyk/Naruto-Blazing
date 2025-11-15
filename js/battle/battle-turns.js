@@ -246,7 +246,7 @@
     showActionPanel(unit, core) {
       if (!core.dom.actionPanel) return;
 
-      const skills = window.BattleCombat?.getUnitSkills(unit) || { jutsu: null, ultimate: null };
+      const skills = window.BattleCombat?.getUnitSkills(unit) || { jutsu: null, ultimate: null, secret: null };
 
       // Update portrait and basic info
       if (core.dom.actionPortrait) {
@@ -270,19 +270,24 @@
       // Get skill costs
       const jCost = Number(skills.jutsu?.data?.chakraCost ?? 4);
       const uCost = Number(skills.ultimate?.data?.chakraCost ?? 8);
+      const sCost = Number(skills.secret?.data?.chakraCost ?? 12);
 
       // Check unlock status
       const jutsuUnlocked = window.BattleCombat?.isJutsuUnlocked(unit) ?? true;
       const ultUnlocked = window.BattleCombat?.isUltimateUnlocked(unit) ?? true;
+      const secretUnlocked = window.BattleCombat?.isSecretUnlocked(unit) ?? false;
       const unitLevel = window.BattleCombat?.getUnitLevel(unit) ?? 1;
+      const unitTier = window.BattleCombat?.getTierForUnit(unit) ?? "3S";
 
       // Check if skills are usable (both unlocked AND have enough chakra)
       const canJutsu = !!skills.jutsu && jutsuUnlocked && unit.chakra >= jCost;
       const canUlt = !!skills.ultimate && ultUnlocked && unit.chakra >= uCost;
+      const canSecret = !!skills.secret && secretUnlocked && unit.chakra >= sCost;
 
       // Update button states
       core.dom.btnJutsu?.classList.toggle("disabled", !canJutsu);
       core.dom.btnUltimate?.classList.toggle("disabled", !canUlt);
+      core.dom.btnSecret?.classList.toggle("disabled", !canSecret);
 
       // Update skill names with lock status
       if (core.dom.actionSkillName) {
@@ -301,6 +306,15 @@
           core.dom.actionUltName.textContent = `🔒 LOCKED (Lv ${unitLevel}/50)`;
         } else {
           core.dom.actionUltName.textContent = `${skills.ultimate.meta.name} (${uCost})`;
+        }
+      }
+      if (core.dom.actionSecretName) {
+        if (!skills.secret) {
+          core.dom.actionSecretName.textContent = "—";
+        } else if (!secretUnlocked) {
+          core.dom.actionSecretName.textContent = `🔒 LOCKED (${unitTier}, needs 6S+)`;
+        } else {
+          core.dom.actionSecretName.textContent = `${skills.secret.meta.name} (${sCost})`;
         }
       }
 
@@ -397,6 +411,51 @@
       core.queuedAction = "ultimate";
       this.highlightEnemies(core);
       console.log("[Turns] Ultimate mode - will hit all enemies");
+    },
+
+    /**
+     * Handle secret technique button click
+     */
+    handleSecretButton(core) {
+      if (!this.currentUnit) return;
+
+      const skills = window.BattleCombat?.getUnitSkills(this.currentUnit);
+
+      // Check if secret exists
+      if (!skills?.secret) {
+        console.warn("[Turns] No secret technique available");
+        return;
+      }
+
+      // Check if secret is unlocked (requires 6S+ tier)
+      const secretUnlocked = window.BattleCombat?.isSecretUnlocked(this.currentUnit) ?? false;
+      if (!secretUnlocked) {
+        const tier = window.BattleCombat?.getTierForUnit(this.currentUnit) ?? "3S";
+        console.warn(`[Turns] Secret technique locked - Tier ${tier}, requires 6S+`);
+        if (window.BattleNarrator) {
+          window.BattleNarrator.narrate(`Secret technique is locked! Requires tier 6★ or higher.`, core);
+        }
+        return;
+      }
+
+      // Check chakra
+      const cost = Number(skills.secret.data?.chakraCost ?? 12);
+      if (this.currentUnit.chakra < cost) {
+        console.warn("[Turns] Not enough chakra for secret technique");
+        if (window.BattleNarrator) {
+          window.BattleNarrator.narrate(`Not enough chakra! Need ${cost}, have ${this.currentUnit.chakra}.`, core);
+        }
+        return;
+      }
+
+      // Perform secret technique (buffs allies)
+      console.log("[Turns] Executing secret technique");
+      if (window.BattleCombat) {
+        const success = window.BattleCombat.performSecret(this.currentUnit, core);
+        if (success) {
+          this.endTurn(core);
+        }
+      }
     },
 
     /**
