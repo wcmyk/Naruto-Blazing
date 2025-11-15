@@ -25,7 +25,7 @@
   const TIP_EL        = document.getElementById("awaken-tip");
 
   const BTN_LVUP      = document.getElementById("btn-levelup");
-  const BTN_ADD       = document.getElementById("btn-addcopy");
+  const BTN_FEEDDUPE  = document.getElementById("btn-feeddupe");
   const BTN_REMOVE    = document.getElementById("btn-removecopy");
   const BTN_AWAKEN    = document.getElementById("btn-awaken");
   const BTN_LIMITBREAK = document.getElementById("btn-limitbreak");
@@ -156,6 +156,9 @@
   function openModalByUid(uid) {
     const inst = window.InventoryChar.getByUid(uid);
     if (!inst) return;
+
+    // Store current UID in modal dataset for abilities systems
+    MODAL.dataset.currentUid = uid;
 
     const c = BYID[inst.charId];
     if (!c) {
@@ -331,7 +334,7 @@
       renderGrid();
     };
 
-    BTN_ADD.onclick = () => {
+    BTN_FEEDDUPE.onclick = () => {
       if (!c?.id) return;
 
       // Check if character has abilities that can be unlocked
@@ -339,37 +342,70 @@
       const currentUnlocks = inst.dupeUnlocks || 0;
       const canUnlockMore = hasAbilities && currentUnlocks < c.abilities.length;
 
-      if (canUnlockMore) {
-        // Show dialog: Feed dupe to unlock ability OR add new copy
-        const nextAbility = c.abilities[currentUnlocks];
-        const feedDupe = confirm(
-          `Feed duplicate to unlock ability?\n\n` +
-          `Ability ${currentUnlocks + 1}/${c.abilities.length}: ${nextAbility.name}\n` +
-          `${nextAbility.description}\n\n` +
-          `Click OK to unlock this ability\n` +
-          `Click Cancel to add a new copy instead`
-        );
-
-        if (feedDupe) {
-          // Feed the dupe to unlock ability
-          if (window.characterDupeAbilities) {
-            const result = window.characterDupeAbilities.unlockNextAbility(inst.uid);
-            if (result.success) {
-              alert(`✅ Ability Unlocked!\n\n${result.abilityName}\n${result.abilityDescription}\n\nProgress: ${result.unlockedCount}/${result.maxAbilities}`);
-              // Refresh both displays
-              window.characterDupeAbilities.refresh();
-              renderGrid();
-            } else {
-              alert(`⚠️ ${result.message}`);
-            }
-          }
-          return;
-        }
+      if (!canUnlockMore) {
+        alert(hasAbilities
+          ? "All abilities already unlocked!"
+          : "This character has no abilities to unlock.");
+        return;
       }
 
-      // Default: Add a new copy to inventory
-      window.InventoryChar.addCopy(c.id, 1);
-      renderGrid();
+      // Get all duplicates of the same character (excluding current one)
+      const allCopies = window.InventoryChar.instancesOf(c.id);
+      const duplicates = allCopies.filter(copy => copy.uid !== inst.uid);
+
+      if (duplicates.length === 0) {
+        alert("No duplicates available to feed!\n\nYou need another copy of this character to unlock abilities.");
+        return;
+      }
+
+      // Build selection dialog
+      const nextAbility = c.abilities[currentUnlocks];
+      let message = `Feed a duplicate to unlock the next ability:\n\n`;
+      message += `Ability ${currentUnlocks + 1}/${c.abilities.length}: ${nextAbility.name}\n`;
+      message += `${nextAbility.description}\n\n`;
+      message += `Available duplicates:\n`;
+      duplicates.forEach((dupe, idx) => {
+        const dupeStars = starsFromTier(dupe.tierCode || minTier(c));
+        message += `${idx + 1}. Lv ${dupe.level} (${dupeStars}★) - UID: ${dupe.uid.substring(0, 8)}\n`;
+      });
+      message += `\nEnter the number of the duplicate to feed (1-${duplicates.length}):`;
+
+      const selection = prompt(message);
+      if (!selection) return;
+
+      const selectedIdx = parseInt(selection) - 1;
+      if (isNaN(selectedIdx) || selectedIdx < 0 || selectedIdx >= duplicates.length) {
+        alert("Invalid selection!");
+        return;
+      }
+
+      const selectedDupe = duplicates[selectedIdx];
+
+      // Confirm the feeding
+      const dupeStars = starsFromTier(selectedDupe.tierCode || minTier(c));
+      const confirmMsg = `Are you sure you want to feed this duplicate?\n\n` +
+                        `Feeding: Lv ${selectedDupe.level} (${dupeStars}★)\n` +
+                        `To unlock: ${nextAbility.name}\n\n` +
+                        `This will permanently remove the duplicate from your inventory.`;
+
+      if (!confirm(confirmMsg)) return;
+
+      // Feed the duplicate
+      if (window.characterDupeAbilities) {
+        const result = window.characterDupeAbilities.unlockNextAbility(inst.uid);
+        if (result.success) {
+          // Remove the fed duplicate from inventory
+          window.InventoryChar.removeOneByUid(selectedDupe.uid);
+
+          alert(`✅ Ability Unlocked!\n\n${result.abilityName}\n${result.abilityDescription}\n\nProgress: ${result.unlockedCount}/${result.maxAbilities}`);
+
+          // Refresh displays
+          window.characterDupeAbilities.refresh();
+          renderGrid();
+        } else {
+          alert(`⚠️ ${result.message}`);
+        }
+      }
     };
 
     BTN_REMOVE.onclick = () => {
