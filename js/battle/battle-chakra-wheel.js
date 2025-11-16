@@ -4,12 +4,13 @@
 
   /**
    * BattleChakraWheel Module
-   * Implements rotating circular chakra gauge using image assets
+   * Implements Naruto Blazing-style chakra accumulation system
    *
    * Features:
-   * - Rotating blue arc segment (chakra.png)
+   * - Multiple static arc segments (chakra.png × 5)
+   * - Segments appear as chakra accumulates (no rotation)
    * - Circular frame overlay (chakraholder_icon.png)
-   * - Proper layering: frame > gauge > portrait
+   * - Proper layering: portrait (z:1) → chakra (z:2) → frame (z:10)
    * - Click detection for attack selection
    * - Red ring when ultimate-ready
    */
@@ -44,57 +45,61 @@
         return null;
       }
 
-      // Create chakra slot container
-      const chakraSlot = document.createElement('div');
-      chakraSlot.className = 'chakra-slot';
-      chakraSlot.dataset.unitId = unit.id;
+      // Create unit ring container
+      const unitRing = document.createElement('div');
+      unitRing.className = 'unit-ring';
+      unitRing.dataset.unitId = unit.id;
 
-      // Create chakra mask (contains rotating segment)
-      const chakraMask = document.createElement('div');
-      chakraMask.className = 'chakra-mask';
-
-      // Create chakra segment (rotating blue arc)
-      const chakraSegment = document.createElement('img');
-      chakraSegment.className = 'chakra-segment';
-      chakraSegment.src = 'assets/ui/gauges/chakra.png';
-      chakraSegment.alt = 'Chakra gauge';
-      chakraMask.appendChild(chakraSegment);
-
-      // Clone portrait for layering
+      // Clone portrait for bottom layer
       const clonedPortrait = portraitImg.cloneNode(true);
-      clonedPortrait.className = 'portrait-clipped';
+      clonedPortrait.className = 'portrait';
       clonedPortrait.alt = unit.name;
 
-      // Create chakra frame overlay
+      // Create chakra container (holds 5 segments)
+      const chakraContainer = document.createElement('div');
+      chakraContainer.className = 'chakra-container';
+
+      // Create 5 chakra segments (accumulate, don't rotate)
+      for (let i = 1; i <= 5; i++) {
+        const segment = document.createElement('img');
+        segment.className = `chakra-segment chakra-segment-${i}`;
+        segment.src = 'assets/ui/gauges/chakra.png';
+        segment.alt = `Chakra segment ${i}`;
+        segment.style.display = 'none'; // Hidden by default
+        segment.style.transform = `rotate(${(i - 1) * 72}deg)`; // Each segment 72° apart (360/5)
+        chakraContainer.appendChild(segment);
+      }
+
+      // Create chakra frame overlay (top layer)
       const chakraFrame = document.createElement('img');
       chakraFrame.className = 'chakra-frame';
       chakraFrame.src = 'assets/ui/frames/chakraholder_icon.png';
       chakraFrame.alt = 'Chakra frame';
 
-      // Assemble structure
-      chakraSlot.appendChild(chakraMask);
-      chakraSlot.appendChild(clonedPortrait);
-      chakraSlot.appendChild(chakraFrame);
+      // Assemble structure: portrait → chakra → frame
+      unitRing.appendChild(clonedPortrait);
+      unitRing.appendChild(chakraContainer);
+      unitRing.appendChild(chakraFrame);
 
       // Add click listener for attack selection
-      chakraSlot.addEventListener('click', (e) => {
-        this.handleWheelClick(unit, chakraSlot, e);
+      unitRing.addEventListener('click', (e) => {
+        this.handleWheelClick(unit, unitRing, e);
       });
 
       // Cache the wheel element
-      this.wheelCache.set(unit.id, chakraSlot);
+      this.wheelCache.set(unit.id, unitRing);
 
       // Replace portrait container content
       portraitContainer.innerHTML = '';
-      portraitContainer.appendChild(chakraSlot);
+      portraitContainer.appendChild(unitRing);
 
-      console.log(`[ChakraWheel] Image-based chakra gauge created for ${unit.name}`);
+      console.log(`[ChakraWheel] Chakra accumulation system created for ${unit.name}`);
 
-      return chakraSlot;
+      return unitRing;
     },
 
     /**
-     * Update chakra gauge rotation based on current chakra
+     * Update chakra gauge by showing/hiding segments (accumulation, not rotation)
      */
     updateChakraWheel(unit, core) {
       const wheel = this.wheelCache.get(unit.id);
@@ -107,16 +112,20 @@
       const maxChakra = unit.maxChakra || 10;
       const chakraPercent = Math.min(100, (currentChakra / maxChakra) * 100);
 
-      // Calculate rotation (0% = 0deg, 100% = 360deg)
-      const rotation = (chakraPercent / 100) * 360;
+      // Calculate how many segments to show (0-5)
+      const segmentsToShow = Math.floor((chakraPercent / 100) * 5);
 
-      // Apply rotation to chakra segment
-      const chakraSegment = wheel.querySelector('.chakra-segment');
-      if (chakraSegment) {
-        chakraSegment.style.transform = `rotate(${rotation}deg)`;
-      }
+      // Show/hide segments based on chakra amount
+      const segments = wheel.querySelectorAll('.chakra-segment');
+      segments.forEach((segment, index) => {
+        if (index < segmentsToShow) {
+          segment.style.display = 'block';
+        } else {
+          segment.style.display = 'none';
+        }
+      });
 
-      console.log(`[ChakraWheel] ${unit.name}: ${currentChakra}/${maxChakra} chakra (${Math.round(chakraPercent)}% = ${Math.round(rotation)}deg)`);
+      console.log(`[ChakraWheel] ${unit.name}: ${currentChakra}/${maxChakra} chakra (${Math.round(chakraPercent)}% = ${segmentsToShow}/5 segments)`);
 
       // Check if ultimate-ready (show red ring)
       this.checkUltimateReady(unit, wheel, core);
@@ -275,5 +284,5 @@
   // Export to window
   window.BattleChakraWheel = BattleChakraWheel;
 
-  console.log("[BattleChakraWheel] Image-based chakra gauge system loaded ✅");
+  console.log("[BattleChakraWheel] Chakra accumulation system loaded ✅");
 })();
