@@ -357,11 +357,14 @@
         window.BattleNarrator.narrateJutsu(attacker, target, core);
       }
 
-      // Play animation
-      const animGif = j.data.animationGif || attacker._ref?.base?.jutsuAnimation;
-      if (window.BattleAnimations) {
-        window.BattleAnimations.playSkillAnimation(attacker, "jutsu", animGif, core.dom);
-      }
+      // Wait 700ms for attack name to breathe before playing animation
+      setTimeout(() => {
+        // Play animation
+        const animGif = j.data.animationGif || attacker._ref?.base?.jutsuAnimation;
+        if (window.BattleAnimations) {
+          window.BattleAnimations.playSkillAnimation(attacker, "jutsu", animGif, core.dom);
+        }
+      }, 700);
 
       // Calculate and apply damage
       const {damage, isCritical, breakdown} = this.calculateDamage(attacker, target, mult);
@@ -454,11 +457,14 @@
         window.BattleNarrator.narrateUltimate(attacker, targets, core);
       }
 
-      // Play animation
-      const animGif = u.data.animationGif || attacker._ref?.base?.ultimateAnimation;
-      if (window.BattleAnimations) {
-        window.BattleAnimations.playSkillAnimation(attacker, "ultimate", animGif, core.dom);
-      }
+      // Wait 700ms for attack name to breathe before playing animation
+      setTimeout(() => {
+        // Play animation
+        const animGif = u.data.animationGif || attacker._ref?.base?.ultimateAnimation;
+        if (window.BattleAnimations) {
+          window.BattleAnimations.playSkillAnimation(attacker, "ultimate", animGif, core.dom);
+        }
+      }, 700);
 
       // Hit all targets with delay
       targets.forEach((target, i) => {
