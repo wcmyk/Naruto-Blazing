@@ -1,24 +1,20 @@
-// js/battle/battle-chakra-wheel.js - Chakra Wheel Visual System
+// js/battle/battle-chakra-wheel.js - Image-Based Circular Chakra Gauge System
 (() => {
   "use strict";
 
   /**
    * BattleChakraWheel Module
-   * Handles visual chakra wheel system with multi-ring layers, animations, and click interactions
+   * Implements rotating circular chakra gauge using image assets
    *
    * Features:
-   * - Multi-ring layered chakra display (4 segments per ring)
-   * - Brightness levels decrease with outer rings
+   * - Rotating blue arc segment (chakra.png)
+   * - Circular frame overlay (chakraholder_icon.png)
+   * - Proper layering: frame > gauge > portrait
+   * - Click detection for attack selection
    * - Red ring when ultimate-ready
-   * - Chakra gain animation (blue orb flying in)
-   * - Double-click detection → Red lightning (Ultimate)
-   * - Triple-click detection → Gold lightning (Secret Technique)
-   * - Active unit + Bench unit dual wheel support
    */
   const BattleChakraWheel = {
-    // ===== Configuration =====
-    SEGMENTS_PER_RING: 4,
-    MAX_RINGS: 4,
+    // Configuration
     CLICK_DELAY: 300, // ms between clicks to detect double/triple
 
     // Click tracking
@@ -30,69 +26,75 @@
     /* ===== Initialization ===== */
 
     /**
-     * Initialize chakra wheel for a unit
-     * Creates the wheel structure and attaches to portrait
+     * Initialize chakra gauge for a unit
+     * Creates the rotating gauge structure using image assets
      */
-    createChakraWheel(unit, portraitContainerOrImg, isBench = false) {
-      if (!unit || !portraitContainerOrImg) {
+    createChakraWheel(unit, portraitContainer, isBench = false) {
+      if (!unit || !portraitContainer) {
         console.warn('[ChakraWheel] Cannot create wheel - missing unit or portrait');
         return null;
       }
 
-      console.log(`[ChakraWheel] Creating wheel for ${unit.name} (${isBench ? 'bench' : 'active'}), chakra: ${unit.chakra}/${unit.maxChakra}`);
+      console.log(`[ChakraWheel] Creating image-based chakra gauge for ${unit.name}`);
 
-      // Create wheel container
-      const wheel = document.createElement('div');
-      wheel.className = `chakra-wheel`;
-      wheel.dataset.unitId = unit.id;
-
-      // Create rings (initially all hidden, shown based on chakra amount)
-      for (let ringIndex = 1; ringIndex <= this.MAX_RINGS; ringIndex++) {
-        const ring = document.createElement('div');
-        ring.className = `chakra-ring layer-${ringIndex}`;
-        ring.dataset.ringIndex = ringIndex;
-        ring.style.display = 'none'; // Hidden by default
-        wheel.appendChild(ring);
+      // Get portrait image
+      const portraitImg = portraitContainer.querySelector('img');
+      if (!portraitImg) {
+        console.warn('[ChakraWheel] No portrait image found');
+        return null;
       }
 
-      // Add click listener for double/triple-click detection
-      wheel.addEventListener('click', (e) => {
-        this.handleWheelClick(unit, wheel, e);
+      // Create chakra slot container
+      const chakraSlot = document.createElement('div');
+      chakraSlot.className = 'chakra-slot';
+      chakraSlot.dataset.unitId = unit.id;
+
+      // Create chakra mask (contains rotating segment)
+      const chakraMask = document.createElement('div');
+      chakraMask.className = 'chakra-mask';
+
+      // Create chakra segment (rotating blue arc)
+      const chakraSegment = document.createElement('img');
+      chakraSegment.className = 'chakra-segment';
+      chakraSegment.src = 'assets/ui/gauges/chakra.png';
+      chakraSegment.alt = 'Chakra gauge';
+      chakraMask.appendChild(chakraSegment);
+
+      // Clone portrait for layering
+      const clonedPortrait = portraitImg.cloneNode(true);
+      clonedPortrait.className = 'portrait-clipped';
+      clonedPortrait.alt = unit.name;
+
+      // Create chakra frame overlay
+      const chakraFrame = document.createElement('img');
+      chakraFrame.className = 'chakra-frame';
+      chakraFrame.src = 'assets/ui/frames/chakraholder_icon.png';
+      chakraFrame.alt = 'Chakra frame';
+
+      // Assemble structure
+      chakraSlot.appendChild(chakraMask);
+      chakraSlot.appendChild(clonedPortrait);
+      chakraSlot.appendChild(chakraFrame);
+
+      // Add click listener for attack selection
+      chakraSlot.addEventListener('click', (e) => {
+        this.handleWheelClick(unit, chakraSlot, e);
       });
 
       // Cache the wheel element
-      this.wheelCache.set(unit.id, wheel);
+      this.wheelCache.set(unit.id, chakraSlot);
 
-      // Attach wheel to portrait container
-      // Check if it's a team holder portrait container (active or bench)
-      const isTeamHolderContainer =
-        portraitContainerOrImg.classList &&
-        (portraitContainerOrImg.classList.contains('active-portrait-container') ||
-         portraitContainerOrImg.classList.contains('bench-portrait-container'));
+      // Replace portrait container content
+      portraitContainer.innerHTML = '';
+      portraitContainer.appendChild(chakraSlot);
 
-      if (isTeamHolderContainer) {
-        // Team holder - append directly to portrait container
-        portraitContainerOrImg.appendChild(wheel);
-        console.log(`[ChakraWheel] Attached wheel to ${isBench ? 'bench' : 'active'} portrait for ${unit.name}`);
-      } else {
-        // Legacy support - wrap img element
-        if (portraitContainerOrImg.parentElement) {
-          const wrapper = document.createElement('div');
-          wrapper.className = 'portrait-with-chakra';
-          portraitContainerOrImg.parentElement.insertBefore(wrapper, portraitContainerOrImg);
-          wrapper.appendChild(portraitContainerOrImg);
-          wrapper.appendChild(wheel);
-          console.log(`[ChakraWheel] Wrapped portrait for ${unit.name}, wheel attached`);
-        } else {
-          console.warn(`[ChakraWheel] Cannot wrap portrait for ${unit.name} - no parent element`);
-        }
-      }
+      console.log(`[ChakraWheel] Image-based chakra gauge created for ${unit.name}`);
 
-      return wheel;
+      return chakraSlot;
     },
 
     /**
-     * Update chakra wheel display based on current chakra
+     * Update chakra gauge rotation based on current chakra
      */
     updateChakraWheel(unit, core) {
       const wheel = this.wheelCache.get(unit.id);
@@ -103,68 +105,25 @@
 
       const currentChakra = unit.chakra || 0;
       const maxChakra = unit.maxChakra || 10;
-      const chakraToShow = Math.min(currentChakra, maxChakra);
+      const chakraPercent = Math.min(100, (currentChakra / maxChakra) * 100);
 
-      console.log(`[ChakraWheel] Updating ${unit.name}: ${chakraToShow}/${maxChakra} chakra`);
+      // Calculate rotation (0% = 0deg, 100% = 360deg)
+      const rotation = (chakraPercent / 100) * 360;
 
-      // Determine which rings should be visible and how many segments each has
-      const ringData = this.calculateRingDistribution(chakraToShow);
-
-      // Update each ring
-      for (let ringIndex = 1; ringIndex <= this.MAX_RINGS; ringIndex++) {
-        const ring = wheel.querySelector(`.chakra-ring.layer-${ringIndex}`);
-        if (!ring) continue;
-
-        const segmentCount = ringData[ringIndex] || 0;
-
-        if (segmentCount > 0) {
-          ring.style.display = 'block';
-          this.updateRingSegments(ring, segmentCount, ringIndex, unit, core);
-        } else {
-          ring.style.display = 'none';
-        }
+      // Apply rotation to chakra segment
+      const chakraSegment = wheel.querySelector('.chakra-segment');
+      if (chakraSegment) {
+        chakraSegment.style.transform = `rotate(${rotation}deg)`;
       }
 
-      // Check if ultimate-ready (final ring full and enough chakra for ultimate)
+      console.log(`[ChakraWheel] ${unit.name}: ${currentChakra}/${maxChakra} chakra (${Math.round(chakraPercent)}% = ${Math.round(rotation)}deg)`);
+
+      // Check if ultimate-ready (show red ring)
       this.checkUltimateReady(unit, wheel, core);
     },
 
     /**
-     * Calculate how many segments go in each ring
-     * Returns: {1: count, 2: count, 3: count, 4: count}
-     */
-    calculateRingDistribution(totalChakra) {
-      const distribution = { 1: 0, 2: 0, 3: 0, 4: 0 };
-      let remaining = totalChakra;
-
-      // Fill rings from innermost to outermost
-      for (let ring = 1; ring <= this.MAX_RINGS && remaining > 0; ring++) {
-        const segmentsInRing = Math.min(remaining, this.SEGMENTS_PER_RING);
-        distribution[ring] = segmentsInRing;
-        remaining -= segmentsInRing;
-      }
-
-      return distribution;
-    },
-
-    /**
-     * Update segments within a ring
-     */
-    updateRingSegments(ring, segmentCount, ringIndex, unit, core) {
-      // Clear existing segments
-      ring.innerHTML = '';
-
-      // Create segments
-      for (let i = 0; i < segmentCount; i++) {
-        const segment = document.createElement('div');
-        segment.className = 'chakra-segment';
-        segment.dataset.position = i;
-        ring.appendChild(segment);
-      }
-    },
-
-    /**
-     * Check if unit has enough chakra for ultimate and mark ring red
+     * Check if unit has enough chakra for ultimate and show red ring
      */
     checkUltimateReady(unit, wheel, core) {
       const skills = window.BattleCombat?.getUnitSkills(unit);
@@ -173,58 +132,30 @@
       const ultCost = Number(skills.ultimate.data?.chakraCost ?? 8);
       const hasEnough = unit.chakra >= ultCost;
 
-      // Find the topmost visible ring
-      const rings = Array.from(wheel.querySelectorAll('.chakra-ring')).filter(r => r.style.display !== 'none');
-      const topmostRing = rings[rings.length - 1];
-
-      if (hasEnough && topmostRing) {
-        // Check if this ring is full (has 4 segments)
-        const segmentCount = topmostRing.querySelectorAll('.chakra-segment').length;
-        if (segmentCount === this.SEGMENTS_PER_RING) {
-          topmostRing.classList.add('ultimate-ready');
-
-          // Trigger pulse animation once
-          topmostRing.querySelectorAll('.chakra-segment').forEach(seg => {
-            seg.style.animation = 'none';
-            setTimeout(() => {
-              seg.style.animation = 'ultimatePulse 0.5s ease-out';
-            }, 10);
-          });
-        }
-      } else if (topmostRing) {
-        topmostRing.classList.remove('ultimate-ready');
+      if (hasEnough) {
+        wheel.classList.add('ultimate-ready');
+      } else {
+        wheel.classList.remove('ultimate-ready');
       }
     },
 
     /* ===== Chakra Gain Animation ===== */
 
     /**
-     * Update chakra wheel when chakra is gained
-     * NO ORBS, NO FLYING PARTICLES - segments simply appear
-     * @param {Object} unit - The unit gaining chakra
-     * @param {number} amount - Amount of chakra gained
-     * @param {Object} core - Battle core reference
+     * Animate chakra gain (segment rotates smoothly to new position)
      */
     animateChakraGain(unit, amount, core) {
-      // Simply update the wheel display - segments appear/fade in
+      // Simply update the wheel - CSS transition handles smooth rotation
       this.updateChakraWheel(unit, core);
 
-      // Flash the newest segments with arriving animation
       const wheel = this.wheelCache.get(unit.id);
       if (!wheel) return;
 
-      const segments = Array.from(wheel.querySelectorAll('.chakra-segment'));
-      const startIndex = Math.max(0, segments.length - amount);
-
-      for (let i = startIndex; i < segments.length; i++) {
-        const segment = segments[i];
-        if (segment) {
-          segment.classList.add('arriving');
-          setTimeout(() => {
-            segment.classList.remove('arriving');
-          }, 500);
-        }
-      }
+      // Add flash effect
+      wheel.classList.add('chakra-gain-flash');
+      setTimeout(() => {
+        wheel.classList.remove('chakra-gain-flash');
+      }, 500);
     },
 
     /* ===== Click Detection System ===== */
@@ -275,8 +206,6 @@
     /**
      * Show lightning effect around chakra wheel (visual only, non-blocking)
      * Called by BattleInputManager when attack type is selected
-     * @param {HTMLElement} wheel - The chakra wheel element
-     * @param {string} type - 'red' for ultimate, 'gold' for secret
      */
     showLightningEffect(wheel, type = 'red') {
       // Remove any existing lightning
@@ -346,5 +275,5 @@
   // Export to window
   window.BattleChakraWheel = BattleChakraWheel;
 
-  console.log("[BattleChakraWheel] Module loaded ✅");
+  console.log("[BattleChakraWheel] Image-based chakra gauge system loaded ✅");
 })();
