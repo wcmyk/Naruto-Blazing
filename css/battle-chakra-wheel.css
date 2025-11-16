@@ -1,9 +1,9 @@
 /* ===================================================
-   CHAKRA ACCUMULATION SYSTEM (Naruto Blazing Style)
-   Multiple Static Segments, No Rotation
+   PROFESSIONAL CHAKRA ACCUMULATION SYSTEM
+   Continuous Rotation with Proper Masking
    =================================================== */
 
-/* === Unit Ring Container === */
+/* === Unit Ring Container (140×140px) === */
 .unit-ring {
   position: relative;
   width: 140px;
@@ -23,6 +23,7 @@
 }
 
 /* === Portrait (Bottom Layer, z-index: 1) === */
+/* Centered 128×128px inside 140×140px frame */
 .portrait {
   position: absolute;
   top: 6px;
@@ -40,23 +41,28 @@
   height: 88px;
 }
 
-/* === Chakra Container (Middle Layer, z-index: 2) === */
-.chakra-container {
+/* === Chakra Mask (Middle Layer, z-index: 5) === */
+/* Circular clipping container ensures chakra stays inside frame */
+.chakra-mask {
   position: absolute;
   top: 6px;
   left: 6px;
   width: 128px;
   height: 128px;
-  z-index: 2;
+  border-radius: 50%;
+  clip-path: circle(50%);
+  overflow: hidden;
+  z-index: 5;
   pointer-events: none;
 }
 
-.bench-portrait-container .chakra-container {
+.bench-portrait-container .chakra-mask {
   width: 88px;
   height: 88px;
 }
 
-/* === Chakra Segments (Accumulate, Don't Rotate) === */
+/* === Chakra Segment (Rotating Arc) === */
+/* Single rotating arc that accumulates rotation */
 .chakra-segment {
   position: absolute;
   top: 0;
@@ -65,10 +71,11 @@
   height: 100%;
   object-fit: contain;
   transform-origin: center center;
-  display: none; /* Hidden by default, shown based on chakra */
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* === Chakra Frame (Top Layer, z-index: 10) === */
+/* Always on top, 140×140px, pointer-events disabled */
 .chakra-frame {
   position: absolute;
   top: 0;
@@ -300,10 +307,23 @@
   outline: 2px dashed rgba(255, 0, 0, 0.5);
 }
 
-.chakra-container.debug {
+.chakra-mask.debug {
   outline: 1px dashed rgba(0, 255, 0, 0.5);
 }
 
 .portrait.debug {
   outline: 1px dashed rgba(0, 0, 255, 0.5);
+}
+
+/* === Professional Styling === */
+/* Ensure no distortion, proper centering, and smooth performance */
+.unit-ring * {
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+}
+
+.chakra-segment {
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-font-smoothing: subpixel-antialiased;
 }
