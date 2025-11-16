@@ -30,42 +30,34 @@
   overflow: visible;
 }
 
-/* === ULTIMATE JUTSU (Dark Red with Gold Stroke) === */
+/* === ULTIMATE JUTSU (DARK Red with Thin Gold Stroke) === */
 .attack-name-ultimate {
-  color: #8B0000; /* Dark red */
+  color: #5C0000; /* Much darker red */
   text-shadow:
-    /* Gold stroke */
-    -3px -3px 0 #D4AF37,
-    3px -3px 0 #D4AF37,
-    -3px 3px 0 #D4AF37,
-    3px 3px 0 #D4AF37,
-    -4px 0 0 #D4AF37,
-    4px 0 0 #D4AF37,
-    0 -4px 0 #D4AF37,
-    0 4px 0 #D4AF37,
+    /* Thin gold stroke (2px instead of 4px) */
+    -2px -2px 0 #D4AF37,
+    2px -2px 0 #D4AF37,
+    -2px 2px 0 #D4AF37,
+    2px 2px 0 #D4AF37,
     /* Red inner glow */
-    0 0 15px rgba(255, 0, 0, 0.8),
-    0 0 30px rgba(255, 0, 0, 0.6),
-    0 0 45px rgba(255, 0, 0, 0.4);
+    0 0 15px rgba(200, 0, 0, 0.8),
+    0 0 30px rgba(200, 0, 0, 0.6),
+    0 0 45px rgba(200, 0, 0, 0.4);
 }
 
-/* === SECRET TECHNIQUE (Gold with White Glow) === */
+/* === SECRET TECHNIQUE (DARK DARK Gold with Thin White Lines) === */
 .attack-name-secret {
-  color: #FFD700; /* Gold */
+  color: #8B7500; /* Dark dark gold */
   text-shadow:
-    /* White glow */
-    -3px -3px 0 #FFFFFF,
-    3px -3px 0 #FFFFFF,
-    -3px 3px 0 #FFFFFF,
-    3px 3px 0 #FFFFFF,
-    -4px 0 0 #FFFFFF,
-    4px 0 0 #FFFFFF,
-    0 -4px 0 #FFFFFF,
-    0 4px 0 #FFFFFF,
+    /* Thin white lines (2px) */
+    -2px -2px 0 #FFFFFF,
+    2px -2px 0 #FFFFFF,
+    -2px 2px 0 #FFFFFF,
+    2px 2px 0 #FFFFFF,
     /* Gold sparkle glow */
-    0 0 20px rgba(255, 215, 0, 1),
-    0 0 40px rgba(255, 215, 0, 0.8),
-    0 0 60px rgba(255, 235, 120, 0.6);
+    0 0 20px rgba(212, 175, 55, 1),
+    0 0 40px rgba(212, 175, 55, 0.8),
+    0 0 60px rgba(212, 175, 55, 0.6);
 }
 
 /* === REGULAR JUTSU (Blue with Light Blue Stroke) === */
