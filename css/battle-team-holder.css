@@ -44,7 +44,7 @@
   border: 3px solid rgba(160, 127, 80, 0.7);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
   transition: all 0.2s ease;
-  overflow: visible;
+  overflow: hidden;
 }
 
 .active-portrait-container:hover {
@@ -71,7 +71,7 @@
   background: rgba(20, 20, 30, 0.9);
   border: 2px solid rgba(139, 115, 85, 0.6);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
-  overflow: visible;
+  overflow: hidden;
   /* Exact Naruto Blazing stagger positioning */
   left: -25%;  /* X offset: -25% of active width */
   top: 35%;    /* Y offset: +35% of active height */
