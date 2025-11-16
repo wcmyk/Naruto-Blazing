@@ -13,16 +13,16 @@ body {
 
 .unit-ring {
     position: relative;
-    width: 140px;
-    height: 140px;
+    width: 200px;
+    height: 200px;
 }
 
 .unit-ring > .portrait {
     position: absolute;
-    width: 128px;
-    height: 128px;
-    top: 6px;
-    left: 6px;
+    width: 160px;
+    height: 160px;
+    top: 20px;
+    left: 20px;
     border-radius: 50%;
     clip-path: circle(50%);
     object-fit: cover;
@@ -31,10 +31,10 @@ body {
 
 .unit-ring > .chakra-container {
     position: absolute;
-    width: 128px;
-    height: 128px;
-    top: 6px;
-    left: 6px;
+    width: 160px;
+    height: 160px;
+    top: 20px;
+    left: 20px;
     overflow: hidden;
     border-radius: 50%;
     z-index: 2;
@@ -51,30 +51,31 @@ body {
 
 .unit-ring > .chakra-frame {
     position: absolute;
-    width: 140px;
-    height: 140px;
+    width: 200px;
+    height: 200px;
     top: 0;
     left: 0;
     z-index: 10;
     pointer-events: none;
+    object-fit: contain;
 }
 
 .mini-unit-ring {
     position: absolute;
-    width: 140px;
-    height: 140px;
-    bottom: -10px;
-    left: -10px;
-    transform: scale(0.43);
+    width: 200px;
+    height: 200px;
+    bottom: -20px;
+    left: -20px;
+    transform: scale(0.4);
     transform-origin: center center;
 }
 
 .mini-unit-ring > .portrait {
     position: absolute;
-    width: 128px;
-    height: 128px;
-    top: 6px;
-    left: 6px;
+    width: 160px;
+    height: 160px;
+    top: 20px;
+    left: 20px;
     border-radius: 50%;
     clip-path: circle(50%);
     object-fit: cover;
@@ -83,10 +84,10 @@ body {
 
 .mini-unit-ring > .chakra-container {
     position: absolute;
-    width: 128px;
-    height: 128px;
-    top: 6px;
-    left: 6px;
+    width: 160px;
+    height: 160px;
+    top: 20px;
+    left: 20px;
     overflow: hidden;
     border-radius: 50%;
     z-index: 2;
@@ -103,12 +104,13 @@ body {
 
 .mini-unit-ring > .chakra-frame {
     position: absolute;
-    width: 140px;
-    height: 140px;
+    width: 200px;
+    height: 200px;
     top: 0;
     left: 0;
     z-index: 10;
     pointer-events: none;
+    object-fit: contain;
 }
 
 .unit-name {
