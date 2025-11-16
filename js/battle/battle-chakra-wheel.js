@@ -53,9 +53,11 @@
       const chakraMask = document.createElement('div');
       chakraMask.className = 'chakra-mask';
 
-      // Create chakra segment (rotating blue arc) - CSS-based fallback
-      const chakraSegment = document.createElement('div');
+      // Create chakra segment (rotating blue arc)
+      const chakraSegment = document.createElement('img');
       chakraSegment.className = 'chakra-segment';
+      chakraSegment.src = 'assets/ui/gauges/chakra.png';
+      chakraSegment.alt = 'Chakra gauge';
       chakraMask.appendChild(chakraSegment);
 
       // Clone portrait for layering
@@ -63,9 +65,11 @@
       clonedPortrait.className = 'portrait-clipped';
       clonedPortrait.alt = unit.name;
 
-      // Create chakra frame overlay - CSS-based fallback
-      const chakraFrame = document.createElement('div');
+      // Create chakra frame overlay
+      const chakraFrame = document.createElement('img');
       chakraFrame.className = 'chakra-frame';
+      chakraFrame.src = 'assets/ui/frames/chakraholder_icon.png';
+      chakraFrame.alt = 'Chakra frame';
 
       // Assemble structure
       chakraSlot.appendChild(chakraMask);
