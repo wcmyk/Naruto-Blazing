@@ -472,6 +472,19 @@
           const {damage, isCritical, breakdown} = this.calculateDamage(attacker, target, mult);
           target.stats.hp = Math.max(0, target.stats.hp - damage);
 
+          // Check if this defeats the final enemy (trigger shockwave + screen shake)
+          const remainingEnemies = core.enemyTeam.filter(e => e.stats.hp > 0).length;
+          const shouldFinish = window.BattleFinish?.shouldTriggerFinish(target, remainingEnemies, true);
+
+          if (shouldFinish) {
+            // Trigger finish effects (shockwave + screen shake, NO text)
+            setTimeout(() => {
+              if (window.BattleFinish) {
+                window.BattleFinish.playFinishEffects(attacker, target, core);
+              }
+            }, 300);
+          }
+
           // Apply knockback for ultimate
           if (window.BattlePhysics) {
             window.BattlePhysics.applyKnockback(target, attacker, 60, core);
