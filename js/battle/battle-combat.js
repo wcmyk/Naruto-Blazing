@@ -346,6 +346,12 @@
 
       console.log(`[Combat] ${attacker.name} uses ${j.meta.name} (${mult}x) on ${target.name}`);
 
+      // Display attack name BEFORE animation (Storm 4 style)
+      if (window.BattleAttackNames) {
+        const attackName = j.data.name || j.data.skillName || j.meta.name;
+        window.BattleAttackNames.showAttackName(attackName, 'jutsu');
+      }
+
       // Narrate action
       if (window.BattleNarrator) {
         window.BattleNarrator.narrateJutsu(attacker, target, core);
@@ -437,6 +443,12 @@
 
       console.log(`[Combat] ${attacker.name} uses ${u.meta.name} (${mult}x) on ${targets.length} targets`);
 
+      // Display attack name BEFORE animation (Storm 4 style)
+      if (window.BattleAttackNames) {
+        const attackName = u.data.name || u.data.skillName || u.meta.name;
+        window.BattleAttackNames.showAttackName(attackName, 'ultimate');
+      }
+
       // Narrate action
       if (window.BattleNarrator) {
         window.BattleNarrator.narrateUltimate(attacker, targets, core);
@@ -453,19 +465,6 @@
         setTimeout(() => {
           const {damage, isCritical, breakdown} = this.calculateDamage(attacker, target, mult);
           target.stats.hp = Math.max(0, target.stats.hp - damage);
-
-          // Check for ultimate finish (final enemy defeated)
-          const remainingEnemies = core.enemyTeam.filter(e => e.stats.hp > 0).length;
-          const isUltimateFinish = window.BattleFinish?.isUltimateFinish(target, remainingEnemies, true);
-
-          if (isUltimateFinish) {
-            // Trigger ultimate finish animation
-            setTimeout(() => {
-              if (window.BattleFinish) {
-                window.BattleFinish.playUltimateFinish(attacker, target, core);
-              }
-            }, 300);
-          }
 
           // Apply knockback for ultimate
           if (window.BattlePhysics) {
@@ -768,6 +767,12 @@
       }
 
       console.log(`[Combat] ${caster.name} uses SECRET: ${secret.meta.name}`);
+
+      // Display attack name BEFORE effects apply (Storm 4 style)
+      if (window.BattleAttackNames) {
+        const attackName = secret.data.name || secret.data.skillName || secret.meta.name;
+        window.BattleAttackNames.showAttackName(attackName, 'secret');
+      }
 
       // Narrate action
       if (window.BattleNarrator) {
