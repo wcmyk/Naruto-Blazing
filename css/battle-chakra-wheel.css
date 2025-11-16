@@ -1,179 +1,123 @@
 /* ===================================================
-   CHAKRA WHEEL SYSTEM - Complete Visual Specification
+   IMAGE-BASED CIRCULAR CHAKRA GAUGE SYSTEM
+   Naruto Blazing-Style Rotating Chakra Gauge
    =================================================== */
 
-/* === Chakra Wheel Base (Circular Frame) === */
-.chakra-wheel {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  pointer-events: all;
+/* === Chakra Slot Container === */
+.chakra-slot {
+  position: relative;
+  width: 90px;
+  height: 90px;
   cursor: pointer;
-  z-index: 5;
-  border-radius: 50%;
+  transition: transform 0.2s ease;
 }
 
-/* Active portrait - large wheel (110px for 90px portrait) */
-.active-portrait-container .chakra-wheel {
-  width: 110px;
-  height: 110px;
+.chakra-slot:hover {
+  transform: scale(1.05);
 }
 
-/* Bench portrait - smaller wheel (45px for 36px portrait, 40% of 90px) */
-.bench-portrait-container .chakra-wheel {
-  width: 48px;
-  height: 48px;
+/* Bench units have smaller chakra slots */
+.bench-portrait-container .chakra-slot {
+  width: 36px; /* 40% of 90px */
+  height: 36px;
 }
 
-/* === Chakra Ring Layer Container === */
-.chakra-ring {
+/* === Chakra Mask (Contains Rotating Segment) === */
+.chakra-mask {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  top: 5px;
+  left: 5px;
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
-  pointer-events: none;
+  clip-path: circle(50%);
+  overflow: hidden;
+  z-index: 1;
 }
 
-/* Ring sizing - each layer expands outward */
-.chakra-ring.layer-1 {
-  /* First ring - brightest, base layer (4 chakra max) */
-  width: 100%;
-  height: 100%;
+.bench-portrait-container .chakra-mask {
+  top: 2px;
+  left: 2px;
+  width: 32px;
+  height: 32px;
 }
 
-.chakra-ring.layer-2 {
-  /* Second ring - slightly darker (5-8 chakra) */
-  width: 115%;
-  height: 115%;
-}
-
-.chakra-ring.layer-3 {
-  /* Third ring - noticeably darker (9-12 chakra) */
-  width: 130%;
-  height: 130%;
-}
-
-.chakra-ring.layer-4 {
-  /* Fourth ring - final layer, turns red when full */
-  width: 145%;
-  height: 145%;
-}
-
-/* === Chakra Arc Segments === */
-/* Segments are wedge-shaped arc slices on the ring's circumference */
+/* === Chakra Segment (Rotating Blue Arc) === */
 .chakra-segment {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-}
-
-/* Arc segment wedge shape - NOT circles/orbs */
-.chakra-segment::before {
-  content: '';
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: conic-gradient(
-    from 0deg,
-    transparent 0deg,
-    transparent 35deg,
-    rgba(100, 150, 255, 0.3) 40deg,
-    rgba(120, 170, 255, 0.7) 45deg,
-    rgba(150, 200, 255, 1) 50deg,
-    rgba(120, 170, 255, 0.7) 55deg,
-    rgba(100, 150, 255, 0.3) 60deg,
-    transparent 65deg,
-    transparent 360deg
-  );
+  transform-origin: center center;
+  transition: transform 0.3s ease-out;
+  z-index: 2; /* Above portrait, below frame */
+}
+
+/* === Portrait (Clipped Circle, Below Gauge) === */
+.portrait-clipped {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
-  filter: drop-shadow(0 0 4px rgba(100, 150, 255, 0.6));
+  clip-path: circle(50%);
+  object-fit: cover;
+  z-index: 0; /* Bottom layer */
 }
 
-/* Brightness levels by layer */
-.chakra-ring.layer-1 .chakra-segment {
-  /* Brightest - highly saturated blue-white */
-  opacity: 1;
-  filter: brightness(1.3) drop-shadow(0 0 4px rgba(150, 180, 255, 0.8));
+.bench-portrait-container .portrait-clipped {
+  top: 2px;
+  left: 2px;
+  width: 32px;
+  height: 32px;
 }
 
-.chakra-ring.layer-2 .chakra-segment {
-  /* Slightly darker - muted blue */
-  opacity: 0.85;
-  filter: brightness(1.0) drop-shadow(0 0 3px rgba(120, 160, 220, 0.6));
+/* === Chakra Frame (Top Layer) === */
+.chakra-frame {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 3; /* Top layer - always visible */
 }
 
-.chakra-ring.layer-3 .chakra-segment {
-  /* Noticeably darker blue */
-  opacity: 0.7;
-  filter: brightness(0.8) drop-shadow(0 0 2px rgba(100, 140, 200, 0.4));
+/* === Ultimate Ready State (Red Ring) === */
+.chakra-slot.ultimate-ready .chakra-frame {
+  filter: drop-shadow(0 0 8px rgba(255, 50, 50, 0.9)) drop-shadow(0 0 16px rgba(255, 50, 50, 0.6));
+  animation: ultimateReadyPulse 1s ease-in-out infinite;
 }
 
-.chakra-ring.layer-4 .chakra-segment {
-  /* Darkest blue, but will turn red when full */
-  opacity: 0.6;
-  filter: brightness(0.7) drop-shadow(0 0 2px rgba(80, 120, 180, 0.3));
-}
-
-/* Red ultimate-ready ring - ONLY affects topmost ring, NOT the entire card */
-.chakra-ring.ultimate-ready .chakra-segment::before {
-  background: conic-gradient(
-    from 0deg,
-    transparent 0deg,
-    transparent 35deg,
-    rgba(255, 80, 80, 0.4) 40deg,
-    rgba(255, 100, 100, 0.8) 45deg,
-    rgba(255, 50, 50, 1) 50deg,
-    rgba(255, 100, 100, 0.8) 55deg,
-    rgba(255, 80, 80, 0.4) 60deg,
-    transparent 65deg,
-    transparent 360deg
-  );
-  filter: drop-shadow(0 0 6px rgba(255, 50, 50, 0.9)) drop-shadow(0 0 12px rgba(255, 50, 50, 0.5));
-  animation: ultimatePulse 0.5s ease-out;
-}
-
-@keyframes ultimatePulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.3); }
-  100% { transform: scale(1); }
-}
-
-/* Segment positioning - evenly spaced on circumference by rotation */
-/* Each segment is a wedge that rotates around the center */
-.chakra-segment[data-position="0"] { transform: rotate(0deg); }    /* 12 o'clock */
-.chakra-segment[data-position="1"] { transform: rotate(90deg); }   /* 3 o'clock */
-.chakra-segment[data-position="2"] { transform: rotate(180deg); }  /* 6 o'clock */
-.chakra-segment[data-position="3"] { transform: rotate(270deg); }  /* 9 o'clock */
-
-/* === Chakra Gain Animation (Simple Appear) === */
-/* Segments simply appear/fade in, NO orbs or flying particles */
-
-/* Segment arrival flare */
-.chakra-segment.arriving {
-  animation: segmentArrive 0.5s ease-out;
-}
-
-@keyframes segmentArrive {
-  0% {
-    transform: scale(0.5);
-    opacity: 0;
+@keyframes ultimateReadyPulse {
+  0%, 100% {
+    filter: drop-shadow(0 0 8px rgba(255, 50, 50, 0.9)) drop-shadow(0 0 16px rgba(255, 50, 50, 0.6));
   }
   50% {
-    transform: scale(1.4);
-    filter: brightness(2);
-  }
-  100% {
-    transform: scale(1);
-    opacity: 1;
+    filter: drop-shadow(0 0 12px rgba(255, 50, 50, 1)) drop-shadow(0 0 24px rgba(255, 50, 50, 0.8));
   }
 }
 
-/* === LIGHTNING EFFECT (Jagged Bolts Around Chakra Wheel Rim) === */
+/* === Chakra Gain Flash Effect === */
+.chakra-slot.chakra-gain-flash .chakra-segment {
+  animation: chakraGainFlash 0.5s ease-out;
+}
+
+@keyframes chakraGainFlash {
+  0% {
+    filter: brightness(1);
+  }
+  50% {
+    filter: brightness(2) drop-shadow(0 0 10px rgba(100, 150, 255, 1));
+  }
+  100% {
+    filter: brightness(1);
+  }
+}
+
+/* === LIGHTNING EFFECT (Jagged Bolts Around Chakra Frame) === */
 /* Lightning wraps around the wheel's edge, NOT radiating outward */
 /* IMPORTANT: pointer-events MUST be none so drag targeting works */
 .lightning-effect {
@@ -305,18 +249,16 @@
   100% { opacity: 1; filter: blur(1px); }
 }
 
-/* Segment sizing is handled by the ::before pseudo-element above */
-
 /* === Attack Type Selected Feedback === */
-.chakra-wheel.attack-selected {
+.chakra-slot.attack-selected {
   filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.8));
   animation: attackSelectedPulse 0.5s ease-out;
 }
 
 @keyframes attackSelectedPulse {
-  0% { transform: translate(-50%, -50%) scale(1); }
-  50% { transform: translate(-50%, -50%) scale(1.08); }
-  100% { transform: translate(-50%, -50%) scale(1); }
+  0% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+  100% { transform: scale(1); }
 }
 
 /* === Targeting Overlay (Drag-to-Target System) === */
@@ -355,10 +297,14 @@
 }
 
 /* === Debug/Development Helper === */
-.chakra-wheel.debug {
-  outline: 1px dashed rgba(255, 0, 0, 0.3);
+.chakra-slot.debug {
+  outline: 2px dashed rgba(255, 0, 0, 0.5);
 }
 
-.chakra-ring.debug {
-  outline: 1px dashed rgba(0, 255, 0, 0.3);
+.chakra-mask.debug {
+  outline: 1px dashed rgba(0, 255, 0, 0.5);
+}
+
+.portrait-clipped.debug {
+  outline: 1px dashed rgba(0, 0, 255, 0.5);
 }
