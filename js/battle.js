@@ -18,7 +18,8 @@
       'BattleNarrator',
       'BattleTeamHolder',
       'BattleChakraWheel',
-      'BattleInputManager'
+      'BattleInputManager',
+      'BattleAttackNames'
     ];
 
     const allLoaded = requiredModules.every(mod => window[mod]);
