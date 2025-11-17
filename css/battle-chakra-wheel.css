@@ -73,6 +73,8 @@
   top: 0;
   left: 0;
   object-fit: contain;
+  transform-origin: center center;  /* Rotate from center */
+  transform: rotate(180deg);         /* Start at bottom */
   display: none; /* toggled by JS based on chakra state */
 }
 
