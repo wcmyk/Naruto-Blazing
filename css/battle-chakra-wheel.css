@@ -24,15 +24,15 @@
    PORTRAIT  (BOTTOM LAYER, z-index: 1)
    ========================================= */
 .portrait {
-  position: absolute;
-  top: 6px;
-  left: 6px;
-  width: 128px;
-  height: 128px;
-  object-fit: cover;
-  border-radius: 50%;
-  clip-path: circle(50%);
-  z-index: 1;
+    position: absolute;
+    top: 30px;
+    left: 25px;
+    width: 100px;
+    height: 98px;
+    object-fit: cover;
+    border-radius: 50%;
+    clip-path: circle(50%);
+    z-index: 1;
 }
 
 /* Bench portrait: perfectly centered in 70×70 holder */
@@ -80,14 +80,14 @@
    CHAKRA HOLDER FRAME (TOP LAYER, z-index: 10)
    ========================================= */
 .chakra-frame {
-  position: absolute;
-  top: -70px;
-  left: -68px;
-  width: 300px !important;
-  height: 300px !important;
-  /* object-fit: fill !important; */
-  pointer-events: none;
-  z-index: 10;
+    position: absolute;
+    top: -70px;
+    left: -68px;
+    width: 300px !important;
+    height: 300px !important;
+    /* object-fit: fill !important; */
+    pointer-events: none;
+    z-index: 10;
 }
 
 /* Bench frame = 50% of active holder */
