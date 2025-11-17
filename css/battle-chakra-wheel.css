@@ -2,8 +2,8 @@
 /* === Unit Ring Container (active) === */
 .unit-ring {
   position: relative;
-  width: 140px;
-  height: 140px;
+  width: 100px;
+  height: 100px;
   cursor: pointer;
   object-fit: fill; 
   transition: transform 0.2s ease;
