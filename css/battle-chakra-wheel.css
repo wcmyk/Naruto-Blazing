@@ -1,8 +1,3 @@
-<!-- ==========================================
-     UNIT RING + CHAKRA HOLDER ALIGNMENT FIX
-     (Naruto Blazing style, active + bench)
-     ========================================== -->
-
 <style>
 /* === Unit Ring Container (active) === */
 .unit-ring {
@@ -10,6 +5,7 @@
   width: 140px;
   height: 140px;
   cursor: pointer;
+  object-fit: fill; 
   transition: transform 0.2s ease;
   display: inline-block;
 }
@@ -97,6 +93,7 @@
 .bench-portrait-container .chakra-frame {
   width: 70px !important;
   height: 70px !important;
+  object-fit: fill;
 }
 
 /* =========================================
