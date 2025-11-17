@@ -85,6 +85,7 @@
   left: 0;
   width: 140px !important;
   height: 140px !important;
+  object-fit: fill !important;
   pointer-events: none;
   z-index: 10;
 }
