@@ -94,7 +94,7 @@
 .bench-portrait-container .chakra-frame {
   width: 70px !important;
   height: 70px !important;
-  object-fit: fill;
+  object-fit: fill !important;
 }
 
 /* =========================================
