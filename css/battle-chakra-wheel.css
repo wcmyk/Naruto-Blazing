@@ -82,9 +82,9 @@
 .chakra-frame {
   position: absolute;
   top: -70px;
-  left: -70px;
-  width: 280px !important;
-  height: 280px !important;
+  left: -68px;
+  width: 300px !important;
+  height: 300px !important;
   /* object-fit: fill !important; */
   pointer-events: none;
   z-index: 10;
