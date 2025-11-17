@@ -85,7 +85,7 @@
   left: 5;
   width: 280px !important;
   height: 280px !important;
-  object-fit: fill !important;
+  /* object-fit: fill !important; */
   pointer-events: none;
   z-index: 10;
 }
