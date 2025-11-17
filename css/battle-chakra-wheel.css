@@ -81,8 +81,8 @@
    ========================================= */
 .chakra-frame {
   position: absolute;
-  top: 10;
-  left: 5;
+  top: 100px;
+  left: 100px;
   width: 280px !important;
   height: 280px !important;
   /* object-fit: fill !important; */
