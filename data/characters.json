@@ -510,6 +510,26 @@
     {
       "name": "Celestial Resonance",
       "description": "Boosts Ultimate damage by 20% and reduces its cooldown by 1 when used after an ally's Secret Technique."
+    },
+    {
+      "name": "Temporal Strike",
+      "description": "Increases ATK by 250 and boosts combo damage by 15%."
+    },
+    {
+      "name": "Healing Threads",
+      "description": "Restores 200 HP at the start of each turn and boosts healing received by 20%."
+    },
+    {
+      "name": "Bonds of Protection",
+      "description": "Increases max HP by 500 and grants damage reduction of 10% when HP is above 70%."
+    },
+    {
+      "name": "Comet's Endurance",
+      "description": "Boosts DEF by 300 and reduces damage from critical hits by 25%."
+    },
+    {
+      "name": "Time Acceleration",
+      "description": "Increases SPD by 80 and grants 20% chance to take an extra turn after attacking."
     }
   ]
 }
