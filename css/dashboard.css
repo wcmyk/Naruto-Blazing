@@ -204,12 +204,15 @@
   transform: scale(1.3);
 }
 
-/* === Top Bar Enhancements === */
-.top-bar-icons {
+/* === Dashboard Icons Container (Calendar & Mailbox) === */
+.dashboard-icons-container {
+  position: fixed;
+  top: 80px;
+  right: 180px; /* Next to daily login */
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-right: 20px;
+  z-index: 50;
 }
 
 .icon-button {
@@ -487,7 +490,7 @@
 .dashboard-banner-section {
   position: fixed;
   left: 20px;
-  bottom: 90px; /* Position above bottom bar */
+  top: 140px; /* Under top bar and daily login */
   width: 600px;
   max-width: calc(100vw - 40px);
   z-index: 50;
@@ -561,7 +564,9 @@
     padding: 8px 12px;
   }
 
-  .top-bar-icons {
+  .dashboard-icons-container {
+    top: 70px;
+    right: 140px;
     gap: 8px;
   }
 
@@ -580,7 +585,7 @@
 
   .dashboard-banner-section {
     width: 500px;
-    bottom: 100px;
+    top: 130px;
   }
 
   .dashboard-banner-section .banner-slideshow {
@@ -611,7 +616,9 @@
     right: 10px;
   }
 
-  .top-bar-icons {
+  .dashboard-icons-container {
+    top: 200px;
+    right: 10px;
     gap: 6px;
   }
 
@@ -636,7 +643,7 @@
   .dashboard-banner-section {
     width: calc(100vw - 20px);
     left: 10px;
-    bottom: 80px;
+    top: 260px;
   }
 
   .dashboard-banner-section .banner-slideshow {
