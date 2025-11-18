@@ -1,6 +1,6 @@
 [
   {
-    "id": "m_001", "category": "Shinobi Chronicles: Part 1", "name": "Rookie Mission", "banner": "assets/missions/banners/m_001.png", "sortOrder": 1,
+    "id": "m_001", "category": "Shinobi Chronicles Part 1", "name": "Rookie Mission", "banner": "assets/missions/banners/m_001.png", "sortOrder": 1,
     "difficulties": {
       "C": [
         { "stage": 1, "map": "assets/maps/bg_020101_mori.png", "waves": [ { "enemies": ["slime_01"] } ] },
@@ -15,7 +15,7 @@
     }
   },
   {
-    "id": "m_002", "category": "Shinobi Chronicles: Part 1", "name": "Road to Tenten", "banner": "assets/missions/banners/m_002.png", "sortOrder": 2,
+    "id": "m_002", "category": "Shinobi Chronicles Part 1", "name": "Road to Tenten", "banner": "assets/missions/banners/m_002.png", "sortOrder": 2,
     "difficulties": {
       "C": [
         { "stage": 1, "map": "assets/maps/bg_170101_tenti.png", "waves": [ { "enemies": ["slime_01"] } ] },
@@ -30,7 +30,7 @@
     }
   },
   {
-    "id": "m_003", "category": "Shinobi Chronicles: Part 1", "name": "Shinobi Life on the Battlefield", "banner": "assets/missions/banners/m_003.png", "sortOrder": 3,
+    "id": "m_003", "category": "Shinobi Chronicles Part 1", "name": "Shinobi Life on the Battlefield", "banner": "assets/missions/banners/m_003.png", "sortOrder": 3,
     "difficulties": {
         "C": [
             { "stage": 1, "map": "assets/maps/bg_020201_mori.png", "waves": [ { "enemies": ["slime_01", "slime_01"] } ] },
@@ -45,7 +45,7 @@
     }
   },
   {
-    "id": "m_004", "category": "Shinobi Chronicles: Part 1", "name": "Hidden Leaf’s Secret Ultimate Taijutsu", "banner": "assets/missions/banners/m_004.png", "sortOrder": 4,
+    "id": "m_004", "category": "Shinobi Chronicles Part 1", "name": "Hidden Leaf’s Secret Ultimate Taijutsu", "banner": "assets/missions/banners/m_004.png", "sortOrder": 4,
     "difficulties": {
       "B": [
         { "stage": 1, "map": "assets/maps/bg_170101_tenti.png", "waves": [ { "enemies": ["goblin_archer_01"] } ] },
@@ -60,7 +60,7 @@
     }
   },
   {
-    "id": "m_005", "category": "Shinobi Chronicles: Part 1", "name": "Equanimous Shield", "banner": "assets/missions/banners/m_005.png", "sortOrder": 5,
+    "id": "m_005", "category": "Shinobi Chronicles Part 1", "name": "Equanimous Shield", "banner": "assets/missions/banners/m_005.png", "sortOrder": 5,
     "difficulties": {
       "C": [
         { "stage": 1, "map": "assets/maps/bg_040101_heigen.png", "waves": [ { "enemies": ["slime_01"] } ] },
@@ -75,7 +75,7 @@
     }
   },
   {
-    "id": "m_006", "category": "Shinobi Chronicles: Part 1", "name": "A Shadow Hiding in the Night", "banner": "assets/missions/banners/m_006.png", "sortOrder": 6,
+    "id": "m_006", "category": "Shinobi Chronicles Part 1", "name": "A Shadow Hiding in the Night", "banner": "assets/missions/banners/m_006.png", "sortOrder": 6,
     "difficulties": {
       "A": [
         { "stage": 1, "map": "assets/maps/bg_020201_mori.png", "waves": [ { "enemies": ["goblin_archer_01", "goblin_archer_01"] } ] },
@@ -90,7 +90,7 @@
     }
   },
   {
-    "id": "event_lt", "category": "Limited Time Event", "name": "You’re On! Lightning Torrent!", "banner": "assets/missions/banners/m_007.png", "sortOrder": 1,
+    "id": "event_lt", "category": "Limited Time Event", "name": "You're On! Lightning Torrent!", "banner": "assets/missions/banners/m_007.png", "sortOrder": 1,
     "difficulties": {
       "S": [
         { "stage": 1, "map": "assets/maps/bg_030101_kaido.png", "waves": [ { "enemies": ["rock_golem_01", "rock_golem_01"] } ] },
@@ -100,7 +100,32 @@
     }
   },
   {
-    "id": "m_008", "category": "Shinobi Chronicles: Part 1", "name": "Melody of the Demon Flute", "banner": "assets/missions/banners/m_008.png", "sortOrder": 8,
+    "id": "growth_ramen", "category": "Growth Missions", "name": "Ichiraku Ramen", "banner": "assets/missions/banners/ichiraku_ramen.png", "sortOrder": 1,
+    "difficulties": {
+      "C": [
+        { "stage": 1, "map": "assets/maps/bg_170101_tenti.png", "waves": [ { "enemies": ["slime_01", "slime_01"] } ] },
+        { "stage": 2, "map": "assets/maps/bg_170102_tenti.png", "waves": [ { "enemies": ["slime_01", "goblin_archer_01"] } ] },
+        { "stage": 3, "map": "assets/maps/bg_170103_tenti.png", "waves": [ { "enemies": ["goblin_archer_01", "goblin_archer_01"] } ] }
+      ],
+      "B": [
+        { "stage": 1, "map": "assets/maps/bg_170101_tenti.png", "waves": [ { "enemies": ["goblin_archer_01", "goblin_archer_01"] } ] },
+        { "stage": 2, "map": "assets/maps/bg_170102_tenti.png", "waves": [ { "enemies": ["goblin_archer_01", "rock_golem_01"] } ] },
+        { "stage": 3, "map": "assets/maps/bg_170103_tenti.png", "waves": [ { "enemies": ["rock_golem_01", "rock_golem_01"] } ] }
+      ],
+      "A": [
+        { "stage": 1, "map": "assets/maps/bg_170101_tenti.png", "waves": [ { "enemies": ["rock_golem_01", "rock_golem_01"] } ] },
+        { "stage": 2, "map": "assets/maps/bg_170102_tenti.png", "waves": [ { "enemies": ["rock_golem_01", "goblin_archer_01", "rock_golem_01"] } ] },
+        { "stage": 3, "map": "assets/maps/bg_170103_tenti.png", "waves": [ { "enemies": ["rock_golem_01", "rock_golem_01", "rock_golem_01"] } ] }
+      ],
+      "S": [
+        { "stage": 1, "map": "assets/maps/bg_170101_tenti.png", "waves": [ { "enemies": ["rock_golem_01", "rock_golem_01", "rock_golem_01"] } ] },
+        { "stage": 2, "map": "assets/maps/bg_170102_tenti.png", "waves": [ { "enemies": ["rock_golem_01", "rock_golem_01", "goblin_archer_01"] } ] },
+        { "stage": 3, "map": "assets/maps/bg_170103_tenti.png", "waves": [ { "enemies": ["rock_golem_01", "rock_golem_01", "rock_golem_01", "rock_golem_01"] } ] }
+      ]
+    }
+  },
+  {
+    "id": "m_008", "category": "Shinobi Chronicles Part 1", "name": "Melody of the Demon Flute", "banner": "assets/missions/banners/m_008.png", "sortOrder": 8,
     "difficulties": {
       "A": [
         { "stage": 1, "map": "assets/maps/bg_030101_kaido.png", "waves": [ { "enemies": ["goblin_archer_01", "slime_01"] } ] },
@@ -110,7 +135,7 @@
     }
   },
   {
-    "id": "m_009", "category": "Shinobi Chronicles: Part 1", "name": "Fearsome Threads, Drawing in Death", "banner": "assets/missions/banners/m_009.png", "sortOrder": 9,
+    "id": "m_009", "category": "Shinobi Chronicles Part 1", "name": "Fearsome Threads, Drawing in Death", "banner": "assets/missions/banners/m_009.png", "sortOrder": 9,
     "difficulties": {
       "B": [
         { "stage": 1, "map": "assets/maps/bg_020201_mori.png", "waves": [ { "enemies": ["goblin_archer_01"] } ] },
@@ -120,7 +145,7 @@
     }
   },
   {
-    "id": "m_010", "category": "Shinobi Chronicles: Part 1", "name": "Flight of the Resolute Butterfly", "banner": "assets/missions/banners/m_010.png", "sortOrder": 10,
+    "id": "m_010", "category": "Shinobi Chronicles Part 1", "name": "Flight of the Resolute Butterfly", "banner": "assets/missions/banners/m_010.png", "sortOrder": 10,
     "difficulties": {
       "C": [
         { "stage": 1, "map": "assets/maps/bg_020101_mori.png", "waves": [ { "enemies": ["slime_01"] } ] },
@@ -130,7 +155,7 @@
     }
   },
   {
-    "id": "m_011", "category": "Shinobi Chronicles: Part 1", "name": "Crescent Moon Blade and the Dance of Leaves", "banner": "assets/missions/banners/m_011.png", "sortOrder": 11,
+    "id": "m_011", "category": "Shinobi Chronicles Part 1", "name": "Crescent Moon Blade and the Dance of Leaves", "banner": "assets/missions/banners/m_011.png", "sortOrder": 11,
     "difficulties": {
       "B": [
         { "stage": 1, "map": "assets/maps/bg_020101_mori.png", "waves": [ { "enemies": ["goblin_archer_01"] } ] },
@@ -140,7 +165,7 @@
     }
   },
   {
-    "id": "m_012", "category": "Shinobi Chronicles: Part 1", "name": "Scorching Heroine", "banner": "assets/missions/banners/m_012.png", "sortOrder": 12,
+    "id": "m_012", "category": "Shinobi Chronicles Part 1", "name": "Scorching Heroine", "banner": "assets/missions/banners/m_012.png", "sortOrder": 12,
     "difficulties": {
       "A": [
         { "stage": 1, "map": "assets/maps/bg_040201_heigen.png", "waves": [ { "enemies": ["rock_golem_01"] } ] },
@@ -150,7 +175,7 @@
     }
   },
   {
-    "id": "m_013", "category": "Shinobi Chronicles: Part 1", "name": "A Massive Dancing Fan", "banner": "assets/missions/banners/m_013.png", "sortOrder": 13,
+    "id": "m_013", "category": "Shinobi Chronicles Part 1", "name": "A Massive Dancing Fan", "banner": "assets/missions/banners/m_013.png", "sortOrder": 13,
     "difficulties": {
       "B": [
         { "stage": 1, "map": "assets/maps/bg_040201_heigen.png", "waves": [ { "enemies": ["goblin_archer_01"] } ] },
@@ -160,7 +185,7 @@
     }
   },
   {
-    "id": "m_014", "category": "Shinobi Chronicles: Part 1", "name": "Mists of Deadly Poison", "banner": "assets/missions/banners/m_014.png", "sortOrder": 14,
+    "id": "m_014", "category": "Shinobi Chronicles Part 1", "name": "Mists of Deadly Poison", "banner": "assets/missions/banners/m_014.png", "sortOrder": 14,
     "difficulties": {
       "S": [
         { "stage": 1, "map": "assets/maps/bg_060101_kouya.png", "waves": [ { "enemies": ["rock_golem_01", "goblin_archer_01"] } ] },
@@ -170,7 +195,7 @@
     }
   },
   {
-    "id": "m_015", "category": "Shinobi Chronicles: Part 1", "name": "Lurking Death Needle", "banner": "assets/missions/banners/m_015.png", "sortOrder": 15,
+    "id": "m_015", "category": "Shinobi Chronicles Part 1", "name": "Lurking Death Needle", "banner": "assets/missions/banners/m_015.png", "sortOrder": 15,
     "difficulties": {
       "A": [
         { "stage": 1, "map": "assets/maps/bg_060201_kouya.png", "waves": [ { "enemies": ["goblin_archer_01", "goblin_archer_01"] } ] },
@@ -180,7 +205,7 @@
     }
   },
   {
-    "id": "m_016", "category": "Shinobi Chronicles: Part 2", "name": "Ruler of the Endless Sands", "banner": "assets/missions/banners/m_016.png", "sortOrder": 1,
+    "id": "m_016", "category": "Shinobi Chronicles Part 2", "name": "Ruler of the Endless Sands", "banner": "assets/missions/banners/m_016.png", "sortOrder": 1,
     "difficulties": {
       "B": [
         { "stage": 1, "map": "assets/maps/bg_150101_suna.png", "waves": [ { "enemies": ["goblin_archer_01", "goblin_archer_01"] } ] },
@@ -195,7 +220,7 @@
     }
   },
   {
-    "id": "m_017", "category": "Shinobi Chronicles: Part 2", "name": "Behind the Ice Mask", "banner": "assets/missions/banners/m_017.png", "sortOrder": 2,
+    "id": "m_017", "category": "Shinobi Chronicles Part 2", "name": "Behind the Ice Mask", "banner": "assets/missions/banners/m_017.png", "sortOrder": 2,
     "difficulties": {
       "A": [
         { "stage": 1, "map": "assets/maps/bg_150101_suna.png", "waves": [ { "enemies": ["rock_golem_01"] } ] },
@@ -205,7 +230,7 @@
     }
   },
   {
-    "id": "m_018", "category": "Shinobi Chronicles: Part 2", "name": "The Power of Stone with Lava Style!", "banner": "assets/missions/banners/m_018.png", "sortOrder": 3,
+    "id": "m_018", "category": "Shinobi Chronicles Part 2", "name": "The Power of Stone with Lava Style!", "banner": "assets/missions/banners/m_018.png", "sortOrder": 3,
     "difficulties": {
       "S": [
         { "stage": 1, "map": "assets/maps/bg_050101_iwaba.png", "waves": [ { "enemies": ["rock_golem_01", "goblin_archer_01"] } ] },
@@ -215,7 +240,7 @@
     }
   },
   {
-    "id": "m_019", "category": "Shinobi Chronicles: Part 2", "name": "Life-Draining Bloody Blade", "banner": "assets/missions/banners/m_019.png", "sortOrder": 4,
+    "id": "m_019", "category": "Shinobi Chronicles Part 2", "name": "Life-Draining Bloody Blade", "banner": "assets/missions/banners/m_019.png", "sortOrder": 4,
     "difficulties": {
       "S": [
         { "stage": 1, "map": "assets/maps/bg_050201_iwaba.png", "waves": [ { "enemies": ["rock_golem_01", "rock_golem_01"] } ] },
@@ -225,7 +250,7 @@
     }
   },
   {
-    "id": "m_020", "category": "Shinobi Chronicles: Part 2", "name": "Blade of the Roaring Storm", "banner": "assets/missions/banners/m_020.png", "sortOrder": 5,
+    "id": "m_020", "category": "Shinobi Chronicles Part 2", "name": "Blade of the Roaring Storm", "banner": "assets/missions/banners/m_020.png", "sortOrder": 5,
     "difficulties": {
       "S": [
         { "stage": 1, "map": "assets/maps/bg_040101_heigen.png", "waves": [ { "enemies": ["rock_golem_01", "goblin_archer_01"] } ] },
@@ -235,7 +260,7 @@
     }
   },
   {
-    "id": "m_021", "category": "Shinobi Chronicles: Part 2", "name": "Incoming! Superalloy Envoy", "banner": "assets/missions/banners/m_021.png", "sortOrder": 6,
+    "id": "m_021", "category": "Shinobi Chronicles Part 2", "name": "Incoming! Superalloy Envoy", "banner": "assets/missions/banners/m_021.png", "sortOrder": 6,
     "difficulties": {
       "S": [
         { "stage": 1, "map": "assets/maps/bg_150101_suna.png", "waves": [ { "enemies": ["rock_golem_01", "rock_golem_01"] } ] },
@@ -245,7 +270,7 @@
     }
   },
   {
-    "id": "m_022", "category": "Shinobi Chronicles: Part 2", "name": "Sign of a Silently Growing Calamity", "banner": "assets/missions/banners/m_022.png", "sortOrder": 7,
+    "id": "m_022", "category": "Shinobi Chronicles Part 2", "name": "Sign of a Silently Growing Calamity", "banner": "assets/missions/banners/m_022.png", "sortOrder": 7,
     "difficulties": {
       "S": [
         { "stage": 1, "map": "assets/maps/bg_150101_suna.png", "waves": [ { "enemies": ["goblin_archer_01", "rock_golem_01"] } ] },
@@ -255,7 +280,7 @@
     }
   },
   {
-    "id": "m_023", "category": "Shinobi Chronicles: Part 2", "name": "The Creeping Joker", "banner": "assets/missions/banners/m_023.png", "sortOrder": 8,
+    "id": "m_023", "category": "Shinobi Chronicles Part 2", "name": "The Creeping Joker", "banner": "assets/missions/banners/m_023.png", "sortOrder": 8,
     "difficulties": {
       "S": [
         { "stage": 1, "map": "assets/maps/bg_160101_akatuki.png", "waves": [ { "enemies": ["rock_golem_01", "rock_golem_01"] } ] },
@@ -265,7 +290,7 @@
     }
   },
   {
-    "id": "m_024", "category": "Shinobi Chronicles: Part 2", "name": "An Unhealthy Sword Obsession", "banner": "assets/missions/banners/m_024.png", "sortOrder": 9,
+    "id": "m_024", "category": "Shinobi Chronicles Part 2", "name": "An Unhealthy Sword Obsession", "banner": "assets/missions/banners/m_024.png", "sortOrder": 9,
     "difficulties": {
       "S": [
         { "stage": 1, "map": "assets/maps/bg_160101_akatuki.png", "waves": [ { "enemies": ["rock_golem_01", "goblin_archer_01"] } ] },
@@ -275,7 +300,7 @@
     }
   },
   {
-    "id": "m_025", "category": "Shinobi Chronicles: Part 2", "name": "Master Illusionist Supporting the Lightning", "banner": "assets/missions/banners/m_025.png", "sortOrder": 10,
+    "id": "m_025", "category": "Shinobi Chronicles Part 2", "name": "Master Illusionist Supporting the Lightning", "banner": "assets/missions/banners/m_025.png", "sortOrder": 10,
     "difficulties": {
       "S": [
         { "stage": 1, "map": "assets/maps/bg_160101_akatuki.png", "waves": [ { "enemies": ["goblin_archer_01", "goblin_archer_01", "goblin_archer_01"] } ] },
@@ -285,7 +310,7 @@
     }
   },
   {
-    "id": "m_026", "category": "Shinobi Chronicles: Part 2", "name": "The All-Knowing Serpent", "banner": "assets/missions/banners/m_026.png", "sortOrder": 11,
+    "id": "m_026", "category": "Shinobi Chronicles Part 2", "name": "The All-Knowing Serpent", "banner": "assets/missions/banners/m_026.png", "sortOrder": 11,
     "difficulties": {
       "S": [
         { "stage": 1, "map": "assets/maps/bg_180101_oroti.png", "waves": [ { "enemies": ["rock_golem_01", "rock_golem_01"] } ] },
@@ -295,7 +320,7 @@
     }
   },
   {
-    "id": "m_027", "category": "Shinobi Chronicles: Part 2", "name": "Shadow of the Vile Serpent", "banner": "assets/missions/banners/m_027.png", "sortOrder": 12,
+    "id": "m_027", "category": "Shinobi Chronicles Part 2", "name": "Shadow of the Vile Serpent", "banner": "assets/missions/banners/m_027.png", "sortOrder": 12,
     "difficulties": {
       "S": [
         { "stage": 1, "map": "assets/maps/bg_180101_oroti.png", "waves": [ { "enemies": ["rock_golem_01", "rock_golem_01"] } ] },
@@ -305,7 +330,7 @@
     }
   },
   {
-    "id": "m_028", "category": "Shinobi Chronicles: Part 2", "name": "Sublime Byakugan of the Mist", "banner": "assets/missions/banners/m_028.png", "sortOrder": 13,
+    "id": "m_028", "category": "Shinobi Chronicles Part 2", "name": "Sublime Byakugan of the Mist", "banner": "assets/missions/banners/m_028.png", "sortOrder": 13,
     "difficulties": {
       "S": [
         { "stage": 1, "map": "assets/maps/bg_060101_kouya.png", "waves": [ { "enemies": ["rock_golem_01", "goblin_archer_01"] } ] },
