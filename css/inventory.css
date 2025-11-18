@@ -352,6 +352,22 @@ body {
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
 }
 
+.item-usage-note {
+  margin-top: 15px;
+  padding: 12px;
+  background: rgba(70, 130, 180, 0.2);
+  border: 1px solid rgba(100, 149, 237, 0.4);
+  border-radius: 6px;
+  color: #87ceeb;
+  font-size: 13px;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.item-usage-note.hidden {
+  display: none;
+}
+
 /* Scrollbar Styling */
 .inventory-content::-webkit-scrollbar {
   width: 8px;
