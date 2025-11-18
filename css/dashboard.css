@@ -206,13 +206,10 @@
 
 /* === Top Bar Enhancements === */
 .top-bar-icons {
-  position: fixed;
-  top: 80px;
-  right: 20px;
   display: flex;
   align-items: center;
   gap: 10px;
-  z-index: 900;
+  margin-right: 20px;
 }
 
 .icon-button {
@@ -384,7 +381,7 @@
 .daily-login-indicator {
   position: fixed;
   top: 80px;
-  right: 180px; /* Moved left to make room for calendar and mailbox */
+  right: 20px;
   background: linear-gradient(135deg, rgba(26, 31, 58, 0.95), rgba(15, 20, 35, 0.98));
   border: 2px solid rgba(184, 152, 95, 0.7);
   border-radius: 12px;
@@ -557,13 +554,11 @@
 
   .daily-login-indicator {
     top: 70px;
-    right: 140px;
+    right: 10px;
     padding: 8px 12px;
   }
 
   .top-bar-icons {
-    top: 70px;
-    right: 10px;
     gap: 8px;
   }
 
@@ -609,15 +604,11 @@
   .daily-login-indicator {
     padding: 6px 10px;
     gap: 6px;
-    right: auto;
-    left: 10px;
     top: 140px;
+    right: 10px;
   }
 
   .top-bar-icons {
-    right: auto;
-    left: 10px;
-    top: 200px;
     gap: 6px;
   }
 
