@@ -206,32 +206,37 @@
 
 /* === Top Bar Enhancements === */
 .top-bar-icons {
+  position: fixed;
+  top: 80px;
+  right: 20px;
   display: flex;
   align-items: center;
-  gap: 15px;
-  margin-right: 20px;
+  gap: 10px;
+  z-index: 900;
 }
 
 .icon-button {
   position: relative;
-  width: 40px;
-  height: 40px;
-  background: rgba(20, 20, 30, 0.8);
-  border: 2px solid rgba(139, 115, 85, 0.4);
-  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, rgba(26, 31, 58, 0.95), rgba(15, 20, 35, 0.98));
+  border: 2px solid rgba(184, 152, 95, 0.7);
+  border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   transition: all 0.3s ease;
   overflow: visible;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
 }
 
 .icon-button:hover {
-  background: rgba(30, 30, 40, 0.9);
-  border-color: rgba(212, 175, 55, 0.6);
-  transform: translateY(-2px) scale(1.05);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  border-color: rgba(212, 175, 55, 0.9);
+  transform: translateY(-2px);
+  box-shadow:
+    0 6px 25px rgba(0, 0, 0, 0.8),
+    0 0 20px rgba(212, 175, 55, 0.4);
 }
 
 .icon-button img {
@@ -379,7 +384,7 @@
 .daily-login-indicator {
   position: fixed;
   top: 80px;
-  right: 20px;
+  right: 180px; /* Moved left to make room for calendar and mailbox */
   background: linear-gradient(135deg, rgba(26, 31, 58, 0.95), rgba(15, 20, 35, 0.98));
   border: 2px solid rgba(184, 152, 95, 0.7);
   border-radius: 12px;
@@ -483,15 +488,58 @@
 
 /* === Main Content Banner Section === */
 .dashboard-banner-section {
-  width: 100%;
-  max-width: 1400px;
-  margin: 40px auto;
-  padding: 0 20px;
+  position: fixed;
+  left: 20px;
+  bottom: 120px; /* Position above bottom bar */
+  width: 600px;
+  max-width: calc(100vw - 40px);
+  z-index: 100;
 }
 
 .banner-section-header {
-  text-align: center;
-  margin-bottom: 30px;
+  text-align: left;
+  margin-bottom: 15px;
+}
+
+/* Override banner slideshow for dashboard */
+.dashboard-banner-section .slanted-header {
+  font-size: 24px;
+  padding: 8px 20px;
+  margin: 10px 0;
+}
+
+.dashboard-banner-section .banner-slideshow {
+  height: 250px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
+  border: 2px solid rgba(184, 152, 95, 0.5);
+}
+
+.dashboard-banner-section .banner-arrow {
+  width: 40px;
+  height: 40px;
+  font-size: 20px;
+}
+
+.dashboard-banner-section .banner-arrow.left {
+  left: 10px;
+}
+
+.dashboard-banner-section .banner-arrow.right {
+  right: 10px;
+}
+
+.dashboard-banner-section .banner-info-overlay {
+  padding: 20px 30px 40px;
+}
+
+.dashboard-banner-section .banner-info-title {
+  font-size: 24px;
+}
+
+.dashboard-banner-section .banner-info-subtitle {
+  font-size: 14px;
 }
 
 /* === Responsive Design === */
@@ -503,14 +551,25 @@
   }
 
   .slanted-header {
-    font-size: 24px;
-    padding: 10px 20px;
+    font-size: 20px;
+    padding: 8px 16px;
   }
 
   .daily-login-indicator {
     top: 70px;
+    right: 140px;
+    padding: 8px 12px;
+  }
+
+  .top-bar-icons {
+    top: 70px;
     right: 10px;
-    padding: 10px 16px;
+    gap: 8px;
+  }
+
+  .icon-button {
+    width: 45px;
+    height: 45px;
   }
 
   .rank-progress-bar-wrapper {
@@ -519,6 +578,19 @@
 
   .collection-stats {
     padding: 6px 12px;
+  }
+
+  .dashboard-banner-section {
+    width: 500px;
+    bottom: 100px;
+  }
+
+  .dashboard-banner-section .banner-slideshow {
+    height: 200px;
+  }
+
+  .dashboard-banner-section .banner-info-title {
+    font-size: 20px;
   }
 }
 
@@ -529,18 +601,33 @@
   }
 
   .slanted-header {
-    font-size: 18px;
-    padding: 8px 16px;
+    font-size: 16px;
+    padding: 6px 12px;
     letter-spacing: 1px;
   }
 
   .daily-login-indicator {
-    padding: 8px 12px;
-    gap: 8px;
+    padding: 6px 10px;
+    gap: 6px;
+    right: auto;
+    left: 10px;
+    top: 140px;
+  }
+
+  .top-bar-icons {
+    right: auto;
+    left: 10px;
+    top: 200px;
+    gap: 6px;
+  }
+
+  .icon-button {
+    width: 40px;
+    height: 40px;
   }
 
   .daily-login-day {
-    font-size: 16px;
+    font-size: 14px;
   }
 
   .rank-progress-bar-wrapper {
@@ -550,5 +637,29 @@
 
   .rank-progress-text {
     font-size: 8px;
+  }
+
+  .dashboard-banner-section {
+    width: calc(100vw - 20px);
+    left: 10px;
+    bottom: 80px;
+  }
+
+  .dashboard-banner-section .banner-slideshow {
+    height: 150px;
+  }
+
+  .dashboard-banner-section .banner-info-title {
+    font-size: 16px;
+  }
+
+  .dashboard-banner-section .banner-info-subtitle {
+    font-size: 12px;
+  }
+
+  .dashboard-banner-section .banner-arrow {
+    width: 30px;
+    height: 30px;
+    font-size: 16px;
   }
 }
