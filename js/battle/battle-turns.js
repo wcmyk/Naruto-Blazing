@@ -37,6 +37,12 @@
         // Don't advance if battle paused or turn locked
         if (core.isPaused || this.turnLocked) return;
 
+        // Bug #5 fix: Validate combatants array exists
+        if (!Array.isArray(core.combatants)) {
+          console.error("[Turns] core.combatants is not an array!");
+          return;
+        }
+
         // Debug log every 20 ticks (about every 2 seconds)
         tickCount++;
         if (tickCount % 20 === 0) {
@@ -88,6 +94,9 @@
     updateSpeedGaugeDisplay(core) {
       if (!core.dom.speedGaugeTrack) return;
 
+      // Bug #5 fix: Validate combatants array exists
+      if (!Array.isArray(core.combatants)) return;
+
       core.dom.speedGaugeTrack.innerHTML = "";
 
       // Sort by gauge progress (highest first)
@@ -134,6 +143,9 @@
      * Prevents gauge advancement during turn
      */
     pauseAllOtherUnits(core) {
+      // Bug #5 fix: Validate combatants array exists
+      if (!Array.isArray(core.combatants)) return;
+
       core.combatants.forEach(unit => {
         if (unit !== this.currentUnit) {
           unit.isPaused = true;
@@ -147,6 +159,9 @@
      * Allows gauge advancement after turn ends
      */
     resumeAllUnits(core) {
+      // Bug #5 fix: Validate combatants array exists
+      if (!Array.isArray(core.combatants)) return;
+
       core.combatants.forEach(unit => {
         unit.isPaused = false;
       });
@@ -507,6 +522,9 @@
      * Highlight all targetable enemies
      */
     highlightEnemies(core) {
+      // Bug #5 fix: Validate combatants array exists
+      if (!Array.isArray(core.combatants)) return;
+
       core.dom.scene?.querySelectorAll(".battle-unit").forEach(el => {
         const unit = core.combatants.find(u => u.id === el.dataset.unitId);
         if (unit && !unit.isPlayer && unit.stats.hp > 0) {

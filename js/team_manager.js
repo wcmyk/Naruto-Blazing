@@ -38,6 +38,12 @@
   const previewStats = document.getElementById("preview-stats");
   const btnAssign = document.getElementById("btn-assign-char");
 
+  // Bug #8 fix: Validate critical DOM elements exist
+  if (!charGrid || !totalCostEl || !totalHealthEl) {
+    console.error("[Team Manager] Missing critical DOM elements!");
+    return;
+  }
+
   let selectedChar = null;
 
   /* =========================
@@ -430,16 +436,22 @@
 
   /* ---------- Preview Modal ---------- */
   function showPreview(inst, char) {
+    // Bug #9 fix: Validate preview elements exist before using them
+    if (!previewImg || !previewName || !previewStars || !previewStats || !previewModal) {
+      console.error("[Team Manager] Preview elements not found!");
+      return;
+    }
+
     const tier = inst.tierCode || minTier(char);
     const art = resolveTierArt(char, tier);
 
     previewImg.src = art.full || art.portrait;
     previewName.textContent = char.name;
-    previewVersion.textContent = char.version || "";
+    if (previewVersion) previewVersion.textContent = char.version || "";
     previewStars.innerHTML = renderStars(starsFromTier(tier));
 
     // Stats
-    let stats = { hp: 0, atk: 0, def: 0, speed: 0, chakra: 0 };
+    let stats = { hp: 0, atk: 0, def: 0, speed: 0 };
     if (window.Progression?.computeEffectiveStatsLoreTier) {
       const result = window.Progression.computeEffectiveStatsLoreTier(
         char, inst.level, tier, { normalize: true }
@@ -447,7 +459,7 @@
       stats = result.stats;
     } else {
       const src = pickStats(char, DISPLAY_MODE);
-      stats = { hp: src.hp || 0, atk: src.atk || 0, def: src.def || 0, speed: src.speed || 0, chakra: src.chakra || 0 };
+      stats = { hp: src.hp || 0, atk: src.atk || 0, def: src.def || 0, speed: src.speed || 0 };
     }
 
     previewStats.innerHTML = `
@@ -455,7 +467,6 @@
       <div class="preview-stat"><span class="preview-stat-label">Attack</span><span class="preview-stat-value">${safeNum(stats.atk,0).toLocaleString()}</span></div>
       <div class="preview-stat"><span class="preview-stat-label">Defense</span><span class="preview-stat-value">${safeNum(stats.def,0).toLocaleString()}</span></div>
       <div class="preview-stat"><span class="preview-stat-label">Speed</span><span class="preview-stat-value">${safeNum(stats.speed,0)}</span></div>
-      <div class="preview-stat"><span class="preview-stat-label">Chakra</span><span class="preview-stat-value">${safeNum(stats.chakra,0)}</span></div>
     `;
 
     previewModal.classList.add("open");

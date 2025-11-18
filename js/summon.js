@@ -1,51 +1,174 @@
-(function initSummoning() {
-  const SUMMON_COST = 500;
-  const summonButton = document.getElementById('summon-button');
-  const gemValueDisplay = document.getElementById('gemValue');
-  const modal = document.getElementById('summon-result-modal');
-  const modalCloseButton = document.getElementById('modal-close-button');
-  const resultImg = document.getElementById('summon-result-img');
-  const resultName = document.getElementById('summon-result-name');
-  const resultRarity = document.getElementById('summon-result-rarity');
-  let allCharacters = [];
+// Main Summon System Initialization
+(async function initSummoning() {
+  console.log('🎴 Initializing Double Fibonacci Summon System...');
 
-  function performSummon() {
-    const currentGems = Currency.get(Currency.keys.gems, 0);
-    if (currentGems < SUMMON_COST) {
-      alert("Not enough Gems!");
+  let currentBannerIndex = 0;
+  let allCharacters = [];
+  let featuredCharacters = [];
+
+  /**
+   * Initialize all summon systems
+   */
+  async function initialize() {
+    try {
+      // Load summon data
+      await summonData.init();
+
+      // Load character pool
+      const charsResponse = await fetch('data/characters.json');
+      const charsData = await charsResponse.json();
+      allCharacters = Object.values(charsData);
+
+      // Initialize character selector with pools
+      if (window.CharacterSelector) {
+        window.CharacterSelector.updatePools(allCharacters, featuredCharacters);
+      }
+
+      // Initialize UI controllers
+      if (window.SummonUI) {
+        window.SummonUI.init();
+      }
+
+      if (window.SummonAnimator) {
+        window.SummonAnimator.init();
+      }
+
+      // Load first banner
+      loadBanner(0);
+
+      // Setup additional UI events
+      setupUIEvents();
+
+      console.log('✅ Summon system initialized successfully');
+      console.log(`📊 Loaded ${allCharacters.length} characters`);
+      console.log(`🎯 Featured pool: ${featuredCharacters.length} characters`);
+
+    } catch (error) {
+      console.error('❌ Failed to initialize summon system:', error);
+    }
+  }
+
+  /**
+   * Load a specific banner
+   */
+  function loadBanner(index) {
+    const banner = summonData.getBanner(index);
+    if (!banner) {
+      console.warn('Banner not found:', index);
       return;
     }
-    if (allCharacters.length === 0) {
-        alert("Character data not loaded yet. Please wait.");
-        return;
+
+    currentBannerIndex = index;
+
+    // Update featured characters
+    featuredCharacters = [];
+    if (banner.featured && banner.featured.length > 0) {
+      featuredCharacters = banner.featured.map(id => {
+        return allCharacters.find(c => c.id === id);
+      }).filter(c => c !== undefined);
     }
-    Currency.set(Currency.keys.gems, currentGems - SUMMON_COST);
-    updateCurrencyDisplay();
-    const randomIndex = Math.floor(Math.random() * allCharacters.length);
-    const summonedChar = allCharacters[randomIndex];
-    InventoryChar.addCopy(summonedChar.id, 1);
-    console.log(`Summoned: ${summonedChar.name}`);
-    showSummonResult(summonedChar);
+
+    // Update character selector
+    if (window.CharacterSelector) {
+      window.CharacterSelector.updatePools(allCharacters, featuredCharacters);
+    }
+
+    // Update UI
+    if (window.SummonUI) {
+      window.SummonUI.updateBannerInfo(banner);
+    }
+
+    // Reset summon engine if switching banners
+    if (window.FibonacciSummonEngine) {
+      window.FibonacciSummonEngine.resetSession();
+    }
+
+    console.log(`📜 Loaded banner: ${banner.name}`);
+    console.log(`🎯 Featured: ${featuredCharacters.length} units`);
   }
 
-  function showSummonResult(character) {
-    resultImg.src = character.full || character.portrait;
-    resultName.textContent = character.name;
-    resultRarity.textContent = "★".repeat(character.rarity || 0);
-    modal.classList.add('open');
+  /**
+   * Setup additional UI event handlers
+   */
+  function setupUIEvents() {
+    // Rates button
+    const ratesBtn = document.getElementById('btn-rates');
+    if (ratesBtn) {
+      ratesBtn.addEventListener('click', () => {
+        if (window.SummonUI) {
+          window.SummonUI.showRatesInfo();
+        }
+      });
+    }
+
+    // Featured button
+    const featuredBtn = document.getElementById('btn-featured');
+    if (featuredBtn) {
+      featuredBtn.addEventListener('click', () => {
+        showFeaturedUnits();
+      });
+    }
+
+    // Contents button
+    const contentsBtn = document.getElementById('btn-contents');
+    if (contentsBtn) {
+      contentsBtn.addEventListener('click', () => {
+        showSummonContents();
+      });
+    }
   }
 
-  function hideSummonResult() { modal.classList.remove('open'); }
-  function updateCurrencyDisplay() {
-    if(gemValueDisplay) gemValueDisplay.textContent = Currency.get(Currency.keys.gems, 0);
+  /**
+   * Show featured units modal
+   */
+  function showFeaturedUnits() {
+    if (featuredCharacters.length === 0) {
+      alert('No featured units in this banner.');
+      return;
+    }
+
+    const names = featuredCharacters.map(c => `• ${c.name} (${c.rarity}★)`).join('\n');
+    alert(`Featured Units:\n\n${names}`);
   }
 
-  fetch('data/characters.json')
-    .then(res => res.json())
-    .then(data => { allCharacters = data; })
-    .catch(err => { console.error("Failed to load character data for summoning:", err); });
+  /**
+   * Show summon contents
+   */
+  function showSummonContents() {
+    const rates = window.FibonacciSummonEngine?.getRatesDisplay();
+    if (!rates) return;
 
-  if(summonButton) summonButton.addEventListener('click', performSummon);
-  if(modalCloseButton) modalCloseButton.addEventListener('click', hideSummonResult);
-  updateCurrencyDisplay();
+    const message = `
+Summon Contents
+━━━━━━━━━━━━━━━━━━━
+
+Current Rates:
+• Multi Step: ${rates.multiStep}
+• Gold Chance: ${rates.goldChance}
+• Featured Chance: ${rates.featuredChance}
+
+Total Characters Available: ${allCharacters.length}
+Featured Characters: ${featuredCharacters.length}
+
+Session Statistics:
+${rates.totalGolds}
+${rates.featuredGolds}
+    `;
+
+    alert(message);
+  }
+
+  // Start initialization
+  initialize();
+
+  // Export for debugging
+  window.SummonSystem = {
+    loadBanner,
+    getCurrentBanner: () => summonData.getBanner(currentBannerIndex),
+    getFeaturedUnits: () => featuredCharacters,
+    getAllCharacters: () => allCharacters,
+    getStats: () => window.FibonacciSummonEngine?.getStats(),
+    resetEngine: () => window.FibonacciSummonEngine?.resetSession()
+  };
+
 })();

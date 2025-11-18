@@ -1,101 +1,126 @@
 /* ===================================================
-   CHAKRA ACCUMULATION SYSTEM (Naruto Blazing Style)
-   Multiple Static Segments, No Rotation
+   CHAKRA HOLDER SYSTEM - Image-Based Circular Gauge
+   Using original structure with chakra-container
    =================================================== */
 
-/* === Unit Ring Container === */
+/* === Unit Ring Container (active) === */
 .unit-ring {
   position: relative;
-  width: 140px;
-  height: 140px;
+  width: 100px;
+  height: 100px;
   cursor: pointer;
+  object-fit: fill;
   transition: transform 0.2s ease;
+  display: inline-block;
 }
 
 .unit-ring:hover {
   transform: scale(1.05);
 }
 
-/* Bench units: 100px container */
+/* Bench units (60×60 - smaller version for clarity) */
 .bench-portrait-container .unit-ring {
-  width: 100px;
-  height: 100px;
+  width: 60px;
+  height: 60px;
 }
 
-/* === Portrait (Bottom Layer, z-index: 1) === */
+/* =========================================
+   PORTRAIT  (BOTTOM LAYER, z-index: 1)
+   ========================================= */
 .portrait {
-  position: absolute;
-  top: 6px;
-  left: 6px;
-  width: 128px;
-  height: 128px;
-  border-radius: 50%;
-  clip-path: circle(50%);
-  object-fit: cover;
-  z-index: 1;
+    position: absolute;
+    top: 30px;
+    left: 25px;
+    width: 100px;
+    height: 98px;
+    object-fit: cover;
+    border-radius: 50%;
+    clip-path: circle(50%);
+    z-index: 1;
 }
 
+/* Bench portrait: perfectly centered in 60×60 holder */
 .bench-portrait-container .portrait {
-  width: 88px;
-  height: 88px;
+  top: 2px;
+  left: 2px;
+  width: 56px;
+  height: 56px;
 }
 
-/* === Chakra Container (Middle Layer, z-index: 2) === */
+/* =========================================
+   CHAKRA CONTAINER (MIDDLE LAYER, z-index: 11)
+   ========================================= */
 .chakra-container {
-  position: absolute;
-  top: 6px;
-  left: 6px;
-  width: 128px;
-  height: 128px;
-  z-index: 2;
-  pointer-events: none;
+    position: absolute;
+    top: 11px;
+    left: 30px;
+    width: 90px;
+    height: 100px;
+    border-radius: 50%;
+    clip-path: circle(50%);
+    z-index: 11;
+    pointer-events: none;
 }
 
 .bench-portrait-container .chakra-container {
-  width: 88px;
-  height: 88px;
+  top: 2px;
+  left: 2px;
+  width: 56px;
+  height: 56px;
 }
 
-/* === Chakra Segments (Accumulate, Don't Rotate) === */
+/* Chakra segments - single rotating arc */
 .chakra-segment {
   position: absolute;
-  top: 0;
-  left: 0;
   width: 100%;
   height: 100%;
-  object-fit: contain;
-  transform-origin: center center;
-  display: none; /* Hidden by default, shown based on chakra */
-}
-
-/* === Chakra Frame (Top Layer, z-index: 10) === */
-.chakra-frame {
-  position: absolute;
   top: 0;
   left: 0;
-  width: 140px;
-  height: 140px;
-  pointer-events: none;
-  z-index: 10;
+  object-fit: contain;
+  transform-origin: center center;
+  transform: rotate(180deg); /* Start at bottom */
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/* =========================================
+   CHAKRA HOLDER FRAME (TOP LAYER, z-index: 10)
+   ========================================= */
+.chakra-frame {
+    position: absolute;
+    top: -70px;
+    left: -68px;
+    width: 300px !important;
+    height: 300px !important;
+    pointer-events: none;
+    z-index: 10;
+}
+
+/* Bench frame = 60×60 scaled */
 .bench-portrait-container .chakra-frame {
-  width: 100px;
-  height: 100px;
+  top: -60px;
+  left: -60px;
+  width: 180px !important;
+  height: 180px !important;
+  object-fit: fill !important;
 }
 
-/* === Ultimate Ready State (Red Ring) === */
+/* =========================================
+   OPTIONAL STATES
+   ========================================= */
 .unit-ring.ultimate-ready .chakra-frame {
-  filter: drop-shadow(0 0 8px rgba(255, 50, 50, 0.9)) drop-shadow(0 0 16px rgba(255, 50, 50, 0.6));
+  filter: drop-shadow(0 0 8px rgba(255, 50, 50, 0.9))
+          drop-shadow(0 0 16px rgba(255, 50, 50, 0.6));
   animation: ultimateReadyPulse 1s ease-in-out infinite;
 }
 
 @keyframes ultimateReadyPulse {
   0%, 100% {
-    filter: drop-shadow(0 0 8px rgba(255, 50, 50, 0.9)) drop-shadow(0 0 16px rgba(255, 50, 50, 0.6));
+    filter: drop-shadow(0 0 8px rgba(255, 50, 50, 0.9))
+            drop-shadow(0 0 16px rgba(255, 50, 50, 0.6));
   }
   50% {
-    filter: drop-shadow(0 0 12px rgba(255, 50, 50, 1)) drop-shadow(0 0 24px rgba(255, 50, 50, 0.8));
+    filter: drop-shadow(0 0 12px rgba(255, 50, 50, 1))
+            drop-shadow(0 0 24px rgba(255, 50, 50, 0.8));
   }
 }
 
@@ -295,15 +320,20 @@
   }
 }
 
-/* === Debug/Development Helper === */
-.unit-ring.debug {
-  outline: 2px dashed rgba(255, 0, 0, 0.5);
+/* Debug helpers */
+.unit-ring.debug { outline: 2px dashed rgba(255,0,0,0.4); }
+.chakra-container.debug { outline: 1px dashed rgba(0,255,0,0.4); }
+.portrait.debug { outline: 1px dashed rgba(0,0,255,0.4); }
+
+/* === Professional Styling === */
+/* Ensure no distortion, proper centering, and smooth performance */
+.unit-ring * {
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
 }
 
-.chakra-container.debug {
-  outline: 1px dashed rgba(0, 255, 0, 0.5);
-}
-
-.portrait.debug {
-  outline: 1px dashed rgba(0, 0, 255, 0.5);
+.chakra-segment {
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-font-smoothing: subpixel-antialiased;
 }

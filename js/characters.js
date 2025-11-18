@@ -44,8 +44,19 @@
   const DUPE_GRID     = document.getElementById("dupe-grid");
   const DUPE_CANCEL   = document.getElementById("dupe-modal-cancel");
 
-  if (!GRID || !MODAL) {
-    console.warn("[characters] Missing .char-grid or #char-modal in DOM");
+  // Bug #3 fix: Validate all critical DOM elements exist before proceeding
+  const requiredElements = {
+    GRID, MODAL, MODAL_IMG, NP_NAME, NP_VERSION, NP_STARS,
+    STATS_WRAP, LV_VALUE_EL, LV_CAP_EL, BTN_LVUP, BTN_FEEDDUPE,
+    BTN_REMOVE, BTN_AWAKEN, SKILLS_WRAP, SUPPORT_WRAP, ABILITIES_WRAP
+  };
+
+  const missingElements = Object.entries(requiredElements)
+    .filter(([name, el]) => !el)
+    .map(([name]) => name);
+
+  if (missingElements.length > 0) {
+    console.error("[characters] Missing required DOM elements:", missingElements.join(", "));
     return;
   }
   if (typeof window.InventoryChar === "undefined") {
@@ -260,16 +271,14 @@
         <div class="stat-row"><span class="stat-label">Health</span><span class="stat-value">${stats.hp ?? "-"}</span></div>
         <div class="stat-row"><span class="stat-label">Attack</span><span class="stat-value">${stats.atk ?? "-"}</span></div>
         <div class="stat-row"><span class="stat-label">Defense</span><span class="stat-value">${stats.def ?? "-"}</span></div>
-        <div class="stat-row"><span class="stat-label">Speed</span><span class="stat-value">${stats.speed ?? "-"}</span></div>
-        <div class="stat-row"><span class="stat-label">Chakra</span><span class="stat-value">${stats.chakra ?? "-"}</span></div>`;
+        <div class="stat-row"><span class="stat-label">Speed</span><span class="stat-value">${stats.speed ?? "-"}</span></div>`;
     } else {
       const s = c.statsBase || {};
       STATS_WRAP.innerHTML = `
         <div class="stat-row"><span class="stat-label">Health</span><span class="stat-value">${s.hp ?? "-"}</span></div>
         <div class="stat-row"><span class="stat-label">Attack</span><span class="stat-value">${s.atk ?? "-"}</span></div>
         <div class="stat-row"><span class="stat-label">Defense</span><span class="stat-value">${s.def ?? "-"}</span></div>
-        <div class="stat-row"><span class="stat-label">Speed</span><span class="stat-value">${s.speed ?? "-"}</span></div>
-        <div class="stat-row"><span class="stat-label">Chakra</span><span class="stat-value">${s.chakra ?? "-"}</span></div>`;
+        <div class="stat-row"><span class="stat-label">Speed</span><span class="stat-value">${s.speed ?? "-"}</span></div>`;
     }
 
     let cap = tierCap(c, tier);
@@ -351,12 +360,32 @@
       return;
     }
 
+    // Get ability unlock progress
+    const unlockedCount = (mainInst.unlockedAbilities || []).length;
+    const maxAbilities = character.abilities ? character.abilities.length : 0;
+    const remainingAbilities = maxAbilities - unlockedCount;
+
+    // Update modal title with progress
+    const modalTitle = document.querySelector('.dupe-modal-title');
+    if (modalTitle) {
+      modalTitle.innerHTML = `
+        Select Duplicate to Feed
+        <div style="font-size: 14px; color: #d9b362; margin-top: 8px; font-weight: normal;">
+          Abilities Unlocked: ${unlockedCount}/${maxAbilities}
+          ${remainingAbilities > 0 ? `<br><span style="color: #b8985f;">Feed ${remainingAbilities} more duplicate${remainingAbilities === 1 ? '' : 's'} to unlock all abilities</span>` : '<br><span style="color: #62d98f;">All abilities unlocked!</span>'}
+        </div>
+      `;
+    }
+
     // Render dupe grid
-    DUPE_GRID.innerHTML = dupes.map(dupe => {
+    DUPE_GRID.innerHTML = dupes.map((dupe, index) => {
       const tier = dupe.tierCode || minTier(character);
       const art = resolveTierArt(character, tier);
+      const willUnlock = index < remainingAbilities ?
+        `<div style="position:absolute; top:4px; right:4px; background:rgba(212,175,55,0.9); color:#111; padding:2px 6px; border-radius:4px; font-size:10px; font-weight:600;">WILL UNLOCK</div>` : '';
       return `
         <div class="dupe-card" data-uid="${dupe.uid}">
+          ${willUnlock}
           <img class="dupe-card-portrait" src="${safeStr(art.portrait, character.portrait)}" alt="${character.name}"
                onerror="this.onerror=null;this.src='assets/characters/_common/silhouette.png';" />
           <div class="dupe-card-level">Lv ${dupe.level || 1}</div>
@@ -586,6 +615,23 @@
       const unlockedCount = (inst.unlockedAbilities || []).length;
       const maxAbilities = c.abilities ? c.abilities.length : 0;
       const allUnlocked = unlockedCount >= maxAbilities;
+
+      // Update button text to show progress
+      if (hasAbilities) {
+        BTN_FEEDDUPE.textContent = `Latent Awaken (${unlockedCount}/${maxAbilities})`;
+
+        // Add tooltip hint
+        if (allUnlocked) {
+          BTN_FEEDDUPE.title = "All abilities unlocked!";
+        } else if (!hasDupes) {
+          BTN_FEEDDUPE.title = "No duplicates available. Summon more copies to unlock abilities.";
+        } else {
+          BTN_FEEDDUPE.title = `Feed duplicates to unlock abilities. ${maxAbilities - unlockedCount} remaining.`;
+        }
+      } else {
+        BTN_FEEDDUPE.textContent = "Latent Awaken";
+        BTN_FEEDDUPE.title = "This character has no abilities to unlock";
+      }
 
       BTN_FEEDDUPE.disabled = !hasDupes || !hasAbilities || allUnlocked;
 

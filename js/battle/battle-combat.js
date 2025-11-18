@@ -206,7 +206,8 @@
           se.kind === 'buff' && se.payload?.barrierHP > 0
         );
 
-        if (barrierBuff) {
+        // Bug #9: Validate payload exists before accessing
+        if (barrierBuff && barrierBuff.payload && barrierBuff.payload.barrierHP > 0) {
           const absorbed = Math.min(damage, barrierBuff.payload.barrierHP);
           barrierBuff.payload.barrierHP -= absorbed;
           damage -= absorbed;
@@ -342,7 +343,8 @@
       // Get multiplier from skill data
       let mult = 2.0;
       const m = String(j.data.multiplier || "").match(/([\d.]+)x/i);
-      if (m) mult = Number(m[1] || "2.0");
+      // Bug #2: Check if match exists and has captured group
+      if (m && m[1]) mult = Number(m[1]) || 2.0;
 
       console.log(`[Combat] ${attacker.name} uses ${j.meta.name} (${mult}x) on ${target.name}`);
 
@@ -442,7 +444,8 @@
       // Get multiplier
       let mult = 1.5;
       const m = String(u.data.multiplier || "").match(/([\d.]+)x/i);
-      if (m) mult = Number(m[1] || "1.5");
+      // Bug #2: Check if match exists and has captured group
+      if (m && m[1]) mult = Number(m[1]) || 1.5;
 
       console.log(`[Combat] ${attacker.name} uses ${u.meta.name} (${mult}x) on ${targets.length} targets`);
 
@@ -667,7 +670,8 @@
       // Get multiplier
       let mult = 2.0;
       const m = String(j.data.multiplier || "").match(/([\d.]+)x/i);
-      if (m) mult = Number(m[1] || "2.0");
+      // Bug #2: Check if match exists and has captured group
+      if (m && m[1]) mult = Number(m[1]) || 2.0;
 
       console.log(`[Combat] ${attacker.name} multi-jutsu ${targets.length} enemies`);
 

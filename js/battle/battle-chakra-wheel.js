@@ -4,25 +4,30 @@
 
   /**
    * BattleChakraWheel Module
-   * Implements Naruto Blazing-style chakra accumulation system
+   * Professional chakra accumulation system with continuous rotation
    *
    * Features:
-   * - Multiple static arc segments (chakra.png × 5)
-   * - Segments appear as chakra accumulates (no rotation)
-   * - Circular frame overlay (chakraholder_icon.png)
-   * - Proper layering: portrait (z:1) → chakra (z:2) → frame (z:10)
+   * - Single rotating chakra arc (chakra.png)
+   * - Rotation accumulates continuously (never resets)
+   * - Circular frame overlay (chakraholder_icon.png, 140×140px)
+   * - Proper layering: portrait (z:1) → chakra (z:5) → frame (z:10)
+   * - Circular masking ensures chakra stays inside frame
    * - Click detection for attack selection
    * - Red ring when ultimate-ready
    */
   const BattleChakraWheel = {
     // Configuration
     CLICK_DELAY: 300, // ms between clicks to detect double/triple
+    ROTATION_PER_CHAKRA: 36, // degrees per chakra point (10 chakra = 360°)
 
     // Click tracking
     clickTracking: new Map(), // unitId → {count, timer}
 
     // Wheel element cache
     wheelCache: new Map(), // unitId → wheelElement
+
+    // Chakra rotation tracking (accumulates, never resets)
+    chakraRotation: new Map(), // unitId → current rotation in degrees
 
     /* ===== Initialization ===== */
 
@@ -45,41 +50,40 @@
         return null;
       }
 
-      // Create unit ring container
+      // Create unit ring container (140×140px)
       const unitRing = document.createElement('div');
       unitRing.className = 'unit-ring';
       unitRing.dataset.unitId = unit.id;
 
-      // Clone portrait for bottom layer
+      // Clone portrait for bottom layer (128×128px, z-index: 1)
       const clonedPortrait = portraitImg.cloneNode(true);
       clonedPortrait.className = 'portrait';
       clonedPortrait.alt = unit.name;
 
-      // Create chakra container (holds 5 segments)
+      // Create chakra container (circular clipping container, z-index: 11)
       const chakraContainer = document.createElement('div');
       chakraContainer.className = 'chakra-container';
 
-      // Create 5 chakra segments (accumulate, don't rotate)
-      for (let i = 1; i <= 5; i++) {
-        const segment = document.createElement('img');
-        segment.className = `chakra-segment chakra-segment-${i}`;
-        segment.src = 'assets/ui/gauges/chakra.png';
-        segment.alt = `Chakra segment ${i}`;
-        segment.style.display = 'none'; // Hidden by default
-        segment.style.transform = `rotate(${(i - 1) * 72}deg)`; // Each segment 72° apart (360/5)
-        chakraContainer.appendChild(segment);
-      }
+      // Create chakra segment (single rotating arc)
+      const chakraSegment = document.createElement('img');
+      chakraSegment.className = 'chakra-segment';
+      chakraSegment.src = 'assets/ui/gauges/chakra.png';
+      chakraSegment.alt = 'Chakra gauge';
+      chakraContainer.appendChild(chakraSegment);
 
-      // Create chakra frame overlay (top layer)
+      // Create chakra frame overlay (top layer, 140×140px, z-index: 10)
       const chakraFrame = document.createElement('img');
       chakraFrame.className = 'chakra-frame';
       chakraFrame.src = 'assets/ui/frames/chakraholder_icon.png';
       chakraFrame.alt = 'Chakra frame';
 
-      // Assemble structure: portrait → chakra → frame
+      // Assemble structure: portrait → chakra container → frame
       unitRing.appendChild(clonedPortrait);
       unitRing.appendChild(chakraContainer);
       unitRing.appendChild(chakraFrame);
+
+      // Initialize rotation tracking for this unit
+      this.chakraRotation.set(unit.id, 0);
 
       // Add click listener for attack selection
       unitRing.addEventListener('click', (e) => {
@@ -99,7 +103,7 @@
     },
 
     /**
-     * Update chakra gauge by showing/hiding segments (accumulation, not rotation)
+     * Update chakra gauge rotation (accumulates continuously)
      */
     updateChakraWheel(unit, core) {
       const wheel = this.wheelCache.get(unit.id);
@@ -110,22 +114,23 @@
 
       const currentChakra = unit.chakra || 0;
       const maxChakra = unit.maxChakra || 10;
-      const chakraPercent = Math.min(100, (currentChakra / maxChakra) * 100);
 
-      // Calculate how many segments to show (0-5)
-      const segmentsToShow = Math.floor((chakraPercent / 100) * 5);
+      // Calculate target rotation based on current chakra
+      const targetRotation = currentChakra * this.ROTATION_PER_CHAKRA;
 
-      // Show/hide segments based on chakra amount
-      const segments = wheel.querySelectorAll('.chakra-segment');
-      segments.forEach((segment, index) => {
-        if (index < segmentsToShow) {
-          segment.style.display = 'block';
-        } else {
-          segment.style.display = 'none';
-        }
-      });
+      // Get current rotation
+      let currentRotation = this.chakraRotation.get(unit.id) || 0;
 
-      console.log(`[ChakraWheel] ${unit.name}: ${currentChakra}/${maxChakra} chakra (${Math.round(chakraPercent)}% = ${segmentsToShow}/5 segments)`);
+      // Apply rotation to chakra segment
+      const chakraSegment = wheel.querySelector('.chakra-segment');
+      if (chakraSegment) {
+        chakraSegment.style.transform = `rotate(${targetRotation}deg)`;
+      }
+
+      // Store current rotation
+      this.chakraRotation.set(unit.id, targetRotation);
+
+      console.log(`[ChakraWheel] ${unit.name}: ${currentChakra}/${maxChakra} chakra (${Math.round(targetRotation)}° rotation)`);
 
       // Check if ultimate-ready (show red ring)
       this.checkUltimateReady(unit, wheel, core);
@@ -151,20 +156,44 @@
     /* ===== Chakra Gain Animation ===== */
 
     /**
-     * Animate chakra gain (segment rotates smoothly to new position)
+     * Animate chakra gain (rotation accumulates smoothly)
      */
     animateChakraGain(unit, amount, core) {
-      // Simply update the wheel - CSS transition handles smooth rotation
-      this.updateChakraWheel(unit, core);
-
       const wheel = this.wheelCache.get(unit.id);
       if (!wheel) return;
+
+      // Get current rotation
+      const currentRotation = this.chakraRotation.get(unit.id) || 0;
+
+      // Calculate rotation increment (amount * degrees per chakra point)
+      const rotationIncrement = amount * this.ROTATION_PER_CHAKRA;
+
+      // Calculate new rotation (accumulates)
+      const newRotation = currentRotation + rotationIncrement;
+
+      // Apply rotation to chakra segment with smooth transition
+      const chakraSegment = wheel.querySelector('.chakra-segment');
+      if (chakraSegment) {
+        chakraSegment.style.transition = 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+        chakraSegment.style.transform = `rotate(${newRotation}deg)`;
+      }
+
+      // Store new rotation
+      this.chakraRotation.set(unit.id, newRotation);
+
+      // Update unit's chakra value
+      unit.chakra = (unit.chakra || 0) + amount;
+
+      console.log(`[ChakraWheel] ${unit.name} gained ${amount} chakra: ${currentRotation}° → ${newRotation}° (+${rotationIncrement}°)`);
 
       // Add flash effect
       wheel.classList.add('chakra-gain-flash');
       setTimeout(() => {
         wheel.classList.remove('chakra-gain-flash');
       }, 500);
+
+      // Update UI
+      this.updateChakraWheel(unit, core);
     },
 
     /* ===== Click Detection System ===== */
@@ -253,6 +282,21 @@
     /* ===== Utility Functions ===== */
 
     /**
+     * Reset chakra rotation for a unit (intentional reset)
+     */
+    resetChakraRotation(unitId) {
+      this.chakraRotation.set(unitId, 0);
+      const wheel = this.wheelCache.get(unitId);
+      if (wheel) {
+        const chakraSegment = wheel.querySelector('.chakra-segment');
+        if (chakraSegment) {
+          chakraSegment.style.transform = 'rotate(0deg)';
+        }
+      }
+      console.log(`[ChakraWheel] Reset rotation for unit ${unitId}`);
+    },
+
+    /**
      * Remove chakra wheel for a unit
      */
     removeChakraWheel(unitId) {
@@ -262,6 +306,7 @@
         this.wheelCache.delete(unitId);
       }
       this.clickTracking.delete(unitId);
+      this.chakraRotation.delete(unitId);
     },
 
     /**
@@ -271,6 +316,7 @@
       this.wheelCache.forEach(wheel => wheel.remove());
       this.wheelCache.clear();
       this.clickTracking.clear();
+      this.chakraRotation.clear();
     },
 
     /**

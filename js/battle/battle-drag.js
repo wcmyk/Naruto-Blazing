@@ -23,6 +23,8 @@
     isDragging: false,
     currentTargets: [], // Track currently targeted units
     targetMarkers: new Map(), // Store target marker elements
+    lastUpdateTime: 0, // For throttling drag updates
+    throttleDelay: 16, // ~60fps update rate
 
     /* ===== Targeting Markers ===== */
 
@@ -79,10 +81,11 @@
     /**
      * Update target markers based on current drag position
      */
-    updateTargetMarkers(x, y, core) {
+    updateTargetMarkers(x, y, core, actionType = null) {
       if (!this.isDragging || !this.draggingUnit) return;
 
-      const targets = this.findUnitsInRange(x, y, this.dragAction, core);
+      const action = actionType || this.dragAction;
+      const targets = this.findUnitsInRange(x, y, action, core);
 
       // Clear markers for units no longer targeted
       this.currentTargets.forEach(target => {
@@ -124,6 +127,9 @@
         canvas.height = r.height;
       };
       fit();
+
+      // Bug #6: Store resize listener reference for cleanup
+      this.resizeListener = fit;
       window.addEventListener("resize", fit);
 
       const ctx = canvas.getContext("2d");
@@ -194,7 +200,7 @@
     },
 
     /**
-     * Handle scene drag over
+     * Handle scene drag over (throttled for performance)
      */
     handleSceneDragOver(e, core) {
       e.preventDefault();
@@ -202,14 +208,36 @@
 
       if (!this.isDragging || !this.draggingUnit) return;
 
+      // Throttle updates to avoid lag (max 60fps)
+      const now = performance.now();
+      const delay = Math.max(1, this.throttleDelay || 16); // Bug #21: Ensure delay is at least 1
+      if (now - this.lastUpdateTime < delay) return;
+      this.lastUpdateTime = now;
+
+      // Bug #13: Validate scene element exists before getBoundingClientRect
+      if (!core.dom || !core.dom.scene) {
+        console.error("[Drag] Scene element not found");
+        return;
+      }
+
       const rect = core.dom.scene.getBoundingClientRect();
       const x = e.clientX - rect.left;
       const y = e.clientY - rect.top;
 
+      // Determine effective action (auto-detect if dragging over enemy)
+      let effectiveAction = this.dragAction;
+      if (effectiveAction === "move") {
+        const enemyTarget = this.findUnitAtPosition(x, y, false, core);
+        // Bug #1: Validate enemy target has stats before checking hp
+        if (enemyTarget && enemyTarget.stats && enemyTarget.stats.hp > 0) {
+          effectiveAction = "attack";
+        }
+      }
+
       // Show targeting preview for combat actions
-      if (this.dragAction === "attack" || this.dragAction === "jutsu" || this.dragAction === "ultimate") {
-        this.showDragTargetingPreview(x, y, core);
-        this.updateTargetMarkers(x, y, core);
+      if (effectiveAction === "attack" || effectiveAction === "jutsu" || effectiveAction === "ultimate") {
+        this.showDragTargetingPreview(x, y, core, effectiveAction);
+        this.updateTargetMarkers(x, y, core, effectiveAction);
       }
     },
 
@@ -228,26 +256,50 @@
       const dropXPercent = (dropX / rect.width) * 100;
       const dropYPercent = (dropY / rect.height) * 100;
 
-      console.log(`[Drag] Drop at (${dropXPercent.toFixed(1)}%, ${dropYPercent.toFixed(1)}%), action: ${this.dragAction}`);
+      console.log(`[Drag] 🎯 Drop at (${dropXPercent.toFixed(1)}%, ${dropYPercent.toFixed(1)}%), action: ${this.dragAction}`);
+      console.log(`[Drag] 🔍 DEBUGGING ENABLED - If you don't see more debug messages below, you're loading cached code!`);
+
+      // Update position
+      this.draggingUnit.pos = {
+        x: Math.max(0, Math.min(100, dropXPercent)),
+        y: Math.max(0, Math.min(100, dropYPercent))
+      };
+
+      // If no action was queued, check if we're dropping on enemies
+      let effectiveAction = this.dragAction;
+      console.log(`[Drag] Initial dragAction: ${this.dragAction}`);
+
+      if (effectiveAction === "move") {
+        console.log(`[Drag] Checking for enemy at drop position (${dropX.toFixed(1)}, ${dropY.toFixed(1)})`);
+        const enemyTarget = this.findUnitAtPosition(dropX, dropY, false, core);
+        console.log(`[Drag] Enemy found:`, enemyTarget ? enemyTarget.name : "none");
+
+        // Bug #1: Validate enemy target has stats before using
+        if (enemyTarget && enemyTarget.stats && enemyTarget.stats.hp > 0) {
+          effectiveAction = "attack"; // Default to attack when dropping on enemy
+          console.log(`[Drag] ✅ Auto-detected enemy target, defaulting to attack`);
+        } else {
+          console.log(`[Drag] ❌ No enemy detected at drop position, will just reposition`);
+        }
+      }
+
+      console.log(`[Drag] Effective action: ${effectiveAction}`);
 
       // Handle different drag actions
-      if (this.dragAction === "attack" || this.dragAction === "jutsu") {
-        // Update position
-        this.draggingUnit.pos = {
-          x: Math.max(0, Math.min(100, dropXPercent)),
-          y: Math.max(0, Math.min(100, dropYPercent))
-        };
-
+      if (effectiveAction === "attack" || effectiveAction === "jutsu") {
         // Find targets in range
-        const targets = this.findUnitsInRange(dropX, dropY, this.dragAction, core);
+        console.log(`[Drag] Finding targets in range for ${effectiveAction}...`);
+        const targets = this.findUnitsInRange(dropX, dropY, effectiveAction, core);
+        console.log(`[Drag] Found ${targets.length} targets:`, targets.map(t => t.name));
 
         if (targets.length > 0) {
-          console.log(`[Drag] Multi-hit: ${this.draggingUnit.name} hits ${targets.length} targets`);
+          console.log(`[Drag] ⚔️ Multi-hit: ${this.draggingUnit.name} hits ${targets.length} targets`);
 
           // Check for proximity combo attacks
           const proximityTargets = this.findProximityTargets(targets, core);
 
-          if (this.dragAction === "jutsu" && window.BattleCombat) {
+          if (effectiveAction === "jutsu" && window.BattleCombat) {
+            console.log(`[Drag] 🔵 Calling performMultiJutsu`);
             window.BattleCombat.performMultiJutsu(this.draggingUnit, targets, core);
             // Trigger proximity combo attacks after jutsu
             if (proximityTargets.length > 0) {
@@ -256,6 +308,7 @@
               }, 600);
             }
           } else if (window.BattleCombat) {
+            console.log(`[Drag] ⚔️ Calling performMultiAttack with ${targets.length} targets`);
             window.BattleCombat.performMultiAttack(this.draggingUnit, targets, core);
             // Trigger proximity combo attacks
             if (proximityTargets.length > 0) {
@@ -263,6 +316,8 @@
                 window.BattleCombat.performProximityCombo(this.draggingUnit, proximityTargets, core);
               }, 400);
             }
+          } else {
+            console.log(`[Drag] ⚠️ BattleCombat not available!`);
           }
 
           if (core.turns) core.turns.endTurn(core);
@@ -273,17 +328,17 @@
           }
           if (core.turns) core.turns.endTurn(core);
         }
-      } else if (this.dragAction === "ultimate") {
-        // Update position
-        this.draggingUnit.pos = {
-          x: Math.max(0, Math.min(100, dropXPercent)),
-          y: Math.max(0, Math.min(100, dropYPercent))
-        };
-
+      } else if (effectiveAction === "ultimate") {
         // Ultimate hits all enemies
         const targets = core.enemyTeam.filter(u => u.stats.hp > 0);
         if (window.BattleCombat) {
           window.BattleCombat.performUltimate(this.draggingUnit, targets, core);
+        }
+        if (core.turns) core.turns.endTurn(core);
+      } else {
+        // Just repositioning (move action)
+        if (core.units) {
+          core.units.updateUnitPosition(this.draggingUnit, core);
         }
         if (core.turns) core.turns.endTurn(core);
       }
@@ -303,8 +358,34 @@
       // Clear all targeting markers
       this.clearAllTargetMarkers();
 
+      // Bug #20: Clear overlay canvas
       if (core.overlay) core.overlay.clear();
       if (core.units) core.units.resetOpacity(core);
+    },
+
+    /**
+     * Cleanup method for battle end (Bug #6 & #20)
+     */
+    cleanup(core) {
+      // Remove resize listener
+      if (this.resizeListener) {
+        window.removeEventListener("resize", this.resizeListener);
+        this.resizeListener = null;
+      }
+
+      // Clear overlay
+      if (core && core.overlay) {
+        core.overlay.clear();
+      }
+
+      // Clear all markers
+      this.clearAllTargetMarkers();
+
+      // Reset state
+      this.isDragging = false;
+      this.draggingUnit = null;
+      this.dragAction = null;
+      this.dragStartPos = null;
     },
 
     /**
@@ -341,23 +422,24 @@
     /**
      * Show targeting preview during drag
      */
-    showDragTargetingPreview(x, y, core) {
+    showDragTargetingPreview(x, y, core, actionType = null) {
       if (!this.draggingUnit || !core.overlay) return;
 
+      const action = actionType || this.dragAction;
       const skills = window.BattleCombat?.getUnitSkills(this.draggingUnit);
       let shape, args, color;
 
-      if (this.dragAction === "ultimate" && skills?.ultimate) {
+      if (action === "ultimate" && skills?.ultimate) {
         shape = skills.ultimate.data?.shape || "sector";
         args = skills.ultimate.data?.shapeArgs || { radius: 260, angleDeg: 90 };
         color = "ultimate";
-      } else if (this.dragAction === "jutsu" && skills?.jutsu) {
+      } else if (action === "jutsu" && skills?.jutsu) {
         shape = skills.jutsu.data?.shape || "circle";
         args = skills.jutsu.data?.shapeArgs || { radius: 140 };
         color = "jutsu";
       } else {
         shape = "circle";
-        args = { radius: 100 };
+        args = { radius: 400 }; // Increased to 400 for much more forgiving targeting
         color = "jutsu";
       }
 
@@ -370,29 +452,34 @@
      */
     findUnitsInRange(x, y, actionType, core) {
       const skills = window.BattleCombat?.getUnitSkills(this.draggingUnit);
-      let radius;
+      let shape, args;
 
+      // Determine shape and args based on action type
       if (actionType === "jutsu" && skills?.jutsu) {
-        const shape = skills.jutsu.data?.shape;
-        const args = skills.jutsu.data?.shapeArgs || {};
-        radius = args.radius || 140;
-
-        if (shape === "rect") {
-          radius = Math.sqrt((args.w || 320) ** 2 + (args.h || 140) ** 2) / 2;
-        }
-        if (shape === "line") {
-          radius = args.length || 360;
-        }
+        shape = skills.jutsu.data?.shape || "circle";
+        args = skills.jutsu.data?.shapeArgs || { radius: 140 };
+      } else if (actionType === "ultimate" && skills?.ultimate) {
+        shape = skills.ultimate.data?.shape || "sector";
+        args = skills.ultimate.data?.shapeArgs || { radius: 260, angleDeg: 90 };
       } else {
-        radius = 100; // Basic attack range
+        shape = "circle";
+        args = { radius: 400 }; // Increased to 400 for much more forgiving targeting
       }
+
+      console.log(`[Drag] findUnitsInRange: center=(${x.toFixed(1)}, ${y.toFixed(1)}), shape=${shape}, radius=${args.radius || args.w || 'N/A'}`);
 
       const targets = [];
       for (const unit of core.enemyTeam) {
-        if (unit.stats.hp <= 0) continue;
+        if (unit.stats.hp <= 0) {
+          console.log(`[Drag]   - ${unit.name}: DEAD, skipping`);
+          continue;
+        }
 
         const unitEl = core.dom.scene?.querySelector(`[data-unit-id="${unit.id}"]`);
-        if (!unitEl) continue;
+        if (!unitEl) {
+          console.log(`[Drag]   - ${unit.name}: NO ELEMENT, skipping`);
+          continue;
+        }
 
         const rect = unitEl.getBoundingClientRect();
         const sceneRect = core.dom.scene.getBoundingClientRect();
@@ -401,10 +488,96 @@
         const unitCenterY = rect.top - sceneRect.top + rect.height / 2;
 
         const dist = Math.sqrt((x - unitCenterX) ** 2 + (y - unitCenterY) ** 2);
-        if (dist <= radius) targets.push(unit);
+
+        // Use shape-specific collision detection
+        const inShape = this.isUnitInShape(unitCenterX, unitCenterY, x, y, shape, args);
+        console.log(`[Drag]   - ${unit.name}: center=(${unitCenterX.toFixed(1)}, ${unitCenterY.toFixed(1)}), dist=${dist.toFixed(1)}, inShape=${inShape}`);
+
+        if (inShape) {
+          targets.push(unit);
+        }
       }
 
+      console.log(`[Drag] findUnitsInRange result: ${targets.length} targets`);
       return targets;
+    },
+
+    /**
+     * Check if a point (unit position) is within a specific shape
+     */
+    isUnitInShape(unitX, unitY, shapeX, shapeY, shape, args) {
+      switch (shape) {
+        case "circle":
+          return this.isPointInCircle(unitX, unitY, shapeX, shapeY, args.radius || 140);
+
+        case "rect":
+          return this.isPointInRect(unitX, unitY, shapeX, shapeY, args.w || 320, args.h || 140);
+
+        case "line":
+          return this.isPointInLine(unitX, unitY, shapeX, shapeY, args.length || 360, args.width || 28);
+
+        case "sector":
+          return this.isPointInSector(unitX, unitY, shapeX, shapeY, args.radius || 260, args.angleDeg || 90);
+
+        default:
+          return false;
+      }
+    },
+
+    /**
+     * Circle collision detection
+     */
+    isPointInCircle(px, py, cx, cy, radius) {
+      const dist = Math.sqrt((px - cx) ** 2 + (py - cy) ** 2);
+      return dist <= radius;
+    },
+
+    /**
+     * Rectangle collision detection (centered)
+     */
+    isPointInRect(px, py, rectX, rectY, width, height) {
+      const left = rectX - width / 2;
+      const right = rectX + width / 2;
+      const top = rectY - height / 2;
+      const bottom = rectY + height / 2;
+
+      return px >= left && px <= right && py >= top && py <= bottom;
+    },
+
+    /**
+     * Line collision detection (horizontal line from origin)
+     */
+    isPointInLine(px, py, lineX, lineY, length, width) {
+      // Line extends horizontally from (lineX, lineY) to (lineX + length, lineY)
+      // with width/2 above and below
+      const left = lineX;
+      const right = lineX + length;
+      const top = lineY - width / 2;
+      const bottom = lineY + width / 2;
+
+      return px >= left && px <= right && py >= top && py <= bottom;
+    },
+
+    /**
+     * Sector (cone) collision detection
+     */
+    isPointInSector(px, py, sectorX, sectorY, radius, angleDeg) {
+      // First check if within radius
+      const dist = Math.sqrt((px - sectorX) ** 2 + (py - sectorY) ** 2);
+      if (dist > radius) return false;
+
+      // Calculate angle from sector origin to point
+      const angleToPoint = Math.atan2(py - sectorY, px - sectorX);
+
+      // Convert sector angle to radians
+      const sectorAngleRad = (angleDeg * Math.PI) / 180;
+      const halfSectorAngle = sectorAngleRad / 2;
+
+      // Check if point angle is within sector angle range
+      // Sector is centered horizontally (facing right, 0 degrees)
+      const normalizedAngle = angleToPoint;
+
+      return Math.abs(normalizedAngle) <= halfSectorAngle;
     },
 
     /**

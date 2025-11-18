@@ -26,8 +26,7 @@
     hp: 0.02,      // 2% per level
     atk: 0.025,    // 2.5% per level
     def: 0.02,     // 2% per level
-    speed: 0.015,  // 1.5% per level
-    chakra: 0.01   // 1% per level
+    speed: 0.015   // 1.5% per level
   };
 
   // Load limit break costs from JSON
@@ -78,7 +77,11 @@
     if (!inst || !character) return false;
     if (!global.Progression) return false;
 
-    const tier = inst.tierCode || global.Progression.getTierBounds(character).minCode;
+    // Bug #13 fix: Validate getTierBounds result before accessing properties
+    const bounds = global.Progression.getTierBounds(character);
+    if (!bounds) return false;
+
+    const tier = inst.tierCode || bounds.minCode;
     const maxLB = MAX_LIMIT_BREAK_LEVELS[tier];
 
     // Can only limit break if at a tier that supports it
@@ -90,7 +93,7 @@
     if (currentLB >= maxLB) return false;
 
     // Must be at max tier for this character
-    const { maxCode } = global.Progression.getTierBounds(character);
+    const maxCode = bounds.maxCode;
     if (tier !== maxCode) return false;
 
     // Must be at max level for current limit break level
@@ -111,7 +114,9 @@
     if (!canLimitBreak(inst, character)) return false;
     if (!global.Resources) return false;
 
-    const tier = inst.tierCode || global.Progression.getTierBounds(character).minCode;
+    // Bug #13 fix: Validate getTierBounds result before accessing properties
+    const bounds = global.Progression?.getTierBounds(character);
+    const tier = inst.tierCode || bounds?.minCode || "6S";
     const currentLB = inst.limitBreakLevel || 0;
     const cost = await getLimitBreakCost(tier, currentLB, character);
 
@@ -158,14 +163,13 @@
   // Compute stat bonuses from limit breaks
   function computeLimitBreakBonus(limitBreakLevel) {
     const lb = Number(limitBreakLevel) || 0;
-    if (lb <= 0) return { hp: 0, atk: 0, def: 0, speed: 0, chakra: 0 };
+    if (lb <= 0) return { hp: 0, atk: 0, def: 0, speed: 0 };
 
     return {
       hp: lb * LIMIT_BREAK_BONUS_PER_LEVEL.hp,
       atk: lb * LIMIT_BREAK_BONUS_PER_LEVEL.atk,
       def: lb * LIMIT_BREAK_BONUS_PER_LEVEL.def,
-      speed: lb * LIMIT_BREAK_BONUS_PER_LEVEL.speed,
-      chakra: lb * LIMIT_BREAK_BONUS_PER_LEVEL.chakra
+      speed: lb * LIMIT_BREAK_BONUS_PER_LEVEL.speed
     };
   }
 
@@ -180,8 +184,7 @@
       hp: Math.round(baseStats.hp * (1 + bonus.hp)),
       atk: Math.round(baseStats.atk * (1 + bonus.atk)),
       def: Math.round(baseStats.def * (1 + bonus.def)),
-      speed: Math.round(baseStats.speed * (1 + bonus.speed)),
-      chakra: Math.round(baseStats.chakra * (1 + bonus.chakra))
+      speed: Math.round(baseStats.speed * (1 + bonus.speed))
     };
   }
 

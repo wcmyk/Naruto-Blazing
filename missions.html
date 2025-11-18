@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Select Mission</title>
   <link rel="stylesheet" href="css/missions.css">
+  <link rel="stylesheet" href="css/background.css">
 </head>
 <body>
   <div id="full-bg" aria-hidden="true"></div>
@@ -19,26 +20,29 @@
     </div>
   </div>
   
-  <!-- Bottom HUD Bar -->
+  <!-- HUD Bottom Bar -->
   <div class="bottom-bar">
     <div class="bottom-bar-content">
-      <button class="hud-button" onclick="window.location.href='summon.html'">
-        <img src="assets/icons/summon_icon.png" alt="Summon">
+      <button class="hud-button" id="btn-village" aria-label="Village">
+        <img src="assets/icons/village_icon.png" alt="Village">
       </button>
-      <button class="hud-button active">
-        <img src="assets/icons/missions_icon.png" alt="Missions">
-      </button>
-      <button class="hud-button" onclick="window.location.href='characters.html'">
+      <button class="hud-button" id="btn-characters" aria-label="Characters">
         <img src="assets/icons/characters_icon.png" alt="Characters">
       </button>
-      <button class="hud-button" onclick="window.location.href='teams.html'">
+      <button class="hud-button" id="btn-fusion" aria-label="Fusion">
+        <img src="assets/icons/fusion_icon.png" alt="Fusion">
+      </button>
+      <button class="hud-button" id="btn-teams" aria-label="Teams">
         <img src="assets/icons/teams_icon.png" alt="Teams">
       </button>
-      <button class="hud-button" onclick="window.location.href='index.html'">
-        <img src="assets/icons/add_icon.png" alt="Menu">
+      <button class="hud-button" id="btn-summon" aria-label="Summon">
+        <img src="assets/icons/summon_icon.png" alt="Summon">
       </button>
-      <button class="hud-button">
-        <img src="assets/icons/settings_icon.png" alt="Settings">
+      <button class="hud-button active" id="btn-missions" aria-label="Missions">
+        <img src="assets/icons/missions_icon.png" alt="Missions">
+      </button>
+      <button class="hud-button" id="btn-shop" aria-label="Shop">
+        <img src="assets/icons/shop_icon.png" alt="Shop">
       </button>
     </div>
   </div>
@@ -46,5 +50,8 @@
   <script src="js/resources.js"></script>
   <script src="js/mission-progress.js"></script>
   <script src="js/missions.js"></script>
+
+  <!-- Navigation Script -->
+  <script src="js/navigation.js"></script>
 </body>
 </html>
