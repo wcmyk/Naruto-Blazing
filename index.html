@@ -6,11 +6,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="css/background.css" />
   <link rel="stylesheet" href="css/top-bar.css" />
+  <link rel="stylesheet" href="css/character-vignette.css" />
 </head>
 
 <body>
   <!-- Default background -->
   <div id="full-bg" class="bg-1"></div>
+
+  <!-- Character Vignette Display -->
+  <div class="character-vignette-container"></div>
+
+  <!-- Vignette Edge Fading Effect -->
+  <div class="vignette-overlay"></div>
+
+  <!-- Wind Animation Particles -->
+  <div class="wind-container"></div>
 
   <!-- Top Bar Overlay - Ninja Rank & Currency HUD -->
   <div class="top-bar">
@@ -79,6 +89,7 @@
   <script src="js/resources.js"></script>
   <script src="js/daily-missions.js"></script>
   <script src="js/top-bar.js"></script>
+  <script src="js/character-vignette.js"></script>
 
   <script>
     document.addEventListener("DOMContentLoaded", async () => {
@@ -191,12 +202,12 @@
         });
       }
 
-      // Settings button (with background changer and resources)
+      // Settings button (with background changer, resources, and character vignette)
       const btnSettings = document.getElementById("btn-settings");
       if (btnSettings) {
         btnSettings.addEventListener("click", () => {
           console.log("⚙️ Settings clicked");
-          const choice = prompt("Settings Menu:\n1. Change Background (1-10)\n2. View Resources\n3. Cancel\n\nEnter your choice:");
+          const choice = prompt("Settings Menu:\n1. Change Background (1-10)\n2. View Resources\n3. Select Character Display\n4. Cancel\n\nEnter your choice:");
 
           if (choice === "1") {
             const bgNum = prompt("Enter background number (1-10):");
@@ -209,6 +220,12 @@
             }
           } else if (choice === "2") {
             navigateTo("resources.html");
+          } else if (choice === "3") {
+            if (typeof window.CharacterVignette !== "undefined") {
+              window.CharacterVignette.openCharacterSelector();
+            } else {
+              alert("Character Vignette system not loaded yet. Please reload the page.");
+            }
           }
         });
       }
