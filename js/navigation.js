@@ -68,6 +68,15 @@
       });
     }
 
+    // Inventory button
+    const btnInventory = document.getElementById("btn-inventory");
+    if (btnInventory) {
+      btnInventory.addEventListener("click", () => {
+        console.log("📦 Inventory clicked");
+        navigateTo("inventory.html");
+      });
+    }
+
     // Shop button
     const btnShop = document.getElementById("btn-shop");
     if (btnShop) {
