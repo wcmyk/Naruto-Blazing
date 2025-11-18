@@ -13,19 +13,32 @@
 <body class="page-summon">
   <!-- Background -->
   <div id="summon-bg"></div>
-  
+
   <!-- Animated Wind Particles -->
   <div class="wind-particles" id="wind-particles"></div>
 
-  <!-- Currency HUD (Top Right) -->
-  <div class="currency-hud">
-    <div class="currency-item">
-      <img src="assets/icons/coins_icon.png" alt="Coins" class="currency-icon">
-      <span id="player-coins" class="currency-amount">0</span>
+  <!-- Top Bar Overlay - Ninja Rank & Currency HUD -->
+  <div class="top-bar">
+    <div class="ninja-rank-container">
+      <span class="ninja-rank-label">Ninja Rank:</span>
+      <span class="ninja-rank-value" id="ninja-rank-value">1</span>
     </div>
-    <div class="currency-item">
-      <img src="assets/icons/pearl_icon.png" alt="Pearls" class="currency-icon">
-      <span id="player-pearls" class="currency-amount">0</span>
+    <div class="currency-hud">
+      <div class="currency-item ninja-pearls">
+        <img src="assets/icons/currency/ninjapearl.png" alt="Ninja Pearls" class="currency-icon"
+             onerror="this.style.display='none';">
+        <span class="currency-amount" id="currency-ninja-pearls">0</span>
+      </div>
+      <div class="currency-item shinobites">
+        <img src="assets/icons/currency/shinobite.png" alt="Shinobites" class="currency-icon"
+             onerror="this.style.display='none';">
+        <span class="currency-amount" id="currency-shinobites">0</span>
+      </div>
+      <div class="currency-item ryo">
+        <img src="assets/icons/currency/ryo.png" alt="Ryo" class="currency-icon"
+             onerror="this.style.display='none';">
+        <span class="currency-amount" id="currency-ryo">0</span>
+      </div>
     </div>
   </div>
 
@@ -187,6 +200,8 @@
   <!-- Scripts -->
   <script src="js/resources.js"></script>
   <script src="js/character_inv.js"></script>
+  <script src="js/resources.js"></script>
+  <script src="js/top-bar.js"></script>
   <script src="js/summon/summon-data.js"></script>
   <script src="js/summon/summon-carousel.js"></script>
   <script src="js/summon/summon-engine.js"></script>

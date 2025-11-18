@@ -1,0 +1,89 @@
+<!-- ===================================================================
+     NINJA RANK SYSTEM - HTML SNIPPET
+     Replace the current .ninja-rank-container in index.html and summon.html
+     with this enhanced version that includes EXP progress bar
+     =================================================================== -->
+
+  <!-- Top Bar Overlay - Ninja Rank & Currency HUD (ENHANCED WITH EXP) -->
+  <div class="top-bar">
+    <div class="ninja-rank-container">
+      <!-- Rank Display -->
+      <div class="ninja-rank-row">
+        <span class="ninja-rank-label">Ninja Rank:</span>
+        <span class="ninja-rank-value" id="ninja-rank-value">1</span>
+      </div>
+
+      <!-- EXP Progress Bar -->
+      <div class="rank-progress-container">
+        <div class="rank-progress-bar">
+          <div class="rank-progress-fill" id="rank-progress-fill" style="width: 0%"></div>
+        </div>
+        <span class="rank-progress-text" id="rank-progress-text">0 to next rank</span>
+      </div>
+    </div>
+
+    <div class="currency-hud">
+      <div class="currency-item ninja-pearls">
+        <img src="assets/icons/currency/ninjapearl.png" alt="Ninja Pearls" class="currency-icon"
+             onerror="this.style.display='none';">
+        <span class="currency-amount" id="currency-ninja-pearls">0</span>
+      </div>
+      <div class="currency-item shinobites">
+        <img src="assets/icons/currency/shinobite.png" alt="Shinobites" class="currency-icon"
+             onerror="this.style.display='none';">
+        <span class="currency-amount" id="currency-shinobites">0</span>
+      </div>
+      <div class="currency-item ryo">
+        <img src="assets/icons/currency/ryo.png" alt="Ryo" class="currency-icon"
+             onerror="this.style.display='none';">
+        <span class="currency-amount" id="currency-ryo">0</span>
+      </div>
+    </div>
+  </div>
+
+
+<!-- ===================================================================
+     CSS LINKS - Add to <head> section
+     =================================================================== -->
+  <link rel="stylesheet" href="css/background.css" />
+  <link rel="stylesheet" href="css/top-bar.css" />
+  <link rel="stylesheet" href="css/rank-system.css" />
+
+
+<!-- ===================================================================
+     SCRIPTS - Replace old top-bar.js with these
+     =================================================================== -->
+  <script src="js/character_inv.js"></script>
+  <script src="js/resources.js"></script>
+  <script src="js/daily-missions.js"></script>
+  <script src="js/ninja-rank.js"></script>
+  <script src="js/top-bar-enhanced.js"></script>
+
+
+<!-- ===================================================================
+     CONSOLE COMMANDS - Available for testing
+     =================================================================== -->
+<!--
+  Open browser console (F12) and use these commands:
+
+  // Add EXP
+  NinjaRank.addExp(100);     // Add 100 EXP
+  NinjaRank.addExp(5000);    // Add 5000 EXP (will rank up multiple times)
+
+  // Set rank directly
+  NinjaRank.setRank(50);     // Jump to Rank 50
+  NinjaRank.setExp(10000);   // Set EXP to 10,000
+
+  // Get info
+  NinjaRank.getRank();       // Get current rank
+  NinjaRank.getExp();        // Get current EXP
+  NinjaRank.getExpToNextRank();  // EXP needed for next rank
+  NinjaRank.getExpProgress();    // Progress (0-1)
+
+  // Reset
+  NinjaRank.reset();         // Reset to Rank 1, EXP 0
+
+  // Add test currency (still works)
+  addTestCurrency();
+  Resources.add('ninja_pearls', 100);
+-->
