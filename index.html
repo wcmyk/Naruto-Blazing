@@ -5,11 +5,37 @@
   <title>Blazing — Manual Background Switch (Responsive)</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="css/background.css" />
+  <link rel="stylesheet" href="css/top-bar.css" />
 </head>
 
 <body>
   <!-- Default background -->
   <div id="full-bg" class="bg-1"></div>
+
+  <!-- Top Bar Overlay - Ninja Rank & Currency HUD -->
+  <div class="top-bar">
+    <div class="ninja-rank-container">
+      <span class="ninja-rank-label">Ninja Rank:</span>
+      <span class="ninja-rank-value" id="ninja-rank-value">1</span>
+    </div>
+    <div class="currency-hud">
+      <div class="currency-item ninja-pearls">
+        <img src="assets/icons/currency/ninjapearl.png" alt="Ninja Pearls" class="currency-icon"
+             onerror="this.style.display='none';">
+        <span class="currency-amount" id="currency-ninja-pearls">0</span>
+      </div>
+      <div class="currency-item shinobites">
+        <img src="assets/icons/currency/shinobite.png" alt="Shinobites" class="currency-icon"
+             onerror="this.style.display='none';">
+        <span class="currency-amount" id="currency-shinobites">0</span>
+      </div>
+      <div class="currency-item ryo">
+        <img src="assets/icons/currency/ryo.png" alt="Ryo" class="currency-icon"
+             onerror="this.style.display='none';">
+        <span class="currency-amount" id="currency-ryo">0</span>
+      </div>
+    </div>
+  </div>
 
   <!-- HUD Bottom Bar -->
   <div class="bottom-bar">
@@ -45,6 +71,7 @@
   <script src="js/character_inv.js"></script>
   <script src="js/resources.js"></script>
   <script src="js/daily-missions.js"></script>
+  <script src="js/top-bar.js"></script>
 
   <script>
     document.addEventListener("DOMContentLoaded", async () => {
