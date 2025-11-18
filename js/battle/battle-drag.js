@@ -255,26 +255,38 @@
 
       // If no action was queued, check if we're dropping on enemies
       let effectiveAction = this.dragAction;
+      console.log(`[Drag] Initial dragAction: ${this.dragAction}`);
+
       if (effectiveAction === "move") {
+        console.log(`[Drag] Checking for enemy at drop position (${dropX.toFixed(1)}, ${dropY.toFixed(1)})`);
         const enemyTarget = this.findUnitAtPosition(dropX, dropY, false, core);
+        console.log(`[Drag] Enemy found:`, enemyTarget ? enemyTarget.name : "none");
+
         if (enemyTarget) {
           effectiveAction = "attack"; // Default to attack when dropping on enemy
-          console.log(`[Drag] Auto-detected enemy target, defaulting to attack`);
+          console.log(`[Drag] ✅ Auto-detected enemy target, defaulting to attack`);
+        } else {
+          console.log(`[Drag] ❌ No enemy detected at drop position, will just reposition`);
         }
       }
+
+      console.log(`[Drag] Effective action: ${effectiveAction}`);
 
       // Handle different drag actions
       if (effectiveAction === "attack" || effectiveAction === "jutsu") {
         // Find targets in range
+        console.log(`[Drag] Finding targets in range for ${effectiveAction}...`);
         const targets = this.findUnitsInRange(dropX, dropY, effectiveAction, core);
+        console.log(`[Drag] Found ${targets.length} targets:`, targets.map(t => t.name));
 
         if (targets.length > 0) {
-          console.log(`[Drag] Multi-hit: ${this.draggingUnit.name} hits ${targets.length} targets`);
+          console.log(`[Drag] ⚔️ Multi-hit: ${this.draggingUnit.name} hits ${targets.length} targets`);
 
           // Check for proximity combo attacks
           const proximityTargets = this.findProximityTargets(targets, core);
 
           if (effectiveAction === "jutsu" && window.BattleCombat) {
+            console.log(`[Drag] 🔵 Calling performMultiJutsu`);
             window.BattleCombat.performMultiJutsu(this.draggingUnit, targets, core);
             // Trigger proximity combo attacks after jutsu
             if (proximityTargets.length > 0) {
@@ -283,6 +295,7 @@
               }, 600);
             }
           } else if (window.BattleCombat) {
+            console.log(`[Drag] ⚔️ Calling performMultiAttack with ${targets.length} targets`);
             window.BattleCombat.performMultiAttack(this.draggingUnit, targets, core);
             // Trigger proximity combo attacks
             if (proximityTargets.length > 0) {
@@ -290,6 +303,8 @@
                 window.BattleCombat.performProximityCombo(this.draggingUnit, proximityTargets, core);
               }, 400);
             }
+          } else {
+            console.log(`[Drag] ⚠️ BattleCombat not available!`);
           }
 
           if (core.turns) core.turns.endTurn(core);
@@ -412,12 +427,20 @@
         args = { radius: 100 };
       }
 
+      console.log(`[Drag] findUnitsInRange: center=(${x.toFixed(1)}, ${y.toFixed(1)}), shape=${shape}, args=`, args);
+
       const targets = [];
       for (const unit of core.enemyTeam) {
-        if (unit.stats.hp <= 0) continue;
+        if (unit.stats.hp <= 0) {
+          console.log(`[Drag]   - ${unit.name}: DEAD, skipping`);
+          continue;
+        }
 
         const unitEl = core.dom.scene?.querySelector(`[data-unit-id="${unit.id}"]`);
-        if (!unitEl) continue;
+        if (!unitEl) {
+          console.log(`[Drag]   - ${unit.name}: NO ELEMENT, skipping`);
+          continue;
+        }
 
         const rect = unitEl.getBoundingClientRect();
         const sceneRect = core.dom.scene.getBoundingClientRect();
@@ -425,12 +448,18 @@
         const unitCenterX = rect.left - sceneRect.left + rect.width / 2;
         const unitCenterY = rect.top - sceneRect.top + rect.height / 2;
 
+        const dist = Math.sqrt((x - unitCenterX) ** 2 + (y - unitCenterY) ** 2);
+
         // Use shape-specific collision detection
-        if (this.isUnitInShape(unitCenterX, unitCenterY, x, y, shape, args)) {
+        const inShape = this.isUnitInShape(unitCenterX, unitCenterY, x, y, shape, args);
+        console.log(`[Drag]   - ${unit.name}: center=(${unitCenterX.toFixed(1)}, ${unitCenterY.toFixed(1)}), dist=${dist.toFixed(1)}, inShape=${inShape}`);
+
+        if (inShape) {
           targets.push(unit);
         }
       }
 
+      console.log(`[Drag] findUnitsInRange result: ${targets.length} targets`);
       return targets;
     },
 
