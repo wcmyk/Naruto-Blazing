@@ -1,0 +1,310 @@
+// js/summon/summon-ui.js - Summon UI Controller
+
+class SummonUIController {
+  constructor() {
+    this.elements = {
+      modal: null,
+      resultDisplay: null,
+      resultGrid: null,
+      continueBtn: null,
+      singleBtn: null,
+      multiBtn: null,
+      singleCost: null,
+      multiCost: null,
+      playerPearls: null,
+      playerCoins: null,
+      bannerName: null,
+      bannerDescription: null,
+      bannerTimer: null,
+      stepProgress: null,
+      stepCurrent: null,
+      stepTotal: null
+    };
+
+    this.currentBanner = null;
+    this.costs = {
+      single: 5,
+      multi: 30
+    };
+  }
+
+  init() {
+    // Cache DOM elements
+    this.elements.modal = document.getElementById('summon-modal');
+    this.elements.resultDisplay = document.getElementById('result-display');
+    this.elements.resultGrid = document.getElementById('result-grid');
+    this.elements.continueBtn = document.getElementById('btn-continue');
+    this.elements.singleBtn = document.getElementById('btn-single');
+    this.elements.multiBtn = document.getElementById('btn-multi');
+    this.elements.singleCost = document.getElementById('single-cost');
+    this.elements.multiCost = document.getElementById('multi-cost');
+    this.elements.playerPearls = document.getElementById('player-pearls');
+    this.elements.playerCoins = document.getElementById('player-coins');
+    this.elements.bannerName = document.getElementById('banner-name');
+    this.elements.bannerDescription = document.getElementById('banner-description');
+    this.elements.bannerTimer = document.getElementById('banner-timer');
+    this.elements.stepProgress = document.getElementById('step-progress');
+    this.elements.stepCurrent = document.getElementById('step-current');
+    this.elements.stepTotal = document.getElementById('step-total');
+
+    this.setupEventListeners();
+    this.updateCurrencyDisplay();
+    console.log('✅ Summon UI Controller initialized');
+  }
+
+  setupEventListeners() {
+    // Summon buttons
+    this.elements.singleBtn?.addEventListener('click', () => this.handleSingleSummon());
+    this.elements.multiBtn?.addEventListener('click', () => this.handleMultiSummon());
+    this.elements.continueBtn?.addEventListener('click', () => this.hideResults());
+
+    // Modal overlay click to close
+    this.elements.modal?.querySelector('.modal-overlay')?.addEventListener('click', () => this.hideResults());
+  }
+
+  updateCurrencyDisplay() {
+    const pearls = window.Currency?.get(window.Currency?.keys?.pearls, 0) || 0;
+    const coins = window.Currency?.get(window.Currency?.keys?.coins, 0) || 0;
+
+    if (this.elements.playerPearls) {
+      this.elements.playerPearls.textContent = pearls;
+    }
+    if (this.elements.playerCoins) {
+      this.elements.playerCoins.textContent = coins;
+    }
+
+    // Update button states
+    this.updateButtonStates(pearls);
+  }
+
+  updateButtonStates(pearls) {
+    if (this.elements.singleBtn) {
+      if (pearls >= this.costs.single) {
+        this.elements.singleBtn.disabled = false;
+        this.elements.singleBtn.classList.remove('disabled');
+      } else {
+        this.elements.singleBtn.disabled = true;
+        this.elements.singleBtn.classList.add('disabled');
+      }
+    }
+
+    if (this.elements.multiBtn) {
+      if (pearls >= this.costs.multi) {
+        this.elements.multiBtn.disabled = false;
+        this.elements.multiBtn.classList.remove('disabled');
+      } else {
+        this.elements.multiBtn.disabled = true;
+        this.elements.multiBtn.classList.add('disabled');
+      }
+    }
+  }
+
+  updateBannerInfo(banner) {
+    this.currentBanner = banner;
+
+    if (this.elements.bannerName) {
+      this.elements.bannerName.textContent = banner.name || 'Banner';
+    }
+
+    if (this.elements.bannerDescription) {
+      this.elements.bannerDescription.textContent = banner.description || '';
+    }
+
+    // Update step progress if it's a step-up banner
+    if (banner.type === 'step-up') {
+      this.showStepProgress(true);
+      this.updateStepProgress();
+    } else {
+      this.showStepProgress(false);
+    }
+
+    // Update costs if banner has custom costs
+    if (banner.costs) {
+      this.costs.single = banner.costs.single || 5;
+      this.costs.multi = banner.costs.multi || 30;
+
+      if (this.elements.singleCost) {
+        this.elements.singleCost.textContent = this.costs.single;
+      }
+      if (this.elements.multiCost) {
+        this.elements.multiCost.textContent = this.costs.multi;
+      }
+    }
+
+    this.updateCurrencyDisplay();
+  }
+
+  showStepProgress(show) {
+    if (this.elements.stepProgress) {
+      if (show) {
+        this.elements.stepProgress.classList.remove('hidden');
+      } else {
+        this.elements.stepProgress.classList.add('hidden');
+      }
+    }
+  }
+
+  updateStepProgress() {
+    const stats = window.FibonacciSummonEngine?.getStats();
+    if (!stats) return;
+
+    if (this.elements.stepCurrent) {
+      this.elements.stepCurrent.textContent = stats.currentMultiStep + 1;
+    }
+
+    if (this.elements.stepTotal) {
+      this.elements.stepTotal.textContent = 8; // Max steps in Fibonacci sequence
+    }
+  }
+
+  async handleSingleSummon() {
+    const pearls = window.Currency?.get(window.Currency?.keys?.pearls, 0) || 0;
+
+    if (pearls < this.costs.single) {
+      alert('Not enough Ninja Pearls!');
+      return;
+    }
+
+    // Deduct cost
+    window.Currency?.set(window.Currency?.keys?.pearls, pearls - this.costs.single);
+
+    // Perform summon
+    const result = window.FibonacciSummonEngine?.performSingleSummon();
+    if (!result) return;
+
+    // Select character
+    const characterData = window.CharacterSelector?.selectCharacter(result);
+    if (!characterData) return;
+
+    // Add to inventory
+    window.InventoryChar?.addCopy(characterData.id, 1);
+
+    // Show animation and results
+    await window.SummonAnimator?.playSummonAnimation('single');
+    this.displayResults([{ character: characterData, summonData: result }]);
+
+    // Update UI
+    this.updateCurrencyDisplay();
+    this.updateStepProgress();
+  }
+
+  async handleMultiSummon() {
+    const pearls = window.Currency?.get(window.Currency?.keys?.pearls, 0) || 0;
+
+    if (pearls < this.costs.multi) {
+      alert('Not enough Ninja Pearls!');
+      return;
+    }
+
+    // Deduct cost
+    window.Currency?.set(window.Currency?.keys?.pearls, pearls - this.costs.multi);
+
+    // Perform multi summon
+    const results = window.FibonacciSummonEngine?.performMultiSummon();
+    if (!results) return;
+
+    // Select characters
+    const characters = window.CharacterSelector?.selectCharacters(results);
+
+    // Add to inventory
+    characters.forEach(({character}) => {
+      if (character) {
+        window.InventoryChar?.addCopy(character.id, 1);
+      }
+    });
+
+    // Show animation and results
+    await window.SummonAnimator?.playSummonAnimation('multi');
+    this.displayResults(characters);
+
+    // Update UI
+    this.updateCurrencyDisplay();
+    this.updateStepProgress();
+
+    // Log stats for debugging
+    console.log('Multi Summon Stats:', window.FibonacciSummonEngine?.getRatesDisplay());
+  }
+
+  displayResults(results) {
+    if (!this.elements.resultGrid) return;
+
+    // Clear previous results
+    this.elements.resultGrid.innerHTML = '';
+
+    // Create result cards
+    results.forEach(({character, summonData}) => {
+      if (!character) return;
+
+      const card = document.createElement('div');
+      card.className = `result-card rarity-${summonData.rarity}`;
+
+      if (summonData.isFeatured) {
+        card.classList.add('featured');
+      }
+
+      card.innerHTML = `
+        <div class="result-card-inner">
+          <img src="${character.portrait || character.full}" alt="${character.name}">
+          <div class="result-card-info">
+            <div class="result-card-name">${character.name}</div>
+            <div class="result-card-rarity">${'★'.repeat(character.rarity || 4)}</div>
+            ${summonData.isFeatured ? '<div class="result-card-featured">FEATURED</div>' : ''}
+          </div>
+        </div>
+      `;
+
+      this.elements.resultGrid.appendChild(card);
+    });
+
+    // Show results
+    this.showResults();
+  }
+
+  showResults() {
+    if (this.elements.modal) {
+      this.elements.modal.classList.remove('hidden');
+    }
+
+    if (this.elements.resultDisplay) {
+      this.elements.resultDisplay.classList.remove('hidden');
+    }
+  }
+
+  hideResults() {
+    if (this.elements.modal) {
+      this.elements.modal.classList.add('hidden');
+    }
+
+    if (this.elements.resultDisplay) {
+      this.elements.resultDisplay.classList.add('hidden');
+    }
+
+    if (this.elements.resultGrid) {
+      this.elements.resultGrid.innerHTML = '';
+    }
+  }
+
+  showRatesInfo() {
+    const rates = window.FibonacciSummonEngine?.getRatesDisplay();
+    if (!rates) return;
+
+    const message = `
+Current Summon Rates:
+━━━━━━━━━━━━━━━━━━━
+Multi Step: ${rates.multiStep}
+Gold Chance: ${rates.goldChance}
+Featured Chance: ${rates.featuredChance}
+
+Session Stats:
+Total Golds: ${rates.totalGolds}
+Featured Golds: ${rates.featuredGolds}
+    `;
+
+    alert(message);
+  }
+}
+
+// Global instance
+window.SummonUI = new SummonUIController();
+
+console.log('✅ Summon UI Controller loaded');
