@@ -5,6 +5,9 @@
   <title>Summon — Blazing</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="css/summon.css" />
+  <link rel="stylesheet" href="css/summon-dev-panel.css" />
+  <link rel="stylesheet" href="css/summon-banner-carousel.css" />
+  <link rel="stylesheet" href="css/summon-results.css" />
 </head>
 <body class="page-summon">
   <!-- Background -->
@@ -33,6 +36,9 @@
 
   <!-- Main Title -->
   <h1 class="summon-title">SUMMON</h1>
+
+  <!-- Full-Width Banner Slideshow -->
+  <div class="banner-slideshow" id="banner-slideshow"></div>
 
   <!-- Banner Preview Carousel (with labels) -->
   <div class="banner-preview-container">
@@ -160,9 +166,19 @@
         </video>
       </div>
       <div id="result-display" class="result-display hidden">
+        <div class="result-header">
+          <div class="result-title">Summon Results</div>
+          <div class="result-subtitle">New characters obtained!</div>
+        </div>
+
+        <!-- Result Statistics -->
+        <div class="result-stats" id="result-stats"></div>
+
+        <!-- Result Grid -->
         <div class="result-grid" id="result-grid">
           <!-- Results populated dynamically -->
         </div>
+
         <button class="btn-continue" id="btn-continue">Continue</button>
       </div>
     </div>
@@ -175,7 +191,25 @@
   <script src="js/summon/summon-engine.js"></script>
   <script src="js/summon/summon-ui.js"></script>
   <script src="js/summon/summon-animation.js"></script>
+  <script src="js/summon/summon-banner-slideshow.js"></script>
+  <script src="js/summon/summon-dev-panel.js"></script>
   <script src="js/summon.js"></script>
+
+  <!-- Initialize Systems -->
+  <script>
+    // Wait for all modules to load, then initialize
+    window.addEventListener('DOMContentLoaded', () => {
+      // Initialize banner slideshow
+      if (window.BannerSlideshow) {
+        window.BannerSlideshow.init('banner-slideshow');
+      }
+
+      // Initialize dev panel
+      if (window.DevPanel) {
+        window.DevPanel.init();
+      }
+    });
+  </script>
   
   <!-- Wind Animation Script -->
   <script>
