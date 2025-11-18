@@ -60,16 +60,16 @@
       clonedPortrait.className = 'portrait';
       clonedPortrait.alt = unit.name;
 
-      // Create chakra mask (circular clipping container, 128×128px, z-index: 5)
-      const chakraMask = document.createElement('div');
-      chakraMask.className = 'chakra-mask';
+      // Create chakra container (circular clipping container, z-index: 11)
+      const chakraContainer = document.createElement('div');
+      chakraContainer.className = 'chakra-container';
 
       // Create chakra segment (single rotating arc)
       const chakraSegment = document.createElement('img');
       chakraSegment.className = 'chakra-segment';
       chakraSegment.src = 'assets/ui/gauges/chakra.png';
       chakraSegment.alt = 'Chakra gauge';
-      chakraMask.appendChild(chakraSegment);
+      chakraContainer.appendChild(chakraSegment);
 
       // Create chakra frame overlay (top layer, 140×140px, z-index: 10)
       const chakraFrame = document.createElement('img');
@@ -77,9 +77,9 @@
       chakraFrame.src = 'assets/ui/frames/chakraholder_icon.png';
       chakraFrame.alt = 'Chakra frame';
 
-      // Assemble structure: portrait → chakra mask → frame
+      // Assemble structure: portrait → chakra container → frame
       unitRing.appendChild(clonedPortrait);
-      unitRing.appendChild(chakraMask);
+      unitRing.appendChild(chakraContainer);
       unitRing.appendChild(chakraFrame);
 
       // Initialize rotation tracking for this unit

@@ -60,6 +60,7 @@ body {
   display: flex;
   gap: 20px;
   align-items: center;
+  margin-right: 30px; /* Prevent cutoff on right edge */
 }
 
 .currency-item {
