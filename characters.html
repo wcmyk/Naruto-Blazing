@@ -5,7 +5,7 @@
   <title>Blazing — Characters</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="css/characters.css" />
-  <link rel="stylesheet" href="css/bottombar.css" />
+  <link rel="stylesheet" href="css/background.css" />
   <link rel="stylesheet" href="css/characters_abilities.css" />
   <link rel="stylesheet" href="css/character_dupe_abilities.css" />
 </head>
@@ -32,6 +32,7 @@
 
         <div class="char-tabs">
           <button class="tab-btn is-active" data-tab="status">Status</button>
+          <button class="tab-btn" data-tab="awakening">Awakening</button>
           <button class="tab-btn" data-tab="skills">Ninjutsu</button>
           <button class="tab-btn" data-tab="support">F/B Skills</button>
           <button class="tab-btn" data-tab="abilities">Abilities</button>
@@ -40,6 +41,9 @@
         <div class="tab-panels">
           <section class="tab-panel is-active" id="tab-status">
             <div class="stats-grid" id="char-stats"></div>
+          </section>
+
+          <section class="tab-panel" id="tab-awakening">
             <div class="growth-ops">
               <div class="level-strip">
                 <span class="level-badge">
@@ -109,6 +113,33 @@
     </div>
   </div>
 
+  <!-- HUD Bottom Bar -->
+  <div class="bottom-bar">
+    <div class="bottom-bar-content">
+      <button class="hud-button" id="btn-village" aria-label="Village">
+        <img src="assets/icons/village_icon.png" alt="Village">
+      </button>
+      <button class="hud-button active" id="btn-characters" aria-label="Characters">
+        <img src="assets/icons/characters_icon.png" alt="Characters">
+      </button>
+      <button class="hud-button" id="btn-fusion" aria-label="Fusion">
+        <img src="assets/icons/fusion_icon.png" alt="Fusion">
+      </button>
+      <button class="hud-button" id="btn-teams" aria-label="Teams">
+        <img src="assets/icons/teams_icon.png" alt="Teams">
+      </button>
+      <button class="hud-button" id="btn-summon" aria-label="Summon">
+        <img src="assets/icons/summon_icon.png" alt="Summon">
+      </button>
+      <button class="hud-button" id="btn-missions" aria-label="Missions">
+        <img src="assets/icons/missions_icon.png" alt="Missions">
+      </button>
+      <button class="hud-button" id="btn-shop" aria-label="Shop">
+        <img src="assets/icons/shop_icon.png" alt="Shop">
+      </button>
+    </div>
+  </div>
+
   <!-- Core Scripts -->
   <script src="js/character_inv.js"></script>
   <script src="js/progression.js"></script>
@@ -123,17 +154,6 @@
   <script src="js/character_dupe_abilities.js"></script>
 
   <!-- Navigation Script -->
-  <script>
-    (function () {
-      function go(url) {
-        document.body.style.transition = "opacity .2s linear";
-        document.body.style.opacity = "0";
-        setTimeout(() => (window.location.href = url), 200);
-      }
-      document.getElementById("btn-summon")?.addEventListener("click", () => go("summon.html"));
-      document.getElementById("btn-missions")?.addEventListener("click", () => go("missions.html"));
-      document.getElementById("btn-characters")?.addEventListener("click", () => go("characters.html"));
-    })();
-  </script>
+  <script src="js/navigation.js"></script>
 </body>
 </html>

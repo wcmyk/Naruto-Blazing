@@ -1,11 +1,15 @@
-<style>
+/* ===================================================
+   CHAKRA HOLDER SYSTEM - Image-Based Circular Gauge
+   Using original structure with chakra-container
+   =================================================== */
+
 /* === Unit Ring Container (active) === */
 .unit-ring {
   position: relative;
   width: 100px;
   height: 100px;
   cursor: pointer;
-  object-fit: fill; 
+  object-fit: fill;
   transition: transform 0.2s ease;
   display: inline-block;
 }
@@ -14,10 +18,10 @@
   transform: scale(1.05);
 }
 
-/* Bench units (50% scale) */
+/* Bench units (60×60 - smaller version for clarity) */
 .bench-portrait-container .unit-ring {
-  width: 70px;
-  height: 70px;
+  width: 60px;
+  height: 60px;
 }
 
 /* =========================================
@@ -35,16 +39,16 @@
     z-index: 1;
 }
 
-/* Bench portrait: perfectly centered in 70×70 holder */
+/* Bench portrait: perfectly centered in 60×60 holder */
 .bench-portrait-container .portrait {
-  top: 3px;
-  left: 3px;
-  width: 64px;
-  height: 64px;
+  top: 2px;
+  left: 2px;
+  width: 56px;
+  height: 56px;
 }
 
 /* =========================================
-   CHAKRA CONTAINER (MIDDLE LAYER, z-index: 2)
+   CHAKRA CONTAINER (MIDDLE LAYER, z-index: 11)
    ========================================= */
 .chakra-container {
     position: absolute;
@@ -59,13 +63,13 @@
 }
 
 .bench-portrait-container .chakra-container {
-  top: 3px;
-  left: 3px;
-  width: 64px;
-  height: 64px;
+  top: 2px;
+  left: 2px;
+  width: 56px;
+  height: 56px;
 }
 
-/* Chakra segments (accumulate, do not rotate away previous ones) */
+/* Chakra segments - single rotating arc */
 .chakra-segment {
   position: absolute;
   width: 100%;
@@ -73,9 +77,9 @@
   top: 0;
   left: 0;
   object-fit: contain;
-  transform-origin: center center;  /* Rotate from center */
-  transform: rotate(180deg);         /* Start at bottom */
-  display: none; /* toggled by JS based on chakra state */
+  transform-origin: center center;
+  transform: rotate(180deg); /* Start at bottom */
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* =========================================
@@ -87,20 +91,21 @@
     left: -68px;
     width: 300px !important;
     height: 300px !important;
-    /* object-fit: fill !important; */
     pointer-events: none;
     z-index: 10;
 }
 
-/* Bench frame = 50% of active holder */
+/* Bench frame = 60×60 scaled */
 .bench-portrait-container .chakra-frame {
-  width: 70px !important;
-  height: 70px !important;
+  top: -60px;
+  left: -60px;
+  width: 180px !important;
+  height: 180px !important;
   object-fit: fill !important;
 }
 
 /* =========================================
-   OPTIONAL STATES (unchanged)
+   OPTIONAL STATES
    ========================================= */
 .unit-ring.ultimate-ready .chakra-frame {
   filter: drop-shadow(0 0 8px rgba(255, 50, 50, 0.9))
@@ -119,64 +124,216 @@
   }
 }
 
+/* === Chakra Gain Flash Effect === */
+.unit-ring.chakra-gain-flash .chakra-segment {
+  animation: chakraGainFlash 0.5s ease-out;
+}
+
+@keyframes chakraGainFlash {
+  0% {
+    filter: brightness(1);
+  }
+  50% {
+    filter: brightness(2) drop-shadow(0 0 10px rgba(100, 150, 255, 1));
+  }
+  100% {
+    filter: brightness(1);
+  }
+}
+
+/* === LIGHTNING EFFECT (Jagged Bolts Around Chakra Frame) === */
+/* Lightning wraps around the wheel's edge, NOT radiating outward */
+/* IMPORTANT: pointer-events MUST be none so drag targeting works */
+.lightning-effect {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 160%;
+  height: 160%;
+  transform: translate(-50%, -50%);
+  pointer-events: none !important; /* CRITICAL: Must not block dragging */
+  z-index: 200;
+  animation: lightningFlicker 0.3s steps(3) infinite;
+}
+
+@keyframes lightningFlicker {
+  0%, 40%, 100% { opacity: 1; }
+  20%, 60%, 80% { opacity: 0.6; }
+}
+
+/* Jagged lightning bolt wrapping the rim */
+.lightning-bolt {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 50%;
+  height: 50%;
+  transform-origin: 0% 0%;
+  filter: blur(0.5px);
+  clip-path: polygon(
+    0% 0%,
+    8% 5%,
+    3% 15%,
+    12% 22%,
+    6% 35%,
+    15% 42%,
+    10% 55%,
+    18% 63%,
+    12% 78%,
+    20% 85%,
+    15% 100%,
+    10% 85%,
+    5% 70%,
+    2% 50%,
+    0% 30%,
+    0% 0%
+  );
+}
+
+/* === RED LIGHTNING (Ultimate - Double Click) === */
+/* Short, sharp, aggressive red bolts with quick flicker */
+.lightning-effect.red {
+  animation-duration: 0.3s;
+}
+
+.lightning-effect.red .lightning-bolt {
+  background: radial-gradient(ellipse at center,
+    rgba(255, 60, 60, 1) 0%,
+    rgba(255, 40, 40, 1) 40%,
+    rgba(200, 30, 30, 0.8) 70%,
+    rgba(150, 20, 20, 0) 100%
+  );
+  box-shadow:
+    0 0 6px rgba(255, 50, 50, 1),
+    0 0 14px rgba(255, 50, 50, 0.8),
+    0 0 22px rgba(255, 80, 80, 0.4);
+  animation: redLightningPulse 0.3s ease-out;
+}
+
+/* Position bolts around the rim (9 bolts) */
+.lightning-effect.red .lightning-bolt:nth-child(1) { transform: rotate(0deg); }
+.lightning-effect.red .lightning-bolt:nth-child(2) { transform: rotate(40deg); }
+.lightning-effect.red .lightning-bolt:nth-child(3) { transform: rotate(80deg); }
+.lightning-effect.red .lightning-bolt:nth-child(4) { transform: rotate(120deg); }
+.lightning-effect.red .lightning-bolt:nth-child(5) { transform: rotate(160deg); }
+.lightning-effect.red .lightning-bolt:nth-child(6) { transform: rotate(200deg); }
+.lightning-effect.red .lightning-bolt:nth-child(7) { transform: rotate(240deg); }
+.lightning-effect.red .lightning-bolt:nth-child(8) { transform: rotate(280deg); }
+.lightning-effect.red .lightning-bolt:nth-child(9) { transform: rotate(320deg); }
+
+@keyframes redLightningPulse {
+  0% { opacity: 0; transform: scale(0.8); }
+  30% { opacity: 1; transform: scale(1); }
+  60% { opacity: 0.7; }
+  100% { opacity: 1; }
+}
+
+/* === GOLD LIGHTNING (Secret Technique - Triple Click) === */
+/* Thicker, brighter gold-white bolts with dramatic glow bloom */
+.lightning-effect.gold {
+  animation-duration: 0.6s;
+}
+
+.lightning-effect.gold .lightning-bolt {
+  width: 55%;
+  height: 55%;
+  background: radial-gradient(ellipse at center,
+    rgba(255, 255, 240, 1) 0%,
+    rgba(255, 235, 120, 1) 30%,
+    rgba(255, 215, 0, 0.9) 60%,
+    rgba(200, 165, 0, 0) 100%
+  );
+  box-shadow:
+    0 0 8px rgba(255, 255, 255, 1),
+    0 0 18px rgba(255, 215, 0, 1),
+    0 0 32px rgba(255, 215, 0, 0.8),
+    0 0 48px rgba(255, 235, 120, 0.6);
+  filter: blur(1px);
+  animation: goldLightningPulse 0.6s ease-out;
+}
+
+/* Position bolts around the rim (10 bolts, more coverage) */
+.lightning-effect.gold .lightning-bolt:nth-child(1) { transform: rotate(0deg); }
+.lightning-effect.gold .lightning-bolt:nth-child(2) { transform: rotate(36deg); }
+.lightning-effect.gold .lightning-bolt:nth-child(3) { transform: rotate(72deg); }
+.lightning-effect.gold .lightning-bolt:nth-child(4) { transform: rotate(108deg); }
+.lightning-effect.gold .lightning-bolt:nth-child(5) { transform: rotate(144deg); }
+.lightning-effect.gold .lightning-bolt:nth-child(6) { transform: rotate(180deg); }
+.lightning-effect.gold .lightning-bolt:nth-child(7) { transform: rotate(216deg); }
+.lightning-effect.gold .lightning-bolt:nth-child(8) { transform: rotate(252deg); }
+.lightning-effect.gold .lightning-bolt:nth-child(9) { transform: rotate(288deg); }
+.lightning-effect.gold .lightning-bolt:nth-child(10) { transform: rotate(324deg); }
+
+@keyframes goldLightningPulse {
+  0% { opacity: 0; transform: scale(0.7); filter: blur(2px); }
+  20% { opacity: 1; transform: scale(1); filter: blur(1px); }
+  40% { opacity: 0.85; filter: blur(0.8px); }
+  60% { opacity: 1; filter: blur(1px); }
+  80% { opacity: 0.9; filter: blur(0.9px); }
+  100% { opacity: 1; filter: blur(1px); }
+}
+
+/* === Attack Type Selected Feedback === */
+.unit-ring.attack-selected {
+  filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.8));
+  animation: attackSelectedPulse 0.5s ease-out;
+}
+
+@keyframes attackSelectedPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+  100% { transform: scale(1); }
+}
+
+/* === Targeting Overlay (Drag-to-Target System) === */
+.targeting-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.2);
+  pointer-events: none;
+  z-index: 999;
+}
+
+.targeting-indicator {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  border: 3px solid rgba(212, 175, 55, 0.9);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(212, 175, 55, 0.3) 0%, transparent 70%);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  animation: targetingPulse 0.8s ease-in-out infinite;
+}
+
+@keyframes targetingPulse {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.2);
+    opacity: 1;
+  }
+}
+
 /* Debug helpers */
 .unit-ring.debug { outline: 2px dashed rgba(255,0,0,0.4); }
 .chakra-container.debug { outline: 1px dashed rgba(0,255,0,0.4); }
 .portrait.debug { outline: 1px dashed rgba(0,0,255,0.4); }
-</style>
 
-<!-- ==========================================
-     HTML STRUCTURE FOR ONE UNIT (ACTIVE)
-     ========================================== -->
+/* === Professional Styling === */
+/* Ensure no distortion, proper centering, and smooth performance */
+.unit-ring * {
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+}
 
-<div class="unit-ring">
-  <!-- Character portrait (clipped circle) -->
-  <img
-    class="portrait"
-    src="assets/characters/taki_mitsuha.png"
-    alt="Taki & Mitsuha"
-  />
-
-  <!-- Chakra gauge (inside inner circle, above portrait) -->
-  <div class="chakra-container">
-    <!-- Use 1 or more segments; JS will toggle display -->
-    <img
-      class="chakra-segment"
-      src="assets/ui/gauges/chakra.png"
-      alt="Chakra gauge"
-    />
-  </div>
-
-  <!-- Chakra holder ring (gold frame, always on top) -->
-  <img
-    class="chakra-frame"
-    src="assets/ui/frames/chakraholder_icon.png"
-    alt="Chakra frame"
-  />
-</div>
-
-<!-- ==========================================
-     HTML STRUCTURE FOR ONE BENCH UNIT
-     ========================================== -->
-
-<div class="bench-portrait-container">
-  <div class="unit-ring">
-    <img
-      class="portrait"
-      src="assets/characters/taki_mitsuha.png"
-      alt="Taki & Mitsuha"
-    />
-    <div class="chakra-container">
-      <img
-        class="chakra-segment"
-        src="assets/ui/gauges/chakra.png"
-        alt="Chakra gauge"
-      />
-    </div>
-    <img
-      class="chakra-frame"
-      src="assets/ui/frames/chakraholder_icon.png"
-      alt="Chakra frame"
-    />
-  </div>
-</div>
+.chakra-segment {
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-font-smoothing: subpixel-antialiased;
+}

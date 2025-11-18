@@ -32,8 +32,10 @@
     // Character-specific materials
     "character_stone": { name: "Character Stone", desc: "Character-specific awakening material" },
 
-    // Ryo (currency)
-    "ryo": { name: "Ryo", desc: "Currency for various operations" }
+    // Currencies
+    "ryo": { name: "Ryo", desc: "Standard currency for various operations" },
+    "ninja_pearls": { name: "Ninja Pearls", desc: "Premium currency for summons and special items" },
+    "shinobites": { name: "Shinobites", desc: "Gacha currency for character summons" }
   };
 
   let _resources = {};
@@ -78,7 +80,9 @@
         "scroll_wisdom": 20,
         "scroll_heart": 20,
         "character_stone": 30,
-        "ryo": 100000
+        "ryo": 100000,
+        "ninja_pearls": 500,
+        "shinobites": 50
       };
       save();
     }

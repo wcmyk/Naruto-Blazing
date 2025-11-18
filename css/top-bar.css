@@ -1,0 +1,195 @@
+/* ===================================================
+   TOP BAR OVERLAY - Ninja Rank & Currency HUD
+   =================================================== */
+
+/* === Body Padding to Prevent Cutoff === */
+body {
+  padding-top: 70px; /* Top bar height (60px) + spacing (10px) */
+  box-sizing: border-box;
+}
+
+/* === Top Bar Container === */
+.top-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  background: linear-gradient(180deg, rgba(10, 10, 15, 0.95), rgba(10, 10, 15, 0.85));
+  border-bottom: 2px solid rgba(139, 115, 85, 0.6);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  z-index: 1000;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(8px);
+  font-family: "Cinzel", serif;
+}
+
+/* === Left Section - Ninja Rank === */
+.ninja-rank-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.ninja-rank-label {
+  font-size: 14px;
+  color: #b8985f;
+  font-weight: 600;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9);
+  letter-spacing: 0.5px;
+}
+
+.ninja-rank-value {
+  font-size: 18px;
+  color: #d4af37;
+  font-weight: 700;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9);
+  min-width: 40px;
+  text-align: center;
+  background: rgba(212, 175, 55, 0.1);
+  padding: 4px 12px;
+  border-radius: 6px;
+  border: 1px solid rgba(212, 175, 55, 0.3);
+}
+
+/* === Right Section - Currency HUD === */
+.currency-hud {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  margin-right: 30px; /* Prevent cutoff on right edge */
+}
+
+.currency-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(20, 20, 30, 0.8);
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: 1px solid rgba(139, 115, 85, 0.4);
+  transition: all 0.2s ease;
+}
+
+.currency-item:hover {
+  background: rgba(30, 30, 40, 0.9);
+  border-color: rgba(212, 175, 55, 0.6);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+.currency-icon {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.7));
+}
+
+.currency-amount {
+  font-size: 16px;
+  color: #f0e6d1;
+  font-weight: 600;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9);
+  min-width: 50px;
+  text-align: right;
+  letter-spacing: 0.3px;
+}
+
+/* === Currency Specific Styles === */
+.currency-item.ninja-pearls .currency-amount {
+  color: #64b5f6; /* Blue tint for premium currency */
+}
+
+.currency-item.shinobites .currency-amount {
+  color: #ba68c8; /* Purple tint for gacha currency */
+}
+
+.currency-item.ryo .currency-amount {
+  color: #ffd54f; /* Gold tint for standard currency */
+}
+
+/* === Animation for Currency Update === */
+@keyframes currencyUpdate {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); color: #d4af37; }
+  100% { transform: scale(1); }
+}
+
+.currency-amount.updated {
+  animation: currencyUpdate 0.3s ease;
+}
+
+/* === Responsive Design === */
+@media (max-width: 768px) {
+  body {
+    padding-top: 60px; /* Reduced padding for tablet */
+  }
+
+  .top-bar {
+    height: 50px;
+    padding: 0 12px;
+  }
+
+  .ninja-rank-label {
+    font-size: 12px;
+  }
+
+  .ninja-rank-value {
+    font-size: 16px;
+    padding: 3px 10px;
+  }
+
+  .currency-hud {
+    gap: 12px;
+  }
+
+  .currency-item {
+    padding: 4px 10px;
+  }
+
+  .currency-icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  .currency-amount {
+    font-size: 14px;
+    min-width: 40px;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    padding-top: 100px; /* More padding for collapsed mobile view */
+  }
+
+  .top-bar {
+    flex-direction: column;
+    height: auto;
+    padding: 8px 12px;
+    gap: 8px;
+  }
+
+  .currency-hud {
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .currency-item {
+    padding: 3px 8px;
+  }
+
+  .currency-icon {
+    width: 18px;
+    height: 18px;
+  }
+
+  .currency-amount {
+    font-size: 12px;
+    min-width: 35px;
+  }
+}

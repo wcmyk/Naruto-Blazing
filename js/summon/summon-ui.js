@@ -60,6 +60,9 @@ class SummonUIController {
 
     // Modal overlay click to close
     this.elements.modal?.querySelector('.modal-overlay')?.addEventListener('click', () => this.hideResults());
+
+    // Listen for currency changes
+    window.addEventListener('currencyChanged', () => this.updateCurrencyDisplay());
   }
 
   updateCurrencyDisplay() {
@@ -231,6 +234,19 @@ class SummonUIController {
     // Clear previous results
     this.elements.resultGrid.innerHTML = '';
 
+    // Calculate statistics
+    const stats = this.calculateResultStats(results);
+
+    // Display statistics
+    this.displayResultStats(stats);
+
+    // Set grid class for single vs multi
+    if (results.length === 1) {
+      this.elements.resultGrid.classList.add('single');
+    } else {
+      this.elements.resultGrid.classList.remove('single');
+    }
+
     // Create result cards
     results.forEach(({character, summonData}) => {
       if (!character) return;
@@ -244,7 +260,8 @@ class SummonUIController {
 
       card.innerHTML = `
         <div class="result-card-inner">
-          <img src="${character.portrait || character.full}" alt="${character.name}">
+          <img src="${character.portrait || character.full}" alt="${character.name}"
+               onerror="this.src='assets/characters/common/silhouette.png'">
           <div class="result-card-info">
             <div class="result-card-name">${character.name}</div>
             <div class="result-card-rarity">${'★'.repeat(character.rarity || 4)}</div>
@@ -258,6 +275,51 @@ class SummonUIController {
 
     // Show results
     this.showResults();
+  }
+
+  calculateResultStats(results) {
+    const stats = {
+      total: results.length,
+      bronze: 0,
+      silver: 0,
+      gold: 0,
+      featured: 0
+    };
+
+    results.forEach(({summonData}) => {
+      if (summonData.rarity === 'bronze') stats.bronze++;
+      else if (summonData.rarity === 'silver') stats.silver++;
+      else if (summonData.rarity === 'gold') {
+        stats.gold++;
+        if (summonData.isFeatured) stats.featured++;
+      }
+    });
+
+    return stats;
+  }
+
+  displayResultStats(stats) {
+    const statsContainer = document.getElementById('result-stats');
+    if (!statsContainer) return;
+
+    statsContainer.innerHTML = `
+      <div class="result-stat">
+        <div class="result-stat-label">Total Pulls</div>
+        <div class="result-stat-value">${stats.total}</div>
+      </div>
+      <div class="result-stat">
+        <div class="result-stat-label">Gold Units</div>
+        <div class="result-stat-value">${stats.gold}</div>
+      </div>
+      <div class="result-stat">
+        <div class="result-stat-label">Featured</div>
+        <div class="result-stat-value">${stats.featured}</div>
+      </div>
+      <div class="result-stat">
+        <div class="result-stat-label">Gold Rate</div>
+        <div class="result-stat-value">${((stats.gold / stats.total) * 100).toFixed(1)}%</div>
+      </div>
+    `;
   }
 
   showResults() {

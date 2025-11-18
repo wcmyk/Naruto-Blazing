@@ -5,7 +5,7 @@
   <title>Blazing — Character Fusion</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="css/fusion.css" />
-  <link rel="stylesheet" href="css/bottombar.css" />
+  <link rel="stylesheet" href="css/background.css" />
 </head>
 <body class="page-fusion">
   <div id="fusion-bg"></div>
@@ -114,26 +114,29 @@
     </div>
   </div>
 
-  <!-- Bottom Navigation Bar -->
+  <!-- HUD Bottom Bar -->
   <div class="bottom-bar">
     <div class="bottom-bar-content">
+      <button class="hud-button" id="btn-village" aria-label="Village">
+        <img src="assets/icons/village_icon.png" alt="Village">
+      </button>
+      <button class="hud-button" id="btn-characters" aria-label="Characters">
+        <img src="assets/icons/characters_icon.png" alt="Characters">
+      </button>
+      <button class="hud-button active" id="btn-fusion" aria-label="Fusion">
+        <img src="assets/icons/fusion_icon.png" alt="Fusion">
+      </button>
+      <button class="hud-button" id="btn-teams" aria-label="Teams">
+        <img src="assets/icons/teams_icon.png" alt="Teams">
+      </button>
       <button class="hud-button" id="btn-summon" aria-label="Summon">
         <img src="assets/icons/summon_icon.png" alt="Summon">
       </button>
       <button class="hud-button" id="btn-missions" aria-label="Missions">
         <img src="assets/icons/missions_icon.png" alt="Missions">
       </button>
-      <button class="hud-button" id="btn-characters" aria-label="Characters">
-        <img src="assets/icons/characters_icon.png" alt="Characters">
-      </button>
-      <button class="hud-button" id="btn-teams" aria-label="Teams">
-        <img src="assets/icons/teams_icon.png" alt="Teams">
-      </button>
-      <button class="hud-button" id="btn-fusion" aria-label="Fusion" class="active">
-        <img src="assets/icons/fusion_icon.png" alt="Fusion">
-      </button>
-      <button class="hud-button" id="btn-home" aria-label="Home">
-        <img src="assets/icons/home_icon.png" alt="Home">
+      <button class="hud-button" id="btn-shop" aria-label="Shop">
+        <img src="assets/icons/shop_icon.png" alt="Shop">
       </button>
     </div>
   </div>
@@ -143,13 +146,7 @@
   <script src="js/resources.js"></script>
   <script src="js/fusion.js"></script>
 
-  <script>
-    // Navigation
-    document.getElementById('btn-summon')?.addEventListener('click', () => window.location.href = 'summon.html');
-    document.getElementById('btn-missions')?.addEventListener('click', () => window.location.href = 'missions.html');
-    document.getElementById('btn-characters')?.addEventListener('click', () => window.location.href = 'characters.html');
-    document.getElementById('btn-teams')?.addEventListener('click', () => window.location.href = 'teams.html');
-    document.getElementById('btn-home')?.addEventListener('click', () => window.location.href = 'index.html');
-  </script>
+  <!-- Navigation Script -->
+  <script src="js/navigation.js"></script>
 </body>
 </html>

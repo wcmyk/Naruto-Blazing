@@ -23,6 +23,7 @@
     "growthCurve": { "hp": 1.12, "atk": 1.18, "def": 1.08, "speed": 1.05, "chakra": 1.00 },
     "powerRank": 260,
     "powerWeights": { "hp": 0.35, "atk": 0.35, "def": 0.15, "speed": 0.10, "chakra": 0.05 },
+    "luck": { "base": 1, "max": 50 },
     "passiveIcons": {
       "3S": ["hp_up", "heal_up"],
       "4S": ["hp_up", "heal_up", "atk_up"],
@@ -72,6 +73,7 @@
     "growthCurve": { "hp": 1.10, "atk": 1.22, "def": 1.05, "speed": 1.10, "chakra": 1.00 },
     "powerRank": 280,
     "powerWeights": { "hp": 0.25, "atk": 0.45, "def": 0.10, "speed": 0.15, "chakra": 0.05 },
+    "luck": { "base": 1, "max": 50 },
     "passiveIcons": {
       "3S": ["atk_up", "speed_up"],
       "4S": ["atk_up", "speed_up", "crit_up"],
@@ -113,6 +115,7 @@
     "growthCurve": { "hp": 1.08, "atk": 1.06, "def": 1.12, "speed": 1.02, "chakra": 1.00 },
     "powerRank": 240,
     "powerWeights": { "hp": 0.40, "atk": 0.15, "def": 0.25, "speed": 0.07, "chakra": 0.13 },
+    "luck": { "base": 1, "max": 50 },
     "passiveIcons": {
       "3S": ["heal_up", "def_up"],
       "4S": ["heal_up", "heal_up", "def_up", "hp_up"]
@@ -152,7 +155,8 @@
     "statsMax":  { "hp": 30000, "atk": 1900, "def": 1200, "speed": 205, "chakra": 22 },
     "growthCurve": { "hp": 1.06, "atk": 1.08, "def": 1.05, "speed": 1.03, "chakra": 1.00 },
     "powerRank": 780,
-    "powerWeights": { "hp": 0.38, "atk": 0.38, "def": 0.12, "speed": 0.08, "chakra": 0.04 }
+    "powerWeights": { "hp": 0.38, "atk": 0.38, "def": 0.12, "speed": 0.08, "chakra": 0.04 },
+    "luck": { "base": 10, "max": 99 }
   },
 
   {
@@ -178,7 +182,8 @@
     "statsMax":  { "hp": 846, "atk": 738, "def": 420, "speed": 155, "chakra": 10 },
     "growthCurve": { "hp": 1.12, "atk": 1.18, "def": 1.08, "speed": 1.05, "chakra": 1.00 },
     "powerRank": 260,
-    "powerWeights": { "hp": 0.35, "atk": 0.35, "def": 0.15, "speed": 0.10, "chakra": 0.05 }
+    "powerWeights": { "hp": 0.35, "atk": 0.35, "def": 0.15, "speed": 0.10, "chakra": 0.05 },
+    "luck": { "base": 5, "max": 70 }
   },
   {
   "id": "naruto_162",
@@ -200,6 +205,7 @@
   "growthCurve": { "hp": 1.06, "atk": 1.08, "def": 1.05, "speed": 1.03, "chakra": 1.00 },
   "powerRank": 780,
   "powerWeights": { "hp": 0.38, "atk": 0.38, "def": 0.12, "speed": 0.08, "chakra": 0.04 },
+  "luck": { "base": 5, "max": 70 },
 
   "skills": {
     "jutsu": {
@@ -259,7 +265,8 @@
     "statsMax":  { "hp": 1154, "atk": 1420, "def": 800, "speed": 150, "chakra": 22 },
     "growthCurve": { "hp": 1.06, "atk": 1.08, "def": 1.05, "speed": 1.03, "chakra": 1.00 },
     "powerRank": 780,
-    "powerWeights": { "hp": 0.38, "atk": 0.38, "def": 0.12, "speed": 0.08, "chakra": 0.04 }
+    "powerWeights": { "hp": 0.38, "atk": 0.38, "def": 0.12, "speed": 0.08, "chakra": 0.04 },
+    "luck": { "base": 5, "max": 70 }
   },
   {
   "id": "naruto_260",
@@ -510,6 +517,26 @@
     {
       "name": "Celestial Resonance",
       "description": "Boosts Ultimate damage by 20% and reduces its cooldown by 1 when used after an ally's Secret Technique."
+    },
+    {
+      "name": "Temporal Strike",
+      "description": "Increases ATK by 250 and boosts combo damage by 15%."
+    },
+    {
+      "name": "Healing Threads",
+      "description": "Restores 200 HP at the start of each turn and boosts healing received by 20%."
+    },
+    {
+      "name": "Bonds of Protection",
+      "description": "Increases max HP by 500 and grants damage reduction of 10% when HP is above 70%."
+    },
+    {
+      "name": "Comet's Endurance",
+      "description": "Boosts DEF by 300 and reduces damage from critical hits by 25%."
+    },
+    {
+      "name": "Time Acceleration",
+      "description": "Increases SPD by 80 and grants 20% chance to take an extra turn after attacking."
     }
   ]
 }

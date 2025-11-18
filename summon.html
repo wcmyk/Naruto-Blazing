@@ -5,6 +5,10 @@
   <title>Summon — Blazing</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="css/summon.css" />
+  <link rel="stylesheet" href="css/background.css" />
+  <link rel="stylesheet" href="css/summon-dev-panel.css" />
+  <link rel="stylesheet" href="css/summon-banner-carousel.css" />
+  <link rel="stylesheet" href="css/summon-results.css" />
 </head>
 <body class="page-summon">
   <!-- Background -->
@@ -51,6 +55,9 @@
       </div>
     </div>
   </div>
+
+  <!-- Full-Width Banner Slideshow -->
+  <div class="banner-slideshow" id="banner-slideshow"></div>
 
   <!-- Main Banner Carousel -->
   <div class="banner-carousel-container">
@@ -122,34 +129,6 @@
     </button>
   </div>
 
-  <!-- Bottom Navigation -->
-  <nav class="bottom-nav">
-    <button class="nav-btn" onclick="window.location.href='index.html'">
-      <img src="assets/icons/village_icon.png" alt="Villages">
-      <span>VILLAGES</span>
-    </button>
-    <button class="nav-btn" onclick="window.location.href='teams.html'">
-      <img src="assets/icons/teams_icon.png" alt="Teams">
-      <span>TEAMS</span>
-    </button>
-    <button class="nav-btn active">
-      <img src="assets/icons/summon_icon.png" alt="Summon">
-      <span>SUMMON</span>
-    </button>
-    <button class="nav-btn" onclick="window.location.href='characters.html'">
-      <img src="assets/icons/shop_icon.png" alt="Shop">
-      <span>SHOP</span>
-    </button>
-    <button class="nav-btn" onclick="window.location.href='missions.html'">
-      <img src="assets/icons/friends_icon.png" alt="Friends">
-      <span>FRIENDS</span>
-    </button>
-    <button class="nav-btn">
-      <img src="assets/icons/other_icon.png" alt="Other">
-      <span>OTHER</span>
-    </button>
-  </nav>
-
   <!-- Summon Result Modal -->
   <div id="summon-modal" class="summon-modal hidden">
     <div class="modal-overlay"></div>
@@ -160,22 +139,78 @@
         </video>
       </div>
       <div id="result-display" class="result-display hidden">
+        <div class="result-header">
+          <div class="result-title">Summon Results</div>
+          <div class="result-subtitle">New characters obtained!</div>
+        </div>
+
+        <!-- Result Statistics -->
+        <div class="result-stats" id="result-stats"></div>
+
+        <!-- Result Grid -->
         <div class="result-grid" id="result-grid">
           <!-- Results populated dynamically -->
         </div>
+
         <button class="btn-continue" id="btn-continue">Continue</button>
       </div>
     </div>
   </div>
 
+  <!-- HUD Bottom Bar -->
+  <div class="bottom-bar">
+    <div class="bottom-bar-content">
+      <button class="hud-button" id="btn-village" aria-label="Village">
+        <img src="assets/icons/village_icon.png" alt="Village">
+      </button>
+      <button class="hud-button" id="btn-characters" aria-label="Characters">
+        <img src="assets/icons/characters_icon.png" alt="Characters">
+      </button>
+      <button class="hud-button" id="btn-fusion" aria-label="Fusion">
+        <img src="assets/icons/fusion_icon.png" alt="Fusion">
+      </button>
+      <button class="hud-button" id="btn-teams" aria-label="Teams">
+        <img src="assets/icons/teams_icon.png" alt="Teams">
+      </button>
+      <button class="hud-button active" id="btn-summon" aria-label="Summon">
+        <img src="assets/icons/summon_icon.png" alt="Summon">
+      </button>
+      <button class="hud-button" id="btn-missions" aria-label="Missions">
+        <img src="assets/icons/missions_icon.png" alt="Missions">
+      </button>
+      <button class="hud-button" id="btn-shop" aria-label="Shop">
+        <img src="assets/icons/shop_icon.png" alt="Shop">
+      </button>
+    </div>
+  </div>
+
   <!-- Scripts -->
+  <script src="js/currency.js"></script>
   <script src="js/character_inv.js"></script>
   <script src="js/summon/summon-data.js"></script>
   <script src="js/summon/summon-carousel.js"></script>
   <script src="js/summon/summon-engine.js"></script>
   <script src="js/summon/summon-ui.js"></script>
   <script src="js/summon/summon-animation.js"></script>
+  <script src="js/summon/summon-banner-slideshow.js"></script>
+  <script src="js/summon/summon-dev-panel.js"></script>
   <script src="js/summon.js"></script>
+
+  <!-- Initialize Systems -->
+  <script>
+    // Wait for all modules to load, then initialize
+    window.addEventListener('DOMContentLoaded', () => {
+      // Initialize banner slideshow
+      if (window.BannerSlideshow) {
+        window.BannerSlideshow.init('banner-slideshow');
+      }
+
+      // Initialize dev panel
+      if (window.DevPanel) {
+        window.DevPanel.init();
+      }
+    });
+  </script>
   
   <!-- Wind Animation Script -->
   <script>
@@ -195,5 +230,8 @@
       }
     })();
   </script>
+
+  <!-- Navigation Script -->
+  <script src="js/navigation.js"></script>
 </body>
 </html>

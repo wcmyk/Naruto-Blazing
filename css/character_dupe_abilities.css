@@ -11,7 +11,9 @@
   gap: 12px;
   padding: 20px;
   animation: fadeIn 0.5s ease-out;
-  width: 100%;
+  width: 90%;
+  max-width: 900px;
+  margin: 0 auto;
   height: 100%;
   overflow-y: auto;
 }
@@ -19,12 +21,12 @@
 /* Abilities Header */
 .abilities-header {
   background: linear-gradient(135deg, rgba(0, 0, 0, 0.92), rgba(30, 25, 10, 0.88));
-  border: 2px solid rgba(218, 165, 32, 0.6);
+  border: 2px solid rgba(139, 101, 8, 0.6);
   border-radius: 12px;
   padding: 12px 16px;
   box-shadow:
     0 4px 16px rgba(0, 0, 0, 0.8),
-    inset 0 1px 3px rgba(255, 215, 0, 0.1),
+    inset 0 1px 3px rgba(184, 134, 11, 0.1),
     0 0 0 1px rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(10px);
   pointer-events: all;
@@ -43,8 +45,8 @@
 .abilities-unlock-count {
   font-size: 13px;
   font-weight: 600;
-  color: #B8860B;
-  text-shadow: 0 2px 6px rgba(184, 134, 11, 0.5);
+  color: #8B6508;
+  text-shadow: 0 2px 6px rgba(139, 101, 8, 0.5);
 }
 
 /* Abilities List Container */
@@ -58,7 +60,7 @@
 .ability-item {
   position: relative;
   background: linear-gradient(135deg, rgba(0, 0, 0, 0.88), rgba(20, 20, 30, 0.85));
-  border: 2px solid rgba(218, 165, 32, 0.3);
+  border: 2px solid rgba(139, 101, 8, 0.3);
   border-radius: 10px;
   padding: 14px 16px 14px 56px;
   display: flex;
@@ -77,17 +79,17 @@
 
 /* Unlocked Ability State */
 .ability-item.unlocked {
-  border-color: rgba(218, 165, 32, 0.8);
+  border-color: rgba(139, 101, 8, 0.8);
   background: linear-gradient(135deg, rgba(30, 25, 5, 0.88), rgba(40, 35, 10, 0.85));
 }
 
 .ability-item.unlocked:hover {
-  border-color: rgba(255, 215, 0, 0.9);
+  border-color: rgba(184, 134, 11, 0.9);
   box-shadow:
-    0 6px 18px rgba(218, 165, 32, 0.5),
-    inset 0 1px 4px rgba(255, 215, 0, 0.15),
-    0 0 0 1px rgba(218, 165, 32, 0.4),
-    0 0 25px rgba(255, 215, 0, 0.3);
+    0 6px 18px rgba(139, 101, 8, 0.5),
+    inset 0 1px 4px rgba(184, 134, 11, 0.15),
+    0 0 0 1px rgba(139, 101, 8, 0.4),
+    0 0 25px rgba(184, 134, 11, 0.3);
   transform: translateX(4px);
 }
 
@@ -125,8 +127,8 @@
   transform: translateY(-50%);
   width: 36px;
   height: 36px;
-  background: linear-gradient(135deg, rgba(218, 165, 32, 0.9), rgba(184, 134, 11, 0.85));
-  border: 2px solid rgba(139, 117, 0, 0.8);
+  background: linear-gradient(135deg, rgba(139, 101, 8, 0.9), rgba(120, 85, 5, 0.85));
+  border: 2px solid rgba(100, 70, 0, 0.8);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -136,13 +138,13 @@
   color: #ffffff;
   box-shadow:
     0 3px 8px rgba(0, 0, 0, 0.6),
-    inset 0 1px 2px rgba(255, 215, 0, 0.2);
+    inset 0 1px 2px rgba(184, 134, 11, 0.2);
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
 }
 
 .ability-item.unlocked .ability-badge {
-  background: linear-gradient(135deg, rgba(255, 215, 0, 0.9), rgba(218, 165, 32, 0.85));
-  border-color: rgba(139, 117, 0, 0.9);
+  background: linear-gradient(135deg, rgba(184, 134, 11, 0.9), rgba(139, 101, 8, 0.85));
+  border-color: rgba(100, 70, 0, 0.9);
 }
 
 .ability-item.locked .ability-badge {
@@ -220,9 +222,9 @@
 }
 
 .ability-status.unlocked {
-  background: rgba(218, 165, 32, 0.3);
-  border: 2px solid rgba(255, 215, 0, 0.6);
-  color: #FFD700;
+  background: rgba(139, 101, 8, 0.3);
+  border: 2px solid rgba(184, 134, 11, 0.6);
+  color: #B8860B;
 }
 
 .ability-status.unlocked .status-icon {
@@ -240,7 +242,7 @@
 /* Unlock Instructions/Hint */
 .abilities-unlock-hint {
   background: linear-gradient(135deg, rgba(40, 30, 0, 0.88), rgba(60, 50, 0, 0.85));
-  border: 2px solid rgba(255, 200, 0, 0.5);
+  border: 2px solid rgba(184, 134, 11, 0.5);
   border-radius: 10px;
   padding: 12px 16px;
   display: flex;
@@ -261,7 +263,7 @@
 .unlock-hint-text {
   font-size: 12px;
   font-weight: 600;
-  color: #ffd700;
+  color: #B8860B;
   line-height: 1.4;
   text-shadow: 0 2px 6px rgba(0, 0, 0, 0.8);
   letter-spacing: 0.3px;
@@ -300,15 +302,15 @@
 @keyframes unlockPulse {
   0% {
     transform: scale(1);
-    box-shadow: 0 4px 12px rgba(218, 165, 32, 0.3);
+    box-shadow: 0 4px 12px rgba(139, 101, 8, 0.3);
   }
   50% {
     transform: scale(1.05);
-    box-shadow: 0 8px 24px rgba(255, 215, 0, 0.8);
+    box-shadow: 0 8px 24px rgba(184, 134, 11, 0.8);
   }
   100% {
     transform: scale(1);
-    box-shadow: 0 4px 12px rgba(218, 165, 32, 0.3);
+    box-shadow: 0 4px 12px rgba(139, 101, 8, 0.3);
   }
 }
 
