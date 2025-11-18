@@ -127,6 +127,9 @@
         canvas.height = r.height;
       };
       fit();
+
+      // Bug #6: Store resize listener reference for cleanup
+      this.resizeListener = fit;
       window.addEventListener("resize", fit);
 
       const ctx = canvas.getContext("2d");
@@ -207,8 +210,15 @@
 
       // Throttle updates to avoid lag (max 60fps)
       const now = performance.now();
-      if (now - this.lastUpdateTime < this.throttleDelay) return;
+      const delay = Math.max(1, this.throttleDelay || 16); // Bug #21: Ensure delay is at least 1
+      if (now - this.lastUpdateTime < delay) return;
       this.lastUpdateTime = now;
+
+      // Bug #13: Validate scene element exists before getBoundingClientRect
+      if (!core.dom || !core.dom.scene) {
+        console.error("[Drag] Scene element not found");
+        return;
+      }
 
       const rect = core.dom.scene.getBoundingClientRect();
       const x = e.clientX - rect.left;
@@ -218,7 +228,8 @@
       let effectiveAction = this.dragAction;
       if (effectiveAction === "move") {
         const enemyTarget = this.findUnitAtPosition(x, y, false, core);
-        if (enemyTarget) {
+        // Bug #1: Validate enemy target has stats before checking hp
+        if (enemyTarget && enemyTarget.stats && enemyTarget.stats.hp > 0) {
           effectiveAction = "attack";
         }
       }
@@ -263,7 +274,8 @@
         const enemyTarget = this.findUnitAtPosition(dropX, dropY, false, core);
         console.log(`[Drag] Enemy found:`, enemyTarget ? enemyTarget.name : "none");
 
-        if (enemyTarget) {
+        // Bug #1: Validate enemy target has stats before using
+        if (enemyTarget && enemyTarget.stats && enemyTarget.stats.hp > 0) {
           effectiveAction = "attack"; // Default to attack when dropping on enemy
           console.log(`[Drag] ✅ Auto-detected enemy target, defaulting to attack`);
         } else {
@@ -346,8 +358,34 @@
       // Clear all targeting markers
       this.clearAllTargetMarkers();
 
+      // Bug #20: Clear overlay canvas
       if (core.overlay) core.overlay.clear();
       if (core.units) core.units.resetOpacity(core);
+    },
+
+    /**
+     * Cleanup method for battle end (Bug #6 & #20)
+     */
+    cleanup(core) {
+      // Remove resize listener
+      if (this.resizeListener) {
+        window.removeEventListener("resize", this.resizeListener);
+        this.resizeListener = null;
+      }
+
+      // Clear overlay
+      if (core && core.overlay) {
+        core.overlay.clear();
+      }
+
+      // Clear all markers
+      this.clearAllTargetMarkers();
+
+      // Reset state
+      this.isDragging = false;
+      this.draggingUnit = null;
+      this.dragAction = null;
+      this.dragStartPos = null;
     },
 
     /**

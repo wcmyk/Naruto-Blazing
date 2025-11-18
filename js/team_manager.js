@@ -38,6 +38,12 @@
   const previewStats = document.getElementById("preview-stats");
   const btnAssign = document.getElementById("btn-assign-char");
 
+  // Bug #8 fix: Validate critical DOM elements exist
+  if (!charGrid || !totalCostEl || !totalHealthEl) {
+    console.error("[Team Manager] Missing critical DOM elements!");
+    return;
+  }
+
   let selectedChar = null;
 
   /* =========================
@@ -430,12 +436,18 @@
 
   /* ---------- Preview Modal ---------- */
   function showPreview(inst, char) {
+    // Bug #9 fix: Validate preview elements exist before using them
+    if (!previewImg || !previewName || !previewStars || !previewStats || !previewModal) {
+      console.error("[Team Manager] Preview elements not found!");
+      return;
+    }
+
     const tier = inst.tierCode || minTier(char);
     const art = resolveTierArt(char, tier);
 
     previewImg.src = art.full || art.portrait;
     previewName.textContent = char.name;
-    previewVersion.textContent = char.version || "";
+    if (previewVersion) previewVersion.textContent = char.version || "";
     previewStars.innerHTML = renderStars(starsFromTier(tier));
 
     // Stats

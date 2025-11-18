@@ -30,8 +30,12 @@
   }
 
   // ---------- Utils ----------
+  let _uidCounter = 0; // Bug #7 fix: Add counter for guaranteed uniqueness
   function uid() {
-    return Math.random().toString(36).slice(2) + Date.now().toString(36);
+    _uidCounter++;
+    return Date.now().toString(36) +
+           Math.random().toString(36).slice(2) +
+           _uidCounter.toString(36);
   }
 
   function idxByUid(id) {
@@ -163,14 +167,16 @@
     main.unlockedAbilities.push(nextAbilityIndex);
     main.dupeUnlocks = (main.dupeUnlocks || 0) + 1;
 
-    // Remove the dupe
-    removeOneByUid(dupeUid);
-
-    // Save the main instance with both unlocked abilities and dupeUnlocks
+    // Bug #4 fix: Update main instance FIRST, then remove dupe SECOND (safer order)
     updateInstance(mainUid, {
       unlockedAbilities: main.unlockedAbilities,
       dupeUnlocks: main.dupeUnlocks
     });
+
+    // Remove the dupe after main is safely updated
+    if (!removeOneByUid(dupeUid)) {
+      console.error("[Inventory] Warning: Failed to remove dupe UID:", dupeUid);
+    }
 
     return {
       ok: true,
