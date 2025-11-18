@@ -14,24 +14,28 @@
   <!-- HUD Bottom Bar -->
   <div class="bottom-bar">
     <div class="bottom-bar-content">
+      <button class="hud-button active" id="btn-village" aria-label="Village">
+        <img src="assets/icons/village_icon.png" alt="Village">
+      </button>
+      <button class="hud-button" id="btn-characters" aria-label="Characters">
+        <img src="assets/icons/characters_icon.png" alt="Characters">
+      </button>
+      <button class="hud-button" id="btn-fusion" aria-label="Fusion">
+        <img src="assets/icons/fusion_icon.png" alt="Fusion">
+      </button>
+      <button class="hud-button" id="btn-teams" aria-label="Teams">
+        <img src="assets/icons/teams_icon.png" alt="Teams">
+      </button>
       <button class="hud-button" id="btn-summon" aria-label="Summon">
         <img src="assets/icons/summon_icon.png" alt="Summon">
       </button>
       <button class="hud-button" id="btn-missions" aria-label="Missions">
         <img src="assets/icons/missions_icon.png" alt="Missions">
       </button>
-      <button class="hud-button" id="btn-characters" aria-label="Characters">
-        <img src="assets/icons/characters_icon.png" alt="Characters">
-      </button>
-      <button class="hud-button" id="btn-teams" aria-label="Teams">
-        <img src="assets/icons/teams_icon.png" alt="Teams">
-      </button>
-      <button class="hud-button" id="btn-fusion" aria-label="Fusion">
-        <img src="assets/icons/fusion_icon.png" alt="Fusion">
-      </button>
       <button class="hud-button" id="btn-shop" aria-label="Shop">
         <img src="assets/icons/shop_icon.png" alt="Shop">
       </button>
+      <!-- Index.html exclusive buttons -->
       <button class="hud-button" id="btn-addchar" aria-label="Add Character">
         <img src="assets/icons/add_icon.png" alt="Add Character">
       </button>
@@ -85,6 +89,38 @@
       }
 
       // Wire up navigation buttons
+      const btnVillage = document.getElementById("btn-village");
+      if (btnVillage) {
+        btnVillage.addEventListener("click", () => {
+          console.log("🏠 Village clicked");
+          navigateTo("index.html");
+        });
+      }
+
+      const btnCharacters = document.getElementById("btn-characters");
+      if (btnCharacters) {
+        btnCharacters.addEventListener("click", () => {
+          console.log("👤 Characters clicked");
+          navigateTo("characters.html");
+        });
+      }
+
+      const btnFusion = document.getElementById("btn-fusion");
+      if (btnFusion) {
+        btnFusion.addEventListener("click", () => {
+          console.log("⚡ Fusion clicked");
+          navigateTo("fusion.html");
+        });
+      }
+
+      const btnTeams = document.getElementById("btn-teams");
+      if (btnTeams) {
+        btnTeams.addEventListener("click", () => {
+          console.log("👥 Teams clicked");
+          navigateTo("teams.html");
+        });
+      }
+
       const btnSummon = document.getElementById("btn-summon");
       if (btnSummon) {
         btnSummon.addEventListener("click", () => {
@@ -101,32 +137,6 @@
         });
       }
 
-      const btnCharacters = document.getElementById("btn-characters");
-      if (btnCharacters) {
-        btnCharacters.addEventListener("click", () => {
-          console.log("👤 Characters clicked");
-          navigateTo("characters.html");
-        });
-      }
-
-      const btnTeams = document.getElementById("btn-teams");
-      if (btnTeams) {
-        btnTeams.addEventListener("click", () => {
-          console.log("👥 Teams clicked");
-          navigateTo("teams.html");
-        });
-      }
-
-      // Fusion button
-      const btnFusion = document.getElementById("btn-fusion");
-      if (btnFusion) {
-        btnFusion.addEventListener("click", () => {
-          console.log("⚡ Fusion clicked");
-          navigateTo("fusion.html");
-        });
-      }
-
-      // Shop button
       const btnShop = document.getElementById("btn-shop");
       if (btnShop) {
         btnShop.addEventListener("click", () => {
