@@ -501,7 +501,7 @@ body.page-characters {
   display: grid;
   grid-template-columns: 1fr 1fr;       /* art | info */
   gap: 18px;
-  width: min(100%, 980px);
+  width: min(100%, 1150px);             /* increased from 980px to prevent scrollbar */
   max-height: 82vh;                     /* stays inside viewport */
   padding: 16px;
   background: #131318;
@@ -567,16 +567,16 @@ body.page-characters {
   font-size: 15px;
   font-weight: 600;
   color: #fff;
-  background: linear-gradient(180deg, #b362d9 0%, #822ca7 100%);
-  border: 1px solid rgba(179, 98, 217, 0.4);
+  background: linear-gradient(180deg, #d94242 0%, #8b1a1a 100%);
+  border: 1px solid rgba(217, 66, 66, 0.4);
   border-radius: 8px;
   cursor: pointer;
   transition: all .2s ease;
-  box-shadow: 0 4px 12px rgba(130, 44, 167, 0.3);
+  box-shadow: 0 4px 12px rgba(139, 26, 26, 0.3);
 }
 .btn-limitbreak:hover:not(:disabled) {
-  background: linear-gradient(180deg, #c47ee6 0%, #9642b8 100%);
-  box-shadow: 0 6px 16px rgba(130, 44, 167, 0.5);
+  background: linear-gradient(180deg, #e65555 0%, #a02020 100%);
+  box-shadow: 0 6px 16px rgba(139, 26, 26, 0.5);
   transform: translateY(-1px);
 }
 .btn-limitbreak:disabled {
@@ -589,15 +589,15 @@ body.page-characters {
 .limitbreak-info {
   margin-top: 12px;
   padding: 10px 14px;
-  background: rgba(179, 98, 217, 0.08);
-  border: 1px solid rgba(179, 98, 217, 0.2);
+  background: rgba(217, 66, 66, 0.08);
+  border: 1px solid rgba(217, 66, 66, 0.2);
   border-radius: 8px;
   font-size: 13px;
 }
 
 .lb-level {
   font-weight: 600;
-  color: #b362d9;
+  color: #d94242;
   margin-bottom: 6px;
 }
 
