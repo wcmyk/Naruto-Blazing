@@ -401,7 +401,7 @@
         color = "jutsu";
       } else {
         shape = "circle";
-        args = { radius: 100 };
+        args = { radius: 200 }; // Increased from 100 to 200 for better targeting
         color = "jutsu";
       }
 
@@ -425,7 +425,7 @@
         args = skills.ultimate.data?.shapeArgs || { radius: 260, angleDeg: 90 };
       } else {
         shape = "circle";
-        args = { radius: 100 };
+        args = { radius: 200 }; // Increased from 100 to 200 for better targeting
       }
 
       console.log(`[Drag] findUnitsInRange: center=(${x.toFixed(1)}, ${y.toFixed(1)}), shape=${shape}, args=`, args);
