@@ -66,7 +66,7 @@
   left: 20px;
   width: 400px;
   max-width: calc(100vw - 40px);
-  z-index: 900;
+  z-index: 50;
   pointer-events: auto;
 }
 
@@ -391,7 +391,7 @@
   gap: 12px;
   cursor: pointer;
   transition: all 0.3s ease;
-  z-index: 900;
+  z-index: 50;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
 }
 
@@ -487,10 +487,11 @@
 .dashboard-banner-section {
   position: fixed;
   left: 20px;
-  bottom: 120px; /* Position above bottom bar */
+  bottom: 90px; /* Position above bottom bar */
   width: 600px;
   max-width: calc(100vw - 40px);
-  z-index: 100;
+  z-index: 50;
+  pointer-events: none; /* Allow clicks to pass through container */
 }
 
 .banner-section-header {
@@ -503,6 +504,7 @@
   font-size: 24px;
   padding: 8px 20px;
   margin: 10px 0;
+  pointer-events: auto; /* Re-enable clicks on headers */
 }
 
 .dashboard-banner-section .banner-slideshow {
@@ -511,6 +513,7 @@
   overflow: hidden;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
   border: 2px solid rgba(184, 152, 95, 0.5);
+  pointer-events: auto; /* Re-enable clicks on slideshow */
 }
 
 .dashboard-banner-section .banner-arrow {
