@@ -18,10 +18,10 @@
   transform: scale(1.05);
 }
 
-/* Bench units (70×70) */
+/* Bench units (60×60 - smaller version for clarity) */
 .bench-portrait-container .unit-ring {
-  width: 70px;
-  height: 70px;
+  width: 60px;
+  height: 60px;
 }
 
 /* =========================================
@@ -39,12 +39,12 @@
     z-index: 1;
 }
 
-/* Bench portrait: perfectly centered in 70×70 holder */
+/* Bench portrait: perfectly centered in 60×60 holder */
 .bench-portrait-container .portrait {
-  top: 3px;
-  left: 3px;
-  width: 64px;
-  height: 64px;
+  top: 2px;
+  left: 2px;
+  width: 56px;
+  height: 56px;
 }
 
 /* =========================================
@@ -63,10 +63,10 @@
 }
 
 .bench-portrait-container .chakra-container {
-  top: 3px;
-  left: 3px;
-  width: 64px;
-  height: 64px;
+  top: 2px;
+  left: 2px;
+  width: 56px;
+  height: 56px;
 }
 
 /* Chakra segments - single rotating arc */
@@ -95,12 +95,12 @@
     z-index: 10;
 }
 
-/* Bench frame = 70×70 */
+/* Bench frame = 60×60 scaled */
 .bench-portrait-container .chakra-frame {
-  top: -34px;
-  left: -34px;
-  width: 140px !important;
-  height: 140px !important;
+  top: -60px;
+  left: -60px;
+  width: 180px !important;
+  height: 180px !important;
   object-fit: fill !important;
 }
 
