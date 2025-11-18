@@ -401,7 +401,7 @@
         color = "jutsu";
       } else {
         shape = "circle";
-        args = { radius: 200 }; // Increased from 100 to 200 for better targeting
+        args = { radius: 400 }; // Increased to 400 for much more forgiving targeting
         color = "jutsu";
       }
 
@@ -425,10 +425,10 @@
         args = skills.ultimate.data?.shapeArgs || { radius: 260, angleDeg: 90 };
       } else {
         shape = "circle";
-        args = { radius: 200 }; // Increased from 100 to 200 for better targeting
+        args = { radius: 400 }; // Increased to 400 for much more forgiving targeting
       }
 
-      console.log(`[Drag] findUnitsInRange: center=(${x.toFixed(1)}, ${y.toFixed(1)}), shape=${shape}, args=`, args);
+      console.log(`[Drag] findUnitsInRange: center=(${x.toFixed(1)}, ${y.toFixed(1)}), shape=${shape}, radius=${args.radius || args.w || 'N/A'}`);
 
       const targets = [];
       for (const unit of core.enemyTeam) {
