@@ -60,6 +60,9 @@ class SummonUIController {
 
     // Modal overlay click to close
     this.elements.modal?.querySelector('.modal-overlay')?.addEventListener('click', () => this.hideResults());
+
+    // Listen for currency changes
+    window.addEventListener('currencyChanged', () => this.updateCurrencyDisplay());
   }
 
   updateCurrencyDisplay() {

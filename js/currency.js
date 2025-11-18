@@ -7,7 +7,7 @@
 
   // Currency keys
   const KEYS = {
-    pearls: 'ninj a_pearls',
+    pearls: 'ninja_pearls',
     coins: 'coins',
     gems: 'gems'
   };
