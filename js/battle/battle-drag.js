@@ -23,6 +23,8 @@
     isDragging: false,
     currentTargets: [], // Track currently targeted units
     targetMarkers: new Map(), // Store target marker elements
+    lastUpdateTime: 0, // For throttling drag updates
+    throttleDelay: 16, // ~60fps update rate
 
     /* ===== Targeting Markers ===== */
 
@@ -79,10 +81,11 @@
     /**
      * Update target markers based on current drag position
      */
-    updateTargetMarkers(x, y, core) {
+    updateTargetMarkers(x, y, core, actionType = null) {
       if (!this.isDragging || !this.draggingUnit) return;
 
-      const targets = this.findUnitsInRange(x, y, this.dragAction, core);
+      const action = actionType || this.dragAction;
+      const targets = this.findUnitsInRange(x, y, action, core);
 
       // Clear markers for units no longer targeted
       this.currentTargets.forEach(target => {
@@ -194,7 +197,7 @@
     },
 
     /**
-     * Handle scene drag over
+     * Handle scene drag over (throttled for performance)
      */
     handleSceneDragOver(e, core) {
       e.preventDefault();
@@ -202,14 +205,28 @@
 
       if (!this.isDragging || !this.draggingUnit) return;
 
+      // Throttle updates to avoid lag (max 60fps)
+      const now = performance.now();
+      if (now - this.lastUpdateTime < this.throttleDelay) return;
+      this.lastUpdateTime = now;
+
       const rect = core.dom.scene.getBoundingClientRect();
       const x = e.clientX - rect.left;
       const y = e.clientY - rect.top;
 
+      // Determine effective action (auto-detect if dragging over enemy)
+      let effectiveAction = this.dragAction;
+      if (effectiveAction === "move") {
+        const enemyTarget = this.findUnitAtPosition(x, y, false, core);
+        if (enemyTarget) {
+          effectiveAction = "attack";
+        }
+      }
+
       // Show targeting preview for combat actions
-      if (this.dragAction === "attack" || this.dragAction === "jutsu" || this.dragAction === "ultimate") {
-        this.showDragTargetingPreview(x, y, core);
-        this.updateTargetMarkers(x, y, core);
+      if (effectiveAction === "attack" || effectiveAction === "jutsu" || effectiveAction === "ultimate") {
+        this.showDragTargetingPreview(x, y, core, effectiveAction);
+        this.updateTargetMarkers(x, y, core, effectiveAction);
       }
     },
 
@@ -230,16 +247,26 @@
 
       console.log(`[Drag] Drop at (${dropXPercent.toFixed(1)}%, ${dropYPercent.toFixed(1)}%), action: ${this.dragAction}`);
 
-      // Handle different drag actions
-      if (this.dragAction === "attack" || this.dragAction === "jutsu") {
-        // Update position
-        this.draggingUnit.pos = {
-          x: Math.max(0, Math.min(100, dropXPercent)),
-          y: Math.max(0, Math.min(100, dropYPercent))
-        };
+      // Update position
+      this.draggingUnit.pos = {
+        x: Math.max(0, Math.min(100, dropXPercent)),
+        y: Math.max(0, Math.min(100, dropYPercent))
+      };
 
+      // If no action was queued, check if we're dropping on enemies
+      let effectiveAction = this.dragAction;
+      if (effectiveAction === "move") {
+        const enemyTarget = this.findUnitAtPosition(dropX, dropY, false, core);
+        if (enemyTarget) {
+          effectiveAction = "attack"; // Default to attack when dropping on enemy
+          console.log(`[Drag] Auto-detected enemy target, defaulting to attack`);
+        }
+      }
+
+      // Handle different drag actions
+      if (effectiveAction === "attack" || effectiveAction === "jutsu") {
         // Find targets in range
-        const targets = this.findUnitsInRange(dropX, dropY, this.dragAction, core);
+        const targets = this.findUnitsInRange(dropX, dropY, effectiveAction, core);
 
         if (targets.length > 0) {
           console.log(`[Drag] Multi-hit: ${this.draggingUnit.name} hits ${targets.length} targets`);
@@ -247,7 +274,7 @@
           // Check for proximity combo attacks
           const proximityTargets = this.findProximityTargets(targets, core);
 
-          if (this.dragAction === "jutsu" && window.BattleCombat) {
+          if (effectiveAction === "jutsu" && window.BattleCombat) {
             window.BattleCombat.performMultiJutsu(this.draggingUnit, targets, core);
             // Trigger proximity combo attacks after jutsu
             if (proximityTargets.length > 0) {
@@ -273,17 +300,17 @@
           }
           if (core.turns) core.turns.endTurn(core);
         }
-      } else if (this.dragAction === "ultimate") {
-        // Update position
-        this.draggingUnit.pos = {
-          x: Math.max(0, Math.min(100, dropXPercent)),
-          y: Math.max(0, Math.min(100, dropYPercent))
-        };
-
+      } else if (effectiveAction === "ultimate") {
         // Ultimate hits all enemies
         const targets = core.enemyTeam.filter(u => u.stats.hp > 0);
         if (window.BattleCombat) {
           window.BattleCombat.performUltimate(this.draggingUnit, targets, core);
+        }
+        if (core.turns) core.turns.endTurn(core);
+      } else {
+        // Just repositioning (move action)
+        if (core.units) {
+          core.units.updateUnitPosition(this.draggingUnit, core);
         }
         if (core.turns) core.turns.endTurn(core);
       }
@@ -341,17 +368,18 @@
     /**
      * Show targeting preview during drag
      */
-    showDragTargetingPreview(x, y, core) {
+    showDragTargetingPreview(x, y, core, actionType = null) {
       if (!this.draggingUnit || !core.overlay) return;
 
+      const action = actionType || this.dragAction;
       const skills = window.BattleCombat?.getUnitSkills(this.draggingUnit);
       let shape, args, color;
 
-      if (this.dragAction === "ultimate" && skills?.ultimate) {
+      if (action === "ultimate" && skills?.ultimate) {
         shape = skills.ultimate.data?.shape || "sector";
         args = skills.ultimate.data?.shapeArgs || { radius: 260, angleDeg: 90 };
         color = "ultimate";
-      } else if (this.dragAction === "jutsu" && skills?.jutsu) {
+      } else if (action === "jutsu" && skills?.jutsu) {
         shape = skills.jutsu.data?.shape || "circle";
         args = skills.jutsu.data?.shapeArgs || { radius: 140 };
         color = "jutsu";
