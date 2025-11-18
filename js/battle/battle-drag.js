@@ -370,21 +370,18 @@
      */
     findUnitsInRange(x, y, actionType, core) {
       const skills = window.BattleCombat?.getUnitSkills(this.draggingUnit);
-      let radius;
+      let shape, args;
 
+      // Determine shape and args based on action type
       if (actionType === "jutsu" && skills?.jutsu) {
-        const shape = skills.jutsu.data?.shape;
-        const args = skills.jutsu.data?.shapeArgs || {};
-        radius = args.radius || 140;
-
-        if (shape === "rect") {
-          radius = Math.sqrt((args.w || 320) ** 2 + (args.h || 140) ** 2) / 2;
-        }
-        if (shape === "line") {
-          radius = args.length || 360;
-        }
+        shape = skills.jutsu.data?.shape || "circle";
+        args = skills.jutsu.data?.shapeArgs || { radius: 140 };
+      } else if (actionType === "ultimate" && skills?.ultimate) {
+        shape = skills.ultimate.data?.shape || "sector";
+        args = skills.ultimate.data?.shapeArgs || { radius: 260, angleDeg: 90 };
       } else {
-        radius = 100; // Basic attack range
+        shape = "circle";
+        args = { radius: 100 };
       }
 
       const targets = [];
@@ -400,11 +397,91 @@
         const unitCenterX = rect.left - sceneRect.left + rect.width / 2;
         const unitCenterY = rect.top - sceneRect.top + rect.height / 2;
 
-        const dist = Math.sqrt((x - unitCenterX) ** 2 + (y - unitCenterY) ** 2);
-        if (dist <= radius) targets.push(unit);
+        // Use shape-specific collision detection
+        if (this.isUnitInShape(unitCenterX, unitCenterY, x, y, shape, args)) {
+          targets.push(unit);
+        }
       }
 
       return targets;
+    },
+
+    /**
+     * Check if a point (unit position) is within a specific shape
+     */
+    isUnitInShape(unitX, unitY, shapeX, shapeY, shape, args) {
+      switch (shape) {
+        case "circle":
+          return this.isPointInCircle(unitX, unitY, shapeX, shapeY, args.radius || 140);
+
+        case "rect":
+          return this.isPointInRect(unitX, unitY, shapeX, shapeY, args.w || 320, args.h || 140);
+
+        case "line":
+          return this.isPointInLine(unitX, unitY, shapeX, shapeY, args.length || 360, args.width || 28);
+
+        case "sector":
+          return this.isPointInSector(unitX, unitY, shapeX, shapeY, args.radius || 260, args.angleDeg || 90);
+
+        default:
+          return false;
+      }
+    },
+
+    /**
+     * Circle collision detection
+     */
+    isPointInCircle(px, py, cx, cy, radius) {
+      const dist = Math.sqrt((px - cx) ** 2 + (py - cy) ** 2);
+      return dist <= radius;
+    },
+
+    /**
+     * Rectangle collision detection (centered)
+     */
+    isPointInRect(px, py, rectX, rectY, width, height) {
+      const left = rectX - width / 2;
+      const right = rectX + width / 2;
+      const top = rectY - height / 2;
+      const bottom = rectY + height / 2;
+
+      return px >= left && px <= right && py >= top && py <= bottom;
+    },
+
+    /**
+     * Line collision detection (horizontal line from origin)
+     */
+    isPointInLine(px, py, lineX, lineY, length, width) {
+      // Line extends horizontally from (lineX, lineY) to (lineX + length, lineY)
+      // with width/2 above and below
+      const left = lineX;
+      const right = lineX + length;
+      const top = lineY - width / 2;
+      const bottom = lineY + width / 2;
+
+      return px >= left && px <= right && py >= top && py <= bottom;
+    },
+
+    /**
+     * Sector (cone) collision detection
+     */
+    isPointInSector(px, py, sectorX, sectorY, radius, angleDeg) {
+      // First check if within radius
+      const dist = Math.sqrt((px - sectorX) ** 2 + (py - sectorY) ** 2);
+      if (dist > radius) return false;
+
+      // Calculate angle from sector origin to point
+      const angleToPoint = Math.atan2(py - sectorY, px - sectorX);
+
+      // Convert sector angle to radians
+      const sectorAngleRad = (angleDeg * Math.PI) / 180;
+      const halfSectorAngle = sectorAngleRad / 2;
+
+      // Check if point angle is within sector angle range
+      // Sector is centered horizontally (facing right, 0 degrees)
+      const normalizedAngle = angleToPoint;
+
+      return Math.abs(normalizedAngle) <= halfSectorAngle;
     },
 
     /**
