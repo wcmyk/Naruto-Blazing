@@ -210,9 +210,31 @@ body.page-characters {
 }
 
 /* ---------- Panels ---------- */
-.tab-panels { padding: 14px 20px 24px; }
-.tab-panel { display: none; }
+.tab-panel {
+  display: none;
+  min-height: 450px;
+  max-height: 450px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 8px;
+}
 .tab-panel.is-active { display: block; }
+
+/* Custom scrollbar for tab panels */
+.tab-panel::-webkit-scrollbar {
+  width: 6px;
+}
+.tab-panel::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
+.tab-panel::-webkit-scrollbar-thumb {
+  background: rgba(217, 179, 98, 0.4);
+  border-radius: 4px;
+}
+.tab-panel::-webkit-scrollbar-thumb:hover {
+  background: rgba(217, 179, 98, 0.6);
+}
 
 /* ---------- Stats Grid ---------- */
 .stats-grid {
@@ -512,8 +534,8 @@ body.page-characters {
 }
 .tab-panels{
   flex: 1 1 auto;
-  overflow: auto;                       /* scroll inside the right side only */
-  padding-bottom: 8px;
+  overflow: visible;                    /* let individual panels handle their own overflow */
+  padding: 14px 20px 24px;
 }
 .char-modal-actions{
   margin-top: 8px;
@@ -527,6 +549,12 @@ body.page-characters {
     max-height: 90vh;
   }
   #char-modal-img{ max-height: 42vh; }
+
+  /* Adjust tab panel height for mobile */
+  .tab-panel {
+    min-height: 350px;
+    max-height: 350px;
+  }
 }
 
 /* Slightly reduce global art size so tabs sit higher */
