@@ -378,13 +378,16 @@
         });
       }
 
+      // Fusion Bug A & B fix: Use correct method names
       // Remove the two units from inventory
-      window.InventoryChar?.removeByUid(slot1.uid);
-      window.InventoryChar?.removeByUid(slot2.uid);
+      window.InventoryChar?.removeOneByUid(slot1.uid);
+      window.InventoryChar?.removeOneByUid(slot2.uid);
 
       // Add the fusion result
-      const newChar = window.InventoryChar?.addByCharIdAndTier(
+      const fusionLevel = fusion.result.level || 1;
+      const newChar = window.InventoryChar?.addCopy(
         fusion.result.characterId,
+        fusionLevel,
         fusion.result.tier
       );
 

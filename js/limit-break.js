@@ -78,7 +78,11 @@
     if (!inst || !character) return false;
     if (!global.Progression) return false;
 
-    const tier = inst.tierCode || global.Progression.getTierBounds(character).minCode;
+    // Bug #13 fix: Validate getTierBounds result before accessing properties
+    const bounds = global.Progression.getTierBounds(character);
+    if (!bounds) return false;
+
+    const tier = inst.tierCode || bounds.minCode;
     const maxLB = MAX_LIMIT_BREAK_LEVELS[tier];
 
     // Can only limit break if at a tier that supports it
@@ -90,7 +94,7 @@
     if (currentLB >= maxLB) return false;
 
     // Must be at max tier for this character
-    const { maxCode } = global.Progression.getTierBounds(character);
+    const maxCode = bounds.maxCode;
     if (tier !== maxCode) return false;
 
     // Must be at max level for current limit break level
@@ -111,7 +115,9 @@
     if (!canLimitBreak(inst, character)) return false;
     if (!global.Resources) return false;
 
-    const tier = inst.tierCode || global.Progression.getTierBounds(character).minCode;
+    // Bug #13 fix: Validate getTierBounds result before accessing properties
+    const bounds = global.Progression?.getTierBounds(character);
+    const tier = inst.tierCode || bounds?.minCode || "6S";
     const currentLB = inst.limitBreakLevel || 0;
     const cost = await getLimitBreakCost(tier, currentLB, character);
 

@@ -227,6 +227,22 @@ body.page-characters {
 }
 .tab-panel.is-active { display: block; }
 
+/* Custom scrollbar for tab panels */
+.tab-panel::-webkit-scrollbar {
+  width: 6px;
+}
+.tab-panel::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
+.tab-panel::-webkit-scrollbar-thumb {
+  background: rgba(217, 179, 98, 0.4);
+  border-radius: 4px;
+}
+.tab-panel::-webkit-scrollbar-thumb:hover {
+  background: rgba(217, 179, 98, 0.6);
+}
+
 /* ---------- Stats Grid ---------- */
 .stats-grid {
   display: grid;

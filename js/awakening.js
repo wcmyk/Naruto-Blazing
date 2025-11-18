@@ -44,7 +44,9 @@
     if (!canAwaken(inst, character)) return false;
     if (!global.Resources) return false;
 
-    const tier = inst.tierCode || global.Progression.getTierBounds(character).minCode;
+    // Bug #11 fix: Validate getTierBounds result before accessing minCode
+    const bounds = global.Progression?.getTierBounds(character);
+    const tier = inst.tierCode || bounds?.minCode || "3S";
     const reqs = await getRequirements(tier);
 
     if (!reqs || !reqs.materials) return true; // No requirements = free awakening
@@ -56,7 +58,9 @@
   async function getMissingMaterials(inst, character) {
     if (!inst || !character) return {};
 
-    const tier = inst.tierCode || global.Progression.getTierBounds(character).minCode;
+    // Bug #11 fix: Validate getTierBounds result before accessing minCode
+    const bounds = global.Progression?.getTierBounds(character);
+    const tier = inst.tierCode || bounds?.minCode || "3S";
     const reqs = await getRequirements(tier);
 
     if (!reqs || !reqs.materials) return {};
@@ -113,7 +117,9 @@
       return null;
     }
 
-    const currentTier = inst.tierCode || global.Progression.getTierBounds(character).minCode;
+    // Bug #11 & #12 fix: Validate getTierBounds and computeEffectiveStatsLoreTier results
+    const bounds = global.Progression?.getTierBounds(character);
+    const currentTier = inst.tierCode || bounds?.minCode || "3S";
     const reqs = await getRequirements(currentTier);
 
     if (!reqs) return null;
@@ -137,16 +143,21 @@
       nextTier
     );
 
+    // Bug #12 fix: Validate stats computation results before accessing properties
+    if (!currentStats || !nextStats) {
+      return null;
+    }
+
     return {
       currentTier,
       nextTier,
       materials,
       canAwaken: canDoIt,
       canAfford: canPay,
-      currentStats: currentStats.stats,
-      nextStats: nextStats.stats,
-      currentCap: currentStats.cap,
-      nextCap
+      currentStats: currentStats.stats || {},
+      nextStats: nextStats.stats || {},
+      currentCap: currentStats.cap || 100,
+      nextCap: nextCap || 100
     };
   }
 

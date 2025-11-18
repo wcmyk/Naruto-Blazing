@@ -44,8 +44,19 @@
   const DUPE_GRID     = document.getElementById("dupe-grid");
   const DUPE_CANCEL   = document.getElementById("dupe-modal-cancel");
 
-  if (!GRID || !MODAL) {
-    console.warn("[characters] Missing .char-grid or #char-modal in DOM");
+  // Bug #3 fix: Validate all critical DOM elements exist before proceeding
+  const requiredElements = {
+    GRID, MODAL, MODAL_IMG, NP_NAME, NP_VERSION, NP_STARS,
+    STATS_WRAP, LV_VALUE_EL, LV_CAP_EL, BTN_LVUP, BTN_FEEDDUPE,
+    BTN_REMOVE, BTN_AWAKEN, SKILLS_WRAP, SUPPORT_WRAP, ABILITIES_WRAP
+  };
+
+  const missingElements = Object.entries(requiredElements)
+    .filter(([name, el]) => !el)
+    .map(([name]) => name);
+
+  if (missingElements.length > 0) {
+    console.error("[characters] Missing required DOM elements:", missingElements.join(", "));
     return;
   }
   if (typeof window.InventoryChar === "undefined") {

@@ -107,8 +107,8 @@
     },
 
     tryRevive(core, unit, reviveWindowTurns = 3) {
-      // Expect a KO state shape, adapt if yours differ
-      if (!unit || unit.stats.hp > 0) return;
+      // Bug #10 fix: Validate unit.stats exists before accessing
+      if (!unit || !unit.stats || unit.stats.hp > 0) return;
       const diedAtTurn = unit.diedAtTurn ?? -Infinity;
       const currentTurn = core.turns?.globalTurn ?? 0;
       if (currentTurn - diedAtTurn <= reviveWindowTurns) {
