@@ -271,16 +271,14 @@
         <div class="stat-row"><span class="stat-label">Health</span><span class="stat-value">${stats.hp ?? "-"}</span></div>
         <div class="stat-row"><span class="stat-label">Attack</span><span class="stat-value">${stats.atk ?? "-"}</span></div>
         <div class="stat-row"><span class="stat-label">Defense</span><span class="stat-value">${stats.def ?? "-"}</span></div>
-        <div class="stat-row"><span class="stat-label">Speed</span><span class="stat-value">${stats.speed ?? "-"}</span></div>
-        <div class="stat-row"><span class="stat-label">Chakra</span><span class="stat-value">${stats.chakra ?? "-"}</span></div>`;
+        <div class="stat-row"><span class="stat-label">Speed</span><span class="stat-value">${stats.speed ?? "-"}</span></div>`;
     } else {
       const s = c.statsBase || {};
       STATS_WRAP.innerHTML = `
         <div class="stat-row"><span class="stat-label">Health</span><span class="stat-value">${s.hp ?? "-"}</span></div>
         <div class="stat-row"><span class="stat-label">Attack</span><span class="stat-value">${s.atk ?? "-"}</span></div>
         <div class="stat-row"><span class="stat-label">Defense</span><span class="stat-value">${s.def ?? "-"}</span></div>
-        <div class="stat-row"><span class="stat-label">Speed</span><span class="stat-value">${s.speed ?? "-"}</span></div>
-        <div class="stat-row"><span class="stat-label">Chakra</span><span class="stat-value">${s.chakra ?? "-"}</span></div>`;
+        <div class="stat-row"><span class="stat-label">Speed</span><span class="stat-value">${s.speed ?? "-"}</span></div>`;
     }
 
     let cap = tierCap(c, tier);

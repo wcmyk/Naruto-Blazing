@@ -37,7 +37,7 @@
 
   // Defaults if a character doesn't specify growth curves or power weights
   const DEFAULT_GROWTH = 1.0; // linear
-  const DEFAULT_WEIGHTS = { hp:0.35, atk:0.35, def:0.15, speed:0.10, chakra:0.05 };
+  const DEFAULT_WEIGHTS = { hp:0.35, atk:0.35, def:0.15, speed:0.15 };
 
   /* ===============
    * Small helpers
@@ -76,8 +76,7 @@
       (stats.hp    || 0) * (weights.hp    ?? 0.35) +
       (stats.atk   || 0) * (weights.atk   ?? 0.35) +
       (stats.def   || 0) * (weights.def   ?? 0.15) +
-      (spdTerm          ) * (weights.speed ?? 0.10) * 30 +
-      (stats.chakra|| 0) * (weights.chakra?? 0.05) * 40
+      (spdTerm          ) * (weights.speed ?? 0.15) * 30
     );
   }
 
@@ -152,8 +151,7 @@
     if (!max) {
       const fixed = {
         hp: base.hp|0, atk: base.atk|0, def: base.def|0,
-        speed: base.speed ?? base.spd ?? 0,
-        chakra: base.chakra ?? base.cost ?? 0
+        speed: base.speed ?? base.spd ?? 0
       };
       return { stats: fixed, power: computePower(fixed, c?.powerWeights), cap, tier: clampedTier, minCode, maxCode, scaleApplied: 1 };
     }
@@ -166,8 +164,7 @@
       hp:     Math.round((base.hp||0)     + (max.hp||0     - (base.hp||0))     * fracToMax),
       atk:    Math.round((base.atk||0)    + (max.atk||0    - (base.atk||0))    * fracToMax),
       def:    Math.round((base.def||0)    + (max.def||0    - (base.def||0))    * fracToMax),
-      speed:  Math.round(((base.speed??base.spd)||0) + (((max.speed??max.spd)||0) - ((base.speed??base.spd)||0)) * fracToMax),
-      chakra: Math.round(((base.chakra??base.cost)||0) + (((max.chakra??max.cost)||0) - ((base.chakra??base.cost)||0)) * fracToMax)
+      speed:  Math.round(((base.speed??base.spd)||0) + (((max.speed??max.spd)||0) - ((base.speed??base.spd)||0)) * fracToMax)
     };
 
     // Per-stat growth
@@ -178,8 +175,7 @@
       hp:     statAtLevel(base.hp||0,     target.hp||0,     L, cap, curveFor('hp')),
       atk:    statAtLevel(base.atk||0,    target.atk||0,    L, cap, curveFor('atk')),
       def:    statAtLevel(base.def||0,    target.def||0,    L, cap, curveFor('def')),
-      speed:  statAtLevel((base.speed??base.spd)||0,  target.speed||0,  L, cap, curveFor('speed')),
-      chakra: statAtLevel((base.chakra??base.cost)||0, target.chakra||0, L, cap, curveFor('chakra'))
+      speed:  statAtLevel((base.speed??base.spd)||0,  target.speed||0,  L, cap, curveFor('speed'))
     };
 
     // Lore normalization (mild)
@@ -200,8 +196,7 @@
         hp:     Math.round(eff.hp     * clampedScale),
         atk:    Math.round(eff.atk    * clampedScale),
         def:    Math.round(eff.def    * clampedScale),
-        speed:  Math.round(eff.speed  * clampedScale),
-        chakra: Math.round(eff.chakra * clampedScale)
+        speed:  Math.round(eff.speed  * clampedScale)
       };
       return { stats: eff, power: computePower(eff, weights), cap, tier: clampedTier, minCode, maxCode, scaleApplied: clampedScale };
     }
