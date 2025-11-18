@@ -319,27 +319,28 @@
     },
 
     addItemsToInventory(item, quantity) {
-      // Get or create inventory
-      let inventory = JSON.parse(localStorage.getItem('blazing_shop_inventory_v1') || '{}');
+      // Use unified Resources system instead of separate shop inventory
+      if (window.Resources) {
+        // Handle special items that add resources directly (like ryo pouches)
+        if (item.value) {
+          // This is a resource package (e.g., ryo_small gives ryo)
+          for (const [resourceId, amount] of Object.entries(item.value)) {
+            window.Resources.add(resourceId, amount * quantity);
+            console.log(`[Shop] Added ${amount * quantity} ${resourceId} to resources`);
+          }
+        } else {
+          // This is a regular item (ramen, scrolls, etc.)
+          window.Resources.add(item.id, quantity);
+          console.log(`[Shop] Added ${quantity}x ${item.name} to inventory`);
+        }
 
-      // Initialize category if doesn't exist
-      if (!inventory[item.category]) {
-        inventory[item.category] = {};
+        // Refresh inventory UI if it's available
+        if (window.InventoryManager && typeof window.InventoryManager.refresh === 'function') {
+          window.InventoryManager.refresh();
+        }
+      } else {
+        console.error('[Shop] Resources system not available!');
       }
-
-      // Add or increment item count
-      if (!inventory[item.category][item.id]) {
-        inventory[item.category][item.id] = {
-          ...item,
-          count: 0
-        };
-      }
-
-      inventory[item.category][item.id].count += quantity;
-
-      // Save inventory
-      localStorage.setItem('blazing_shop_inventory_v1', JSON.stringify(inventory));
-      console.log(`[Shop] Added ${quantity}x ${item.name} to inventory`);
     },
 
     showSuccessModal(item, quantity) {
