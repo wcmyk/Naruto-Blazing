@@ -96,14 +96,13 @@ class DevPanel {
   }
 
   addCurrency(type, amount) {
-    if (!window.Currency) {
-      console.warn('Currency system not loaded');
+    if (!window.Resources) {
+      console.warn('Resources system not loaded');
       return;
     }
 
-    const key = type === 'pearls' ? window.Currency.keys.pearls : window.Currency.keys.coins;
-    const current = window.Currency.get(key, 0);
-    window.Currency.set(key, current + amount);
+    const key = type === 'pearls' ? 'ninja_pearls' : 'ryo';
+    window.Resources.add(key, amount);
 
     // Update display
     if (window.SummonUI) {
@@ -115,11 +114,12 @@ class DevPanel {
   }
 
   resetCurrency() {
-    if (!window.Currency) return;
+    if (!window.Resources) return;
 
     if (confirm('Reset all currency to 0?')) {
-      window.Currency.set(window.Currency.keys.pearls, 0);
-      window.Currency.set(window.Currency.keys.coins, 0);
+      window.Resources.set('ninja_pearls', 0);
+      window.Resources.set('ryo', 0);
+      window.Resources.set('shinobites', 0);
 
       // Update display
       if (window.SummonUI) {

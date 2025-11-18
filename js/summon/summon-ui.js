@@ -61,19 +61,19 @@ class SummonUIController {
     // Modal overlay click to close
     this.elements.modal?.querySelector('.modal-overlay')?.addEventListener('click', () => this.hideResults());
 
-    // Listen for currency changes
-    window.addEventListener('currencyChanged', () => this.updateCurrencyDisplay());
+    // Refresh currency display every 2 seconds to catch changes from other pages
+    setInterval(() => this.updateCurrencyDisplay(), 2000);
   }
 
   updateCurrencyDisplay() {
-    const pearls = window.Currency?.get(window.Currency?.keys?.pearls, 0) || 0;
-    const coins = window.Currency?.get(window.Currency?.keys?.coins, 0) || 0;
+    const pearls = window.Resources?.get('ninja_pearls') || 0;
+    const ryo = window.Resources?.get('ryo') || 0;
 
     if (this.elements.playerPearls) {
-      this.elements.playerPearls.textContent = pearls;
+      this.elements.playerPearls.textContent = pearls.toLocaleString();
     }
     if (this.elements.playerCoins) {
-      this.elements.playerCoins.textContent = coins;
+      this.elements.playerCoins.textContent = ryo.toLocaleString();
     }
 
     // Update button states
@@ -161,7 +161,7 @@ class SummonUIController {
   }
 
   async handleSingleSummon() {
-    const pearls = window.Currency?.get(window.Currency?.keys?.pearls, 0) || 0;
+    const pearls = window.Resources?.get('ninja_pearls') || 0;
 
     if (pearls < this.costs.single) {
       alert('Not enough Ninja Pearls!');
@@ -169,7 +169,7 @@ class SummonUIController {
     }
 
     // Deduct cost
-    window.Currency?.set(window.Currency?.keys?.pearls, pearls - this.costs.single);
+    window.Resources?.subtract('ninja_pearls', this.costs.single);
 
     // Perform summon
     const result = window.FibonacciSummonEngine?.performSingleSummon();
@@ -192,7 +192,7 @@ class SummonUIController {
   }
 
   async handleMultiSummon() {
-    const pearls = window.Currency?.get(window.Currency?.keys?.pearls, 0) || 0;
+    const pearls = window.Resources?.get('ninja_pearls') || 0;
 
     if (pearls < this.costs.multi) {
       alert('Not enough Ninja Pearls!');
@@ -200,7 +200,7 @@ class SummonUIController {
     }
 
     // Deduct cost
-    window.Currency?.set(window.Currency?.keys?.pearls, pearls - this.costs.multi);
+    window.Resources?.subtract('ninja_pearls', this.costs.multi);
 
     // Perform multi summon
     const results = window.FibonacciSummonEngine?.performMultiSummon();
