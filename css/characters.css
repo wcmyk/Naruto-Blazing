@@ -130,22 +130,26 @@ body.page-characters {
 }
 
 /* ---------- Close Button ---------- */
-#char-modal-close {
-  position: absolute;
-  top: 12px;
-  right: 14px;
-  background: rgba(0,0,0,0.6);
+.char-close-btn {
+  font-family: "Cinzel", serif;
+  padding: 8px 20px;
+  background: rgba(40, 40, 40, 0.9);
+  border: 1px solid rgba(255, 215, 120, 0.2);
+  border-radius: 8px;
   color: #fff;
-  border: none;
-  font-size: 22px;
-  line-height: 1;
-  border-radius: 50%;
-  width: 32px;
-  height: 32px;
+  font-size: 14px;
+  font-weight: 600;
   cursor: pointer;
-  transition: background .2s ease;
+  transition: all 0.2s ease;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
 }
-#char-modal-close:hover { background: rgba(255,255,255,0.15); }
+.char-close-btn:hover {
+  background: rgba(60, 60, 60, 0.9);
+  border-color: rgba(255, 215, 120, 0.4);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
 
 /* ---------- Nameplate (Tube) ---------- */
 .nameplate {
@@ -210,8 +214,17 @@ body.page-characters {
 }
 
 /* ---------- Panels ---------- */
-.tab-panels { padding: 14px 20px 24px; }
-.tab-panel { display: none; }
+.tab-panels {
+  padding: 14px 20px 24px;
+  min-height: 450px; /* Ensure consistent minimum height */
+  max-height: 450px; /* Lock maximum height */
+  overflow-y: auto;  /* Enable scrolling for overflow content */
+}
+.tab-panel {
+  display: none;
+  min-height: 420px; /* All tabs have same minimum height */
+  overflow-y: auto;  /* Individual tab scrolling */
+}
 .tab-panel.is-active { display: block; }
 
 /* ---------- Stats Grid ---------- */
@@ -234,6 +247,10 @@ body.page-characters {
 .stat-value { color: #fff; }
 
 /* ---------- Level / Growth Section ---------- */
+.growth-ops {
+  max-height: 320px;  /* Prevent overflow in status tab */
+  overflow-y: auto;   /* Allow scrolling if needed */
+}
 .level-strip {
   display: flex;
   align-items: center;
@@ -512,8 +529,10 @@ body.page-characters {
 }
 .tab-panels{
   flex: 1 1 auto;
-  overflow: auto;                       /* scroll inside the right side only */
-  padding-bottom: 8px;
+  min-height: 450px;                    /* consistent minimum height */
+  max-height: 450px;                    /* lock maximum height */
+  overflow-y: auto;                     /* scroll inside the right side only */
+  padding: 14px 20px 8px;
 }
 .char-modal-actions{
   margin-top: 8px;
@@ -527,6 +546,13 @@ body.page-characters {
     max-height: 90vh;
   }
   #char-modal-img{ max-height: 42vh; }
+  .tab-panels{
+    min-height: 350px;
+    max-height: 350px;
+  }
+  .tab-panel{
+    min-height: 320px;
+  }
 }
 
 /* Slightly reduce global art size so tabs sit higher */
