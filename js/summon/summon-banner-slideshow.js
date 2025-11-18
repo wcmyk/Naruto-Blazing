@@ -21,8 +21,19 @@ class BannerSlideshow {
     this.createNavigation();
     this.attachEventListeners();
     this.startAutoAdvance();
+    this.initializePreviewSync();
 
     console.log('✅ Banner slideshow initialized with', this.banners.length, 'banners');
+  }
+
+  /**
+   * Initialize preview sync - set first preview as active
+   */
+  initializePreviewSync() {
+    const previewItems = document.querySelectorAll('.preview-item');
+    if (previewItems.length > 0) {
+      previewItems[0].classList.add('active');
+    }
   }
 
   loadBanners() {
@@ -188,6 +199,17 @@ class BannerSlideshow {
       });
     });
 
+    // Preview sync - clicking preview updates main slideshow
+    const previewItems = document.querySelectorAll('.preview-item');
+    previewItems.forEach((item, index) => {
+      item.addEventListener('click', () => {
+        // Map preview index to slideshow index
+        if (index < this.banners.length) {
+          this.goToSlide(index);
+        }
+      });
+    });
+
     // Pause on hover
     this.container.addEventListener('mouseenter', () => this.pauseAutoAdvance());
     this.container.addEventListener('mouseleave', () => this.resumeAutoAdvance());
@@ -234,6 +256,23 @@ class BannerSlideshow {
     }, 800);
 
     this.currentIndex = index;
+
+    // Sync with preview - update preview active state
+    this.syncPreview(index);
+  }
+
+  /**
+   * Sync preview items with current slideshow index
+   */
+  syncPreview(index) {
+    const previewItems = document.querySelectorAll('.preview-item');
+    previewItems.forEach((item, i) => {
+      if (i === index) {
+        item.classList.add('active');
+      } else {
+        item.classList.remove('active');
+      }
+    });
   }
 
   startAutoAdvance() {
