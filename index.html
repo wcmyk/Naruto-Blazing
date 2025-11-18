@@ -7,6 +7,8 @@
   <link rel="stylesheet" href="css/background.css" />
   <link rel="stylesheet" href="css/top-bar.css" />
   <link rel="stylesheet" href="css/character-vignette.css" />
+  <link rel="stylesheet" href="css/dashboard.css" />
+  <link rel="stylesheet" href="css/summon-banner-carousel.css" />
 </head>
 
 <body>
@@ -24,10 +26,34 @@
 
   <!-- Top Bar Overlay - Ninja Rank & Currency HUD -->
   <div class="top-bar">
-    <div class="ninja-rank-container">
-      <span class="ninja-rank-label">Ninja Rank:</span>
-      <span class="ninja-rank-value" id="ninja-rank-value">1</span>
+    <div class="ninja-rank-progress-container">
+      <div class="ninja-rank-info">
+        <span class="ninja-rank-label">Ninja Rank:</span>
+        <span class="ninja-rank-value" id="ninja-rank-value">1</span>
+      </div>
+      <div class="rank-progress-bar-wrapper">
+        <div class="rank-progress-bar-fill" id="rank-progress-bar-fill" style="width: 0%;"></div>
+        <div class="rank-progress-text" id="rank-progress-text">0%</div>
+      </div>
     </div>
+
+    <div class="collection-stats" id="collection-stats">
+      <span class="collection-icon">📚</span>
+      <span class="collection-value" id="collection-value">0%</span>
+      <span class="collection-label">Collection</span>
+    </div>
+
+    <div class="top-bar-icons">
+      <button class="icon-button" id="btn-calendar" aria-label="Calendar" title="Daily Streak Calendar">
+        <img src="assets/icons/main/calendar.png" alt="Calendar" onerror="this.style.display='none'; this.parentElement.innerHTML='📅';">
+      </button>
+
+      <button class="icon-button" id="btn-mailbox" aria-label="Mailbox" title="Mailbox">
+        <img src="assets/icons/main/mailbox.png" alt="Mailbox" onerror="this.style.display='none'; this.parentElement.innerHTML='📬';">
+        <div class="icon-badge" id="mailbox-badge" style="display: none;">0</div>
+      </button>
+    </div>
+
     <div class="currency-hud">
       <div class="currency-item ninja-pearls">
         <img src="assets/icons/currency/ninjapearl.png" alt="Ninja Pearls" class="currency-icon"
@@ -45,6 +71,34 @@
         <span class="currency-amount" id="currency-ryo">0</span>
       </div>
     </div>
+  </div>
+
+  <!-- Daily Login Indicator -->
+  <div class="daily-login-indicator" id="daily-login-indicator">
+    <div class="daily-login-icon">🎁</div>
+    <div class="daily-login-text">
+      <div class="daily-login-label">Daily Login</div>
+      <div class="daily-login-day" id="daily-login-day">Day 1/7</div>
+    </div>
+  </div>
+
+  <!-- Announcement Banner Container -->
+  <div class="announcement-banner-container" id="announcement-banner-container"></div>
+
+  <!-- Main Content Area -->
+  <div class="dashboard-banner-section">
+    <!-- Announcements Header -->
+    <div class="banner-section-header">
+      <h2 class="slanted-header">ANNOUNCEMENTS</h2>
+    </div>
+
+    <!-- Time Limited Banner Header -->
+    <div class="banner-section-header" style="margin-top: 40px;">
+      <h2 class="slanted-header">TIME LIMITED BANNER</h2>
+    </div>
+
+    <!-- Full-Width Banner Slideshow -->
+    <div class="banner-slideshow" id="dashboard-banner-slideshow"></div>
   </div>
 
   <!-- HUD Bottom Bar -->
@@ -90,10 +144,49 @@
   <script src="js/daily-missions.js"></script>
   <script src="js/top-bar.js"></script>
   <script src="js/character-vignette.js"></script>
+  <script src="js/dashboard-announcements.js"></script>
+  <script src="js/dashboard-banner-slideshow.js"></script>
+  <script src="js/dashboard-calendar.js"></script>
+  <script src="js/dashboard-stats.js"></script>
+  <script src="js/dashboard-mailbox.js"></script>
 
   <script>
     document.addEventListener("DOMContentLoaded", async () => {
       console.log("✅ JavaScript loaded!");
+
+      // Initialize Dashboard Systems
+      console.log("🎮 Initializing Dashboard Systems...");
+
+      // Initialize Calendar and Daily Streak
+      if (window.DashboardCalendar) {
+        window.DashboardCalendar.init();
+        updateDailyLoginDisplay();
+      }
+
+      // Initialize Mailbox
+      if (window.DashboardMailbox) {
+        window.DashboardMailbox.init();
+        updateMailboxBadge();
+      }
+
+      // Initialize Stats
+      if (window.DashboardStats) {
+        await window.DashboardStats.init();
+        updateCollectionStats();
+      }
+
+      // Initialize Announcements
+      if (window.DashboardAnnouncements) {
+        await window.DashboardAnnouncements.init('announcement-banner-container');
+      }
+
+      // Initialize Banner Slideshow
+      if (window.DashboardBannerSlideshow) {
+        await window.DashboardBannerSlideshow.init('dashboard-banner-slideshow');
+      }
+
+      // Update Ninja Rank Progress Bar
+      updateRankProgressBar();
 
       // Process login bonus
       if (typeof window.DailyMissions !== "undefined") {
@@ -104,6 +197,113 @@
             .join(", ");
           alert(`Login Bonus Day ${loginResult.loginDay}!\n\nRewards:\n${rewardText}`);
         }
+      }
+
+      // Helper Functions
+      function updateDailyLoginDisplay() {
+        const streak = window.DashboardCalendar.getStreak();
+        const dayElement = document.getElementById('daily-login-day');
+        const indicator = document.getElementById('daily-login-indicator');
+
+        if (dayElement) {
+          dayElement.textContent = `Day ${streak}/7`;
+        }
+
+        // Add notification dot if login bonus is available
+        if (window.DailyMissions) {
+          const loginResult = window.DailyMissions.checkLoginStatus();
+          if (loginResult && !loginResult.alreadyClaimed) {
+            indicator.classList.add('has-reward');
+          }
+        }
+      }
+
+      function updateMailboxBadge() {
+        const unreadCount = window.DashboardMailbox.getUnreadCount();
+        const badge = document.getElementById('mailbox-badge');
+
+        if (badge) {
+          if (unreadCount > 0) {
+            badge.textContent = unreadCount > 99 ? '99+' : unreadCount;
+            badge.style.display = 'flex';
+          } else {
+            badge.style.display = 'none';
+          }
+        }
+      }
+
+      function updateCollectionStats() {
+        const percentage = window.DashboardStats.getCollectionPercentage();
+        const valueElement = document.getElementById('collection-value');
+
+        if (valueElement) {
+          valueElement.textContent = percentage.toFixed(1) + '%';
+        }
+      }
+
+      function updateRankProgressBar() {
+        // Get current rank data from localStorage or default
+        const rankData = JSON.parse(localStorage.getItem('ninjaRank') || '{"level": 1, "xp": 0, "xpToNext": 100}');
+
+        const percentage = Math.min(100, (rankData.xp / rankData.xpToNext) * 100);
+        const fillElement = document.getElementById('rank-progress-bar-fill');
+        const textElement = document.getElementById('rank-progress-text');
+
+        if (fillElement) {
+          fillElement.style.width = percentage + '%';
+        }
+
+        if (textElement) {
+          textElement.textContent = Math.floor(percentage) + '%';
+        }
+      }
+
+      // Calendar Button Event
+      const btnCalendar = document.getElementById('btn-calendar');
+      if (btnCalendar) {
+        btnCalendar.addEventListener('click', () => {
+          console.log('📅 Calendar clicked');
+          if (window.DashboardCalendar) {
+            window.DashboardCalendar.openCalendar();
+          }
+        });
+      }
+
+      // Mailbox Button Event
+      const btnMailbox = document.getElementById('btn-mailbox');
+      if (btnMailbox) {
+        btnMailbox.addEventListener('click', () => {
+          console.log('📬 Mailbox clicked');
+          if (window.DashboardMailbox) {
+            window.DashboardMailbox.openMailbox();
+          }
+        });
+      }
+
+      // Daily Login Indicator Click Event
+      const dailyLoginIndicator = document.getElementById('daily-login-indicator');
+      if (dailyLoginIndicator) {
+        dailyLoginIndicator.addEventListener('click', async () => {
+          console.log('🎁 Daily Login clicked');
+
+          if (typeof window.DailyMissions !== "undefined") {
+            const loginResult = await window.DailyMissions.processLogin();
+
+            if (loginResult.ok) {
+              if (loginResult.alreadyClaimed) {
+                alert(`You've already claimed today's login bonus!\n\nCurrent Login Day: ${loginResult.loginDay}/7\n\nCome back tomorrow for more rewards!`);
+              } else {
+                const rewardText = Object.entries(loginResult.reward)
+                  .map(([mat, amt]) => `${mat}: ${amt}`)
+                  .join("\n");
+                alert(`🎁 Login Bonus Day ${loginResult.loginDay}!\n\nRewards Claimed:\n${rewardText}`);
+
+                // Remove notification dot after claiming
+                dailyLoginIndicator.classList.remove('has-reward');
+              }
+            }
+          }
+        });
       }
 
       // Background cycling
