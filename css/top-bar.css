@@ -2,6 +2,12 @@
    TOP BAR OVERLAY - Ninja Rank & Currency HUD
    =================================================== */
 
+/* === Body Padding to Prevent Cutoff === */
+body {
+  padding-top: 70px; /* Top bar height (60px) + spacing (10px) */
+  box-sizing: border-box;
+}
+
 /* === Top Bar Container === */
 .top-bar {
   position: fixed;
@@ -17,6 +23,7 @@
   padding: 0 20px;
   z-index: 1000;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(8px);
   font-family: "Cinzel", serif;
 }
 
@@ -116,6 +123,10 @@
 
 /* === Responsive Design === */
 @media (max-width: 768px) {
+  body {
+    padding-top: 60px; /* Reduced padding for tablet */
+  }
+
   .top-bar {
     height: 50px;
     padding: 0 12px;
@@ -150,6 +161,10 @@
 }
 
 @media (max-width: 480px) {
+  body {
+    padding-top: 100px; /* More padding for collapsed mobile view */
+  }
+
   .top-bar {
     flex-direction: column;
     height: auto;
