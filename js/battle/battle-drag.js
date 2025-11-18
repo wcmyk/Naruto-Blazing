@@ -245,7 +245,8 @@
       const dropXPercent = (dropX / rect.width) * 100;
       const dropYPercent = (dropY / rect.height) * 100;
 
-      console.log(`[Drag] Drop at (${dropXPercent.toFixed(1)}%, ${dropYPercent.toFixed(1)}%), action: ${this.dragAction}`);
+      console.log(`[Drag] 🎯 Drop at (${dropXPercent.toFixed(1)}%, ${dropYPercent.toFixed(1)}%), action: ${this.dragAction}`);
+      console.log(`[Drag] 🔍 DEBUGGING ENABLED - If you don't see more debug messages below, you're loading cached code!`);
 
       // Update position
       this.draggingUnit.pos = {
