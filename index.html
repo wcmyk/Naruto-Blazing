@@ -161,7 +161,7 @@
       // Initialize Calendar and Daily Streak
       if (window.DashboardCalendar) {
         window.DashboardCalendar.init();
-        updateDailyLoginDisplay();
+        await updateDailyLoginDisplay();
       }
 
       // Initialize Mailbox
@@ -201,7 +201,7 @@
       }
 
       // Helper Functions
-      function updateDailyLoginDisplay() {
+      async function updateDailyLoginDisplay() {
         const streak = window.DashboardCalendar.getStreak();
         const dayElement = document.getElementById('daily-login-day');
         const indicator = document.getElementById('daily-login-indicator');
@@ -212,8 +212,8 @@
 
         // Add notification dot if login bonus is available
         if (window.DailyMissions) {
-          const loginResult = window.DailyMissions.checkLoginStatus();
-          if (loginResult && !loginResult.alreadyClaimed) {
+          const loginStatus = await window.DailyMissions.getLoginStatus();
+          if (loginStatus && !loginStatus.claimedToday) {
             indicator.classList.add('has-reward');
           }
         }
