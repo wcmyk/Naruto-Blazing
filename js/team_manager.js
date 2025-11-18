@@ -451,7 +451,7 @@
     previewStars.innerHTML = renderStars(starsFromTier(tier));
 
     // Stats
-    let stats = { hp: 0, atk: 0, def: 0, speed: 0, chakra: 0 };
+    let stats = { hp: 0, atk: 0, def: 0, speed: 0 };
     if (window.Progression?.computeEffectiveStatsLoreTier) {
       const result = window.Progression.computeEffectiveStatsLoreTier(
         char, inst.level, tier, { normalize: true }
@@ -459,7 +459,7 @@
       stats = result.stats;
     } else {
       const src = pickStats(char, DISPLAY_MODE);
-      stats = { hp: src.hp || 0, atk: src.atk || 0, def: src.def || 0, speed: src.speed || 0, chakra: src.chakra || 0 };
+      stats = { hp: src.hp || 0, atk: src.atk || 0, def: src.def || 0, speed: src.speed || 0 };
     }
 
     previewStats.innerHTML = `
@@ -467,7 +467,6 @@
       <div class="preview-stat"><span class="preview-stat-label">Attack</span><span class="preview-stat-value">${safeNum(stats.atk,0).toLocaleString()}</span></div>
       <div class="preview-stat"><span class="preview-stat-label">Defense</span><span class="preview-stat-value">${safeNum(stats.def,0).toLocaleString()}</span></div>
       <div class="preview-stat"><span class="preview-stat-label">Speed</span><span class="preview-stat-value">${safeNum(stats.speed,0)}</span></div>
-      <div class="preview-stat"><span class="preview-stat-label">Chakra</span><span class="preview-stat-value">${safeNum(stats.chakra,0)}</span></div>
     `;
 
     previewModal.classList.add("open");
