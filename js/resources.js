@@ -80,9 +80,9 @@
         "scroll_wisdom": 20,
         "scroll_heart": 20,
         "character_stone": 30,
-        "ryo": 100000,
-        "ninja_pearls": 500,
-        "shinobites": 50
+        "ryo": 0,
+        "ninja_pearls": 0,
+        "shinobites": 0
       };
       save();
     }
@@ -115,6 +115,7 @@
     const current = get(materialId);
     _resources[materialId] = Math.max(0, current + (Number(amount) || 0));
     save();
+    notifyTopBar(materialId);
     return _resources[materialId];
   }
 
@@ -123,6 +124,7 @@
     const newAmount = Math.max(0, current - (Number(amount) || 0));
     _resources[materialId] = newAmount;
     save();
+    notifyTopBar(materialId);
     return newAmount;
   }
 
@@ -142,7 +144,18 @@
   function set(materialId, amount) {
     _resources[materialId] = Math.max(0, Number(amount) || 0);
     save();
+    notifyTopBar(materialId);
     return _resources[materialId];
+  }
+
+  // ---------- TopBar Integration ----------
+  function notifyTopBar(materialId) {
+    // Auto-refresh TopBar when currencies change
+    if (['ryo', 'ninja_pearls', 'shinobites'].includes(materialId)) {
+      if (global.TopBar && typeof global.TopBar.refresh === 'function') {
+        global.TopBar.refresh();
+      }
+    }
   }
 
   // ---------- Material Info ----------
