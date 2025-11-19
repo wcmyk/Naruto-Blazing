@@ -15,7 +15,7 @@ class MusicPlayer {
   /**
    * Initialize the music player
    */
-  init(trackPath = 'assets/audio/bgm/menu.mp3') {
+  init(trackPath = 'assets/music/general.mp3') {
     // Create or reuse existing audio element
     this.audio = document.getElementById('game-music');
 
@@ -36,12 +36,26 @@ class MusicPlayer {
     // Apply saved preferences
     this.audio.volume = this.isMuted ? 0 : this.volume;
 
+    // Add error event listener for debugging
+    this.audio.addEventListener('error', (e) => {
+      console.error('❌ Music failed to load:', {
+        path: trackPath,
+        error: this.audio.error?.message || 'Unknown error',
+        code: this.audio.error?.code
+      });
+    });
+
+    // Add loaded event listener
+    this.audio.addEventListener('loadeddata', () => {
+      console.log('✅ Music file loaded successfully:', trackPath);
+    });
+
     // Auto-play if user had it playing before
     if (this.isPlaying) {
       this.play();
     }
 
-    console.log('🎵 Music player initialized');
+    console.log('🎵 Music player initialized with track:', trackPath);
   }
 
   /**
@@ -56,7 +70,14 @@ class MusicPlayer {
       this.updateUI();
       console.log('▶️ Music playing');
     }).catch(error => {
-      console.warn('⚠️ Autoplay blocked. User interaction required.', error);
+      console.warn('⚠️ Autoplay blocked by browser. Click the play button to start music.', error);
+      // Show music panel if it exists to draw attention
+      const panel = document.getElementById('music-panel');
+      if (panel && panel.classList.contains('collapsed')) {
+        panel.classList.remove('collapsed');
+        const collapseBtn = document.getElementById('music-collapse-btn');
+        if (collapseBtn) collapseBtn.textContent = '−';
+      }
     });
   }
 
