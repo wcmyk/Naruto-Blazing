@@ -97,31 +97,12 @@ html, body.page-battle {
 #speed-gauge-track {
   position: absolute;
   top: 30px;
-  left: 10%;
-  width: 80%;
-  height: 50px;
-  background: linear-gradient(90deg, rgba(10, 10, 15, 0.85) 0%, rgba(10, 10, 15, 0.75) 100%);
-  border: 2px solid rgba(217, 179, 98, 0.4);
-  border-radius: 25px;
+  left: 5%;
+  width: 90%;
+  height: 80px;
+  background: url("../assets/ui/gauges/speedgauge.png") center center / contain no-repeat;
   z-index: 45;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
-}
-
-/* Speed gauge background bar */
-#speed-gauge-track::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 100%;
-  height: 8px;
-  background: linear-gradient(90deg,
-    rgba(139, 105, 20, 0.3) 0%,
-    rgba(212, 175, 55, 0.5) 50%,
-    rgba(255, 215, 0, 0.7) 100%);
-  border-radius: 4px;
-  z-index: -1;
 }
 
 /* Speed Marker - Absolutely positioned on the track */
@@ -289,11 +270,12 @@ html, body.page-battle {
   cursor: grabbing;
 }
 
-/* === Action Panel === */
+/* === Action Panel === Monster Legends Vertical Layout === */
 #action-panel {
   position: absolute;
-  bottom: 95px;
   left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
   background: rgba(10, 10, 15, 0.85);
   border: 1px solid rgba(217, 179, 98, 0.4);
   border-radius: 10px;
@@ -333,59 +315,104 @@ html, body.page-battle {
   font-size: 9px;
 }
 
+/* Monster Legends Style - Vertical Button Layout */
 .action-buttons {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 3px;
-  margin-top: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 10px;
 }
 
 .action-buttons button {
   font-family: "Cinzel", serif;
-  font-size: 9px;
-  padding: 4px 0;
-  border: 1px solid rgba(217, 179, 98, 0.5);
-  border-radius: 5px;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 10px 16px;
+  border: 2px solid rgba(217, 179, 98, 0.5);
+  border-radius: 8px;
   background: rgba(30, 25, 20, 0.85);
   color: #f2e6c1;
   cursor: pointer;
   transition: all 0.15s ease-in-out;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .action-buttons button:hover {
   background: rgba(217, 179, 98, 0.25);
-  transform: scale(1.02);
+  transform: translateX(5px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
 }
 
 .action-buttons button:active {
-  transform: scale(0.98);
+  transform: translateX(3px);
 }
 
+/* Primary Action Buttons */
 #btn-attack {
-  background: #8b1f1f;
+  background: linear-gradient(135deg, #8b1f1f 0%, #a52a2a 100%);
   border-color: #c66;
   color: #fff0e0;
+  box-shadow: 0 2px 4px rgba(139, 31, 31, 0.5);
 }
 #btn-attack:hover {
-  background: #b22c2c;
+  background: linear-gradient(135deg, #b22c2c 0%, #c93a3a 100%);
+  box-shadow: 0 4px 8px rgba(178, 44, 44, 0.7);
 }
 
 #btn-guard {
-  background: #1f8b2c;
+  background: linear-gradient(135deg, #1f8b2c 0%, #2da83d 100%);
   border-color: #6c6;
   color: #e6ffe0;
+  box-shadow: 0 2px 4px rgba(31, 139, 44, 0.5);
 }
 #btn-guard:hover {
-  background: #2db84c;
+  background: linear-gradient(135deg, #2db84c 0%, #3dc95d 100%);
+  box-shadow: 0 4px 8px rgba(45, 184, 76, 0.7);
+}
+
+#btn-jutsu {
+  background: linear-gradient(135deg, #1f4d8b 0%, #2a5fa5 100%);
+  border-color: #66c;
+  color: #e0f0ff;
+  box-shadow: 0 2px 4px rgba(31, 77, 139, 0.5);
+}
+#btn-jutsu:hover {
+  background: linear-gradient(135deg, #2c6bb2 0%, #3a7dc9 100%);
+  box-shadow: 0 4px 8px rgba(44, 107, 178, 0.7);
+}
+
+#btn-ultimate {
+  background: linear-gradient(135deg, #8b1f8b 0%, #a52aa5 100%);
+  border-color: #c6c;
+  color: #ffe0ff;
+  box-shadow: 0 2px 4px rgba(139, 31, 139, 0.5);
+}
+#btn-ultimate:hover {
+  background: linear-gradient(135deg, #b22cb2 0%, #c93ac9 100%);
+  box-shadow: 0 4px 8px rgba(178, 44, 178, 0.7);
+}
+
+/* Secondary Buttons - Hidden by default in ML style */
+#btn-secret,
+#btn-auto,
+#btn-speed {
+  font-size: 9px;
+  padding: 6px 12px;
+  background: rgba(30, 25, 20, 0.85);
+  border-color: rgba(217, 179, 98, 0.3);
 }
 
 #btn-secret {
-  background: #a47c2f;
+  background: linear-gradient(135deg, #a47c2f 0%, #b89035 100%);
   border-color: #e0c785;
   color: #fff5d9;
+  box-shadow: 0 2px 4px rgba(164, 124, 47, 0.5);
 }
 #btn-secret:hover {
-  background: #cba648;
+  background: linear-gradient(135deg, #cba648 0%, #ddb855 100%);
+  box-shadow: 0 4px 8px rgba(203, 166, 72, 0.7);
 }
 
 /* === Damage Numbers === */

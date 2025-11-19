@@ -95,12 +95,12 @@
     z-index: 10;
 }
 
-/* Bench frame = 60×60 scaled */
+/* Bench frame = 60×60 scaled (40-50% smaller using dedicated asset) */
 .bench-portrait-container .chakra-frame {
-  top: -60px;
-  left: -60px;
-  width: 180px !important;
-  height: 180px !important;
+  top: -45px;
+  left: -45px;
+  width: 150px !important;
+  height: 150px !important;
   object-fit: fill !important;
 }
 
@@ -210,16 +210,16 @@
   animation: redLightningPulse 0.3s ease-out;
 }
 
-/* Position bolts around the rim (9 bolts) */
+/* Position bolts around the rim (9 bolts) - varied spacing to prevent overlap */
 .lightning-effect.red .lightning-bolt:nth-child(1) { transform: rotate(0deg); }
-.lightning-effect.red .lightning-bolt:nth-child(2) { transform: rotate(40deg); }
-.lightning-effect.red .lightning-bolt:nth-child(3) { transform: rotate(80deg); }
-.lightning-effect.red .lightning-bolt:nth-child(4) { transform: rotate(120deg); }
-.lightning-effect.red .lightning-bolt:nth-child(5) { transform: rotate(160deg); }
-.lightning-effect.red .lightning-bolt:nth-child(6) { transform: rotate(200deg); }
-.lightning-effect.red .lightning-bolt:nth-child(7) { transform: rotate(240deg); }
-.lightning-effect.red .lightning-bolt:nth-child(8) { transform: rotate(280deg); }
-.lightning-effect.red .lightning-bolt:nth-child(9) { transform: rotate(320deg); }
+.lightning-effect.red .lightning-bolt:nth-child(2) { transform: rotate(45deg); }
+.lightning-effect.red .lightning-bolt:nth-child(3) { transform: rotate(85deg); }
+.lightning-effect.red .lightning-bolt:nth-child(4) { transform: rotate(130deg); }
+.lightning-effect.red .lightning-bolt:nth-child(5) { transform: rotate(170deg); }
+.lightning-effect.red .lightning-bolt:nth-child(6) { transform: rotate(210deg); }
+.lightning-effect.red .lightning-bolt:nth-child(7) { transform: rotate(250deg); }
+.lightning-effect.red .lightning-bolt:nth-child(8) { transform: rotate(295deg); }
+.lightning-effect.red .lightning-bolt:nth-child(9) { transform: rotate(335deg); }
 
 @keyframes redLightningPulse {
   0% { opacity: 0; transform: scale(0.8); }
@@ -252,17 +252,17 @@
   animation: goldLightningPulse 0.6s ease-out;
 }
 
-/* Position bolts around the rim (10 bolts, more coverage) */
+/* Position bolts around the rim (10 bolts, more coverage) - organic spacing */
 .lightning-effect.gold .lightning-bolt:nth-child(1) { transform: rotate(0deg); }
-.lightning-effect.gold .lightning-bolt:nth-child(2) { transform: rotate(36deg); }
-.lightning-effect.gold .lightning-bolt:nth-child(3) { transform: rotate(72deg); }
-.lightning-effect.gold .lightning-bolt:nth-child(4) { transform: rotate(108deg); }
-.lightning-effect.gold .lightning-bolt:nth-child(5) { transform: rotate(144deg); }
-.lightning-effect.gold .lightning-bolt:nth-child(6) { transform: rotate(180deg); }
-.lightning-effect.gold .lightning-bolt:nth-child(7) { transform: rotate(216deg); }
-.lightning-effect.gold .lightning-bolt:nth-child(8) { transform: rotate(252deg); }
-.lightning-effect.gold .lightning-bolt:nth-child(9) { transform: rotate(288deg); }
-.lightning-effect.gold .lightning-bolt:nth-child(10) { transform: rotate(324deg); }
+.lightning-effect.gold .lightning-bolt:nth-child(2) { transform: rotate(38deg); }
+.lightning-effect.gold .lightning-bolt:nth-child(3) { transform: rotate(74deg); }
+.lightning-effect.gold .lightning-bolt:nth-child(4) { transform: rotate(112deg); }
+.lightning-effect.gold .lightning-bolt:nth-child(5) { transform: rotate(148deg); }
+.lightning-effect.gold .lightning-bolt:nth-child(6) { transform: rotate(186deg); }
+.lightning-effect.gold .lightning-bolt:nth-child(7) { transform: rotate(222deg); }
+.lightning-effect.gold .lightning-bolt:nth-child(8) { transform: rotate(260deg); }
+.lightning-effect.gold .lightning-bolt:nth-child(9) { transform: rotate(296deg); }
+.lightning-effect.gold .lightning-bolt:nth-child(10) { transform: rotate(334deg); }
 
 @keyframes goldLightningPulse {
   0% { opacity: 0; transform: scale(0.7); filter: blur(2px); }
