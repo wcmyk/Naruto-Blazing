@@ -11,8 +11,8 @@
   display: flex;
   justify-content: center;
   align-items: flex-end;
-  gap: 24px; /* Increased gap for larger chakraholders */
-  padding: 20px 32px; /* Increased padding for larger units */
+  gap: 40px; /* Increased gap to prevent chakra wheel overlap */
+  padding: 20px 40px; /* Increased padding for larger units */
   background: linear-gradient(180deg, rgba(10, 10, 15, 0.5), rgba(10, 10, 15, 0.95));
   border-top: 2px solid rgba(139, 115, 85, 0.6);
   border-radius: 12px 12px 0 0;
@@ -65,9 +65,9 @@
   border: none;
   box-shadow: none;
   overflow: visible; /* Allow bench chakraholder to show */
-  /* Lower left positioning relative to active */
-  left: -25px;  /* X offset: positioned to the left */
-  bottom: -15px;  /* Y offset: positioned at the bottom */
+  /* Lower left positioning relative to active - adjusted to prevent overlap */
+  left: -30px;  /* X offset: positioned further to the left */
+  bottom: -20px;  /* Y offset: positioned lower at the bottom */
   z-index: 2;
 }
 

@@ -97,9 +97,9 @@ html, body.page-battle {
 #speed-gauge-track {
   position: absolute;
   top: 30px;
-  left: 10%;
-  width: 80%;
-  height: 50px;
+  left: 5%;
+  width: 90%;
+  height: 80px;
   background: url("../assets/ui/gauges/speedgauge.png") center center / contain no-repeat;
   z-index: 45;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
