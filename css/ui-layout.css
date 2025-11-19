@@ -129,6 +129,10 @@
   cursor: pointer;
   transition: all 0.2s ease;
   position: relative;
+  pointer-events: auto;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .bottom-icon:hover {

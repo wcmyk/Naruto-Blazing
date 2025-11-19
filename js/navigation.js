@@ -75,8 +75,11 @@
 
   // ---------- Bottom Icon Navigation ----------
   function initBottomIcons() {
+    console.log("[Navigation] Initializing bottom icons...");
+
     // Notice
     const iconNotice = document.querySelector('.bottom-icon[data-action="notice"]');
+    console.log("[Navigation] Notice icon found:", iconNotice);
     if (iconNotice) {
       iconNotice.addEventListener('click', () => {
         console.log("🔔 Notice clicked");
@@ -164,6 +167,8 @@
         openSettingsMenu();
       });
     }
+
+    console.log("[Navigation] Bottom icons initialized successfully");
   }
 
   // ---------- Summon Banner Carousel Navigation ----------
