@@ -1,0 +1,376 @@
+{
+  "banners": [
+    {
+      "id": "bf_naruto_klm",
+      "name": "Blazing Festival: Naruto (KLM)",
+      "type": "blazing-festival",
+      "featured": ["naruto_uzumaki_klm"],
+      "description": "Blazing Festival banner featuring Naruto Uzumaki in Kurama Link Mode!",
+      "image": "assets/summon/banners/bf_naruto_klm.png"
+    },
+    {
+      "id": "bf_sasuke_rinne",
+      "name": "Blazing Festival: Sasuke (Rinne Sharingan)",
+      "type": "blazing-festival",
+      "featured": ["sasuke_uchiha_rinne_sharingan"],
+      "description": "Blazing Festival banner featuring Sasuke with the Rinne Sharingan!",
+      "image": "assets/summon/banners/bf_sasuke_rinne.png"
+    },
+    {
+      "id": "bf_hashirama",
+      "name": "Blazing Festival: Hashirama",
+      "type": "blazing-festival",
+      "featured": ["hashirama_senju"],
+      "description": "Blazing Festival banner featuring the First Hokage!",
+      "image": "assets/summon/banners/bf_hashirama.png"
+    },
+    {
+      "id": "bf_madara",
+      "name": "Blazing Festival: Madara",
+      "type": "blazing-festival",
+      "featured": ["madara_uchiha"],
+      "description": "Blazing Festival banner featuring Madara Uchiha!",
+      "image": "assets/summon/banners/bf_madara.png"
+    },
+    {
+      "id": "bf_naruto_six_paths",
+      "name": "Blazing Festival: Six Paths Naruto",
+      "type": "blazing-festival",
+      "featured": ["naruto_uzumaki_six_paths"],
+      "description": "Blazing Festival banner featuring Naruto with Six Paths power!",
+      "image": "assets/summon/banners/bf_naruto_six_paths.png"
+    },
+    {
+      "id": "bf_sasuke_perfect_susanoo",
+      "name": "Blazing Festival: Sasuke (Perfect Susanoo)",
+      "type": "blazing-festival",
+      "featured": ["sasuke_uchiha_perfect_susanoo"],
+      "description": "Blazing Festival banner featuring Sasuke's Perfect Susanoo!",
+      "image": "assets/summon/banners/bf_sasuke_susanoo.png"
+    },
+    {
+      "id": "bf_kaguya",
+      "name": "Blazing Festival: Kaguya",
+      "type": "blazing-festival",
+      "featured": ["kaguya_otsutsuki"],
+      "description": "Blazing Festival banner featuring Kaguya Otsutsuki!",
+      "image": "assets/summon/banners/bf_kaguya.png"
+    },
+    {
+      "id": "bf_obito_ten_tails",
+      "name": "Blazing Festival: Obito (Ten Tails)",
+      "type": "blazing-festival",
+      "featured": ["obito_uchiha_jinchuriki"],
+      "description": "Blazing Festival banner featuring Ten-Tails Jinchuriki Obito!",
+      "image": "assets/summon/banners/bf_obito.png"
+    },
+    {
+      "id": "bf_might_guy_8th_gate",
+      "name": "Blazing Festival: Might Guy (8th Gate)",
+      "type": "blazing-festival",
+      "featured": ["might_guy_eight_gates"],
+      "description": "Blazing Festival banner featuring Eight Gates Released Formation!",
+      "image": "assets/summon/banners/bf_guy.png"
+    },
+    {
+      "id": "bf_kabuto_sage",
+      "name": "Blazing Festival: Kabuto (Sage Mode)",
+      "type": "blazing-festival",
+      "featured": ["kabuto_yakushi_sage_mode"],
+      "description": "Blazing Festival banner featuring Sage Mode Kabuto!",
+      "image": "assets/summon/banners/bf_kabuto.png"
+    },
+    {
+      "id": "bf_pain_tendo",
+      "name": "Blazing Festival: Pain (Tendo)",
+      "type": "blazing-festival",
+      "featured": ["pain_tendo"],
+      "description": "Blazing Festival banner featuring Pain!",
+      "image": "assets/summon/banners/bf_pain.png"
+    },
+    {
+      "id": "bf_itachi_edo",
+      "name": "Blazing Festival: Itachi (Edo)",
+      "type": "blazing-festival",
+      "featured": ["itachi_uchiha_edo"],
+      "description": "Blazing Festival banner featuring Edo Tensei Itachi!",
+      "image": "assets/summon/banners/bf_itachi_edo.png"
+    },
+    {
+      "id": "bb_naruto_sage",
+      "name": "Blazing Bash: Naruto (Sage Mode)",
+      "type": "blazing-bash",
+      "featured": ["naruto_uzumaki_sage_mode"],
+      "description": "Blazing Bash banner featuring Sage Mode Naruto!",
+      "image": "assets/summon/banners/bb_naruto_sage.png"
+    },
+    {
+      "id": "bb_sasuke_cm2",
+      "name": "Blazing Bash: Sasuke (CM2)",
+      "type": "blazing-bash",
+      "featured": ["sasuke_uchiha_curse_mark_2"],
+      "description": "Blazing Bash banner featuring Curse Mark 2 Sasuke!",
+      "image": "assets/summon/banners/bb_sasuke_cm2.png"
+    },
+    {
+      "id": "bb_rock_lee_6th_gate",
+      "name": "Blazing Bash: Rock Lee (6th Gate)",
+      "type": "blazing-bash",
+      "featured": ["rock_lee_sixth_gate"],
+      "description": "Blazing Bash banner featuring Sixth Gate Rock Lee!",
+      "image": "assets/summon/banners/bb_lee.png"
+    },
+    {
+      "id": "bb_gaara_shukaku",
+      "name": "Blazing Bash: Gaara (Shukaku Cloak)",
+      "type": "blazing-bash",
+      "featured": ["gaara_shukaku_cloak"],
+      "description": "Blazing Bash banner featuring Shukaku Cloak Gaara!",
+      "image": "assets/summon/banners/bb_gaara.png"
+    },
+    {
+      "id": "bb_neji",
+      "name": "Blazing Bash: Neji",
+      "type": "blazing-bash",
+      "featured": ["neji_hyuga_pvp"],
+      "description": "Blazing Bash banner featuring Neji Hyuga!",
+      "image": "assets/summon/banners/bb_neji.png"
+    },
+    {
+      "id": "bb_shikamaru",
+      "name": "Blazing Bash: Shikamaru",
+      "type": "blazing-bash",
+      "featured": ["shikamaru_nara_pvp"],
+      "description": "Blazing Bash banner featuring Shikamaru Nara!",
+      "image": "assets/summon/banners/bb_shikamaru.png"
+    },
+    {
+      "id": "bb_kiba",
+      "name": "Blazing Bash: Kiba",
+      "type": "blazing-bash",
+      "featured": ["kiba_inuzuka_pvp"],
+      "description": "Blazing Bash banner featuring Kiba Inuzuka!",
+      "image": "assets/summon/banners/bb_kiba.png"
+    },
+    {
+      "id": "bb_shino",
+      "name": "Blazing Bash: Shino",
+      "type": "blazing-bash",
+      "featured": ["shino_aburame_pvp"],
+      "description": "Blazing Bash banner featuring Shino Aburame!",
+      "image": "assets/summon/banners/bb_shino.png"
+    },
+    {
+      "id": "bb_kakashi",
+      "name": "Blazing Bash: Kakashi",
+      "type": "blazing-bash",
+      "featured": ["kakashi_hatake_pvp"],
+      "description": "Blazing Bash banner featuring Kakashi Hatake!",
+      "image": "assets/summon/banners/bb_kakashi.png"
+    },
+    {
+      "id": "anniv1_naruto",
+      "name": "1st Anniversary: Naruto",
+      "type": "anniversary",
+      "featured": ["naruto_uzumaki_six_paths_1st_anniversary"],
+      "description": "1st Anniversary celebration banner featuring special Naruto!",
+      "image": "assets/summon/banners/anniv1_naruto.png"
+    },
+    {
+      "id": "anniv1_sasuke",
+      "name": "1st Anniversary: Sasuke",
+      "type": "anniversary",
+      "featured": ["sasuke_uchiha_rinne_sharingan_1st_anniversary"],
+      "description": "1st Anniversary celebration banner featuring special Sasuke!",
+      "image": "assets/summon/banners/anniv1_sasuke.png"
+    },
+    {
+      "id": "anniv2_naruto",
+      "name": "2nd Anniversary: Naruto",
+      "type": "anniversary",
+      "featured": ["naruto_uzumaki_2nd_anniv_v5_mode"],
+      "description": "2nd Anniversary celebration banner featuring V5 Mode Naruto!",
+      "image": "assets/summon/banners/anniv2_naruto.png"
+    },
+    {
+      "id": "anniv2_sasuke",
+      "name": "2nd Anniversary: Sasuke",
+      "type": "anniversary",
+      "featured": ["sasuke_uchiha_complete_susanoo"],
+      "description": "2nd Anniversary celebration banner featuring Complete Susanoo Sasuke!",
+      "image": "assets/summon/banners/anniv2_sasuke.png"
+    },
+    {
+      "id": "anniv3_dual",
+      "name": "3rd Anniversary: Dual Unit",
+      "type": "anniversary",
+      "featured": ["naruto_sasuke_indra_asura_dual"],
+      "description": "3rd Anniversary celebration banner featuring the ultimate dual unit!",
+      "image": "assets/summon/banners/anniv3_dual.png"
+    },
+    {
+      "id": "anniv4_naruto",
+      "name": "4th Anniversary: Naruto (Baryon Precursor)",
+      "type": "anniversary",
+      "featured": ["naruto_uzumaki_final_blazing_festival"],
+      "description": "4th Anniversary celebration banner featuring the final form!",
+      "image": "assets/summon/banners/anniv4_naruto.png"
+    },
+    {
+      "id": "birthday_naruto",
+      "name": "Birthday: Naruto",
+      "type": "birthday",
+      "featured": [],
+      "description": "Celebrate Naruto's birthday! All Naruto versions available.",
+      "image": "assets/summon/banners/birthday_naruto.png",
+      "includes_all_versions": true,
+      "character_name": "Naruto Uzumaki"
+    },
+    {
+      "id": "birthday_sasuke",
+      "name": "Birthday: Sasuke",
+      "type": "birthday",
+      "featured": [],
+      "description": "Celebrate Sasuke's birthday! All Sasuke versions available.",
+      "image": "assets/summon/banners/birthday_sasuke.png",
+      "includes_all_versions": true,
+      "character_name": "Sasuke Uchiha"
+    },
+    {
+      "id": "birthday_sakura",
+      "name": "Birthday: Sakura",
+      "type": "birthday",
+      "featured": [],
+      "description": "Celebrate Sakura's birthday! All Sakura versions available.",
+      "image": "assets/summon/banners/birthday_sakura.png",
+      "includes_all_versions": true,
+      "character_name": "Sakura Haruno"
+    },
+    {
+      "id": "birthday_hinata",
+      "name": "Birthday: Hinata",
+      "type": "birthday",
+      "featured": [],
+      "description": "Celebrate Hinata's birthday! All Hinata versions available.",
+      "image": "assets/summon/banners/birthday_hinata.png",
+      "includes_all_versions": true,
+      "character_name": "Hinata Hyuga"
+    },
+    {
+      "id": "birthday_kakashi",
+      "name": "Birthday: Kakashi",
+      "type": "birthday",
+      "featured": [],
+      "description": "Celebrate Kakashi's birthday! All Kakashi versions available.",
+      "image": "assets/summon/banners/birthday_kakashi.png",
+      "includes_all_versions": true,
+      "character_name": "Kakashi Hatake"
+    },
+    {
+      "id": "birthday_itachi",
+      "name": "Birthday: Itachi",
+      "type": "birthday",
+      "featured": [],
+      "description": "Celebrate Itachi's birthday! All Itachi versions available.",
+      "image": "assets/summon/banners/birthday_itachi.png",
+      "includes_all_versions": true,
+      "character_name": "Itachi Uchiha"
+    },
+    {
+      "id": "birthday_obito",
+      "name": "Birthday: Obito",
+      "type": "birthday",
+      "featured": [],
+      "description": "Celebrate Obito's birthday! All Obito versions available.",
+      "image": "assets/summon/banners/birthday_obito.png",
+      "includes_all_versions": true,
+      "character_name": "Obito Uchiha"
+    },
+    {
+      "id": "birthday_shikamaru",
+      "name": "Birthday: Shikamaru",
+      "type": "birthday",
+      "featured": [],
+      "description": "Celebrate Shikamaru's birthday! All Shikamaru versions available.",
+      "image": "assets/summon/banners/birthday_shikamaru.png",
+      "includes_all_versions": true,
+      "character_name": "Shikamaru Nara"
+    },
+    {
+      "id": "birthday_gaara",
+      "name": "Birthday: Gaara",
+      "type": "birthday",
+      "featured": [],
+      "description": "Celebrate Gaara's birthday! All Gaara versions available.",
+      "image": "assets/summon/banners/birthday_gaara.png",
+      "includes_all_versions": true,
+      "character_name": "Gaara"
+    },
+    {
+      "id": "birthday_tsunade",
+      "name": "Birthday: Tsunade",
+      "type": "birthday",
+      "featured": [],
+      "description": "Celebrate Tsunade's birthday! All Tsunade versions available.",
+      "image": "assets/summon/banners/birthday_tsunade.png",
+      "includes_all_versions": true,
+      "character_name": "Tsunade"
+    },
+    {
+      "id": "birthday_jiraiya",
+      "name": "Birthday: Jiraiya",
+      "type": "birthday",
+      "featured": [],
+      "description": "Celebrate Jiraiya's birthday! All Jiraiya versions available.",
+      "image": "assets/summon/banners/birthday_jiraiya.png",
+      "includes_all_versions": true,
+      "character_name": "Jiraiya"
+    },
+    {
+      "id": "birthday_minato",
+      "name": "Birthday: Minato",
+      "type": "birthday",
+      "featured": [],
+      "description": "Celebrate Minato's birthday! All Minato versions available.",
+      "image": "assets/summon/banners/birthday_minato.png",
+      "includes_all_versions": true,
+      "character_name": "Minato Namikaze"
+    }
+  ],
+  "baseRates": {
+    "7star": 0.33,
+    "6star": 3.0,
+    "5star": 12.0,
+    "4star": 84.67
+  },
+  "standardPool5Star": [
+    "Naruto Uzumaki (5★ Base)",
+    "Sasuke Uchiha (5★ Base)",
+    "Sakura Haruno (5★ Base)",
+    "Kakashi Hatake (5★ Base)",
+    "Gaara (5★ Base)",
+    "Rock Lee (5★ Base)",
+    "Neji Hyuga (5★ Base)",
+    "Shikamaru Nara (5★ Base)",
+    "Choji Akimichi (5★ Base)",
+    "Ino Yamanaka (5★ Base)",
+    "Hinata Hyuga (5★ Base)",
+    "Kiba Inuzuka (5★ Base)",
+    "Shino Aburame (5★ Base)",
+    "Tenten (5★ Base)",
+    "Temari (5★ Base)",
+    "Kankuro (5★ Base)",
+    "Jiraiya (5★)",
+    "Tsunade (5★)",
+    "Orochimaru (5★)",
+    "Itachi Uchiha (5★)",
+    "Kisame Hoshigaki (5★)",
+    "Deidara (5★)",
+    "Sasori (5★)",
+    "Hidan (5★)",
+    "Kakuzu (5★)",
+    "Pain (5★)",
+    "Konan (5★)",
+    "Kabuto (5★)"
+  ]
+}

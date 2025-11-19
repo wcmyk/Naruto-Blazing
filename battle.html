@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="css/battle-team-holder.css" />
   <link rel="stylesheet" href="css/battle-chakra-wheel.css" />
   <link rel="stylesheet" href="css/battle-attack-names.css" />
+  <link rel="stylesheet" href="css/battle-equipped-ultimate.css" />
   <style>
     /* CRITICAL: Force unit sizing to prevent oversized units */
     .battle-unit {
@@ -39,10 +40,10 @@
     #speed-gauge-track {
       position: absolute !important;
       top: 30px !important;
-      left: 10% !important;
-      width: 80% !important;
-      height: 50px !important;
-      max-height: 50px !important;
+      left: 5% !important;
+      width: 90% !important;
+      height: 80px !important;
+      max-height: 80px !important;
       overflow: visible !important;
     }
     .speed-marker {
@@ -121,6 +122,15 @@
         <button id="btn-speed">×1</button>
       </div>
     </div>
+
+    <!-- Equipped Ultimate Button (Once-Per-Battle) -->
+    <div class="equipped-ultimate-container">
+      <button id="equipped-ultimate-btn" class="equipped-ultimate-btn" disabled>
+        <span class="equipped-ultimate-icon">⚡</span>
+        <span>Equipped Ultimate</span>
+      </button>
+      <div class="equipped-ultimate-progress" id="equipped-ultimate-progress">0 / 3 Basic Attacks</div>
+    </div>
   </main>
   <div id="battle-result" class="hidden">
     <div class="result-container">
@@ -130,6 +140,7 @@
   </div>
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" onerror="this.onerror=null;this.src='js/lib/anime.min.js';"></script>
   <script defer src="js/character_inv.js"></script>
+  <script defer src="js/character-equip.js"></script>
   <script defer src="js/progression.js"></script>
   <script defer src="js/status_effects.js"></script>
   <script defer src="js/status_ui.js"></script>
@@ -155,6 +166,7 @@
   <script defer src="js/battle/battle-missions.js"></script>
   <script defer src="js/battle/battle-narrator.js"></script>
   <script defer src="js/battle/battle-hp-fix.js"></script>
+  <script defer src="js/battle/battle-equipped-ultimate.js"></script>
   <script defer src="js/battle.js"></script>
 </body>
 </html>

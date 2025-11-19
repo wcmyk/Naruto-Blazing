@@ -280,6 +280,11 @@
         attacker.chakra = Math.min(attacker.maxChakra, attacker.chakra + 1);
       }
 
+      // Track basic attack for equipped ultimate system
+      if (window.BattleEquippedUltimate) {
+        window.BattleEquippedUltimate.onBasicAttack(attacker.id);
+      }
+
       // Show damage animation with breakdown
       if (window.BattleAnimations) {
         window.BattleAnimations.showDamage(target, damage, isCritical, core.dom, false, breakdown);
@@ -338,6 +343,11 @@
       } else {
         if (attacker.chakra < cost) return false;
         attacker.chakra -= cost;
+      }
+
+      // Reset basic attack count when using ninjutsu
+      if (window.BattleEquippedUltimate) {
+        window.BattleEquippedUltimate.onNinjutsuUse(attacker.id);
       }
 
       // Get multiplier from skill data
@@ -560,6 +570,11 @@
         attacker.chakra = Math.min(attacker.maxChakra, attacker.chakra + 1);
       }
 
+      // Track basic attack for equipped ultimate system
+      if (window.BattleEquippedUltimate) {
+        window.BattleEquippedUltimate.onBasicAttack(attacker.id);
+      }
+
       if (core.units) {
         core.units.updateUnitDisplay(attacker, core);
       } else {
@@ -665,6 +680,11 @@
       } else {
         if (attacker.chakra < cost) return false;
         attacker.chakra -= cost;
+      }
+
+      // Reset basic attack count when using ninjutsu
+      if (window.BattleEquippedUltimate) {
+        window.BattleEquippedUltimate.onNinjutsuUse(attacker.id);
       }
 
       // Get multiplier
