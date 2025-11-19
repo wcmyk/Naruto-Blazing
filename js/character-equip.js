@@ -57,9 +57,30 @@
     return _equipData[characterId] || null;
   }
 
+  function canCharacterEquipUltimate(characterId, ultimateId) {
+    const ultimate = _ultimates[ultimateId];
+    if (!ultimate) return false;
+
+    // If no restrictions, anyone can equip
+    if (!ultimate.allowedCharacters || ultimate.allowedCharacters.length === 0) {
+      return true;
+    }
+
+    // Check if character is in allowed list
+    return ultimate.allowedCharacters.includes(characterId);
+  }
+
   function equipUltimate(characterId, ultimateId) {
     if (!_ultimates[ultimateId]) {
       console.error(`[CharacterEquip] Unknown ultimate: ${ultimateId}`);
+      return false;
+    }
+
+    // Check character restrictions
+    if (!canCharacterEquipUltimate(characterId, ultimateId)) {
+      const ultimate = _ultimates[ultimateId];
+      console.warn(`[CharacterEquip] ${characterId} cannot equip ${ultimate.name}`);
+      alert(`❌ ${characterId} cannot equip ${ultimate.name}.\n\nThis ultimate can only be equipped by specific characters.`);
       return false;
     }
 
@@ -116,8 +137,20 @@
     }
   }
 
+  function getAvailableUltimatesForCharacter(characterId) {
+    return Object.values(_ultimates).filter(ult =>
+      canCharacterEquipUltimate(characterId, ult.id)
+    );
+  }
+
   function openUltimateSelector(characterId) {
-    const ultimatesList = Object.values(ULTIMATES);
+    // Only show ultimates this character can equip
+    const ultimatesList = getAvailableUltimatesForCharacter(characterId);
+
+    if (ultimatesList.length === 0) {
+      alert(`❌ No equippable ultimates available for this character.\n\nCheck back later for more ultimates!`);
+      return;
+    }
 
     let message = "Select an Ultimate to Equip:\n\n";
     ultimatesList.forEach((ult, idx) => {
@@ -180,6 +213,8 @@
     unequipUltimate,
     getUltimateData,
     getAllUltimates,
+    canCharacterEquipUltimate,
+    getAvailableUltimatesForCharacter,
     updateEquipUI,
     openUltimateSelector,
     initEquipTab,

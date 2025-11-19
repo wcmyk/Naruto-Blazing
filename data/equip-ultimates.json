@@ -10,6 +10,12 @@
       "chakraCost": 10,
       "power": 500,
       "target": "all_enemies",
+      "allowedCharacters": [
+        "uzumaki-naruto",
+        "sage-mode-naruto",
+        "kcm-naruto",
+        "hokage-naruto"
+      ],
       "effects": [
         {
           "type": "damage",
@@ -33,6 +39,14 @@
       "chakraCost": 10,
       "power": 600,
       "target": "single_enemy",
+      "allowedCharacters": [
+        "sasuke-uchiha",
+        "curse-mark-sasuke",
+        "ems-sasuke",
+        "rinnegan-sasuke",
+        "hatake-kakashi",
+        "hokage-kakashi"
+      ],
       "effects": [
         {
           "type": "damage",
@@ -55,6 +69,19 @@
       "chakraCost": 12,
       "power": 0,
       "target": "all_allies",
+      "allowedCharacters": [
+        "sasuke-uchiha",
+        "curse-mark-sasuke",
+        "ems-sasuke",
+        "rinnegan-sasuke",
+        "itachi-uchiha",
+        "edo-itachi",
+        "obito-uchiha",
+        "madara-uchiha",
+        "edo-madara",
+        "hatake-kakashi",
+        "hokage-kakashi"
+      ],
       "effects": [
         {
           "type": "buff",
@@ -80,6 +107,13 @@
       "chakraCost": 15,
       "power": 0,
       "target": "all_allies",
+      "allowedCharacters": [
+        "sage-mode-naruto",
+        "kcm-naruto",
+        "hokage-naruto",
+        "jiraiya",
+        "sage-jiraiya"
+      ],
       "effects": [
         {
           "type": "heal",
@@ -101,6 +135,12 @@
       "chakraCost": 12,
       "power": 200,
       "target": "all_enemies",
+      "allowedCharacters": [
+        "uzumaki-naruto",
+        "sage-mode-naruto",
+        "kcm-naruto",
+        "hokage-naruto"
+      ],
       "effects": [
         {
           "type": "multi_hit",
@@ -125,6 +165,16 @@
       "chakraCost": 11,
       "power": 450,
       "target": "all_enemies",
+      "allowedCharacters": [
+        "sasuke-uchiha",
+        "curse-mark-sasuke",
+        "ems-sasuke",
+        "rinnegan-sasuke",
+        "madara-uchiha",
+        "edo-madara",
+        "itachi-uchiha",
+        "edo-itachi"
+      ],
       "effects": [
         {
           "type": "damage",
@@ -154,6 +204,13 @@
       "chakraCost": 13,
       "power": 550,
       "target": "single_enemy",
+      "allowedCharacters": [
+        "hyuga-neji",
+        "neji-shippuden",
+        "hyuga-hinata",
+        "hinata-shippuden",
+        "hyuga-hanabi"
+      ],
       "effects": [
         {
           "type": "damage",
@@ -180,6 +237,14 @@
       "chakraCost": 14,
       "power": 0,
       "target": "all_allies",
+      "allowedCharacters": [
+        "sakura-haruno",
+        "sakura-shippuden",
+        "tsunade",
+        "hokage-tsunade",
+        "kabuto-yakushi",
+        "shizune"
+      ],
       "effects": [
         {
           "type": "heal",

@@ -2,30 +2,30 @@
    Battle Equipped Ultimate System
    ========================================== */
 
-/* Ultimate Ready Indicator on Unit */
+/* Ultimate Ready Indicator on Unit - Purple Theme */
 .ultimate-ready-indicator {
   position: absolute;
   top: -30px;
   left: 50%;
   transform: translateX(-50%);
-  background: linear-gradient(135deg, #ffd700, #ff8c00);
-  color: #1a1410;
+  background: linear-gradient(135deg, #9370db, #8a2be2);
+  color: #ffffff;
   font-size: 12px;
   font-weight: 700;
   padding: 4px 12px;
   border-radius: 12px;
   white-space: nowrap;
   z-index: 100;
-  animation: ultimateReadyPulse 1s ease-in-out infinite, ultimateReadyFloat 2s ease-in-out infinite;
-  box-shadow: 0 4px 12px rgba(255, 215, 0, 0.6);
+  animation: equippedUltimateReadyPulse 1s ease-in-out infinite, ultimateReadyFloat 2s ease-in-out infinite;
+  box-shadow: 0 4px 12px rgba(147, 112, 219, 0.6);
 }
 
-@keyframes ultimateReadyPulse {
+@keyframes equippedUltimateReadyPulse {
   0%, 100% {
-    box-shadow: 0 4px 12px rgba(255, 215, 0, 0.6);
+    box-shadow: 0 4px 12px rgba(147, 112, 219, 0.6);
   }
   50% {
-    box-shadow: 0 6px 20px rgba(255, 215, 0, 0.9);
+    box-shadow: 0 6px 20px rgba(138, 43, 226, 0.9);
   }
 }
 
@@ -38,22 +38,23 @@
   }
 }
 
-/* Ultimate Ready Glow on Unit */
+/* Ultimate Ready Glow on Unit - Purple Theme */
 .unit.ultimate-ready {
-  box-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
-  animation: ultimateGlow 1.5s ease-in-out infinite;
+  box-shadow: 0 0 20px rgba(147, 112, 219, 0.8);
+  animation: equippedUltimateGlow 1.5s ease-in-out infinite;
 }
 
-@keyframes ultimateGlow {
+@keyframes equippedUltimateGlow {
   0%, 100% {
-    box-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
+    box-shadow: 0 0 15px rgba(147, 112, 219, 0.6);
   }
   50% {
-    box-shadow: 0 0 30px rgba(255, 215, 0, 1);
+    box-shadow: 0 0 30px rgba(138, 43, 226, 1);
   }
 }
 
 /* Equipped Ultimate Button (in battle UI) */
+/* DIFFERENT STYLING FROM REGULAR ULTIMATES - Purple/Violet Theme */
 .equipped-ultimate-container {
   position: fixed;
   bottom: 120px;
@@ -67,9 +68,9 @@
 }
 
 .equipped-ultimate-btn {
-  background: linear-gradient(135deg, rgba(100, 100, 120, 0.9), rgba(80, 80, 100, 0.9));
-  border: 3px solid rgba(139, 115, 85, 0.6);
-  color: #8b7355;
+  background: linear-gradient(135deg, rgba(80, 70, 110, 0.9), rgba(60, 50, 90, 0.9));
+  border: 3px solid rgba(100, 80, 130, 0.6);
+  color: #9580b0;
   font-size: 16px;
   font-weight: 700;
   padding: 16px 32px;
@@ -86,18 +87,18 @@
 }
 
 .equipped-ultimate-btn.ready {
-  background: linear-gradient(135deg, #ffd700, #ff8c00);
-  border-color: #ffd700;
-  color: #1a1410;
+  background: linear-gradient(135deg, #9370db, #8a2be2);
+  border-color: #9370db;
+  color: #ffffff;
   cursor: pointer;
   opacity: 1;
-  animation: ultimateBtnPulse 2s ease-in-out infinite;
-  box-shadow: 0 6px 20px rgba(255, 215, 0, 0.8);
+  animation: equippedUltimateBtnPulse 2s ease-in-out infinite;
+  box-shadow: 0 6px 20px rgba(147, 112, 219, 0.8);
 }
 
 .equipped-ultimate-btn.ready:hover {
   transform: scale(1.05) translateY(-2px);
-  box-shadow: 0 8px 25px rgba(255, 215, 0, 1);
+  box-shadow: 0 8px 25px rgba(138, 43, 226, 1);
 }
 
 .equipped-ultimate-btn.ready:active {
@@ -112,12 +113,12 @@
   opacity: 0.3;
 }
 
-@keyframes ultimateBtnPulse {
+@keyframes equippedUltimateBtnPulse {
   0%, 100% {
-    box-shadow: 0 6px 20px rgba(255, 215, 0, 0.6);
+    box-shadow: 0 6px 20px rgba(147, 112, 219, 0.6);
   }
   50% {
-    box-shadow: 0 8px 30px rgba(255, 215, 0, 1);
+    box-shadow: 0 8px 30px rgba(138, 43, 226, 1);
   }
 }
 
@@ -127,17 +128,17 @@
 
 .equipped-ultimate-progress {
   font-size: 12px;
-  color: #b8985f;
+  color: #9580b0;
   text-align: center;
   font-weight: 600;
 }
 
 .equipped-ultimate-progress.ready {
-  color: #ffd700;
-  animation: progressPulse 1s ease-in-out infinite;
+  color: #9370db;
+  animation: equippedProgressPulse 1s ease-in-out infinite;
 }
 
-@keyframes progressPulse {
+@keyframes equippedProgressPulse {
   0%, 100% {
     opacity: 0.8;
   }
@@ -146,20 +147,20 @@
   }
 }
 
-/* Ultimate Notification */
+/* Ultimate Notification - Purple Theme */
 .equipped-ultimate-notification {
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%) scale(0);
   z-index: 200;
-  background: linear-gradient(135deg, rgba(10, 10, 15, 0.98), rgba(30, 30, 40, 0.98));
-  border: 3px solid #ffd700;
+  background: linear-gradient(135deg, rgba(20, 10, 30, 0.98), rgba(40, 20, 60, 0.98));
+  border: 3px solid #9370db;
   border-radius: 16px;
   padding: 30px;
   min-width: 400px;
   max-width: 600px;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8), 0 0 30px rgba(255, 215, 0, 0.5);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8), 0 0 30px rgba(147, 112, 219, 0.5);
   opacity: 0;
   transition: all 0.3s ease;
   display: flex;
@@ -184,39 +185,39 @@
 .ultimate-notification-title {
   font-size: 24px;
   font-weight: 700;
-  color: #ffd700;
+  color: #9370db;
   margin-bottom: 10px;
   text-shadow: 0 2px 6px rgba(0, 0, 0, 0.9);
 }
 
 .ultimate-notification-desc {
   font-size: 14px;
-  color: #c4b59f;
+  color: #c4b5d4;
   line-height: 1.6;
 }
 
-/* Basic Attack Counter (debug/info display) */
+/* Basic Attack Counter (debug/info display) - Purple Theme */
 .basic-attack-counter {
   position: absolute;
   top: 5px;
   right: 5px;
-  background: rgba(10, 10, 15, 0.9);
-  border: 2px solid rgba(255, 215, 0, 0.6);
+  background: rgba(20, 10, 30, 0.9);
+  border: 2px solid rgba(147, 112, 219, 0.6);
   border-radius: 8px;
   padding: 4px 8px;
   font-size: 11px;
   font-weight: 700;
-  color: #ffd700;
+  color: #9370db;
   z-index: 50;
 }
 
 .basic-attack-counter.ready {
-  background: rgba(255, 215, 0, 0.3);
-  border-color: #ffd700;
-  animation: counterReady 1s ease-in-out infinite;
+  background: rgba(147, 112, 219, 0.3);
+  border-color: #9370db;
+  animation: equippedCounterReady 1s ease-in-out infinite;
 }
 
-@keyframes counterReady {
+@keyframes equippedCounterReady {
   0%, 100% {
     transform: scale(1);
   }
