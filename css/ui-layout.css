@@ -14,22 +14,22 @@
   z-index: 50;
   display: grid;
   grid-template-columns: 1fr 1fr; /* Two equal columns */
-  gap: 14px;
+  gap: 10px; /* Reduced from 14px */
   pointer-events: auto;
-  width: 600px; /* Total width for 2 columns + gap */
+  width: 420px; /* Reduced 30%: 600px × 0.7 = 420px */
 }
 
 .banner-button {
   width: 100%; /* Fill grid cell */
-  height: 150px;
+  height: 105px; /* Reduced 30%: 150px × 0.7 = 105px */
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  border-radius: 12px;
+  border-radius: 8px; /* Reduced from 12px */
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
-  border: 3px solid rgba(255, 165, 0, 0.3);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.6); /* Reduced from 6px 20px */
+  border: 2px solid rgba(255, 165, 0, 0.3); /* Reduced from 3px */
   position: relative;
   overflow: hidden;
 }
@@ -37,7 +37,7 @@
 /* Missions banner spans both columns (full width) */
 .banner-button.missions {
   grid-column: 1 / -1; /* Span both columns */
-  height: 150px; /* Same height as others */
+  height: 105px; /* Reduced 30%: 150px × 0.7 = 105px */
 }
 
 /* Hover effect */
@@ -90,13 +90,13 @@
 /* Banner text overlay (temporary until PNGs have text) */
 .banner-button-text {
   position: absolute;
-  bottom: 15px;
-  left: 20px;
-  font-size: 28px;
+  bottom: 10px; /* Reduced from 15px */
+  left: 14px; /* Reduced from 20px */
+  font-size: 20px; /* Reduced 30%: 28px × 0.7 = 19.6px ≈ 20px */
   font-weight: 700;
   color: #fff;
-  text-shadow: 0 3px 10px rgba(0, 0, 0, 0.9);
-  letter-spacing: 1px;
+  text-shadow: 0 2px 7px rgba(0, 0, 0, 0.9); /* Reduced from 3px 10px */
+  letter-spacing: 0.7px; /* Reduced from 1px */
   font-family: "Cinzel", serif;
 }
 
@@ -245,16 +245,16 @@
 
 /* Individual summon banner card */
 .summon-banner-card {
-  width: 380px;
-  height: 180px;
+  width: 266px; /* Reduced 30%: 380px × 0.7 = 266px */
+  height: 126px; /* Reduced 30%: 180px × 0.7 = 126px */
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  border-radius: 12px;
+  border-radius: 8px; /* Reduced from 12px */
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
-  border: 3px solid rgba(200, 100, 255, 0.4);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.6); /* Reduced from 6px 20px */
+  border: 2px solid rgba(200, 100, 255, 0.4); /* Reduced from 3px */
   position: relative;
   overflow: hidden;
 }
@@ -287,24 +287,24 @@
 /* Banner card title */
 .summon-banner-title {
   position: absolute;
-  top: 15px;
-  left: 20px;
-  font-size: 22px;
+  top: 10px; /* Reduced from 15px */
+  left: 14px; /* Reduced from 20px */
+  font-size: 15px; /* Reduced 30%: 22px × 0.7 = 15.4px ≈ 15px */
   font-weight: 700;
   color: #fff;
-  text-shadow: 0 3px 10px rgba(0, 0, 0, 0.9);
-  letter-spacing: 0.5px;
+  text-shadow: 0 2px 7px rgba(0, 0, 0, 0.9); /* Reduced from 3px 10px */
+  letter-spacing: 0.35px; /* Reduced from 0.5px */
   font-family: "Cinzel", serif;
 }
 
 /* Banner card subtitle */
 .summon-banner-subtitle {
   position: absolute;
-  top: 45px;
-  left: 20px;
-  font-size: 14px;
+  top: 32px; /* Reduced from 45px */
+  left: 14px; /* Reduced from 20px */
+  font-size: 10px; /* Reduced 30%: 14px × 0.7 = 9.8px ≈ 10px */
   color: #ddd;
-  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.9);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9); /* Reduced from 2px 6px */
   font-family: "Cinzel", serif;
 }
 

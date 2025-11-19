@@ -190,6 +190,11 @@
         card.className = 'summon-banner-card';
         card.dataset.bannerId = banner.id;
 
+        // Set background image from banner data
+        if (banner.image) {
+          card.style.backgroundImage = `url("${banner.image}")`;
+        }
+
         // Add title
         const title = document.createElement('div');
         title.className = 'summon-banner-title';
