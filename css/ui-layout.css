@@ -14,10 +14,10 @@
   z-index: 50;
   display: grid;
   grid-template-columns: 1fr 1fr; /* Two equal columns */
-  grid-auto-rows: 68px; /* Row height for standard buttons */
-  gap: 12px; /* 12px spacing between all buttons */
+  grid-auto-rows: 78px; /* Increased 15%: 68px × 1.15 = 78px */
+  gap: 12px; /* 12px spacing between all buttons - MAINTAINED */
   pointer-events: auto;
-  width: 216px; /* Total panel width */
+  width: 248px; /* Increased 15%: 216px × 1.15 = 248px */
   margin-right: 50px; /* Space from screen edge */
 }
 
@@ -28,7 +28,7 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  border-radius: 4px;
+  border-radius: 5px; /* Increased 15%: 4px × 1.15 = 5px */
   cursor: pointer;
   transition: all 0.3s ease;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
@@ -39,8 +39,8 @@
 
 /* Missions banner spans both columns (full width) */
 .banner-button.missions {
-  grid-column: 1 / 3; /* Span both columns (full 216px width with 12px gap) */
-  height: 68px; /* Same height as other buttons for consistency */
+  grid-column: 1 / 3; /* Span both columns (full 248px width with 12px gap) */
+  height: 78px; /* Increased 15%: 68px × 1.15 = 78px */
 }
 
 /* Explicit grid positioning for 2×2 layout below Missions */
@@ -114,13 +114,13 @@
 /* Banner text overlay (temporary until PNGs have text) */
 .banner-button-text {
   position: absolute;
-  bottom: 7px;
-  left: 9px;
-  font-size: 11px;
+  bottom: 8px; /* Increased 15%: 7px × 1.15 = 8px */
+  left: 10px; /* Increased 15%: 9px × 1.15 = 10px */
+  font-size: 13px; /* Increased 15%: 11px × 1.15 = 13px */
   font-weight: 700;
   color: #fff;
   text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);
-  letter-spacing: 0.4px;
+  letter-spacing: 0.5px; /* Increased 15%: 0.4px × 1.15 = 0.5px */
   font-family: "Cinzel", serif;
 }
 
@@ -271,6 +271,7 @@
 .summon-banner-card {
   width: 266px; /* Reduced 30%: 380px × 0.7 = 266px */
   height: 126px; /* Reduced 30%: 180px × 0.7 = 126px */
+  background-image: linear-gradient(135deg, rgba(100, 50, 150, 0.6), rgba(150, 100, 200, 0.8)); /* Fallback gradient - will be replaced by JS */
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -278,7 +279,7 @@
   cursor: pointer;
   transition: all 0.3s ease;
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.6); /* Reduced from 6px 20px */
-  border: 2px solid rgba(200, 100, 255, 0.4); /* Reduced from 3px */
+  border: 3px solid rgba(200, 100, 255, 0.6); /* Increased from 2px for better visibility */
   position: relative;
   overflow: hidden;
 }

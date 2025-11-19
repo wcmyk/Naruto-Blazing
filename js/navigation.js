@@ -193,6 +193,9 @@
         // Set background image from banner data
         if (banner.image) {
           card.style.backgroundImage = `url("${banner.image}")`;
+          console.log(`[Summon] Setting background for ${banner.name}: ${banner.image}`);
+        } else {
+          console.warn(`[Summon] No image path for banner: ${banner.name}`);
         }
 
         // Add title
