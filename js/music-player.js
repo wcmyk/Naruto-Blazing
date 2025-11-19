@@ -251,32 +251,23 @@ window.MusicPlayer = new MusicPlayer();
 document.addEventListener('DOMContentLoaded', () => {
   window.MusicPlayer.init();
 
-  // Setup UI event listeners if controls exist
-  const playBtn = document.getElementById('music-play-btn');
-  if (playBtn) {
-    playBtn.addEventListener('click', () => window.MusicPlayer.toggle());
-  }
+  // Check if we're on battle page - don't auto-play music on battle
+  const isBattlePage = window.location.pathname.includes('battle.html');
 
-  const muteBtn = document.getElementById('music-mute-btn');
-  if (muteBtn) {
-    muteBtn.addEventListener('click', () => window.MusicPlayer.toggleMute());
-  }
-
-  const volumeSlider = document.getElementById('music-volume-slider');
-  if (volumeSlider) {
-    volumeSlider.addEventListener('input', (e) => {
-      window.MusicPlayer.setVolume(e.target.value / 100);
-    });
-  }
-
-  // Setup collapse button
-  const collapseBtn = document.getElementById('music-collapse-btn');
-  const musicPanel = document.getElementById('music-panel');
-  if (collapseBtn && musicPanel) {
-    collapseBtn.addEventListener('click', () => {
-      musicPanel.classList.toggle('collapsed');
-      collapseBtn.textContent = musicPanel.classList.contains('collapsed') ? '+' : '−';
-    });
+  if (!isBattlePage) {
+    // Auto-play music on all pages except battle
+    // Note: This may be blocked by browser autoplay policy
+    // User will need to interact with the page first
+    setTimeout(() => {
+      // Try to play after a short delay to ensure page is fully loaded
+      if (!window.MusicPlayer.isPlaying) {
+        window.MusicPlayer.play();
+      }
+    }, 500);
+  } else {
+    // On battle page, pause music
+    window.MusicPlayer.pause();
+    console.log('🎵 Music paused for battle');
   }
 });
 
