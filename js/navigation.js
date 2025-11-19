@@ -178,7 +178,7 @@
 
     try {
       // Load summon banners data
-      const response = await fetch('data/summons.json');
+      const response = await fetch('data/summon.json'); // Fixed: was summons.json
       const summonsData = await response.json();
 
       // Clear carousel
