@@ -15,6 +15,9 @@
   async function loadUltimatesJSON() {
     try {
       const response = await fetch('data/equip-ultimates.json');
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      }
       const data = await response.json();
 
       // Convert array to object keyed by ID

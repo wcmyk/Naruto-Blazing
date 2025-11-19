@@ -12,9 +12,17 @@ class SummonDataLoader {
     try {
       // Load summon banners
       const summonResponse = await fetch('data/summon.json');
+      if (!summonResponse.ok) {
+        throw new Error(`HTTP ${summonResponse.status}: ${summonResponse.statusText}`);
+      }
       const summonData = await summonResponse.json();
-      
-      this.banners = summonData.banners || [];
+
+      // Validate summon data structure
+      if (!summonData || typeof summonData !== 'object') {
+        throw new Error('Invalid summon data structure');
+      }
+
+      this.banners = Array.isArray(summonData.banners) ? summonData.banners : [];
       this.baseRates = summonData.baseRates || {
         '7star': 0.33,
         '6star': 3.0,
@@ -24,8 +32,17 @@ class SummonDataLoader {
 
       // Load character pool
       const charsResponse = await fetch('data/characters.json');
+      if (!charsResponse.ok) {
+        throw new Error(`HTTP ${charsResponse.status}: ${charsResponse.statusText}`);
+      }
       const charsData = await charsResponse.json();
-      this.characterPool = Object.values(charsData);
+
+      // Validate character data
+      if (!charsData || (typeof charsData !== 'object' && !Array.isArray(charsData))) {
+        throw new Error('Invalid character data structure');
+      }
+
+      this.characterPool = Array.isArray(charsData) ? charsData : Object.values(charsData);
 
       this.loaded = true;
       console.log('✅ Summon data loaded:', this.banners.length, 'banners');
@@ -70,5 +87,6 @@ class SummonDataLoader {
   }
 }
 
-// Global instance
+// Global instance - Export to window for access from other modules
 const summonData = new SummonDataLoader();
+window.summonData = summonData;

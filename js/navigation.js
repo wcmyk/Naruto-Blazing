@@ -73,6 +73,94 @@
     }
   }
 
+  // ---------- HUD Button Navigation (Bottom Bar) ----------
+  function initHudButtons() {
+    console.log("[Navigation] Initializing HUD buttons...");
+
+    // Village (Home/Index)
+    const btnVillage = document.getElementById('btn-village');
+    if (btnVillage) {
+      btnVillage.addEventListener('click', () => {
+        console.log("[Navigation] Village button clicked");
+        navigateTo('index.html');
+      });
+    }
+
+    // Characters
+    const btnCharacters = document.getElementById('btn-characters');
+    if (btnCharacters) {
+      btnCharacters.addEventListener('click', () => {
+        console.log("[Navigation] Characters button clicked");
+        navigateTo('characters.html');
+      });
+    }
+
+    // Fusion
+    const btnFusion = document.getElementById('btn-fusion');
+    if (btnFusion) {
+      btnFusion.addEventListener('click', () => {
+        console.log("[Navigation] Fusion button clicked");
+        navigateTo('fusion.html');
+      });
+    }
+
+    // Teams
+    const btnTeams = document.getElementById('btn-teams');
+    if (btnTeams) {
+      btnTeams.addEventListener('click', () => {
+        console.log("[Navigation] Teams button clicked");
+        navigateTo('teams.html');
+      });
+    }
+
+    // Summon
+    const btnSummon = document.getElementById('btn-summon');
+    if (btnSummon) {
+      btnSummon.addEventListener('click', () => {
+        console.log("[Navigation] Summon button clicked");
+        navigateTo('summon.html');
+      });
+    }
+
+    // Missions
+    const btnMissions = document.getElementById('btn-missions');
+    if (btnMissions) {
+      btnMissions.addEventListener('click', () => {
+        console.log("[Navigation] Missions button clicked");
+        navigateTo('missions.html');
+      });
+    }
+
+    // Inventory
+    const btnInventory = document.getElementById('btn-inventory');
+    if (btnInventory) {
+      btnInventory.addEventListener('click', () => {
+        console.log("[Navigation] Inventory button clicked");
+        navigateTo('inventory.html');
+      });
+    }
+
+    // Shop
+    const btnShop = document.getElementById('btn-shop');
+    if (btnShop) {
+      btnShop.addEventListener('click', () => {
+        console.log("[Navigation] Shop button clicked");
+        navigateTo('shop.html');
+      });
+    }
+
+    // Home (alternative ID)
+    const btnHome = document.getElementById('btn-home');
+    if (btnHome) {
+      btnHome.addEventListener('click', () => {
+        console.log("[Navigation] Home button clicked");
+        navigateTo('index.html');
+      });
+    }
+
+    console.log("[Navigation] HUD buttons initialized successfully");
+  }
+
   // ---------- Bottom Icon Navigation ----------
   function initBottomIcons() {
     console.log("[Navigation] Initializing bottom icons...");
@@ -179,6 +267,9 @@
     try {
       // Load summon banners data
       const response = await fetch('data/summon.json');
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      }
       const summonsData = await response.json();
 
       // Clear carousel and create structure
@@ -412,6 +503,7 @@
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', () => {
         initBannerButtons();
+        initHudButtons();
         initBottomIcons();
         initSummonBanners();
         initUsernameClick();
@@ -419,6 +511,7 @@
       });
     } else {
       initBannerButtons();
+      initHudButtons();
       initBottomIcons();
       initSummonBanners();
       initUsernameClick();

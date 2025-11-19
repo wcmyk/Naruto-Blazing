@@ -161,10 +161,10 @@
     <div class="resources-container">
       <div class="dev-controls">
         <h3>Developer Controls</h3>
-        <button class="dev-button" onclick="addMaterials(100)">+100 All Materials</button>
-        <button class="dev-button" onclick="addMaterials(500)">+500 All Materials</button>
-        <button class="dev-button" onclick="addRyo(100000)">+100,000 Ryo</button>
-        <button class="dev-button" onclick="resetMaterials()">Reset to Defaults</button>
+        <button class="dev-button" id="btn-add-materials-100">+100 All Materials</button>
+        <button class="dev-button" id="btn-add-materials-500">+500 All Materials</button>
+        <button class="dev-button" id="btn-add-ryo">+100,000 Ryo</button>
+        <button class="dev-button" id="btn-reset-materials">Reset to Defaults</button>
       </div>
 
       <div id="resources-list"></div>
@@ -232,6 +232,7 @@
 
   <script src="js/music-player.js"></script>
   <script src="js/resources.js"></script>
+  <script src="js/navigation.js"></script>
   <script>
     // Group materials by category
     const categories = {
@@ -302,24 +303,17 @@
     }
 
     // Initial render
-    window.addEventListener("DOMContentLoaded", renderResources);
+    window.addEventListener("DOMContentLoaded", () => {
+      renderResources();
 
-    // Navigation
-    (function () {
-      function go(url) {
-        document.body.style.transition = "opacity .2s linear";
-        document.body.style.opacity = "0";
-        setTimeout(() => (window.location.href = url), 200);
-      }
-      document.getElementById("btn-village")?.addEventListener("click", () => go("index.html"));
-      document.getElementById("btn-characters")?.addEventListener("click", () => go("characters.html"));
-      document.getElementById("btn-fusion")?.addEventListener("click", () => go("fusion.html"));
-      document.getElementById("btn-teams")?.addEventListener("click", () => go("teams.html"));
-      document.getElementById("btn-summon")?.addEventListener("click", () => go("summon.html"));
-      document.getElementById("btn-missions")?.addEventListener("click", () => go("missions.html"));
-      document.getElementById("btn-inventory")?.addEventListener("click", () => go("inventory.html"));
-      document.getElementById("btn-shop")?.addEventListener("click", () => go("shop.html"));
-    })();
+      // Setup dev control button event listeners
+      document.getElementById("btn-add-materials-100")?.addEventListener("click", () => addMaterials(100));
+      document.getElementById("btn-add-materials-500")?.addEventListener("click", () => addMaterials(500));
+      document.getElementById("btn-add-ryo")?.addEventListener("click", () => addRyo(100000));
+      document.getElementById("btn-reset-materials")?.addEventListener("click", () => resetMaterials());
+    });
+
+    // Navigation is now handled by navigation.js
   </script>
 </body>
 </html>

@@ -28,7 +28,16 @@
     async loadShopData() {
       try {
         const response = await fetch('data/shop.json');
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
         const data = await response.json();
+
+        // Validate data structure
+        if (!data || typeof data !== 'object' || !data.shop) {
+          throw new Error('Invalid shop data structure');
+        }
+
         this.shopData = data.shop;
         console.log("[Shop] Shop data loaded:", this.shopData);
       } catch (error) {
@@ -111,11 +120,7 @@
         btnCloseSuccess.addEventListener('click', () => this.closeModal('success-modal'));
       }
 
-      // Bottom bar navigation
-      document.getElementById('btn-home')?.addEventListener('click', () => window.location.href = 'index.html');
-      document.getElementById('btn-team')?.addEventListener('click', () => window.location.href = 'team.html');
-      document.getElementById('btn-fusion')?.addEventListener('click', () => window.location.href = 'fusion.html');
-      document.getElementById('btn-missions')?.addEventListener('click', () => window.location.href = 'missions.html');
+      // Bottom bar navigation is now handled by navigation.js
     },
 
     switchTab(tabName) {

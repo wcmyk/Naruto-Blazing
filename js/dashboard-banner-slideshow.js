@@ -29,6 +29,9 @@ class DashboardBannerSlideshow {
   async loadBanners() {
     try {
       const response = await fetch('data/summon.json');
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      }
       const data = await response.json();
 
       // Load all banners from summon.json
