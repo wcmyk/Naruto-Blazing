@@ -200,6 +200,12 @@
       const ultimateId = window.CharacterEquip.getEquippedUltimate(unit.originalId);
       if (!ultimateId) return null;
 
+      // Validate that this character can actually equip this ultimate
+      if (!window.CharacterEquip.canCharacterEquipUltimate(unit.originalId, ultimateId)) {
+        console.warn(`[BattleEquippedUltimate] ${unit.originalId} has ${ultimateId} equipped but cannot use it`);
+        return null;
+      }
+
       const ultimateData = window.CharacterEquip.getUltimateData(ultimateId);
       return ultimateData;
     },
