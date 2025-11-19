@@ -92,6 +92,30 @@
     <div class="banner-slideshow" id="dashboard-banner-slideshow"></div>
   </div>
 
+  <!-- Quick Access Banner Buttons -->
+  <div class="banner-buttons-grid">
+    <!-- Row 1: Full-width Missions -->
+    <button class="banner-button full-width" id="banner-btn-missions" data-page="missions.html">
+      <span class="banner-button-text">Missions</span>
+    </button>
+
+    <!-- Row 2: Characters and Summon -->
+    <button class="banner-button" id="banner-btn-characters" data-page="characters.html">
+      <span class="banner-button-text">Characters</span>
+    </button>
+    <button class="banner-button" id="banner-btn-summon" data-page="summon.html">
+      <span class="banner-button-text">Summon</span>
+    </button>
+
+    <!-- Row 3: Fusion and Shop -->
+    <button class="banner-button" id="banner-btn-fusion" data-page="fusion.html">
+      <span class="banner-button-text">Fusion</span>
+    </button>
+    <button class="banner-button" id="banner-btn-shop" data-page="shop.html">
+      <span class="banner-button-text">Shop</span>
+    </button>
+  </div>
+
   <!-- HUD Bottom Bar -->
   <div class="bottom-bar">
     <div class="bottom-bar-content">
@@ -364,6 +388,18 @@
           }
         });
       }
+
+      // Banner Buttons Navigation
+      const bannerButtons = document.querySelectorAll('.banner-button[data-page]');
+      bannerButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          const page = button.getAttribute('data-page');
+          if (page) {
+            console.log(`🎯 Banner button clicked: ${page}`);
+            navigateTo(page);
+          }
+        });
+      });
 
       console.log("✅ All event listeners attached!");
     });
