@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="css/teams.css" />
   <link rel="stylesheet" href="css/background.css" />
   <link rel="stylesheet" href="css/status_effects.css" />
-  <link rel="stylesheet" href="css/music-player.css" />
+  <link rel="stylesheet" href="css/settings-modal.css" />
 </head>
 <body class="page-teams">
   <div id="team-bg"></div>
@@ -139,34 +139,6 @@
     </div>
   </div>
 
-  <!-- Music Control Panel -->
-  <div class="music-control-panel" id="music-panel">
-    <div class="music-control-header">
-      <h3>Music</h3>
-      <button class="music-toggle-btn" id="music-collapse-btn" title="Toggle Panel">−</button>
-    </div>
-    <div class="music-controls">
-      <div class="music-buttons">
-        <button class="music-btn" id="music-play-btn" title="Play Music">▶</button>
-        <button class="music-btn" id="music-mute-btn" title="Mute">🔊</button>
-      </div>
-      <div class="music-volume-control">
-        <div class="music-volume-label">Volume</div>
-        <div class="music-volume-slider-container">
-          <input type="range" min="0" max="100" value="50" class="music-volume-slider" id="music-volume-slider">
-          <span class="music-volume-display" id="music-volume-display">50%</span>
-        </div>
-      </div>
-      <div class="music-visualizer">
-        <div class="music-visualizer-bar"></div>
-        <div class="music-visualizer-bar"></div>
-        <div class="music-visualizer-bar"></div>
-        <div class="music-visualizer-bar"></div>
-        <div class="music-visualizer-bar"></div>
-      </div>
-    </div>
-  </div>
-
   <script src="js/music-player.js"></script>
   <script src="js/character_inv.js"></script>
   <script src="js/progression.js"></script>
@@ -267,6 +239,9 @@
     });
   })();
   </script>
+
+  <!-- Settings Modal Script -->
+  <script src="js/settings-modal.js?v=2"></script>
 
   <!-- Navigation Script -->
   <script src="js/navigation.js"></script>

@@ -439,38 +439,12 @@
 
   // ---------- Settings Menu ----------
   function openSettingsMenu() {
-    const choice = prompt(
-      "Settings Menu:\n" +
-      "1. Change Username\n" +
-      "2. Change Background (1-10)\n" +
-      "3. View Resources\n" +
-      "4. Select Character Display\n" +
-      "5. Cancel\n\n" +
-      "Enter your choice:"
-    );
-
-    if (choice === "1") {
-      if (typeof window.Username !== "undefined") {
-        window.Username.openEditor();
-      } else {
-        alert("Username system not loaded. Please reload the page.");
-      }
-    } else if (choice === "2") {
-      const bgNum = prompt("Enter background number (1-10):");
-      const num = parseInt(bgNum);
-      if (num >= 1 && num <= 10) {
-        changeBackground(num);
-      } else {
-        alert("Invalid background number. Please enter 1-10.");
-      }
-    } else if (choice === "3") {
-      navigateTo("resources.html");
-    } else if (choice === "4") {
-      if (typeof window.CharacterVignette !== "undefined") {
-        window.CharacterVignette.openCharacterSelector();
-      } else {
-        alert("Character Vignette system not loaded. Please reload the page.");
-      }
+    // Open the new settings modal
+    if (typeof window.SettingsModal !== 'undefined') {
+      window.SettingsModal.open();
+    } else {
+      console.error('[Navigation] Settings modal not loaded');
+      alert('Settings system not loaded. Please reload the page.');
     }
   }
 
