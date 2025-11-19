@@ -185,17 +185,28 @@
       carousel.innerHTML = '';
 
       // Create banner cards
-      summonsData.banners.forEach(banner => {
+      summonsData.banners.forEach((banner, index) => {
         const card = document.createElement('div');
         card.className = 'summon-banner-card';
         card.dataset.bannerId = banner.id;
 
-        // Set background image from banner data
+        // Add banner type class for different gradient styles
+        if (banner.type) {
+          card.classList.add(`banner-type-${banner.type}`);
+        }
+
+        // Set background image from banner data (if it exists)
         if (banner.image) {
-          card.style.backgroundImage = `url("${banner.image}")`;
-          console.log(`[Summon] Setting background for ${banner.name}: ${banner.image}`);
-        } else {
-          console.warn(`[Summon] No image path for banner: ${banner.name}`);
+          // Try to preload the image to check if it exists
+          const img = new Image();
+          img.onload = () => {
+            card.style.backgroundImage = `url("${banner.image}")`;
+            console.log(`[Summon] ✓ Loaded image: ${banner.image}`);
+          };
+          img.onerror = () => {
+            console.warn(`[Summon] ✗ Image not found: ${banner.image} - using gradient fallback`);
+          };
+          img.src = banner.image;
         }
 
         // Add title
@@ -204,13 +215,11 @@
         title.textContent = banner.name;
         card.appendChild(title);
 
-        // Add subtitle (if exists)
-        if (banner.subtitle) {
-          const subtitle = document.createElement('div');
-          subtitle.className = 'summon-banner-subtitle';
-          subtitle.textContent = banner.subtitle;
-          card.appendChild(subtitle);
-        }
+        // Add subtitle/description
+        const subtitle = document.createElement('div');
+        subtitle.className = 'summon-banner-subtitle';
+        subtitle.textContent = banner.description || banner.subtitle || '';
+        card.appendChild(subtitle);
 
         // Click handler - navigate to summon.html with banner ID
         card.addEventListener('click', () => {
