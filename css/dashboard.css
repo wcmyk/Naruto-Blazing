@@ -490,7 +490,7 @@
 .dashboard-banner-section {
   position: fixed;
   left: 20px;
-  top: 140px; /* Under top bar and daily login */
+  top: 80px; /* Aligned with calendar/mailbox icons */
   width: 400px; /* Thinner - reduced from 600px */
   max-width: calc(100vw - 40px);
   z-index: 50;
@@ -601,7 +601,7 @@
 
   .dashboard-banner-section {
     width: 500px;
-    top: 130px;
+    top: 70px; /* Aligned with calendar/mailbox icons on tablet */
   }
 
   .dashboard-banner-section .banner-slideshow {
@@ -659,7 +659,7 @@
   .dashboard-banner-section {
     width: calc(100vw - 20px);
     left: 10px;
-    top: 260px;
+    top: 200px; /* Aligned with calendar/mailbox icons on mobile */
   }
 
   .dashboard-banner-section .banner-slideshow {
