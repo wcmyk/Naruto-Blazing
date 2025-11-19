@@ -35,13 +35,15 @@
 
 .bottom-bar-content {
   width: 100%;
-  max-width: 400px;
+  max-width: 1200px; /* Increased to accommodate all buttons */
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 30px;
   border: 0px solid transparent !important;
   outline: 0px solid transparent !important;
+  pointer-events: auto !important;
+  z-index: 1001 !important; /* Above parent to ensure clickability */
 }
 
 .hud-button {
@@ -64,7 +66,8 @@
   align-items: center;
   justify-content: center;
   padding: 0;
-  cursor: pointer;
+  cursor: pointer !important;
+  pointer-events: auto !important;
   position: relative;
   transition: all 0.3s ease;
   overflow: hidden;
