@@ -1,14 +1,22 @@
-// js/navigation.js - Shared navigation functionality for bottom bar
-console.log('🧭 Navigation.js loading...');
+// js/navigation.js
+// Navigation System for Banner Buttons, Bottom Icons, and Summon Banners
+// Handles all page navigation and deep linking
 
-(() => {
+(function (global) {
   "use strict";
 
-  console.log('🧭 Navigation IIFE executing...');
+  // ---------- Navigation Function ----------
+  function navigateTo(url, params = {}) {
+    console.log(`🚀 Navigating to: ${url}`, params);
 
-  // Navigation function with fade transition
-  function navigateTo(url) {
-    console.log(`🚀 Navigating to: ${url}`);
+    // Add query parameters if provided
+    let fullUrl = url;
+    if (Object.keys(params).length > 0) {
+      const queryString = new URLSearchParams(params).toString();
+      fullUrl = `${url}?${queryString}`;
+    }
+
+    // Fade out transition
     document.body.style.transition = "opacity 0.2s linear";
     document.body.style.opacity = "0";
 
@@ -17,106 +25,150 @@ console.log('🧭 Navigation.js loading...');
     }, 200);
   }
 
-  // Initialize navigation when DOM is ready
-  document.addEventListener("DOMContentLoaded", () => {
-    console.log('🧭 Navigation DOMContentLoaded fired!');
-
-    // Village button
-    const btnVillage = document.getElementById("btn-village");
-    console.log('btn-village found:', !!btnVillage);
-    if (btnVillage) {
-      btnVillage.addEventListener("click", (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        console.log("🏠 Village clicked");
-        navigateTo("index.html");
+  // ---------- Banner Button Navigation ----------
+  function initBannerButtons() {
+    // Missions
+    const btnMissions = document.querySelector('.banner-button.missions');
+    if (btnMissions) {
+      btnMissions.addEventListener('click', () => {
+        console.log("📜 Missions banner clicked");
+        navigateTo('missions.html');
       });
     }
 
-    // Characters button
-    const btnCharacters = document.getElementById("btn-characters");
-    console.log('btn-characters found:', !!btnCharacters);
+    // Characters
+    const btnCharacters = document.querySelector('.banner-button.characters');
     if (btnCharacters) {
-      btnCharacters.addEventListener("click", (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        console.log("👤 Characters clicked");
-        navigateTo("characters.html");
+      btnCharacters.addEventListener('click', () => {
+        console.log("👤 Characters banner clicked");
+        navigateTo('characters.html');
       });
     }
 
-    // Fusion button
-    const btnFusion = document.getElementById("btn-fusion");
-    console.log('btn-fusion found:', !!btnFusion);
+    // Summon
+    const btnSummon = document.querySelector('.banner-button.summon');
+    if (btnSummon) {
+      btnSummon.addEventListener('click', () => {
+        console.log("🔮 Summon banner clicked");
+        navigateTo('summon.html');
+      });
+    }
+
+    // Fusion
+    const btnFusion = document.querySelector('.banner-button.fusion');
     if (btnFusion) {
-      btnFusion.addEventListener("click", (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        console.log("⚡ Fusion clicked");
-        navigateTo("fusion.html");
+      btnFusion.addEventListener('click', () => {
+        console.log("⚡ Fusion banner clicked");
+        navigateTo('fusion.html');
       });
     }
 
-    // Teams button
-    const btnTeams = document.getElementById("btn-teams");
-    console.log('btn-teams found:', !!btnTeams);
-    if (btnTeams) {
-      btnTeams.addEventListener("click", (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        console.log("👥 Teams clicked");
-        navigateTo("teams.html");
+    // Shop
+    const btnShop = document.querySelector('.banner-button.shop');
+    if (btnShop) {
+      btnShop.addEventListener('click', () => {
+        console.log("🛒 Shop banner clicked");
+        navigateTo('shop.html');
       });
     }
   }
 
-    // Summon button
-    const btnSummon = document.getElementById("btn-summon");
-    console.log('btn-summon found:', !!btnSummon);
-    if (btnSummon) {
-      btnSummon.addEventListener("click", (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        console.log("🔮 Summon clicked");
-        navigateTo("summon.html");
+  // ---------- Bottom Icon Navigation ----------
+  function initBottomIcons() {
+    console.log("[Navigation] Initializing bottom icons...");
+
+    // Notice
+    const iconNotice = document.querySelector('.bottom-icon[data-action="notice"]');
+    console.log("[Navigation] Notice icon found:", iconNotice);
+    if (iconNotice) {
+      iconNotice.addEventListener('click', () => {
+        console.log("🔔 Notice clicked");
+        alert("Notice System\n\nNo new notices at this time.");
       });
     }
 
-    // Missions button
-    const btnMissions = document.getElementById("btn-missions");
-    console.log('btn-missions found:', !!btnMissions);
-    if (btnMissions) {
-      btnMissions.addEventListener("click", (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        console.log("📜 Missions clicked");
-        navigateTo("missions.html");
+    // Present Box
+    const iconPresents = document.querySelector('.bottom-icon[data-action="presents"]');
+    if (iconPresents) {
+      iconPresents.addEventListener('click', () => {
+        console.log("🎁 Present Box clicked");
+        alert("Present Box\n\nNo presents available.");
       });
     }
 
-    // Inventory button
-    const btnInventory = document.getElementById("btn-inventory");
-    console.log('btn-inventory found:', !!btnInventory);
-    if (btnInventory) {
-      btnInventory.addEventListener("click", (e) => {
-        e.preventDefault();
-        e.stopPropagation();
+    // Achievements
+    const iconAchievements = document.querySelector('.bottom-icon[data-action="achievements"]');
+    if (iconAchievements) {
+      iconAchievements.addEventListener('click', () => {
+        console.log("🏆 Achievements clicked");
+        alert("Achievements\n\nComing soon!");
+      });
+    }
+
+    // Panel Missions
+    const iconPanelMissions = document.querySelector('.bottom-icon[data-action="panel-missions"]');
+    if (iconPanelMissions) {
+      iconPanelMissions.addEventListener('click', () => {
+        console.log("📋 Panel Missions clicked");
+        navigateTo('missions.html');
+      });
+    }
+
+    // Chat
+    const iconChat = document.querySelector('.bottom-icon[data-action="chat"]');
+    if (iconChat) {
+      iconChat.addEventListener('click', () => {
+        console.log("💬 Chat clicked");
+        alert("Chat System\n\nComing soon!");
+      });
+    }
+
+    // Inventory (Storage)
+    const iconInventory = document.querySelector('.bottom-icon[data-action="inventory"]');
+    if (iconInventory) {
+      iconInventory.addEventListener('click', () => {
         console.log("📦 Inventory clicked");
         navigateTo('inventory.html');
       });
     }
 
-    // Shop button
-    const btnShop = document.getElementById("btn-shop");
-    console.log('btn-shop found:', !!btnShop);
-    if (btnShop) {
-      btnShop.addEventListener("click", (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        console.log("🛒 Shop clicked");
-        navigateTo("shop.html");
+    // Teams
+    const iconTeams = document.querySelector('.bottom-icon[data-action="teams"]');
+    if (iconTeams) {
+      iconTeams.addEventListener('click', () => {
+        console.log("👥 Teams clicked");
+        navigateTo('teams.html');
       });
     }
+
+    // Resources
+    const iconResources = document.querySelector('.bottom-icon[data-action="resources"]');
+    if (iconResources) {
+      iconResources.addEventListener('click', () => {
+        console.log("💎 Resources clicked");
+        navigateTo('resources.html');
+      });
+    }
+
+    // Guilds
+    const iconGuilds = document.querySelector('.bottom-icon[data-action="guilds"]');
+    if (iconGuilds) {
+      iconGuilds.addEventListener('click', () => {
+        console.log("🤝 Guilds clicked");
+        alert("Guilds System\n\nComing soon!");
+      });
+    }
+
+    // Settings
+    const iconSettings = document.querySelector('.bottom-icon[data-action="settings"]');
+    if (iconSettings) {
+      iconSettings.addEventListener('click', () => {
+        console.log("⚙️ Settings clicked");
+        openSettingsMenu();
+      });
+    }
+
+    console.log("[Navigation] Bottom icons initialized successfully");
   }
 
   // ---------- Summon Banner Carousel Navigation ----------
@@ -257,6 +309,4 @@ console.log('🧭 Navigation.js loading...');
     changeBackground
   };
 
-    console.log("✅ Navigation listeners attached to all found buttons!");
-  });
-})();
+})(window);
