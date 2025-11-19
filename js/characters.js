@@ -44,6 +44,13 @@
   const DUPE_GRID     = document.getElementById("dupe-grid");
   const DUPE_CANCEL   = document.getElementById("dupe-modal-cancel");
 
+  const RAMEN_MODAL    = document.getElementById("ramen-selector-modal");
+  const RAMEN_GRID     = document.getElementById("ramen-grid");
+  const RAMEN_CANCEL   = document.getElementById("ramen-modal-cancel");
+  const RAMEN_CHAR_PORTRAIT = document.getElementById("ramen-char-portrait");
+  const RAMEN_CHAR_NAME = document.getElementById("ramen-char-name");
+  const RAMEN_CHAR_LEVEL = document.getElementById("ramen-char-level");
+
   // Bug #3 fix: Validate all critical DOM elements exist before proceeding
   const requiredElements = {
     GRID, MODAL, MODAL_IMG, NP_NAME, NP_VERSION, NP_STARS,
@@ -470,6 +477,192 @@
     });
   }
 
+  /* ---------- Ramen Selector Modal ---------- */
+  function openRamenSelector(inst, character) {
+    if (!hasResources) {
+      alert("Resources system not available!");
+      return;
+    }
+
+    const tier = inst.tierCode || minTier(character);
+    let cap = tierCap(character, tier);
+
+    // Apply extended level cap from limit breaks
+    if (hasLimitBreak && inst.limitBreakLevel && inst.limitBreakLevel > 0) {
+      cap = window.LimitBreak.getExtendedLevelCap(tier, inst.limitBreakLevel);
+    }
+
+    const currentLevel = inst.level || 1;
+
+    if (currentLevel >= cap) {
+      alert("Character is already at max level!");
+      return;
+    }
+
+    // Update character info in modal
+    const art = resolveTierArt(character, tier);
+    RAMEN_CHAR_PORTRAIT.src = art.portrait;
+    RAMEN_CHAR_NAME.textContent = character.name || "Unknown";
+    RAMEN_CHAR_LEVEL.textContent = `Lv ${currentLevel}/${cap}`;
+
+    // Get all ramen from inventory
+    const allRamen = window.Resources.getItemsByCategory('ramen');
+    const availableRamen = allRamen.filter(r => r.quantity > 0);
+
+    if (availableRamen.length === 0) {
+      RAMEN_GRID.innerHTML = `
+        <div class="ramen-empty-state">
+          <div class="ramen-empty-icon">🍜</div>
+          <div class="ramen-empty-text">No Ramen Available</div>
+          <div class="ramen-empty-subtext">Visit the Shop to purchase ramen or complete missions to earn them!</div>
+        </div>
+      `;
+      showRamenModal();
+      return;
+    }
+
+    // Sort ramen by tier (element doesn't matter for feeding)
+    availableRamen.sort((a, b) => (a.exp || 0) - (b.exp || 0));
+
+    // Render ramen cards
+    RAMEN_GRID.innerHTML = '';
+    availableRamen.forEach(ramen => {
+      const card = document.createElement('div');
+      card.className = 'ramen-card';
+      card.setAttribute('data-ramen-id', ramen.id);
+      if (ramen.element) {
+        card.setAttribute('data-element', ramen.element);
+      }
+
+      card.innerHTML = `
+        <img src="${ramen.icon}" alt="${ramen.name}" class="ramen-icon" onerror="this.src='assets/items/placeholder.png'">
+        <div class="ramen-name">${ramen.name}</div>
+        <div class="ramen-exp">+${ramen.exp.toLocaleString()} EXP</div>
+        <div class="ramen-quantity">×${ramen.quantity}</div>
+      `;
+
+      card.addEventListener('click', async () => {
+        await handleRamenFeeding(inst, character, ramen.id, cap);
+        closeRamenModal();
+        renderGrid();
+      });
+
+      RAMEN_GRID.appendChild(card);
+    });
+
+    showRamenModal();
+  }
+
+  function showRamenModal() {
+    RAMEN_MODAL.classList.add("open");
+    RAMEN_MODAL.setAttribute("aria-hidden", "false");
+  }
+
+  function closeRamenModal() {
+    RAMEN_MODAL.classList.remove("open");
+    RAMEN_MODAL.setAttribute("aria-hidden", "true");
+  }
+
+  async function handleRamenFeeding(inst, character, ramenId, cap) {
+    if (!hasResources) return;
+
+    const ramenInfo = window.Resources.getMaterialInfo(ramenId);
+    const currentQuantity = window.Resources.get(ramenId);
+
+    if (currentQuantity <= 0) {
+      alert("You don't have any of this ramen!");
+      return;
+    }
+
+    const expGain = ramenInfo.exp || 0;
+    const currentLevel = inst.level || 1;
+
+    // Ask how many to use
+    const maxUsable = Math.min(currentQuantity, 99);
+    const input = prompt(`How many ${ramenInfo.name} do you want to use?\n\nAvailable: ${currentQuantity}\nEXP per ramen: ${expGain.toLocaleString()}\nCurrent Level: ${currentLevel}/${cap}`, "1");
+
+    if (!input) return; // Cancelled
+
+    const amount = parseInt(input, 10);
+    if (isNaN(amount) || amount < 1) {
+      alert("Invalid amount!");
+      return;
+    }
+
+    if (amount > currentQuantity) {
+      alert(`You only have ${currentQuantity} of this ramen!`);
+      return;
+    }
+
+    // Calculate level gains
+    const totalExp = expGain * amount;
+    let levelsGained = 0;
+    let newLevel = currentLevel;
+
+    // Simple leveling: each level requires ~100 * level EXP (rough estimate)
+    let remainingExp = totalExp;
+    while (remainingExp > 0 && newLevel < cap) {
+      const expNeeded = Math.floor(100 * newLevel); // Progressive EXP requirement
+      if (remainingExp >= expNeeded) {
+        remainingExp -= expNeeded;
+        newLevel++;
+        levelsGained++;
+      } else {
+        break;
+      }
+    }
+
+    // Cap at maximum level
+    newLevel = Math.min(newLevel, cap);
+    levelsGained = newLevel - currentLevel;
+
+    if (levelsGained === 0) {
+      const confirmUse = confirm(`This will give ${totalExp.toLocaleString()} EXP, but won't level up your character.\n\nContinue anyway?`);
+      if (!confirmUse) return;
+    }
+
+    // Confirm feeding
+    const confirmMsg = `Feed ${amount}x ${ramenInfo.name}?\n\n` +
+                      `Total EXP: ${totalExp.toLocaleString()}\n` +
+                      `Current Level: ${currentLevel}\n` +
+                      `New Level: ${newLevel}${levelsGained > 0 ? ` (+${levelsGained})` : ''}\n\n` +
+                      `This will consume the ramen from your inventory.`;
+
+    if (!confirm(confirmMsg)) return;
+
+    // Consume ramen
+    window.Resources.subtract(ramenId, amount);
+
+    // Level up character
+    inst.level = newLevel;
+    window.InventoryChar.updateInstance(inst.uid, inst);
+
+    // Refresh UI
+    LV_VALUE_EL.textContent = (newLevel >= cap) ? "MAX" : String(newLevel);
+    if (character) window.renderStatusTab(character, inst, inst.tierCode || minTier(character));
+
+    // Trigger daily mission
+    if (window.DailyMissions) {
+      const result = await window.DailyMissions.incrementDaily('daily_level_up');
+      if (result && result.completed) {
+        alert(`Daily Mission Completed!\n${result.dailyName}`);
+      }
+    }
+
+    // Success message
+    alert(`Success!\n\n${ramenInfo.name} x${amount} used\n+${totalExp.toLocaleString()} EXP\n${levelsGained > 0 ? `Gained ${levelsGained} level${levelsGained > 1 ? 's' : ''}!` : 'EXP stored for next level'}\n\nNew Level: ${newLevel}/${cap}`);
+  }
+
+  if (RAMEN_CANCEL) {
+    RAMEN_CANCEL.addEventListener('click', closeRamenModal);
+  }
+
+  if (RAMEN_MODAL) {
+    RAMEN_MODAL.addEventListener('click', (e) => {
+      if (e.target === RAMEN_MODAL) closeRamenModal();
+    });
+  }
+
   /* ---------- Materials Display ---------- */
   async function renderMaterials(inst, c, tier) {
     if (!hasAwakening || !hasResources) {
@@ -504,27 +697,9 @@
   }
 
   function wireStatusButtons(c, inst, tierOrNull) {
-    BTN_LVUP.onclick = async () => {
-      const t = tierOrNull || (inst.tierCode || (c ? minTier(c) : "3S"));
-      let cap = c ? tierCap(c, t) : 100;
-
-      // Apply extended level cap from limit breaks
-      if (hasLimitBreak && inst.limitBreakLevel && inst.limitBreakLevel > 0) {
-        cap = window.LimitBreak.getExtendedLevelCap(t, inst.limitBreakLevel);
-      }
-
-      const upd = window.InventoryChar.levelUpInstance(inst.uid, 1, cap);
-      LV_VALUE_EL.textContent = (upd.level >= cap) ? "MAX" : String(upd.level);
-      if (c) window.renderStatusTab(c, upd, t);
-      renderGrid();
-
-      // Trigger daily mission
-      if (window.DailyMissions) {
-        const result = await window.DailyMissions.incrementDaily('daily_level_up');
-        if (result && result.completed) {
-          alert(`Daily Mission Completed!\n${result.dailyName}`);
-        }
-      }
+    BTN_LVUP.onclick = () => {
+      if (!c) return;
+      openRamenSelector(inst, c);
     };
 
     BTN_FEEDDUPE.onclick = () => {
