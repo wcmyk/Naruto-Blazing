@@ -6,24 +6,41 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="css/background.css" />
   <link rel="stylesheet" href="css/top-bar.css" />
+  <link rel="stylesheet" href="css/character-vignette.css" />
+  <link rel="stylesheet" href="css/dashboard.css" />
+  <link rel="stylesheet" href="css/summon-banner-carousel.css" />
 </head>
 
 <body>
   <!-- Default background -->
   <div id="full-bg" class="bg-1"></div>
 
+  <!-- Character Vignette Display -->
+  <div class="character-vignette-container"></div>
+
+  <!-- Vignette Edge Fading Effect -->
+  <div class="vignette-overlay"></div>
+
+  <!-- Wind Animation Particles -->
+  <div class="wind-container"></div>
+
   <!-- Top Bar Overlay - Ninja Rank & Currency HUD -->
   <div class="top-bar">
-    <div class="ninja-rank-container">
-      <span class="ninja-rank-label">Ninja Rank:</span>
-      <span class="ninja-rank-value" id="ninja-rank-value">1</span>
+    <div class="ninja-rank-progress-container">
+      <div class="ninja-rank-info">
+        <span class="ninja-rank-label">Ninja Rank:</span>
+        <span class="ninja-rank-value" id="ninja-rank-value">1</span>
+      </div>
+      <div class="rank-progress-bar-wrapper">
+        <div class="rank-progress-bar-fill" id="rank-progress-bar-fill" style="width: 0%;"></div>
+        <div class="rank-progress-text" id="rank-progress-text">0%</div>
+      </div>
     </div>
 
-    <!-- Center Section - Username -->
-    <div class="username-container">
-      <div class="username-holder">
-        <span class="username-text" id="username-display">Ninja</span>
-      </div>
+    <div class="collection-stats" id="collection-stats">
+      <span class="collection-icon">📚</span>
+      <span class="collection-value" id="collection-value">0%</span>
+      <span class="collection-label">Collection</span>
     </div>
 
     <div class="currency-hud">
@@ -43,6 +60,36 @@
         <span class="currency-amount" id="currency-ryo">0</span>
       </div>
     </div>
+  </div>
+
+  <!-- Daily Login Indicator -->
+  <div class="daily-login-indicator" id="daily-login-indicator">
+    <div class="daily-login-icon">🎁</div>
+    <div class="daily-login-text">
+      <div class="daily-login-label">Daily Login</div>
+      <div class="daily-login-day" id="daily-login-day">Day 1/7</div>
+    </div>
+  </div>
+
+  <!-- Calendar and Mailbox Icons (next to Daily Login) -->
+  <div class="dashboard-icons-container">
+    <button class="icon-button" id="btn-calendar" aria-label="Calendar" title="Daily Streak Calendar">
+      <img src="assets/icons/main/calendar.png" alt="Calendar" onerror="this.style.display='none'; this.parentElement.innerHTML='📅';">
+    </button>
+
+    <button class="icon-button" id="btn-mailbox" aria-label="Mailbox" title="Mailbox">
+      <img src="assets/icons/main/mailbox.png" alt="Mailbox" onerror="this.style.display='none'; this.parentElement.innerHTML='📬';">
+      <div class="icon-badge" id="mailbox-badge" style="display: none;">0</div>
+    </button>
+  </div>
+
+  <!-- Announcement Banner Container -->
+  <div class="announcement-banner-container" id="announcement-banner-container"></div>
+
+  <!-- Main Content Area -->
+  <div class="dashboard-banner-section">
+    <!-- Full-Width Banner Slideshow -->
+    <div class="banner-slideshow" id="dashboard-banner-slideshow"></div>
   </div>
 
   <!-- HUD Bottom Bar -->
@@ -83,29 +130,55 @@
   </div>
 
   <!-- Scripts -->
-  <script src="js/user-profile.js"></script>
+  <script src="js/navigation.js"></script>
   <script src="js/character_inv.js"></script>
   <script src="js/resources.js"></script>
   <script src="js/daily-missions.js"></script>
   <script src="js/top-bar.js"></script>
+  <script src="js/character-vignette.js"></script>
+  <script src="js/dashboard-announcements.js"></script>
+  <script src="js/dashboard-banner-slideshow.js"></script>
+  <script src="js/dashboard-calendar.js"></script>
+  <script src="js/dashboard-stats.js"></script>
+  <script src="js/dashboard-mailbox.js"></script>
 
   <script>
     document.addEventListener("DOMContentLoaded", async () => {
       console.log("✅ JavaScript loaded!");
 
-      // Initialize username display
-      const usernameDisplay = document.getElementById("username-display");
-      if (usernameDisplay && typeof window.UserProfile !== "undefined") {
-        const username = window.UserProfile.getUsername();
-        usernameDisplay.textContent = username;
-        console.log(`👤 Username loaded: ${username}`);
+      // Initialize Dashboard Systems
+      console.log("🎮 Initializing Dashboard Systems...");
 
-        // Listen for username changes
-        window.addEventListener("usernameChanged", (e) => {
-          usernameDisplay.textContent = e.detail.username;
-          console.log(`👤 Username updated: ${e.detail.username}`);
-        });
+      // Initialize Calendar and Daily Streak
+      if (window.DashboardCalendar) {
+        window.DashboardCalendar.init();
+        await updateDailyLoginDisplay();
       }
+
+      // Initialize Mailbox
+      if (window.DashboardMailbox) {
+        window.DashboardMailbox.init();
+        updateMailboxBadge();
+      }
+
+      // Initialize Stats
+      if (window.DashboardStats) {
+        await window.DashboardStats.init();
+        updateCollectionStats();
+      }
+
+      // Initialize Announcements
+      if (window.DashboardAnnouncements) {
+        await window.DashboardAnnouncements.init('announcement-banner-container');
+      }
+
+      // Initialize Banner Slideshow
+      if (window.DashboardBannerSlideshow) {
+        await window.DashboardBannerSlideshow.init('dashboard-banner-slideshow');
+      }
+
+      // Update Ninja Rank Progress Bar
+      updateRankProgressBar();
 
       // Process login bonus
       if (typeof window.DailyMissions !== "undefined") {
@@ -116,6 +189,113 @@
             .join(", ");
           alert(`Login Bonus Day ${loginResult.loginDay}!\n\nRewards:\n${rewardText}`);
         }
+      }
+
+      // Helper Functions
+      async function updateDailyLoginDisplay() {
+        const streak = window.DashboardCalendar.getStreak();
+        const dayElement = document.getElementById('daily-login-day');
+        const indicator = document.getElementById('daily-login-indicator');
+
+        if (dayElement) {
+          dayElement.textContent = `Day ${streak}/7`;
+        }
+
+        // Add notification dot if login bonus is available
+        if (window.DailyMissions) {
+          const loginStatus = await window.DailyMissions.getLoginStatus();
+          if (loginStatus && !loginStatus.claimedToday) {
+            indicator.classList.add('has-reward');
+          }
+        }
+      }
+
+      function updateMailboxBadge() {
+        const unreadCount = window.DashboardMailbox.getUnreadCount();
+        const badge = document.getElementById('mailbox-badge');
+
+        if (badge) {
+          if (unreadCount > 0) {
+            badge.textContent = unreadCount > 99 ? '99+' : unreadCount;
+            badge.style.display = 'flex';
+          } else {
+            badge.style.display = 'none';
+          }
+        }
+      }
+
+      function updateCollectionStats() {
+        const percentage = window.DashboardStats.getCollectionPercentage();
+        const valueElement = document.getElementById('collection-value');
+
+        if (valueElement) {
+          valueElement.textContent = percentage.toFixed(1) + '%';
+        }
+      }
+
+      function updateRankProgressBar() {
+        // Get current rank data from localStorage or default
+        const rankData = JSON.parse(localStorage.getItem('ninjaRank') || '{"level": 1, "xp": 0, "xpToNext": 100}');
+
+        const percentage = Math.min(100, (rankData.xp / rankData.xpToNext) * 100);
+        const fillElement = document.getElementById('rank-progress-bar-fill');
+        const textElement = document.getElementById('rank-progress-text');
+
+        if (fillElement) {
+          fillElement.style.width = percentage + '%';
+        }
+
+        if (textElement) {
+          textElement.textContent = Math.floor(percentage) + '%';
+        }
+      }
+
+      // Calendar Button Event
+      const btnCalendar = document.getElementById('btn-calendar');
+      if (btnCalendar) {
+        btnCalendar.addEventListener('click', () => {
+          console.log('📅 Calendar clicked');
+          if (window.DashboardCalendar) {
+            window.DashboardCalendar.openCalendar();
+          }
+        });
+      }
+
+      // Mailbox Button Event
+      const btnMailbox = document.getElementById('btn-mailbox');
+      if (btnMailbox) {
+        btnMailbox.addEventListener('click', () => {
+          console.log('📬 Mailbox clicked');
+          if (window.DashboardMailbox) {
+            window.DashboardMailbox.openMailbox();
+          }
+        });
+      }
+
+      // Daily Login Indicator Click Event
+      const dailyLoginIndicator = document.getElementById('daily-login-indicator');
+      if (dailyLoginIndicator) {
+        dailyLoginIndicator.addEventListener('click', async () => {
+          console.log('🎁 Daily Login clicked');
+
+          if (typeof window.DailyMissions !== "undefined") {
+            const loginResult = await window.DailyMissions.processLogin();
+
+            if (loginResult.ok) {
+              if (loginResult.alreadyClaimed) {
+                alert(`You've already claimed today's login bonus!\n\nCurrent Login Day: ${loginResult.loginDay}/7\n\nCome back tomorrow for more rewards!`);
+              } else {
+                const rewardText = Object.entries(loginResult.reward)
+                  .map(([mat, amt]) => `${mat}: ${amt}`)
+                  .join("\n");
+                alert(`🎁 Login Bonus Day ${loginResult.loginDay}!\n\nRewards Claimed:\n${rewardText}`);
+
+                // Remove notification dot after claiming
+                dailyLoginIndicator.classList.remove('has-reward');
+              }
+            }
+          }
+        });
       }
 
       // Background cycling
@@ -131,74 +311,17 @@
         console.log(`🎨 Background changed to bg-${n}`);
       }
 
-      // Navigation function
+      // Helper function for navigation (used by Settings button)
       function navigateTo(url) {
         console.log(`🚀 Navigating to: ${url}`);
         document.body.style.transition = "opacity 0.2s linear";
         document.body.style.opacity = "0";
-        setTimeout(() => { 
-          window.location.href = url; 
+        setTimeout(() => {
+          window.location.href = url;
         }, 200);
       }
 
-      // Wire up navigation buttons
-      const btnVillage = document.getElementById("btn-village");
-      if (btnVillage) {
-        btnVillage.addEventListener("click", () => {
-          console.log("🏠 Village clicked");
-          navigateTo("index.html");
-        });
-      }
-
-      const btnCharacters = document.getElementById("btn-characters");
-      if (btnCharacters) {
-        btnCharacters.addEventListener("click", () => {
-          console.log("👤 Characters clicked");
-          navigateTo("characters.html");
-        });
-      }
-
-      const btnFusion = document.getElementById("btn-fusion");
-      if (btnFusion) {
-        btnFusion.addEventListener("click", () => {
-          console.log("⚡ Fusion clicked");
-          navigateTo("fusion.html");
-        });
-      }
-
-      const btnTeams = document.getElementById("btn-teams");
-      if (btnTeams) {
-        btnTeams.addEventListener("click", () => {
-          console.log("👥 Teams clicked");
-          navigateTo("teams.html");
-        });
-      }
-
-      const btnSummon = document.getElementById("btn-summon");
-      if (btnSummon) {
-        btnSummon.addEventListener("click", () => {
-          console.log("🔮 Summon clicked");
-          navigateTo("summon.html");
-        });
-      }
-
-      const btnMissions = document.getElementById("btn-missions");
-      if (btnMissions) {
-        btnMissions.addEventListener("click", () => {
-          console.log("📜 Missions clicked");
-          navigateTo("missions.html");
-        });
-      }
-
-      const btnShop = document.getElementById("btn-shop");
-      if (btnShop) {
-        btnShop.addEventListener("click", () => {
-          console.log("🛒 Shop clicked");
-          navigateTo("shop.html");
-        });
-      }
-
-      // Add Character button
+      // Add Character button (index.html specific)
       const btnAddChar = document.getElementById("btn-addchar");
       if (btnAddChar) {
         btnAddChar.addEventListener("click", () => {
@@ -214,12 +337,12 @@
         });
       }
 
-      // Settings button (with background changer, username, and resources)
+      // Settings button (with background changer, resources, and character vignette)
       const btnSettings = document.getElementById("btn-settings");
       if (btnSettings) {
         btnSettings.addEventListener("click", () => {
           console.log("⚙️ Settings clicked");
-          const choice = prompt("Settings Menu:\n1. Change Username\n2. Change Background (1-10)\n3. View Resources\n4. Cancel\n\nEnter your choice:");
+          const choice = prompt("Settings Menu:\n1. Change Background (1-10)\n2. View Resources\n3. Select Character Display\n4. Cancel\n\nEnter your choice:");
 
           if (choice === "1") {
             const currentUsername = window.UserProfile.getUsername();
@@ -244,6 +367,12 @@
             }
           } else if (choice === "3") {
             navigateTo("resources.html");
+          } else if (choice === "3") {
+            if (typeof window.CharacterVignette !== "undefined") {
+              window.CharacterVignette.openCharacterSelector();
+            } else {
+              alert("Character Vignette system not loaded yet. Please reload the page.");
+            }
           }
         });
       }
