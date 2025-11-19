@@ -204,11 +204,11 @@
           card.appendChild(subtitle);
         }
 
-        // Click handler - navigate to summon.html with banner ID
-        card.addEventListener('click', () => {
-          console.log(`🔮 Summon banner clicked: ${banner.name}`);
-          navigateTo('summon.html', { banner: banner.id });
-        });
+        // Click handler disabled - banner is visual only
+        // card.addEventListener('click', () => {
+        //   console.log(`🔮 Summon banner clicked: ${banner.name}`);
+        //   navigateTo('summon.html', { banner: banner.id });
+        // });
 
         carousel.appendChild(card);
       });

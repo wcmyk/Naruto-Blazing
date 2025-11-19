@@ -241,7 +241,7 @@
   background: rgba(212, 175, 55, 0.8);
 }
 
-/* Individual summon banner card */
+/* Individual summon banner card - VISUAL ONLY (non-clickable) */
 .summon-banner-card {
   width: 380px;
   height: 180px;
@@ -249,7 +249,8 @@
   background-position: center;
   background-repeat: no-repeat;
   border-radius: 12px;
-  cursor: pointer;
+  cursor: default; /* Disabled - banner is visual only */
+  pointer-events: none; /* Disabled - banner is visual only */
   transition: all 0.3s ease;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
   border: 3px solid rgba(200, 100, 255, 0.4);
@@ -257,15 +258,16 @@
   overflow: hidden;
 }
 
-.summon-banner-card:hover {
+/* Hover and active effects DISABLED - visual only mode */
+/* .summon-banner-card:hover {
   transform: translateX(10px) scale(1.05);
   box-shadow: 0 8px 30px rgba(200, 100, 255, 0.7);
   border-color: rgba(200, 100, 255, 0.9);
-}
+} */
 
-.summon-banner-card:active {
+/* .summon-banner-card:active {
   transform: translateX(5px) scale(1.02);
-}
+} */
 
 /* Banner card glow */
 .summon-banner-card::before {
@@ -278,9 +280,10 @@
   pointer-events: none;
 }
 
-.summon-banner-card:hover::before {
+/* Hover glow DISABLED - visual only mode */
+/* .summon-banner-card:hover::before {
   opacity: 1;
-}
+} */
 
 /* Banner card title */
 .summon-banner-title {
