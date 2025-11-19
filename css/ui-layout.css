@@ -15,10 +15,10 @@
   display: grid;
   grid-template-columns: 1fr 1fr; /* Two equal columns */
   grid-auto-rows: 68px; /* Reduced 55%: 150px × 0.45 = 68px */
-  gap: 8px; /* Reduced 55%: 16px × 0.45 = 8px */
+  gap: 12px; /* Increased gap for better spacing between buttons */
   pointer-events: auto;
   width: 216px; /* Reduced 55%: 480px × 0.45 = 216px */
-  margin-right: 24px; /* Space between banner and screen edge */
+  margin-right: 50px; /* Moved left by ~26px (was 24px) */
 }
 
 .banner-button {
