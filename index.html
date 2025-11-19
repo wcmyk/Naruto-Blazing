@@ -18,6 +18,14 @@
       <span class="ninja-rank-label">Ninja Rank:</span>
       <span class="ninja-rank-value" id="ninja-rank-value">1</span>
     </div>
+
+    <!-- Center Section - Username -->
+    <div class="username-container">
+      <div class="username-holder">
+        <span class="username-text" id="username-display">Ninja</span>
+      </div>
+    </div>
+
     <div class="currency-hud">
       <div class="currency-item ninja-pearls">
         <img src="assets/icons/currency/ninjapearl.png" alt="Ninja Pearls" class="currency-icon"
@@ -75,6 +83,7 @@
   </div>
 
   <!-- Scripts -->
+  <script src="js/user-profile.js"></script>
   <script src="js/character_inv.js"></script>
   <script src="js/resources.js"></script>
   <script src="js/daily-missions.js"></script>
@@ -83,6 +92,20 @@
   <script>
     document.addEventListener("DOMContentLoaded", async () => {
       console.log("✅ JavaScript loaded!");
+
+      // Initialize username display
+      const usernameDisplay = document.getElementById("username-display");
+      if (usernameDisplay && typeof window.UserProfile !== "undefined") {
+        const username = window.UserProfile.getUsername();
+        usernameDisplay.textContent = username;
+        console.log(`👤 Username loaded: ${username}`);
+
+        // Listen for username changes
+        window.addEventListener("usernameChanged", (e) => {
+          usernameDisplay.textContent = e.detail.username;
+          console.log(`👤 Username updated: ${e.detail.username}`);
+        });
+      }
 
       // Process login bonus
       if (typeof window.DailyMissions !== "undefined") {
@@ -191,14 +214,26 @@
         });
       }
 
-      // Settings button (with background changer and resources)
+      // Settings button (with background changer, username, and resources)
       const btnSettings = document.getElementById("btn-settings");
       if (btnSettings) {
         btnSettings.addEventListener("click", () => {
           console.log("⚙️ Settings clicked");
-          const choice = prompt("Settings Menu:\n1. Change Background (1-10)\n2. View Resources\n3. Cancel\n\nEnter your choice:");
+          const choice = prompt("Settings Menu:\n1. Change Username\n2. Change Background (1-10)\n3. View Resources\n4. Cancel\n\nEnter your choice:");
 
           if (choice === "1") {
+            const currentUsername = window.UserProfile.getUsername();
+            const newUsername = prompt(`Current username: ${currentUsername}\n\nEnter new username (max 20 characters):`);
+
+            if (newUsername && newUsername.trim()) {
+              const success = window.UserProfile.setUsername(newUsername);
+              if (success) {
+                alert(`✅ Username changed to: ${newUsername.trim()}`);
+              } else {
+                alert("❌ Failed to change username. Please use 1-20 characters.");
+              }
+            }
+          } else if (choice === "2") {
             const bgNum = prompt("Enter background number (1-10):");
             const num = parseInt(bgNum);
             if (num >= 1 && num <= 10) {
@@ -207,7 +242,7 @@
             } else {
               alert("Invalid background number. Please enter 1-10.");
             }
-          } else if (choice === "2") {
+          } else if (choice === "3") {
             navigateTo("resources.html");
           }
         });
