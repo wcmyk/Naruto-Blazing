@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="css/background.css" />
   <link rel="stylesheet" href="css/top-bar.css" />
   <link rel="stylesheet" href="css/character-vignette.css" />
+  <link rel="stylesheet" href="css/ui-layout.css" />
 </head>
 
 <body>
@@ -22,12 +23,20 @@
   <!-- Wind Animation Particles -->
   <div class="wind-container"></div>
 
-  <!-- Top Bar Overlay - Ninja Rank & Currency HUD -->
+  <!-- Top Bar Overlay - Ninja Rank, Username & Currency HUD -->
   <div class="top-bar">
+    <!-- Left: Ninja Rank -->
     <div class="ninja-rank-container">
       <span class="ninja-rank-label">Ninja Rank:</span>
       <span class="ninja-rank-value" id="ninja-rank-value">1</span>
     </div>
+
+    <!-- Center: Player Username (clickable to edit) -->
+    <div class="player-username-container">
+      <span class="player-username" id="player-username">Player</span>
+    </div>
+
+    <!-- Right: Currency HUD -->
     <div class="currency-hud">
       <div class="currency-item ninja-pearls">
         <img src="assets/icons/currency/ninjapearl.png" alt="Ninja Pearls" class="currency-icon"
@@ -47,40 +56,90 @@
     </div>
   </div>
 
-  <!-- HUD Bottom Bar -->
-  <div class="bottom-bar">
-    <div class="bottom-bar-content">
-      <button class="hud-button active" id="btn-village" aria-label="Village">
-        <img src="assets/icons/village_icon.png" alt="Village">
-      </button>
-      <button class="hud-button" id="btn-characters" aria-label="Characters">
-        <img src="assets/icons/characters_icon.png" alt="Characters">
-      </button>
-      <button class="hud-button" id="btn-fusion" aria-label="Fusion">
-        <img src="assets/icons/fusion_icon.png" alt="Fusion">
-      </button>
-      <button class="hud-button" id="btn-teams" aria-label="Teams">
-        <img src="assets/icons/teams_icon.png" alt="Teams">
-      </button>
-      <button class="hud-button" id="btn-summon" aria-label="Summon">
-        <img src="assets/icons/summon_icon.png" alt="Summon">
-      </button>
-      <button class="hud-button" id="btn-missions" aria-label="Missions">
-        <img src="assets/icons/missions_icon.png" alt="Missions">
-      </button>
-      <button class="hud-button" id="btn-inventory" aria-label="Inventory">
-        <img src="assets/icons/inventory_icon.png" alt="Inventory">
-      </button>
-      <button class="hud-button" id="btn-shop" aria-label="Shop">
-        <img src="assets/icons/shop_icon.png" alt="Shop">
-      </button>
-      <!-- Index.html exclusive buttons -->
-      <button class="hud-button" id="btn-addchar" aria-label="Add Character">
-        <img src="assets/icons/add_icon.png" alt="Add Character">
-      </button>
-      <button class="hud-button" id="btn-settings" aria-label="Settings">
-        <img src="assets/icons/settings_icon.png" alt="Settings">
-      </button>
+  <!-- Summon Banner Carousel (Left Side) -->
+  <div class="summon-banner-carousel">
+    <!-- Dynamically populated by navigation.js -->
+  </div>
+
+  <!-- Right Banner Panel (5 Main Navigation Banners) -->
+  <div class="right-banner-panel">
+    <div class="banner-button missions">
+      <div class="banner-button-text">Missions</div>
+    </div>
+    <div class="banner-button characters">
+      <div class="banner-button-text">Characters</div>
+    </div>
+    <div class="banner-button summon">
+      <div class="banner-button-text">Summon</div>
+    </div>
+    <div class="banner-button fusion">
+      <div class="banner-button-text">Fusion</div>
+    </div>
+    <div class="banner-button shop">
+      <div class="banner-button-text">Shop</div>
+    </div>
+  </div>
+
+  <!-- Bottom Icon Bar (10 Utility Icons) -->
+  <div class="bottom-icon-bar">
+    <!-- Notice -->
+    <div class="bottom-icon" data-action="notice">
+      <img src="assets/icons/notice_icon.png" alt="Notice" class="bottom-icon-image" onerror="this.style.display='none';">
+      <span class="bottom-icon-label">Notice</span>
+    </div>
+
+    <!-- Present Box -->
+    <div class="bottom-icon" data-action="presents">
+      <img src="assets/icons/present_icon.png" alt="Presents" class="bottom-icon-image" onerror="this.style.display='none';">
+      <span class="bottom-icon-label">Presents</span>
+    </div>
+
+    <!-- Achievements -->
+    <div class="bottom-icon" data-action="achievements">
+      <img src="assets/icons/achievement_icon.png" alt="Achievements" class="bottom-icon-image" onerror="this.style.display='none';">
+      <span class="bottom-icon-label">Achievements</span>
+    </div>
+
+    <!-- Panel Missions -->
+    <div class="bottom-icon" data-action="panel-missions">
+      <img src="assets/icons/panel_missions_icon.png" alt="Panel Missions" class="bottom-icon-image" onerror="this.style.display='none';">
+      <span class="bottom-icon-label">Panel</span>
+    </div>
+
+    <!-- Chat -->
+    <div class="bottom-icon" data-action="chat">
+      <img src="assets/icons/chat_icon.png" alt="Chat" class="bottom-icon-image" onerror="this.style.display='none';">
+      <span class="bottom-icon-label">Chat</span>
+    </div>
+
+    <!-- Inventory -->
+    <div class="bottom-icon" data-action="inventory">
+      <img src="assets/icons/inventory_icon.png" alt="Inventory" class="bottom-icon-image" onerror="this.style.display='none';">
+      <span class="bottom-icon-label">Inventory</span>
+    </div>
+
+    <!-- Teams -->
+    <div class="bottom-icon" data-action="teams">
+      <img src="assets/icons/teams_icon.png" alt="Teams" class="bottom-icon-image" onerror="this.style.display='none';">
+      <span class="bottom-icon-label">Teams</span>
+    </div>
+
+    <!-- Resources -->
+    <div class="bottom-icon" data-action="resources">
+      <img src="assets/icons/resources_icon.png" alt="Resources" class="bottom-icon-image" onerror="this.style.display='none';">
+      <span class="bottom-icon-label">Resources</span>
+    </div>
+
+    <!-- Guilds -->
+    <div class="bottom-icon" data-action="guilds">
+      <img src="assets/icons/guilds_icon.png" alt="Guilds" class="bottom-icon-image" onerror="this.style.display='none';">
+      <span class="bottom-icon-label">Guilds</span>
+    </div>
+
+    <!-- Settings -->
+    <div class="bottom-icon" data-action="settings">
+      <img src="assets/icons/settings_icon.png" alt="Settings" class="bottom-icon-image" onerror="this.style.display='none';">
+      <span class="bottom-icon-label">Settings</span>
     </div>
   </div>
 
@@ -90,6 +149,8 @@
   <script src="js/daily-missions.js"></script>
   <script src="js/top-bar.js"></script>
   <script src="js/character-vignette.js"></script>
+  <script src="js/username.js"></script>
+  <script src="js/navigation.js"></script>
 
   <script>
     document.addEventListener("DOMContentLoaded", async () => {
@@ -106,131 +167,7 @@
         }
       }
 
-      // Background cycling
-      const el = document.getElementById("full-bg");
-      const total = 10;
-      let current = 1;
-
-      function updateBG(n) {
-        for (let i = 1; i <= total; i++) {
-          el.classList.remove(`bg-${i}`);
-        }
-        el.classList.add(`bg-${n}`);
-        console.log(`🎨 Background changed to bg-${n}`);
-      }
-
-      // Navigation function
-      function navigateTo(url) {
-        console.log(`🚀 Navigating to: ${url}`);
-        document.body.style.transition = "opacity 0.2s linear";
-        document.body.style.opacity = "0";
-        setTimeout(() => { 
-          window.location.href = url; 
-        }, 200);
-      }
-
-      // Wire up navigation buttons
-      const btnVillage = document.getElementById("btn-village");
-      if (btnVillage) {
-        btnVillage.addEventListener("click", () => {
-          console.log("🏠 Village clicked");
-          navigateTo("index.html");
-        });
-      }
-
-      const btnCharacters = document.getElementById("btn-characters");
-      if (btnCharacters) {
-        btnCharacters.addEventListener("click", () => {
-          console.log("👤 Characters clicked");
-          navigateTo("characters.html");
-        });
-      }
-
-      const btnFusion = document.getElementById("btn-fusion");
-      if (btnFusion) {
-        btnFusion.addEventListener("click", () => {
-          console.log("⚡ Fusion clicked");
-          navigateTo("fusion.html");
-        });
-      }
-
-      const btnTeams = document.getElementById("btn-teams");
-      if (btnTeams) {
-        btnTeams.addEventListener("click", () => {
-          console.log("👥 Teams clicked");
-          navigateTo("teams.html");
-        });
-      }
-
-      const btnSummon = document.getElementById("btn-summon");
-      if (btnSummon) {
-        btnSummon.addEventListener("click", () => {
-          console.log("🔮 Summon clicked");
-          navigateTo("summon.html");
-        });
-      }
-
-      const btnMissions = document.getElementById("btn-missions");
-      if (btnMissions) {
-        btnMissions.addEventListener("click", () => {
-          console.log("📜 Missions clicked");
-          navigateTo("missions.html");
-        });
-      }
-
-      const btnShop = document.getElementById("btn-shop");
-      if (btnShop) {
-        btnShop.addEventListener("click", () => {
-          console.log("🛒 Shop clicked");
-          navigateTo("shop.html");
-        });
-      }
-
-      // Add Character button
-      const btnAddChar = document.getElementById("btn-addchar");
-      if (btnAddChar) {
-        btnAddChar.addEventListener("click", () => {
-          console.log("➕ Add Character clicked");
-          const id = prompt("Enter Character ID from characters.json (e.g. 'naruto_01')");
-          if (id && typeof window.addCharacterById === "function") {
-            window.addCharacterById(id.trim());
-            console.log(`✅ Added character: ${id}`);
-          } else if (id) {
-            console.error("⚠️ addCharacterById not loaded yet");
-            alert("The Add Character system isn't ready yet. Please reload the page.");
-          }
-        });
-      }
-
-      // Settings button (with background changer, resources, and character vignette)
-      const btnSettings = document.getElementById("btn-settings");
-      if (btnSettings) {
-        btnSettings.addEventListener("click", () => {
-          console.log("⚙️ Settings clicked");
-          const choice = prompt("Settings Menu:\n1. Change Background (1-10)\n2. View Resources\n3. Select Character Display\n4. Cancel\n\nEnter your choice:");
-
-          if (choice === "1") {
-            const bgNum = prompt("Enter background number (1-10):");
-            const num = parseInt(bgNum);
-            if (num >= 1 && num <= 10) {
-              current = num;
-              updateBG(current);
-            } else {
-              alert("Invalid background number. Please enter 1-10.");
-            }
-          } else if (choice === "2") {
-            navigateTo("resources.html");
-          } else if (choice === "3") {
-            if (typeof window.CharacterVignette !== "undefined") {
-              window.CharacterVignette.openCharacterSelector();
-            } else {
-              alert("Character Vignette system not loaded yet. Please reload the page.");
-            }
-          }
-        });
-      }
-
-      console.log("✅ All event listeners attached!");
+      console.log("✅ All systems initialized!");
     });
   </script>
 </body>
