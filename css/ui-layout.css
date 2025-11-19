@@ -14,30 +14,30 @@
   z-index: 50;
   display: grid;
   grid-template-columns: 1fr 1fr; /* Two equal columns */
-  gap: 20px; /* Increased gap for better spacing */
+  gap: 15px; /* Gap between columns */
   pointer-events: auto;
-  width: 400px; /* Reduced slightly for better fit */
+  width: 340px; /* Reduced to prevent overflow: each column = ~162px */
 }
 
 .banner-button {
-  width: 100%; /* Fill grid cell */
-  height: 85px; /* Further reduced height to prevent overlap */
+  width: 100%; /* Fill grid cell (~162px per column) */
+  height: 70px; /* Reduced height for better proportions */
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  border-radius: 8px; /* Reduced from 12px */
+  border-radius: 8px;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.6); /* Reduced from 6px 20px */
-  border: 2px solid rgba(255, 165, 0, 0.3); /* Reduced from 3px */
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.6);
+  border: 2px solid rgba(255, 165, 0, 0.3);
   position: relative;
   overflow: hidden;
 }
 
 /* Missions banner spans both columns (full width) */
 .banner-button.missions {
-  grid-column: 1 / -1; /* Span both columns */
-  height: 85px; /* Matched with other buttons */
+  grid-column: 1 / -1; /* Span both columns: full 340px width */
+  height: 70px; /* Matched with other buttons */
 }
 
 /* Hover effect */
@@ -90,13 +90,13 @@
 /* Banner text overlay (temporary until PNGs have text) */
 .banner-button-text {
   position: absolute;
-  bottom: 8px; /* Reduced for smaller buttons */
-  left: 12px; /* Reduced for smaller buttons */
-  font-size: 16px; /* Reduced to fit smaller buttons */
+  bottom: 6px; /* Adjusted for 70px height buttons */
+  left: 10px; /* Adjusted for narrower buttons */
+  font-size: 14px; /* Reduced to fit smaller buttons (162px x 70px) */
   font-weight: 700;
   color: #fff;
   text-shadow: 0 2px 6px rgba(0, 0, 0, 0.9);
-  letter-spacing: 0.5px;
+  letter-spacing: 0.4px;
   font-family: "Cinzel", serif;
 }
 
