@@ -14,10 +14,10 @@
   z-index: 50;
   display: grid;
   grid-template-columns: 1fr 1fr; /* Two equal columns */
-  grid-auto-rows: 150px; /* Default row height */
-  gap: 16px;
+  grid-auto-rows: 68px; /* Reduced 55%: 150px × 0.45 = 68px */
+  gap: 8px; /* Reduced 55%: 16px × 0.45 = 8px */
   pointer-events: auto;
-  width: 480px;
+  width: 216px; /* Reduced 55%: 480px × 0.45 = 216px */
   margin-right: 24px; /* Space between banner and screen edge */
 }
 
@@ -27,11 +27,11 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  border-radius: 8px;
+  border-radius: 4px; /* Reduced 55%: 8px × 0.45 = 4px */
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.6);
-  border: 2px solid rgba(255, 165, 0, 0.3);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.6); /* Reduced 55%: 4px → 2px, 14px → 6px */
+  border: 1px solid rgba(255, 165, 0, 0.3); /* Reduced 55%: 2px × 0.45 = 1px */
   position: relative;
   overflow: hidden;
 }
@@ -39,7 +39,7 @@
 /* Missions banner spans both columns (full width) */
 .banner-button.missions {
   grid-column: 1 / 3; /* Span both columns */
-  height: 180px; /* Taller than other banners */
+  height: 81px; /* Reduced 55%: 180px × 0.45 = 81px */
 }
 
 /* Explicit grid positioning for 2×2 layout below Missions */
@@ -61,13 +61,13 @@
 
 /* Hover effect */
 .banner-button:hover {
-  transform: translateX(-10px) scale(1.02);
-  box-shadow: 0 8px 30px rgba(255, 165, 0, 0.5);
+  transform: translateX(-5px) scale(1.02); /* Reduced 55%: -10px × 0.45 = -5px */
+  box-shadow: 0 4px 14px rgba(255, 165, 0, 0.5); /* Reduced 55%: 8px → 4px, 30px → 14px */
   border-color: rgba(255, 165, 0, 0.8);
 }
 
 .banner-button:active {
-  transform: translateX(-5px) scale(0.98);
+  transform: translateX(-2px) scale(0.98); /* Reduced 55%: -5px × 0.45 = -2px */
 }
 
 /* Glow effect on hover */
@@ -109,21 +109,21 @@
 /* Banner text overlay (temporary until PNGs have text) */
 .banner-button-text {
   position: absolute;
-  bottom: 15px;
-  left: 20px;
-  font-size: 24px; /* Larger for 150px tall buttons */
+  bottom: 7px; /* Reduced 55%: 15px × 0.45 = 7px */
+  left: 9px; /* Reduced 55%: 20px × 0.45 = 9px */
+  font-size: 11px; /* Reduced 55%: 24px × 0.45 = 11px */
   font-weight: 700;
   color: #fff;
-  text-shadow: 0 3px 8px rgba(0, 0, 0, 0.9);
-  letter-spacing: 0.8px;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);
+  letter-spacing: 0.4px; /* Reduced 55%: 0.8px × 0.45 = 0.4px */
   font-family: "Cinzel", serif;
 }
 
-/* Missions button text (larger since button is 180px tall) */
+/* Missions button text (larger since button is 81px tall) */
 .banner-button.missions .banner-button-text {
-  font-size: 28px;
-  bottom: 20px;
-  left: 24px;
+  font-size: 13px; /* Reduced 55%: 28px × 0.45 = 13px */
+  bottom: 9px; /* Reduced 55%: 20px × 0.45 = 9px */
+  left: 11px; /* Reduced 55%: 24px × 0.45 = 11px */
 }
 
 /* ==========================================
