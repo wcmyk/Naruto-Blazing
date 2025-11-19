@@ -175,6 +175,14 @@
         });
       }
 
+      const btnInventory = document.getElementById("btn-inventory");
+      if (btnInventory) {
+        btnInventory.addEventListener("click", () => {
+          console.log("📦 Inventory clicked");
+          navigateTo("inventory.html");
+        });
+      }
+
       // Add Character button
       const btnAddChar = document.getElementById("btn-addchar");
       if (btnAddChar) {
