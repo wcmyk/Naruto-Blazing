@@ -8,20 +8,22 @@
 
 .right-banner-panel {
   position: fixed;
-  right: 20px;
+  right: 0;
   top: 50%;
   transform: translateY(-50%);
   z-index: 50;
   display: grid;
   grid-template-columns: 1fr 1fr; /* Two equal columns */
-  gap: 15px; /* Gap between columns */
+  grid-auto-rows: 150px; /* Default row height */
+  gap: 16px;
   pointer-events: auto;
-  width: 340px; /* Reduced to prevent overflow: each column = ~162px */
+  width: 480px;
+  margin-right: 24px; /* Space between banner and screen edge */
 }
 
 .banner-button {
-  width: 100%; /* Fill grid cell (~162px per column) */
-  height: 70px; /* Reduced height for better proportions */
+  width: 100%; /* Fill grid cell */
+  height: 100%; /* Fill row height */
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -36,8 +38,25 @@
 
 /* Missions banner spans both columns (full width) */
 .banner-button.missions {
-  grid-column: 1 / -1; /* Span both columns: full 340px width */
-  height: 70px; /* Matched with other buttons */
+  grid-column: 1 / 3; /* Span both columns */
+  height: 180px; /* Taller than other banners */
+}
+
+/* Explicit grid positioning for 2×2 layout below Missions */
+.banner-button.characters {
+  grid-column: 1;
+}
+
+.banner-button.summon {
+  grid-column: 2;
+}
+
+.banner-button.fusion {
+  grid-column: 1;
+}
+
+.banner-button.shop {
+  grid-column: 2;
 }
 
 /* Hover effect */
@@ -90,14 +109,21 @@
 /* Banner text overlay (temporary until PNGs have text) */
 .banner-button-text {
   position: absolute;
-  bottom: 6px; /* Adjusted for 70px height buttons */
-  left: 10px; /* Adjusted for narrower buttons */
-  font-size: 14px; /* Reduced to fit smaller buttons (162px x 70px) */
+  bottom: 15px;
+  left: 20px;
+  font-size: 24px; /* Larger for 150px tall buttons */
   font-weight: 700;
   color: #fff;
-  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.9);
-  letter-spacing: 0.4px;
+  text-shadow: 0 3px 8px rgba(0, 0, 0, 0.9);
+  letter-spacing: 0.8px;
   font-family: "Cinzel", serif;
+}
+
+/* Missions button text (larger since button is 180px tall) */
+.banner-button.missions .banner-button-text {
+  font-size: 28px;
+  bottom: 20px;
+  left: 24px;
 }
 
 /* ==========================================
