@@ -138,6 +138,24 @@
     </div>
   </div>
 
+  <!-- Ramen Selector Modal -->
+  <div id="ramen-selector-modal" class="ramen-modal" aria-hidden="true">
+    <div class="ramen-modal-panel">
+      <h2 class="ramen-modal-title">Select Ramen to Feed</h2>
+      <div class="ramen-character-info">
+        <img id="ramen-char-portrait" class="ramen-char-img" src="" alt="">
+        <div class="ramen-char-details">
+          <div id="ramen-char-name" class="ramen-char-name"></div>
+          <div id="ramen-char-level" class="ramen-char-level"></div>
+        </div>
+      </div>
+      <div class="ramen-grid" id="ramen-grid"></div>
+      <div class="ramen-modal-actions">
+        <button class="btn-dark" id="ramen-modal-cancel">Cancel</button>
+      </div>
+    </div>
+  </div>
+
   <div class="bottom-bar">
     <div class="bottom-bar-content">
       <button class="hud-button" id="btn-summon" aria-label="Summon">
@@ -182,7 +200,36 @@
     </div>
   </div>
 
+  <!-- Music Control Panel -->
+  <div class="music-control-panel" id="music-panel">
+    <div class="music-control-header">
+      <h3>Music</h3>
+      <button class="music-toggle-btn" id="music-collapse-btn" title="Toggle Panel">−</button>
+    </div>
+    <div class="music-controls">
+      <div class="music-buttons">
+        <button class="music-btn" id="music-play-btn" title="Play Music">▶</button>
+        <button class="music-btn" id="music-mute-btn" title="Mute">🔊</button>
+      </div>
+      <div class="music-volume-control">
+        <div class="music-volume-label">Volume</div>
+        <div class="music-volume-slider-container">
+          <input type="range" min="0" max="100" value="50" class="music-volume-slider" id="music-volume-slider">
+          <span class="music-volume-display" id="music-volume-display">50%</span>
+        </div>
+      </div>
+      <div class="music-visualizer">
+        <div class="music-visualizer-bar"></div>
+        <div class="music-visualizer-bar"></div>
+        <div class="music-visualizer-bar"></div>
+        <div class="music-visualizer-bar"></div>
+        <div class="music-visualizer-bar"></div>
+      </div>
+    </div>
+  </div>
+
   <!-- Core Scripts -->
+  <script src="js/music-player.js"></script>
   <script src="js/character_inv.js"></script>
   <script src="js/progression.js"></script>
   <script src="js/resources.js"></script>

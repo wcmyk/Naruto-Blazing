@@ -7,7 +7,7 @@
 
   // ---------- Navigation Function ----------
   function navigateTo(url, params = {}) {
-    console.log(`🚀 Navigating to: ${url}`, params);
+    console.log(`[Navigation] Navigating to: ${url}`, params);
 
     // Add query parameters if provided
     let fullUrl = url;
@@ -31,7 +31,7 @@
     const btnMissions = document.querySelector('.banner-button.missions');
     if (btnMissions) {
       btnMissions.addEventListener('click', () => {
-        console.log("📜 Missions banner clicked");
+        console.log("[Navigation] Missions banner clicked");
         navigateTo('missions.html');
       });
     }
@@ -40,7 +40,7 @@
     const btnCharacters = document.querySelector('.banner-button.characters');
     if (btnCharacters) {
       btnCharacters.addEventListener('click', () => {
-        console.log("👤 Characters banner clicked");
+        console.log("[Navigation] Characters banner clicked");
         navigateTo('characters.html');
       });
     }
@@ -49,7 +49,7 @@
     const btnSummon = document.querySelector('.banner-button.summon');
     if (btnSummon) {
       btnSummon.addEventListener('click', () => {
-        console.log("🔮 Summon banner clicked");
+        console.log("[Navigation] Summon banner clicked");
         navigateTo('summon.html');
       });
     }
@@ -58,7 +58,7 @@
     const btnFusion = document.querySelector('.banner-button.fusion');
     if (btnFusion) {
       btnFusion.addEventListener('click', () => {
-        console.log("⚡ Fusion banner clicked");
+        console.log("[Navigation] Fusion banner clicked");
         navigateTo('fusion.html');
       });
     }
@@ -67,7 +67,7 @@
     const btnShop = document.querySelector('.banner-button.shop');
     if (btnShop) {
       btnShop.addEventListener('click', () => {
-        console.log("🛒 Shop banner clicked");
+        console.log("[Navigation] Shop banner clicked");
         navigateTo('shop.html');
       });
     }
@@ -82,7 +82,7 @@
     console.log("[Navigation] Notice icon found:", iconNotice);
     if (iconNotice) {
       iconNotice.addEventListener('click', () => {
-        console.log("🔔 Notice clicked");
+        console.log("[Navigation] Notice clicked");
         alert("Notice System\n\nNo new notices at this time.");
       });
     }
@@ -91,7 +91,7 @@
     const iconPresents = document.querySelector('.bottom-icon[data-action="presents"]');
     if (iconPresents) {
       iconPresents.addEventListener('click', () => {
-        console.log("🎁 Present Box clicked");
+        console.log("[Navigation] Present Box clicked");
         alert("Present Box\n\nNo presents available.");
       });
     }
@@ -100,7 +100,7 @@
     const iconAchievements = document.querySelector('.bottom-icon[data-action="achievements"]');
     if (iconAchievements) {
       iconAchievements.addEventListener('click', () => {
-        console.log("🏆 Achievements clicked");
+        console.log("[Navigation] Achievements clicked");
         alert("Achievements\n\nComing soon!");
       });
     }
@@ -109,7 +109,7 @@
     const iconPanelMissions = document.querySelector('.bottom-icon[data-action="panel-missions"]');
     if (iconPanelMissions) {
       iconPanelMissions.addEventListener('click', () => {
-        console.log("📋 Panel Missions clicked");
+        console.log("[Navigation] Panel Missions clicked");
         navigateTo('missions.html');
       });
     }
@@ -118,7 +118,7 @@
     const iconChat = document.querySelector('.bottom-icon[data-action="chat"]');
     if (iconChat) {
       iconChat.addEventListener('click', () => {
-        console.log("💬 Chat clicked");
+        console.log("[Navigation] Chat clicked");
         alert("Chat System\n\nComing soon!");
       });
     }
@@ -127,7 +127,7 @@
     const iconInventory = document.querySelector('.bottom-icon[data-action="inventory"]');
     if (iconInventory) {
       iconInventory.addEventListener('click', () => {
-        console.log("📦 Inventory clicked");
+        console.log("[Navigation] Inventory clicked");
         navigateTo('inventory.html');
       });
     }
@@ -136,7 +136,7 @@
     const iconTeams = document.querySelector('.bottom-icon[data-action="teams"]');
     if (iconTeams) {
       iconTeams.addEventListener('click', () => {
-        console.log("👥 Teams clicked");
+        console.log("[Navigation] Teams clicked");
         navigateTo('teams.html');
       });
     }
@@ -145,7 +145,7 @@
     const iconResources = document.querySelector('.bottom-icon[data-action="resources"]');
     if (iconResources) {
       iconResources.addEventListener('click', () => {
-        console.log("💎 Resources clicked");
+        console.log("[Navigation] Resources clicked");
         navigateTo('resources.html');
       });
     }
@@ -154,7 +154,7 @@
     const iconGuilds = document.querySelector('.bottom-icon[data-action="guilds"]');
     if (iconGuilds) {
       iconGuilds.addEventListener('click', () => {
-        console.log("🤝 Guilds clicked");
+        console.log("[Navigation] Guilds clicked");
         alert("Guilds System\n\nComing soon!");
       });
     }
@@ -163,7 +163,7 @@
     const iconSettings = document.querySelector('.bottom-icon[data-action="settings"]');
     if (iconSettings) {
       iconSettings.addEventListener('click', () => {
-        console.log("⚙️ Settings clicked");
+        console.log("[Navigation] Settings clicked");
         openSettingsMenu();
       });
     }
@@ -178,17 +178,36 @@
 
     try {
       // Load summon banners data
-      const response = await fetch('data/summons.json');
+      const response = await fetch('data/summon.json'); // Fixed: was summons.json
       const summonsData = await response.json();
 
       // Clear carousel
       carousel.innerHTML = '';
 
       // Create banner cards
-      summonsData.banners.forEach(banner => {
+      summonsData.banners.forEach((banner, index) => {
         const card = document.createElement('div');
         card.className = 'summon-banner-card';
         card.dataset.bannerId = banner.id;
+
+        // Add banner type class for different gradient styles
+        if (banner.type) {
+          card.classList.add(`banner-type-${banner.type}`);
+        }
+
+        // Set background image from banner data (if it exists)
+        if (banner.image) {
+          // Try to preload the image to check if it exists
+          const img = new Image();
+          img.onload = () => {
+            card.style.backgroundImage = `url("${banner.image}")`;
+            console.log(`[Summon] Loaded image: ${banner.image}`);
+          };
+          img.onerror = () => {
+            console.warn(`[Summon] Image not found: ${banner.image} - using gradient fallback`);
+          };
+          img.src = banner.image;
+        }
 
         // Add title
         const title = document.createElement('div');
@@ -196,24 +215,22 @@
         title.textContent = banner.name;
         card.appendChild(title);
 
-        // Add subtitle (if exists)
-        if (banner.subtitle) {
-          const subtitle = document.createElement('div');
-          subtitle.className = 'summon-banner-subtitle';
-          subtitle.textContent = banner.subtitle;
-          card.appendChild(subtitle);
-        }
+        // Add subtitle/description
+        const subtitle = document.createElement('div');
+        subtitle.className = 'summon-banner-subtitle';
+        subtitle.textContent = banner.description || banner.subtitle || '';
+        card.appendChild(subtitle);
 
-        // Click handler disabled - banner is visual only
-        // card.addEventListener('click', () => {
-        //   console.log(`🔮 Summon banner clicked: ${banner.name}`);
-        //   navigateTo('summon.html', { banner: banner.id });
-        // });
+        // Click handler - navigate to summon.html with banner ID
+        card.addEventListener('click', () => {
+          console.log(`[Summon] Banner clicked: ${banner.name}`);
+          navigateTo('summon.html', { banner: banner.id });
+        });
 
         carousel.appendChild(card);
       });
 
-      console.log(`✅ Loaded ${summonsData.banners.length} summon banners`);
+      console.log(`[Navigation] Loaded ${summonsData.banners.length} summon banners`);
     } catch (err) {
       console.error("[Navigation] Failed to load summon banners:", err);
     }
@@ -265,7 +282,7 @@
       el.classList.remove(`bg-${i}`);
     }
     el.classList.add(`bg-${num}`);
-    console.log(`🎨 Background changed to bg-${num}`);
+    console.log(`[Navigation] Background changed to bg-${num}`);
   }
 
   // ---------- Username Click Handler ----------
@@ -288,14 +305,14 @@
         initBottomIcons();
         initSummonBanners();
         initUsernameClick();
-        console.log("✅ Navigation system initialized");
+        console.log("[Navigation] Navigation system initialized");
       });
     } else {
       initBannerButtons();
       initBottomIcons();
       initSummonBanners();
       initUsernameClick();
-      console.log("✅ Navigation system initialized");
+      console.log("[Navigation] Navigation system initialized");
     }
   }
 
