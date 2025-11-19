@@ -11,8 +11,8 @@
   display: flex;
   justify-content: center;
   align-items: flex-end;
-  gap: 24px; /* Increased gap for larger chakraholders */
-  padding: 20px 32px; /* Increased padding for larger units */
+  gap: 40px; /* Increased gap to prevent chakra wheel overlap */
+  padding: 20px 40px; /* Increased padding for larger units */
   background: linear-gradient(180deg, rgba(10, 10, 15, 0.5), rgba(10, 10, 15, 0.95));
   border-top: 2px solid rgba(139, 115, 85, 0.6);
   border-radius: 12px 12px 0 0;
@@ -57,18 +57,17 @@
 
 /* === Bench Portrait Container (Small, staggered nested below active) === */
 .bench-portrait-container {
-  position: absolute;
-  width: 60px;  /* Smaller chakra ring for bench (60% of active 100px) */
-  height: 60px;
-  border-radius: 50%;
-  background: transparent;
-  border: none;
-  box-shadow: none;
-  overflow: visible; /* Allow bench chakraholder to show */
-  /* Lower left positioning relative to active */
-  left: -25px;  /* X offset: positioned to the left */
-  bottom: -15px;  /* Y offset: positioned at the bottom */
-  z-index: 2;
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    overflow: visible;
+    left: 0;
+    bottom: -1px;
+    z-index: 10;
 }
 
 /* Portrait styling is handled by .portrait class in battle-chakra-wheel.css */
