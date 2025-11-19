@@ -19,7 +19,9 @@
       'BattleTeamHolder',
       'BattleChakraWheel',
       'BattleInputManager',
-      'BattleAttackNames'
+      'BattleAttackNames',
+      'BattleEquippedUltimate',
+      'CharacterEquip'
     ];
 
     const allLoaded = requiredModules.every(mod => window[mod]);
@@ -66,6 +68,20 @@
         if (this.teamHolder) {
           this.teamHolder.init(this);
           this.teamHolder.renderTeamHolder(this);
+        }
+
+        // Initialize equipped ultimate system
+        if (window.BattleEquippedUltimate) {
+          window.BattleEquippedUltimate.init(this);
+
+          // Register all player units
+          if (this.activeTeam) {
+            this.activeTeam.forEach(unit => {
+              window.BattleEquippedUltimate.registerUnit(unit);
+            });
+          }
+
+          console.log("[Battle] ✅ Equipped ultimate system initialized");
         }
 
         console.log("[Battle] ✅ Battle system ready with all modules");

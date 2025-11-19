@@ -7,91 +7,31 @@
 
   const STORAGE_KEY = "blazing_character_equip_v1";
 
-  // Ultimate Abilities Database
-  const ULTIMATES = {
-    "rasengan_ultimate": {
-      id: "rasengan_ultimate",
-      name: "Massive Rasengan",
-      description: "Unleash a massive chakra sphere that deals 500% ATK damage to all enemies and ignores 50% of their defense.",
-      icon: "💥",
-      chakraCost: 10,
-      power: 500,
-      target: "all_enemies",
-      effects: ["ignore_defense_50", "stun_20_percent"]
-    },
-    "chidori_ultimate": {
-      id: "chidori_ultimate",
-      name: "Lightning Blade",
-      description: "Channel lightning through your hand for a devastating strike dealing 600% ATK damage with guaranteed critical hit.",
-      icon: "⚡",
-      chakraCost: 10,
-      power: 600,
-      target: "single_enemy",
-      effects: ["guaranteed_crit", "pierce"]
-    },
-    "sharingan_ultimate": {
-      id: "sharingan_ultimate",
-      name: "Mangekyō Sharingan",
-      description: "Activate Mangekyō Sharingan to buff all allies with +100% ATK and +50% Speed for 3 turns.",
-      icon: "👁️",
-      chakraCost: 12,
-      power: 0,
-      target: "all_allies",
-      effects: ["atk_buff_100_3turns", "speed_buff_50_3turns"]
-    },
-    "sage_mode_ultimate": {
-      id: "sage_mode_ultimate",
-      name: "Sage Mode Activation",
-      description: "Enter Sage Mode, healing all allies for 30% HP and granting immunity to debuffs for 2 turns.",
-      icon: "🟠",
-      chakraCost: 15,
-      power: 0,
-      target: "all_allies",
-      effects: ["heal_30_percent", "debuff_immunity_2turns"]
-    },
-    "shadow_clone_ultimate": {
-      id: "shadow_clone_ultimate",
-      name: "Multi Shadow Clone Jutsu",
-      description: "Create shadow clones to attack all enemies 5 times dealing 200% ATK damage each hit.",
-      icon: "👥",
-      chakraCost: 12,
-      power: 200,
-      target: "all_enemies",
-      effects: ["multi_hit_5", "confusion_chance_30"]
-    },
-    "fire_style_ultimate": {
-      id: "fire_style_ultimate",
-      name: "Great Fire Annihilation",
-      description: "Unleash massive flames dealing 450% ATK damage to all enemies and inflicting burn for 3 turns.",
-      icon: "🔥",
-      chakraCost: 11,
-      power: 450,
-      target: "all_enemies",
-      effects: ["burn_3turns", "reduce_defense_30_3turns"]
-    },
-    "byakugan_ultimate": {
-      id: "byakugan_ultimate",
-      name: "Eight Trigrams Sixty-Four Palms",
-      description: "Precise chakra point strikes dealing 550% ATK damage and sealing the target's ninjutsu for 2 turns.",
-      icon: "👁️‍🗨️",
-      chakraCost: 13,
-      power: 550,
-      target: "single_enemy",
-      effects: ["ninjutsu_seal_2turns", "chakra_drain_50_percent"]
-    },
-    "healing_ultimate": {
-      id: "healing_ultimate",
-      name: "Mystical Palm Technique",
-      description: "Advanced medical ninjutsu that heals all allies for 50% HP and removes all debuffs.",
-      icon: "💚",
-      chakraCost: 14,
-      power: 0,
-      target: "all_allies",
-      effects: ["heal_50_percent", "remove_all_debuffs", "regen_3turns"]
-    }
-  };
-
+  let _ultimates = {};
   let _equipData = {};
+  let _loaded = false;
+
+  // ---------- Load Ultimates from JSON ----------
+  async function loadUltimatesJSON() {
+    try {
+      const response = await fetch('data/equip-ultimates.json');
+      const data = await response.json();
+
+      // Convert array to object keyed by ID
+      _ultimates = {};
+      data.ultimates.forEach(ult => {
+        _ultimates[ult.id] = ult;
+      });
+
+      _loaded = true;
+      console.log(`[CharacterEquip] Loaded ${data.ultimates.length} equip ultimates from JSON`);
+      return true;
+    } catch (err) {
+      console.error("[CharacterEquip] Failed to load ultimates JSON:", err);
+      _loaded = false;
+      return false;
+    }
+  }
 
   // ---------- Persistence ----------
   function loadEquipData() {
@@ -118,7 +58,7 @@
   }
 
   function equipUltimate(characterId, ultimateId) {
-    if (!ULTIMATES[ultimateId]) {
+    if (!_ultimates[ultimateId]) {
       console.error(`[CharacterEquip] Unknown ultimate: ${ultimateId}`);
       return false;
     }
@@ -137,11 +77,15 @@
   }
 
   function getUltimateData(ultimateId) {
-    return ULTIMATES[ultimateId] || null;
+    return _ultimates[ultimateId] || null;
   }
 
   function getAllUltimates() {
-    return { ...ULTIMATES };
+    return { ..._ultimates };
+  }
+
+  function isLoaded() {
+    return _loaded;
   }
 
   // ---------- UI Update Functions ----------
@@ -221,7 +165,13 @@
   }
 
   // Initialize on load
-  loadEquipData();
+  async function init() {
+    await loadUltimatesJSON();
+    loadEquipData();
+  }
+
+  // Auto-initialize
+  init();
 
   // Public API
   global.CharacterEquip = {
@@ -233,7 +183,8 @@
     updateEquipUI,
     openUltimateSelector,
     initEquipTab,
-    ULTIMATES
+    isLoaded,
+    loadUltimatesJSON
   };
 
 })(window);
