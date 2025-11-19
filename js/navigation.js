@@ -465,8 +465,9 @@
     const usernameElement = document.getElementById('player-username');
     if (usernameElement) {
       usernameElement.addEventListener('click', () => {
-        if (typeof window.Username !== "undefined") {
-          window.Username.openEditor();
+        // Open settings modal instead of old username editor
+        if (typeof window.SettingsModal !== "undefined") {
+          window.SettingsModal.open();
         }
       });
     }
