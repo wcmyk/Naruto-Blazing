@@ -35,6 +35,9 @@
       // Load domain registry
       try {
         const res = await fetch("data/domains.json");
+        if (!res.ok) {
+          throw new Error(`HTTP ${res.status}: ${res.statusText}`);
+        }
         this.registry = await res.json();
         console.log(`[BattleFieldController] 📘 Loaded ${this.registry.length} domain definitions.`);
       } catch (err) {

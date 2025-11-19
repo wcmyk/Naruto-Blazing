@@ -38,8 +38,9 @@ class SummonUIController {
     this.elements.multiBtn = document.getElementById('btn-multi');
     this.elements.singleCost = document.getElementById('single-cost');
     this.elements.multiCost = document.getElementById('multi-cost');
-    this.elements.playerPearls = document.getElementById('player-pearls');
-    this.elements.playerCoins = document.getElementById('player-coins');
+    // Use the correct element IDs that exist in summon.html
+    this.elements.playerPearls = document.getElementById('currency-ninja-pearls');
+    this.elements.playerCoins = document.getElementById('currency-ryo');
     this.elements.bannerName = document.getElementById('banner-name');
     this.elements.bannerDescription = document.getElementById('banner-description');
     this.elements.bannerTimer = document.getElementById('banner-timer');
