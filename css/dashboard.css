@@ -491,7 +491,7 @@
   position: fixed;
   left: 20px;
   top: 140px; /* Under top bar and daily login */
-  width: 600px;
+  width: 400px; /* Thinner - reduced from 600px */
   max-width: calc(100vw - 40px);
   z-index: 50;
   pointer-events: none; /* Allow clicks to pass through container */
@@ -511,7 +511,7 @@
 }
 
 .dashboard-banner-section .banner-slideshow {
-  height: 250px;
+  height: 150px; /* Shorter - reduced from 250px */
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
