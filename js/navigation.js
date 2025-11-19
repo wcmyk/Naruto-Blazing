@@ -178,11 +178,15 @@
 
     try {
       // Load summon banners data
-      const response = await fetch('data/summon.json'); // Fixed: was summons.json
+      const response = await fetch('data/summon.json');
       const summonsData = await response.json();
 
-      // Clear carousel
+      // Clear carousel and create structure
       carousel.innerHTML = '';
+
+      // Create track for horizontal sliding
+      const track = document.createElement('div');
+      track.className = 'summon-carousel-track';
 
       // Create banner cards
       summonsData.banners.forEach((banner, index) => {
@@ -197,7 +201,6 @@
 
         // Set background image from banner data (if it exists)
         if (banner.image) {
-          // Try to preload the image to check if it exists
           const img = new Image();
           img.onload = () => {
             card.style.backgroundImage = `url("${banner.image}")`;
@@ -227,13 +230,120 @@
           navigateTo('summon.html', { banner: banner.id });
         });
 
-        carousel.appendChild(card);
+        track.appendChild(card);
       });
+
+      carousel.appendChild(track);
+
+      // Create navigation arrows
+      const leftArrow = document.createElement('div');
+      leftArrow.className = 'summon-carousel-arrow left';
+      leftArrow.innerHTML = '◀';
+      carousel.appendChild(leftArrow);
+
+      const rightArrow = document.createElement('div');
+      rightArrow.className = 'summon-carousel-arrow right';
+      rightArrow.innerHTML = '▶';
+      carousel.appendChild(rightArrow);
+
+      // Create navigation dots
+      const dotsContainer = document.createElement('div');
+      dotsContainer.className = 'summon-carousel-dots';
+      summonsData.banners.forEach((_, index) => {
+        const dot = document.createElement('div');
+        dot.className = `summon-carousel-dot ${index === 0 ? 'active' : ''}`;
+        dot.dataset.index = index;
+        dotsContainer.appendChild(dot);
+      });
+      carousel.appendChild(dotsContainer);
+
+      // Initialize carousel functionality
+      initCarouselControls(carousel, track, summonsData.banners.length);
 
       console.log(`[Navigation] Loaded ${summonsData.banners.length} summon banners`);
     } catch (err) {
       console.error("[Navigation] Failed to load summon banners:", err);
     }
+  }
+
+  // ---------- Carousel Controls (Auto-advance, Arrows, Dots) ----------
+  function initCarouselControls(carousel, track, totalBanners) {
+    let currentIndex = 0;
+    let autoAdvanceInterval = null;
+
+    function goToSlide(index) {
+      currentIndex = (index + totalBanners) % totalBanners;
+      const offset = -currentIndex * 380; // 380px per banner
+      track.style.transform = `translateX(${offset}px)`;
+
+      // Update dots
+      const dots = carousel.querySelectorAll('.summon-carousel-dot');
+      dots.forEach((dot, i) => {
+        dot.classList.toggle('active', i === currentIndex);
+      });
+    }
+
+    function nextSlide() {
+      goToSlide(currentIndex + 1);
+    }
+
+    function prevSlide() {
+      goToSlide(currentIndex - 1);
+    }
+
+    // Arrow navigation
+    const leftArrow = carousel.querySelector('.summon-carousel-arrow.left');
+    const rightArrow = carousel.querySelector('.summon-carousel-arrow.right');
+
+    if (leftArrow) {
+      leftArrow.addEventListener('click', () => {
+        prevSlide();
+        resetAutoAdvance();
+      });
+    }
+
+    if (rightArrow) {
+      rightArrow.addEventListener('click', () => {
+        nextSlide();
+        resetAutoAdvance();
+      });
+    }
+
+    // Dot navigation
+    const dots = carousel.querySelectorAll('.summon-carousel-dot');
+    dots.forEach(dot => {
+      dot.addEventListener('click', () => {
+        const index = parseInt(dot.dataset.index);
+        goToSlide(index);
+        resetAutoAdvance();
+      });
+    });
+
+    // Auto-advance every 5 seconds
+    function startAutoAdvance() {
+      autoAdvanceInterval = setInterval(nextSlide, 5000);
+    }
+
+    function stopAutoAdvance() {
+      if (autoAdvanceInterval) {
+        clearInterval(autoAdvanceInterval);
+        autoAdvanceInterval = null;
+      }
+    }
+
+    function resetAutoAdvance() {
+      stopAutoAdvance();
+      startAutoAdvance();
+    }
+
+    // Pause on hover
+    carousel.addEventListener('mouseenter', stopAutoAdvance);
+    carousel.addEventListener('mouseleave', startAutoAdvance);
+
+    // Start auto-advance
+    startAutoAdvance();
+
+    console.log('[Navigation] Carousel controls initialized with auto-advance');
   }
 
   // ---------- Settings Menu ----------

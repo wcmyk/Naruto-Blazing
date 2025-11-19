@@ -15,7 +15,7 @@ class MusicPlayer {
   /**
    * Initialize the music player
    */
-  init(trackPath = 'assets/music/general.mp3') {
+  init(trackPath = 'assets/audio/bgm/menu.mp3') {
     // Create or reuse existing audio element
     this.audio = document.getElementById('game-music');
 
