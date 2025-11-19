@@ -281,9 +281,14 @@
         document.body.style.opacity = "0";
         setTimeout(() => (window.location.href = url), 200);
       }
+      document.getElementById("btn-village")?.addEventListener("click", () => go("index.html"));
+      document.getElementById("btn-characters")?.addEventListener("click", () => go("characters.html"));
+      document.getElementById("btn-fusion")?.addEventListener("click", () => go("fusion.html"));
+      document.getElementById("btn-teams")?.addEventListener("click", () => go("teams.html"));
       document.getElementById("btn-summon")?.addEventListener("click", () => go("summon.html"));
       document.getElementById("btn-missions")?.addEventListener("click", () => go("missions.html"));
-      document.getElementById("btn-characters")?.addEventListener("click", () => go("characters.html"));
+      document.getElementById("btn-inventory")?.addEventListener("click", () => go("inventory.html"));
+      document.getElementById("btn-shop")?.addEventListener("click", () => go("shop.html"));
     })();
   </script>
 </body>
