@@ -4,11 +4,12 @@
   <meta charset="UTF-8" />
   <title>Blazing — Manual Background Switch (Responsive)</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="css/background.css" />
-  <link rel="stylesheet" href="css/top-bar.css" />
-  <link rel="stylesheet" href="css/character-vignette.css" />
-  <link rel="stylesheet" href="css/dashboard.css" />
-  <link rel="stylesheet" href="css/summon-banner-carousel.css" />
+  <link rel="stylesheet" href="css/background.css?v=2" />
+  <link rel="stylesheet" href="css/top-bar.css?v=2" />
+  <link rel="stylesheet" href="css/character-vignette.css?v=2" />
+  <link rel="stylesheet" href="css/dashboard.css?v=2" />
+  <link rel="stylesheet" href="css/summon-banner-carousel.css?v=2" />
+  <link rel="stylesheet" href="css/ui-layout.css?v=2" />
 </head>
 
 <body>
@@ -24,25 +25,20 @@
   <!-- Wind Animation Particles -->
   <div class="wind-container"></div>
 
-  <!-- Top Bar Overlay - Ninja Rank & Currency HUD -->
+  <!-- Top Bar Overlay - Ninja Rank, Username & Currency HUD -->
   <div class="top-bar">
-    <div class="ninja-rank-progress-container">
-      <div class="ninja-rank-info">
-        <span class="ninja-rank-label">Ninja Rank:</span>
-        <span class="ninja-rank-value" id="ninja-rank-value">1</span>
-      </div>
-      <div class="rank-progress-bar-wrapper">
-        <div class="rank-progress-bar-fill" id="rank-progress-bar-fill" style="width: 0%;"></div>
-        <div class="rank-progress-text" id="rank-progress-text">0%</div>
-      </div>
+    <!-- Left: Ninja Rank -->
+    <div class="ninja-rank-container">
+      <span class="ninja-rank-label">Ninja Rank:</span>
+      <span class="ninja-rank-value" id="ninja-rank-value">1</span>
     </div>
 
-    <div class="collection-stats" id="collection-stats">
-      <span class="collection-icon">📚</span>
-      <span class="collection-value" id="collection-value">0%</span>
-      <span class="collection-label">Collection</span>
+    <!-- Center: Player Username (clickable to edit) -->
+    <div class="player-username-container">
+      <span class="player-username" id="player-username">Player</span>
     </div>
 
+    <!-- Right: Currency HUD -->
     <div class="currency-hud">
       <div class="currency-item ninja-pearls">
         <img src="assets/icons/currency/ninjapearl.png" alt="Ninja Pearls" class="currency-icon"
@@ -62,147 +58,105 @@
     </div>
   </div>
 
-  <!-- Daily Login Indicator -->
-  <div class="daily-login-indicator" id="daily-login-indicator">
-    <div class="daily-login-icon">🎁</div>
-    <div class="daily-login-text">
-      <div class="daily-login-label">Daily Login</div>
-      <div class="daily-login-day" id="daily-login-day">Day 1/7</div>
+  <!-- Summon Banner Carousel (Left Side) -->
+  <div class="summon-banner-carousel">
+    <!-- Dynamically populated by navigation.js -->
+  </div>
+
+  <!-- Right Banner Panel (5 Main Navigation Banners) -->
+  <div class="right-banner-panel">
+    <div class="banner-button missions">
+      <div class="banner-button-text">Missions</div>
+    </div>
+    <div class="banner-button characters">
+      <div class="banner-button-text">Characters</div>
+    </div>
+    <div class="banner-button summon">
+      <div class="banner-button-text">Summon</div>
+    </div>
+    <div class="banner-button fusion">
+      <div class="banner-button-text">Fusion</div>
+    </div>
+    <div class="banner-button shop">
+      <div class="banner-button-text">Shop</div>
     </div>
   </div>
 
-  <!-- Calendar and Mailbox Icons (next to Daily Login) -->
-  <div class="dashboard-icons-container">
-    <button class="icon-button" id="btn-calendar" aria-label="Calendar" title="Daily Streak Calendar">
-      <img src="assets/icons/main/calendar.png" alt="Calendar" onerror="this.style.display='none'; this.parentElement.innerHTML='📅';">
-    </button>
+  <!-- Bottom Icon Bar (10 Utility Icons) -->
+  <div class="bottom-icon-bar">
+    <!-- Notice -->
+    <div class="bottom-icon" data-action="notice">
+      <img src="assets/icons/notice_icon.png" alt="Notice" class="bottom-icon-image" onerror="this.style.display='none';">
+      <span class="bottom-icon-label">Notice</span>
+    </div>
 
-    <button class="icon-button" id="btn-mailbox" aria-label="Mailbox" title="Mailbox">
-      <img src="assets/icons/main/mailbox.png" alt="Mailbox" onerror="this.style.display='none'; this.parentElement.innerHTML='📬';">
-      <div class="icon-badge" id="mailbox-badge" style="display: none;">0</div>
-    </button>
-  </div>
+    <!-- Present Box -->
+    <div class="bottom-icon" data-action="presents">
+      <img src="assets/icons/present_icon.png" alt="Presents" class="bottom-icon-image" onerror="this.style.display='none';">
+      <span class="bottom-icon-label">Presents</span>
+    </div>
 
-  <!-- Announcement Banner Container -->
-  <div class="announcement-banner-container" id="announcement-banner-container"></div>
+    <!-- Achievements -->
+    <div class="bottom-icon" data-action="achievements">
+      <img src="assets/icons/achievement_icon.png" alt="Achievements" class="bottom-icon-image" onerror="this.style.display='none';">
+      <span class="bottom-icon-label">Achievements</span>
+    </div>
 
-  <!-- Main Content Area -->
-  <div class="dashboard-banner-section">
-    <!-- Full-Width Banner Slideshow -->
-    <div class="banner-slideshow" id="dashboard-banner-slideshow"></div>
-  </div>
+    <!-- Panel Missions -->
+    <div class="bottom-icon" data-action="panel-missions">
+      <img src="assets/icons/panel_missions_icon.png" alt="Panel Missions" class="bottom-icon-image" onerror="this.style.display='none';">
+      <span class="bottom-icon-label">Panel</span>
+    </div>
 
-  <!-- Quick Access Banner Buttons -->
-  <div class="banner-buttons-grid">
-    <!-- Row 1: Full-width Missions -->
-    <button class="banner-button full-width" id="banner-btn-missions" data-page="missions.html">
-      <span class="banner-button-text">Missions</span>
-    </button>
+    <!-- Chat -->
+    <div class="bottom-icon" data-action="chat">
+      <img src="assets/icons/chat_icon.png" alt="Chat" class="bottom-icon-image" onerror="this.style.display='none';">
+      <span class="bottom-icon-label">Chat</span>
+    </div>
 
-    <!-- Row 2: Characters and Summon -->
-    <button class="banner-button" id="banner-btn-characters" data-page="characters.html">
-      <span class="banner-button-text">Characters</span>
-    </button>
-    <button class="banner-button" id="banner-btn-summon" data-page="summon.html">
-      <span class="banner-button-text">Summon</span>
-    </button>
+    <!-- Inventory -->
+    <div class="bottom-icon" data-action="inventory">
+      <img src="assets/icons/inventory_icon.png" alt="Inventory" class="bottom-icon-image" onerror="this.style.display='none';">
+      <span class="bottom-icon-label">Inventory</span>
+    </div>
 
-    <!-- Row 3: Fusion and Shop -->
-    <button class="banner-button" id="banner-btn-fusion" data-page="fusion.html">
-      <span class="banner-button-text">Fusion</span>
-    </button>
-    <button class="banner-button" id="banner-btn-shop" data-page="shop.html">
-      <span class="banner-button-text">Shop</span>
-    </button>
-  </div>
+    <!-- Teams -->
+    <div class="bottom-icon" data-action="teams">
+      <img src="assets/icons/teams_icon.png" alt="Teams" class="bottom-icon-image" onerror="this.style.display='none';">
+      <span class="bottom-icon-label">Teams</span>
+    </div>
 
-  <!-- HUD Bottom Bar -->
-  <div class="bottom-bar">
-    <div class="bottom-bar-content">
-      <button class="hud-button active" id="btn-village" aria-label="Village">
-        <img src="assets/icons/village_icon.png" alt="Village">
-      </button>
-      <button class="hud-button" id="btn-characters" aria-label="Characters">
-        <img src="assets/icons/characters_icon.png" alt="Characters">
-      </button>
-      <button class="hud-button" id="btn-fusion" aria-label="Fusion">
-        <img src="assets/icons/fusion_icon.png" alt="Fusion">
-      </button>
-      <button class="hud-button" id="btn-teams" aria-label="Teams">
-        <img src="assets/icons/teams_icon.png" alt="Teams">
-      </button>
-      <button class="hud-button" id="btn-summon" aria-label="Summon">
-        <img src="assets/icons/summon_icon.png" alt="Summon">
-      </button>
-      <button class="hud-button" id="btn-missions" aria-label="Missions">
-        <img src="assets/icons/missions_icon.png" alt="Missions">
-      </button>
-      <button class="hud-button" id="btn-inventory" aria-label="Inventory">
-        <img src="assets/icons/inventory_icon.png" alt="Inventory">
-      </button>
-      <button class="hud-button" id="btn-shop" aria-label="Shop">
-        <img src="assets/icons/shop_icon.png" alt="Shop">
-      </button>
-      <!-- Index.html exclusive buttons -->
-      <button class="hud-button" id="btn-addchar" aria-label="Add Character">
-        <img src="assets/icons/add_icon.png" alt="Add Character">
-      </button>
-      <button class="hud-button" id="btn-settings" aria-label="Settings">
-        <img src="assets/icons/settings_icon.png" alt="Settings">
-      </button>
+    <!-- Resources -->
+    <div class="bottom-icon" data-action="resources">
+      <img src="assets/icons/resources_icon.png" alt="Resources" class="bottom-icon-image" onerror="this.style.display='none';">
+      <span class="bottom-icon-label">Resources</span>
+    </div>
+
+    <!-- Guilds -->
+    <div class="bottom-icon" data-action="guilds">
+      <img src="assets/icons/guilds_icon.png" alt="Guilds" class="bottom-icon-image" onerror="this.style.display='none';">
+      <span class="bottom-icon-label">Guilds</span>
+    </div>
+
+    <!-- Settings -->
+    <div class="bottom-icon" data-action="settings">
+      <img src="assets/icons/settings_icon.png" alt="Settings" class="bottom-icon-image" onerror="this.style.display='none';">
+      <span class="bottom-icon-label">Settings</span>
     </div>
   </div>
 
   <!-- Scripts -->
-  <script src="js/navigation.js"></script>
-  <script src="js/character_inv.js"></script>
-  <script src="js/resources.js"></script>
-  <script src="js/daily-missions.js"></script>
-  <script src="js/top-bar.js"></script>
-  <script src="js/character-vignette.js"></script>
-  <script src="js/dashboard-announcements.js"></script>
-  <script src="js/dashboard-banner-slideshow.js"></script>
-  <script src="js/dashboard-calendar.js"></script>
-  <script src="js/dashboard-stats.js"></script>
-  <script src="js/dashboard-mailbox.js"></script>
+  <script src="js/character_inv.js?v=2"></script>
+  <script src="js/resources.js?v=2"></script>
+  <script src="js/daily-missions.js?v=2"></script>
+  <script src="js/top-bar.js?v=2"></script>
+  <script src="js/character-vignette.js?v=2"></script>
+  <script src="js/username.js?v=2"></script>
+  <script src="js/navigation.js?v=2"></script>
 
   <script>
     document.addEventListener("DOMContentLoaded", async () => {
       console.log("✅ JavaScript loaded!");
-
-      // Initialize Dashboard Systems
-      console.log("🎮 Initializing Dashboard Systems...");
-
-      // Initialize Calendar and Daily Streak
-      if (window.DashboardCalendar) {
-        window.DashboardCalendar.init();
-        await updateDailyLoginDisplay();
-      }
-
-      // Initialize Mailbox
-      if (window.DashboardMailbox) {
-        window.DashboardMailbox.init();
-        updateMailboxBadge();
-      }
-
-      // Initialize Stats
-      if (window.DashboardStats) {
-        await window.DashboardStats.init();
-        updateCollectionStats();
-      }
-
-      // Initialize Announcements
-      if (window.DashboardAnnouncements) {
-        await window.DashboardAnnouncements.init('announcement-banner-container');
-      }
-
-      // Initialize Banner Slideshow
-      if (window.DashboardBannerSlideshow) {
-        await window.DashboardBannerSlideshow.init('dashboard-banner-slideshow');
-      }
-
-      // Update Ninja Rank Progress Bar
-      updateRankProgressBar();
 
       // Process login bonus
       if (typeof window.DailyMissions !== "undefined") {
@@ -215,193 +169,7 @@
         }
       }
 
-      // Helper Functions
-      async function updateDailyLoginDisplay() {
-        const streak = window.DashboardCalendar.getStreak();
-        const dayElement = document.getElementById('daily-login-day');
-        const indicator = document.getElementById('daily-login-indicator');
-
-        if (dayElement) {
-          dayElement.textContent = `Day ${streak}/7`;
-        }
-
-        // Add notification dot if login bonus is available
-        if (window.DailyMissions) {
-          const loginStatus = await window.DailyMissions.getLoginStatus();
-          if (loginStatus && !loginStatus.claimedToday) {
-            indicator.classList.add('has-reward');
-          }
-        }
-      }
-
-      function updateMailboxBadge() {
-        const unreadCount = window.DashboardMailbox.getUnreadCount();
-        const badge = document.getElementById('mailbox-badge');
-
-        if (badge) {
-          if (unreadCount > 0) {
-            badge.textContent = unreadCount > 99 ? '99+' : unreadCount;
-            badge.style.display = 'flex';
-          } else {
-            badge.style.display = 'none';
-          }
-        }
-      }
-
-      function updateCollectionStats() {
-        const percentage = window.DashboardStats.getCollectionPercentage();
-        const valueElement = document.getElementById('collection-value');
-
-        if (valueElement) {
-          valueElement.textContent = percentage.toFixed(1) + '%';
-        }
-      }
-
-      function updateRankProgressBar() {
-        // Get current rank data from localStorage or default
-        const rankData = JSON.parse(localStorage.getItem('ninjaRank') || '{"level": 1, "xp": 0, "xpToNext": 100}');
-
-        const percentage = Math.min(100, (rankData.xp / rankData.xpToNext) * 100);
-        const fillElement = document.getElementById('rank-progress-bar-fill');
-        const textElement = document.getElementById('rank-progress-text');
-
-        if (fillElement) {
-          fillElement.style.width = percentage + '%';
-        }
-
-        if (textElement) {
-          textElement.textContent = Math.floor(percentage) + '%';
-        }
-      }
-
-      // Calendar Button Event
-      const btnCalendar = document.getElementById('btn-calendar');
-      if (btnCalendar) {
-        btnCalendar.addEventListener('click', () => {
-          console.log('📅 Calendar clicked');
-          if (window.DashboardCalendar) {
-            window.DashboardCalendar.openCalendar();
-          }
-        });
-      }
-
-      // Mailbox Button Event
-      const btnMailbox = document.getElementById('btn-mailbox');
-      if (btnMailbox) {
-        btnMailbox.addEventListener('click', () => {
-          console.log('📬 Mailbox clicked');
-          if (window.DashboardMailbox) {
-            window.DashboardMailbox.openMailbox();
-          }
-        });
-      }
-
-      // Daily Login Indicator Click Event
-      const dailyLoginIndicator = document.getElementById('daily-login-indicator');
-      if (dailyLoginIndicator) {
-        dailyLoginIndicator.addEventListener('click', async () => {
-          console.log('🎁 Daily Login clicked');
-
-          if (typeof window.DailyMissions !== "undefined") {
-            const loginResult = await window.DailyMissions.processLogin();
-
-            if (loginResult.ok) {
-              if (loginResult.alreadyClaimed) {
-                alert(`You've already claimed today's login bonus!\n\nCurrent Login Day: ${loginResult.loginDay}/7\n\nCome back tomorrow for more rewards!`);
-              } else {
-                const rewardText = Object.entries(loginResult.reward)
-                  .map(([mat, amt]) => `${mat}: ${amt}`)
-                  .join("\n");
-                alert(`🎁 Login Bonus Day ${loginResult.loginDay}!\n\nRewards Claimed:\n${rewardText}`);
-
-                // Remove notification dot after claiming
-                dailyLoginIndicator.classList.remove('has-reward');
-              }
-            }
-          }
-        });
-      }
-
-      // Background cycling
-      const el = document.getElementById("full-bg");
-      const total = 10;
-      let current = 1;
-
-      function updateBG(n) {
-        for (let i = 1; i <= total; i++) {
-          el.classList.remove(`bg-${i}`);
-        }
-        el.classList.add(`bg-${n}`);
-        console.log(`🎨 Background changed to bg-${n}`);
-      }
-
-      // Helper function for navigation (used by Settings button)
-      function navigateTo(url) {
-        console.log(`🚀 Navigating to: ${url}`);
-        document.body.style.transition = "opacity 0.2s linear";
-        document.body.style.opacity = "0";
-        setTimeout(() => {
-          window.location.href = url;
-        }, 200);
-      }
-
-      // Add Character button (index.html specific)
-      const btnAddChar = document.getElementById("btn-addchar");
-      if (btnAddChar) {
-        btnAddChar.addEventListener("click", () => {
-          console.log("➕ Add Character clicked");
-          const id = prompt("Enter Character ID from characters.json (e.g. 'naruto_01')");
-          if (id && typeof window.addCharacterById === "function") {
-            window.addCharacterById(id.trim());
-            console.log(`✅ Added character: ${id}`);
-          } else if (id) {
-            console.error("⚠️ addCharacterById not loaded yet");
-            alert("The Add Character system isn't ready yet. Please reload the page.");
-          }
-        });
-      }
-
-      // Settings button (with background changer, resources, and character vignette)
-      const btnSettings = document.getElementById("btn-settings");
-      if (btnSettings) {
-        btnSettings.addEventListener("click", () => {
-          console.log("⚙️ Settings clicked");
-          const choice = prompt("Settings Menu:\n1. Change Background (1-10)\n2. View Resources\n3. Select Character Display\n4. Cancel\n\nEnter your choice:");
-
-          if (choice === "1") {
-            const bgNum = prompt("Enter background number (1-10):");
-            const num = parseInt(bgNum);
-            if (num >= 1 && num <= 10) {
-              current = num;
-              updateBG(current);
-            } else {
-              alert("Invalid background number. Please enter 1-10.");
-            }
-          } else if (choice === "2") {
-            navigateTo("resources.html");
-          } else if (choice === "3") {
-            if (typeof window.CharacterVignette !== "undefined") {
-              window.CharacterVignette.openCharacterSelector();
-            } else {
-              alert("Character Vignette system not loaded yet. Please reload the page.");
-            }
-          }
-        });
-      }
-
-      // Banner Buttons Navigation
-      const bannerButtons = document.querySelectorAll('.banner-button[data-page]');
-      bannerButtons.forEach(button => {
-        button.addEventListener('click', () => {
-          const page = button.getAttribute('data-page');
-          if (page) {
-            console.log(`🎯 Banner button clicked: ${page}`);
-            navigateTo(page);
-          }
-        });
-      });
-
-      console.log("✅ All event listeners attached!");
+      console.log("✅ All systems initialized!");
     });
   </script>
 </body>

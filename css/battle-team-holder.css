@@ -57,18 +57,17 @@
 
 /* === Bench Portrait Container (Small, staggered nested below active) === */
 .bench-portrait-container {
-  position: absolute;
-  width: 60px;  /* Smaller chakra ring for bench (60% of active 100px) */
-  height: 60px;
-  border-radius: 50%;
-  background: transparent;
-  border: none;
-  box-shadow: none;
-  overflow: visible; /* Allow bench chakraholder to show */
-  /* Lower left positioning relative to active - adjusted to prevent overlap */
-  left: -30px;  /* X offset: positioned further to the left */
-  bottom: -20px;  /* Y offset: positioned lower at the bottom */
-  z-index: 2;
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    overflow: visible;
+    left: 0;
+    bottom: -1px;
+    z-index: 10;
 }
 
 /* Portrait styling is handled by .portrait class in battle-chakra-wheel.css */
