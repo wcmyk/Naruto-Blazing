@@ -33,10 +33,10 @@
       <span class="ninja-rank-value" id="ninja-rank-value">1</span>
     </div>
 
-    <!-- Center: Player Username (clickable to edit) -->
+    <!-- Center: Player Username -->
     <div class="username-container">
       <div class="username-holder">
-        <span class="username-text" id="player-username">Player</span>
+        <span class="username-text" id="username-display">Ninja</span>
       </div>
     </div>
 
@@ -187,6 +187,54 @@
   <script>
     document.addEventListener("DOMContentLoaded", async () => {
       console.log("✅ JavaScript loaded!");
+
+      // Initialize username display
+      const usernameDisplay = document.getElementById("username-display");
+      if (usernameDisplay && typeof window.UserProfile !== "undefined") {
+        const username = window.UserProfile.getUsername();
+        usernameDisplay.textContent = username;
+        console.log(`👤 Username loaded: ${username}`);
+
+        // Listen for username changes
+        window.addEventListener("usernameChanged", (e) => {
+          usernameDisplay.textContent = e.detail.username;
+          console.log(`👤 Username updated: ${e.detail.username}`);
+        });
+      }
+
+      // Initialize Dashboard Systems
+      console.log("🎮 Initializing Dashboard Systems...");
+
+      // Initialize Calendar and Daily Streak
+      if (window.DashboardCalendar) {
+        window.DashboardCalendar.init();
+        await updateDailyLoginDisplay();
+      }
+
+      // Initialize Mailbox
+      if (window.DashboardMailbox) {
+        window.DashboardMailbox.init();
+        updateMailboxBadge();
+      }
+
+      // Initialize Stats
+      if (window.DashboardStats) {
+        await window.DashboardStats.init();
+        updateCollectionStats();
+      }
+
+      // Initialize Announcements
+      if (window.DashboardAnnouncements) {
+        await window.DashboardAnnouncements.init('announcement-banner-container');
+      }
+
+      // Initialize Banner Slideshow
+      if (window.DashboardBannerSlideshow) {
+        await window.DashboardBannerSlideshow.init('dashboard-banner-slideshow');
+      }
+
+      // Update Ninja Rank Progress Bar
+      updateRankProgressBar();
 
       // Process login bonus
       if (typeof window.DailyMissions !== "undefined") {
