@@ -62,22 +62,33 @@ class MusicPlayer {
    * Play the music
    */
   play() {
-    if (!this.audio) return;
+    if (!this.audio) {
+      console.error('❌ Audio element not initialized');
+      return;
+    }
+
+    // Check if audio source is set
+    if (!this.audio.src) {
+      console.error('❌ No audio source set');
+      return;
+    }
+
+    console.log('🎵 Attempting to play music from:', this.audio.src);
 
     this.audio.play().then(() => {
       this.isPlaying = true;
       this.savePreferences();
       this.updateUI();
-      console.log('▶️ Music playing');
+      console.log('✅ Music playing successfully');
     }).catch(error => {
-      console.warn('⚠️ Autoplay blocked by browser. Click the play button to start music.', error);
-      // Show music panel if it exists to draw attention
-      const panel = document.getElementById('music-panel');
-      if (panel && panel.classList.contains('collapsed')) {
-        panel.classList.remove('collapsed');
-        const collapseBtn = document.getElementById('music-collapse-btn');
-        if (collapseBtn) collapseBtn.textContent = '−';
-      }
+      console.warn('⚠️ Autoplay blocked by browser:', error.message);
+      console.log('💡 User must interact with the page first (click anywhere)');
+      console.log('💡 Or toggle music in Settings modal (gear icon)');
+
+      // Mark as not playing
+      this.isPlaying = false;
+      this.savePreferences();
+      this.updateUI();
     });
   }
 
@@ -191,44 +202,28 @@ class MusicPlayer {
   }
 
   /**
-   * Update UI elements
+   * Update UI elements (for settings modal)
    */
   updateUI() {
-    // Update play/pause button
-    const playBtn = document.getElementById('music-play-btn');
-    if (playBtn) {
-      playBtn.textContent = this.isPlaying ? '⏸' : '▶';
-      playBtn.title = this.isPlaying ? 'Pause Music' : 'Play Music';
+    // Update settings modal music toggle if it exists
+    const musicToggle = document.getElementById('setting-music-enabled');
+    if (musicToggle) {
+      musicToggle.checked = this.isPlaying;
     }
 
-    // Update mute button
-    const muteBtn = document.getElementById('music-mute-btn');
-    if (muteBtn) {
-      muteBtn.textContent = this.isMuted ? '🔇' : '🔊';
-      muteBtn.title = this.isMuted ? 'Unmute' : 'Mute';
-    }
-
-    // Update volume slider
-    const volumeSlider = document.getElementById('music-volume-slider');
+    // Update settings modal volume slider if it exists
+    const volumeSlider = document.getElementById('setting-music-volume');
     if (volumeSlider) {
       volumeSlider.value = this.volume * 100;
     }
 
-    // Update volume display
+    // Update settings modal volume display if it exists
     const volumeDisplay = document.getElementById('music-volume-display');
     if (volumeDisplay) {
       volumeDisplay.textContent = Math.round(this.volume * 100) + '%';
     }
 
-    // Update panel class for visualizer
-    const panel = document.getElementById('music-panel');
-    if (panel) {
-      if (this.isPlaying) {
-        panel.classList.remove('paused');
-      } else {
-        panel.classList.add('paused');
-      }
-    }
+    console.log('🔄 Music UI updated - isPlaying:', this.isPlaying, 'volume:', Math.round(this.volume * 100) + '%');
   }
 
   /**
@@ -257,13 +252,30 @@ document.addEventListener('DOMContentLoaded', () => {
   if (!isBattlePage) {
     // Auto-play music on all pages except battle
     // Note: This may be blocked by browser autoplay policy
-    // User will need to interact with the page first
+    console.log('🎵 Setting up music auto-play...');
+
+    // Try to play immediately (will likely be blocked)
     setTimeout(() => {
-      // Try to play after a short delay to ensure page is fully loaded
       if (!window.MusicPlayer.isPlaying) {
         window.MusicPlayer.play();
       }
     }, 500);
+
+    // Set up one-time click listener to start music on first user interaction
+    const startMusicOnInteraction = () => {
+      if (!window.MusicPlayer.isPlaying) {
+        console.log('👆 User interaction detected - starting music');
+        window.MusicPlayer.play();
+      }
+      // Remove listener after first interaction
+      document.removeEventListener('click', startMusicOnInteraction);
+      document.removeEventListener('keydown', startMusicOnInteraction);
+      document.removeEventListener('touchstart', startMusicOnInteraction);
+    };
+
+    document.addEventListener('click', startMusicOnInteraction);
+    document.addEventListener('keydown', startMusicOnInteraction);
+    document.addEventListener('touchstart', startMusicOnInteraction);
   } else {
     // On battle page, pause music
     window.MusicPlayer.pause();

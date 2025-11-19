@@ -1,4 +1,4 @@
-/* Settings Modal - Dark Gold Royal Aesthetic */
+/* Settings Modal - Muted Dark Gold Aesthetic */
 
 .settings-overlay {
   position: fixed;
@@ -30,12 +30,12 @@
 
 .settings-modal {
   background: linear-gradient(135deg, #1a1410 0%, #2d2416 100%);
-  border: 3px solid #d4af37;
+  border: 2px solid #8b7355;
   border-radius: 16px;
   box-shadow:
-    0 0 40px rgba(212, 175, 55, 0.3),
-    0 0 80px rgba(212, 175, 55, 0.2),
-    inset 0 0 60px rgba(212, 175, 55, 0.05);
+    0 0 20px rgba(139, 115, 85, 0.2),
+    0 0 40px rgba(139, 115, 85, 0.1),
+    inset 0 0 30px rgba(139, 115, 85, 0.03);
   max-width: 600px;
   width: 90%;
   max-height: 80vh;
@@ -56,9 +56,9 @@
 }
 
 .settings-header {
-  background: linear-gradient(135deg, #d4af37 0%, #b8941f 100%);
+  background: linear-gradient(135deg, #6b5d4f 0%, #5a4d3f 100%);
   padding: 20px 24px;
-  border-bottom: 2px solid #f4d03f;
+  border-bottom: 2px solid #8b7355;
   position: relative;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
@@ -66,10 +66,10 @@
 .settings-title {
   font-size: 28px;
   font-weight: bold;
-  color: #1a1410;
+  color: #e8dcc8;
   text-transform: uppercase;
   letter-spacing: 2px;
-  text-shadow: 0 2px 4px rgba(255, 255, 255, 0.3);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   margin: 0;
   display: flex;
   align-items: center;
@@ -86,8 +86,8 @@
   top: 20px;
   right: 24px;
   background: rgba(26, 20, 16, 0.8);
-  border: 2px solid #d4af37;
-  color: #d4af37;
+  border: 2px solid #8b7355;
+  color: #9d8568;
   width: 36px;
   height: 36px;
   border-radius: 50%;
@@ -103,10 +103,10 @@
 }
 
 .settings-close:hover {
-  background: #d4af37;
-  color: #1a1410;
+  background: #6b5d4f;
+  color: #e8dcc8;
   transform: rotate(90deg);
-  box-shadow: 0 0 20px rgba(212, 175, 55, 0.6);
+  box-shadow: 0 0 10px rgba(139, 115, 85, 0.4);
 }
 
 .settings-body {
@@ -121,18 +121,18 @@
 }
 
 .settings-body::-webkit-scrollbar-track {
-  background: rgba(212, 175, 55, 0.1);
+  background: rgba(139, 115, 85, 0.1);
   border-radius: 5px;
 }
 
 .settings-body::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, #d4af37 0%, #b8941f 100%);
+  background: linear-gradient(180deg, #6b5d4f 0%, #5a4d3f 100%);
   border-radius: 5px;
   border: 2px solid #1a1410;
 }
 
 .settings-body::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, #f4d03f 0%, #d4af37 100%);
+  background: linear-gradient(180deg, #8b7355 0%, #6b5d4f 100%);
 }
 
 .settings-section {
@@ -146,12 +146,12 @@
 .settings-section-title {
   font-size: 18px;
   font-weight: bold;
-  color: #d4af37;
+  color: #9d8568;
   text-transform: uppercase;
   letter-spacing: 1.5px;
   margin-bottom: 16px;
   padding-bottom: 8px;
-  border-bottom: 2px solid rgba(212, 175, 55, 0.3);
+  border-bottom: 2px solid rgba(139, 115, 85, 0.3);
   display: flex;
   align-items: center;
   gap: 8px;
@@ -163,7 +163,7 @@
 
 .settings-option-label {
   display: block;
-  color: #f4d03f;
+  color: #b8a890;
   font-size: 14px;
   font-weight: 600;
   margin-bottom: 8px;
@@ -183,10 +183,10 @@
   -webkit-appearance: none;
   appearance: none;
   height: 8px;
-  background: rgba(212, 175, 55, 0.2);
+  background: rgba(139, 115, 85, 0.2);
   border-radius: 4px;
   outline: none;
-  border: 1px solid rgba(212, 175, 55, 0.3);
+  border: 1px solid rgba(139, 115, 85, 0.3);
 }
 
 .settings-slider::-webkit-slider-thumb {
@@ -194,40 +194,40 @@
   appearance: none;
   width: 20px;
   height: 20px;
-  background: linear-gradient(135deg, #d4af37 0%, #b8941f 100%);
-  border: 2px solid #f4d03f;
+  background: linear-gradient(135deg, #6b5d4f 0%, #5a4d3f 100%);
+  border: 2px solid #8b7355;
   border-radius: 50%;
   cursor: pointer;
-  box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+  box-shadow: 0 0 5px rgba(139, 115, 85, 0.3);
   transition: all 0.2s ease;
 }
 
 .settings-slider::-webkit-slider-thumb:hover {
-  background: linear-gradient(135deg, #f4d03f 0%, #d4af37 100%);
-  transform: scale(1.2);
-  box-shadow: 0 0 20px rgba(212, 175, 55, 0.8);
+  background: linear-gradient(135deg, #8b7355 0%, #6b5d4f 100%);
+  transform: scale(1.1);
+  box-shadow: 0 0 10px rgba(139, 115, 85, 0.5);
 }
 
 .settings-slider::-moz-range-thumb {
   width: 20px;
   height: 20px;
-  background: linear-gradient(135deg, #d4af37 0%, #b8941f 100%);
-  border: 2px solid #f4d03f;
+  background: linear-gradient(135deg, #6b5d4f 0%, #5a4d3f 100%);
+  border: 2px solid #8b7355;
   border-radius: 50%;
   cursor: pointer;
-  box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+  box-shadow: 0 0 5px rgba(139, 115, 85, 0.3);
   transition: all 0.2s ease;
 }
 
 .settings-slider::-moz-range-thumb:hover {
-  background: linear-gradient(135deg, #f4d03f 0%, #d4af37 100%);
-  transform: scale(1.2);
-  box-shadow: 0 0 20px rgba(212, 175, 55, 0.8);
+  background: linear-gradient(135deg, #8b7355 0%, #6b5d4f 100%);
+  transform: scale(1.1);
+  box-shadow: 0 0 10px rgba(139, 115, 85, 0.5);
 }
 
 .settings-value {
   min-width: 50px;
-  color: #f4d03f;
+  color: #b8a890;
   font-weight: bold;
   font-size: 16px;
   text-align: right;
@@ -254,8 +254,8 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(212, 175, 55, 0.2);
-  border: 2px solid rgba(212, 175, 55, 0.4);
+  background: rgba(139, 115, 85, 0.2);
+  border: 2px solid rgba(139, 115, 85, 0.4);
   transition: 0.4s;
   border-radius: 30px;
 }
@@ -274,22 +274,22 @@
 }
 
 .settings-toggle input:checked + .toggle-slider {
-  background: linear-gradient(135deg, #d4af37 0%, #b8941f 100%);
-  border-color: #f4d03f;
-  box-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
+  background: linear-gradient(135deg, #6b5d4f 0%, #5a4d3f 100%);
+  border-color: #8b7355;
+  box-shadow: 0 0 8px rgba(139, 115, 85, 0.3);
 }
 
 .settings-toggle input:checked + .toggle-slider:before {
   transform: translateX(30px);
-  background: #f4d03f;
-  box-shadow: 0 0 10px rgba(244, 208, 63, 0.8);
+  background: #9d8568;
+  box-shadow: 0 0 6px rgba(157, 133, 104, 0.5);
 }
 
 /* Button */
 .settings-button {
-  background: linear-gradient(135deg, #d4af37 0%, #b8941f 100%);
-  border: 2px solid #f4d03f;
-  color: #1a1410;
+  background: linear-gradient(135deg, #6b5d4f 0%, #5a4d3f 100%);
+  border: 2px solid #8b7355;
+  color: #e8dcc8;
   padding: 12px 24px;
   border-radius: 8px;
   font-weight: bold;
@@ -298,31 +298,31 @@
   cursor: pointer;
   transition: all 0.3s ease;
   box-shadow:
-    0 4px 12px rgba(212, 175, 55, 0.3),
+    0 4px 12px rgba(139, 115, 85, 0.2),
     inset 0 -2px 8px rgba(0, 0, 0, 0.2);
   font-size: 14px;
 }
 
 .settings-button:hover {
-  background: linear-gradient(135deg, #f4d03f 0%, #d4af37 100%);
+  background: linear-gradient(135deg, #8b7355 0%, #6b5d4f 100%);
   transform: translateY(-2px);
   box-shadow:
-    0 6px 20px rgba(212, 175, 55, 0.5),
+    0 6px 20px rgba(139, 115, 85, 0.3),
     inset 0 -2px 8px rgba(0, 0, 0, 0.2);
 }
 
 .settings-button:active {
   transform: translateY(0);
   box-shadow:
-    0 2px 8px rgba(212, 175, 55, 0.3),
+    0 2px 8px rgba(139, 115, 85, 0.2),
     inset 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
 /* Input Field */
 .settings-input {
-  background: rgba(212, 175, 55, 0.1);
-  border: 2px solid rgba(212, 175, 55, 0.3);
-  color: #f4d03f;
+  background: rgba(139, 115, 85, 0.1);
+  border: 2px solid rgba(139, 115, 85, 0.3);
+  color: #b8a890;
   padding: 10px 16px;
   border-radius: 8px;
   font-size: 14px;
@@ -332,13 +332,13 @@
 
 .settings-input:focus {
   outline: none;
-  border-color: #d4af37;
-  background: rgba(212, 175, 55, 0.15);
-  box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+  border-color: #8b7355;
+  background: rgba(139, 115, 85, 0.15);
+  box-shadow: 0 0 10px rgba(139, 115, 85, 0.2);
 }
 
 .settings-input::placeholder {
-  color: rgba(244, 208, 63, 0.5);
+  color: rgba(184, 168, 144, 0.5);
 }
 
 /* Background Selector */
@@ -351,7 +351,7 @@
 
 .background-option {
   aspect-ratio: 16/9;
-  border: 3px solid rgba(212, 175, 55, 0.3);
+  border: 2px solid rgba(139, 115, 85, 0.3);
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -367,7 +367,7 @@
   top: 4px;
   right: 4px;
   background: rgba(26, 20, 16, 0.8);
-  color: #d4af37;
+  color: #9d8568;
   padding: 2px 6px;
   border-radius: 4px;
   font-size: 10px;
@@ -375,16 +375,16 @@
 }
 
 .background-option:hover {
-  border-color: #d4af37;
+  border-color: #8b7355;
   transform: scale(1.05);
-  box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+  box-shadow: 0 0 10px rgba(139, 115, 85, 0.3);
 }
 
 .background-option.active {
-  border-color: #f4d03f;
+  border-color: #9d8568;
   box-shadow:
-    0 0 30px rgba(212, 175, 55, 0.8),
-    inset 0 0 20px rgba(212, 175, 55, 0.2);
+    0 0 15px rgba(139, 115, 85, 0.4),
+    inset 0 0 10px rgba(139, 115, 85, 0.1);
 }
 
 .background-option.active::after {
@@ -394,15 +394,15 @@
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: 32px;
-  color: #f4d03f;
+  color: #b8a890;
   text-shadow:
-    0 0 10px rgba(244, 208, 63, 1),
-    0 0 20px rgba(244, 208, 63, 0.8);
+    0 0 6px rgba(184, 168, 144, 0.8),
+    0 0 12px rgba(184, 168, 144, 0.5);
 }
 
 /* Help Text */
 .settings-help {
-  color: rgba(244, 208, 63, 0.7);
+  color: rgba(184, 168, 144, 0.7);
   font-size: 12px;
   margin-top: 8px;
   font-style: italic;
@@ -413,9 +413,9 @@
   height: 2px;
   background: linear-gradient(90deg,
     transparent 0%,
-    rgba(212, 175, 55, 0.3) 20%,
-    rgba(212, 175, 55, 0.5) 50%,
-    rgba(212, 175, 55, 0.3) 80%,
+    rgba(139, 115, 85, 0.3) 20%,
+    rgba(139, 115, 85, 0.4) 50%,
+    rgba(139, 115, 85, 0.3) 80%,
     transparent 100%);
   margin: 24px 0;
 }
