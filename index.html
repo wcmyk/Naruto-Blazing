@@ -345,6 +345,18 @@
           const choice = prompt("Settings Menu:\n1. Change Background (1-10)\n2. View Resources\n3. Select Character Display\n4. Cancel\n\nEnter your choice:");
 
           if (choice === "1") {
+            const currentUsername = window.UserProfile.getUsername();
+            const newUsername = prompt(`Current username: ${currentUsername}\n\nEnter new username (max 20 characters):`);
+
+            if (newUsername && newUsername.trim()) {
+              const success = window.UserProfile.setUsername(newUsername);
+              if (success) {
+                alert(`✅ Username changed to: ${newUsername.trim()}`);
+              } else {
+                alert("❌ Failed to change username. Please use 1-20 characters.");
+              }
+            }
+          } else if (choice === "2") {
             const bgNum = prompt("Enter background number (1-10):");
             const num = parseInt(bgNum);
             if (num >= 1 && num <= 10) {
@@ -353,7 +365,7 @@
             } else {
               alert("Invalid background number. Please enter 1-10.");
             }
-          } else if (choice === "2") {
+          } else if (choice === "3") {
             navigateTo("resources.html");
           } else if (choice === "3") {
             if (typeof window.CharacterVignette !== "undefined") {
