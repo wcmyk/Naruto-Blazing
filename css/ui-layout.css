@@ -14,14 +14,14 @@
   z-index: 50;
   display: grid;
   grid-template-columns: 1fr 1fr; /* Two equal columns */
-  gap: 10px; /* Reduced from 14px */
+  gap: 20px; /* Increased gap for better spacing */
   pointer-events: auto;
-  width: 420px; /* Reduced 30%: 600px × 0.7 = 420px */
+  width: 400px; /* Reduced slightly for better fit */
 }
 
 .banner-button {
   width: 100%; /* Fill grid cell */
-  height: 105px; /* Reduced 30%: 150px × 0.7 = 105px */
+  height: 85px; /* Further reduced height to prevent overlap */
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -37,7 +37,7 @@
 /* Missions banner spans both columns (full width) */
 .banner-button.missions {
   grid-column: 1 / -1; /* Span both columns */
-  height: 105px; /* Reduced 30%: 150px × 0.7 = 105px */
+  height: 85px; /* Matched with other buttons */
 }
 
 /* Hover effect */
@@ -90,13 +90,13 @@
 /* Banner text overlay (temporary until PNGs have text) */
 .banner-button-text {
   position: absolute;
-  bottom: 10px; /* Reduced from 15px */
-  left: 14px; /* Reduced from 20px */
-  font-size: 20px; /* Reduced 30%: 28px × 0.7 = 19.6px ≈ 20px */
+  bottom: 8px; /* Reduced for smaller buttons */
+  left: 12px; /* Reduced for smaller buttons */
+  font-size: 16px; /* Reduced to fit smaller buttons */
   font-weight: 700;
   color: #fff;
-  text-shadow: 0 2px 7px rgba(0, 0, 0, 0.9); /* Reduced from 3px 10px */
-  letter-spacing: 0.7px; /* Reduced from 1px */
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.9);
+  letter-spacing: 0.5px;
   font-family: "Cinzel", serif;
 }
 
