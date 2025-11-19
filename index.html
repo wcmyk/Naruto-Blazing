@@ -131,6 +131,8 @@
 
   <!-- Scripts -->
   <script src="js/navigation.js"></script>
+  <script src="js/user-profile.js"></script>
+  <script src="js/audio-manager.js"></script>
   <script src="js/character_inv.js"></script>
   <script src="js/resources.js"></script>
   <script src="js/daily-missions.js"></script>
@@ -337,44 +339,136 @@
         });
       }
 
-      // Settings button (with background changer, resources, and character vignette)
+      // Settings button (with background changer, username, audio, character display, and resources)
       const btnSettings = document.getElementById("btn-settings");
       if (btnSettings) {
         btnSettings.addEventListener("click", () => {
           console.log("⚙️ Settings clicked");
-          const choice = prompt("Settings Menu:\n1. Change Background (1-10)\n2. View Resources\n3. Select Character Display\n4. Cancel\n\nEnter your choice:");
+          showSettingsMenu();
+        });
+      }
 
-          if (choice === "1") {
-            const currentUsername = window.UserProfile.getUsername();
-            const newUsername = prompt(`Current username: ${currentUsername}\n\nEnter new username (max 20 characters):`);
+      // Settings menu handler
+      function showSettingsMenu() {
+        const choice = prompt(
+          "⚙️ SETTINGS MENU\n\n" +
+          "1. Change Username\n" +
+          "2. Change Background (1-10)\n" +
+          "3. Audio Settings\n" +
+          "4. Select Character Display\n" +
+          "5. View Resources\n" +
+          "6. Cancel\n\n" +
+          "Enter your choice:"
+        );
 
-            if (newUsername && newUsername.trim()) {
-              const success = window.UserProfile.setUsername(newUsername);
-              if (success) {
-                alert(`✅ Username changed to: ${newUsername.trim()}`);
-              } else {
-                alert("❌ Failed to change username. Please use 1-20 characters.");
-              }
-            }
-          } else if (choice === "2") {
-            const bgNum = prompt("Enter background number (1-10):");
-            const num = parseInt(bgNum);
-            if (num >= 1 && num <= 10) {
-              current = num;
-              updateBG(current);
+        if (choice === "1") {
+          const currentUsername = window.UserProfile.getUsername();
+          const newUsername = prompt(`Current username: ${currentUsername}\n\nEnter new username (max 20 characters):`);
+
+          if (newUsername && newUsername.trim()) {
+            const success = window.UserProfile.setUsername(newUsername);
+            if (success) {
+              alert(`✅ Username changed to: ${newUsername.trim()}`);
             } else {
-              alert("Invalid background number. Please enter 1-10.");
-            }
-          } else if (choice === "3") {
-            navigateTo("resources.html");
-          } else if (choice === "3") {
-            if (typeof window.CharacterVignette !== "undefined") {
-              window.CharacterVignette.openCharacterSelector();
-            } else {
-              alert("Character Vignette system not loaded yet. Please reload the page.");
+              alert("❌ Failed to change username. Please use 1-20 characters.");
             }
           }
-        });
+        } else if (choice === "2") {
+          const bgNum = prompt("Enter background number (1-10):");
+          const num = parseInt(bgNum);
+          if (num >= 1 && num <= 10) {
+            current = num;
+            updateBG(current);
+          } else {
+            alert("Invalid background number. Please enter 1-10.");
+          }
+        } else if (choice === "3") {
+          showAudioSettings();
+        } else if (choice === "4") {
+          if (typeof window.CharacterVignette !== "undefined") {
+            window.CharacterVignette.openCharacterSelector();
+          } else {
+            alert("Character Vignette system not loaded yet. Please reload the page.");
+          }
+        } else if (choice === "5") {
+          navigateTo("resources.html");
+        }
+      }
+
+      // Audio settings submenu
+      function showAudioSettings() {
+        const masterVol = window.AudioManager.getVolumePercent("master");
+        const bgmVol = window.AudioManager.getVolumePercent("bgm");
+        const sfxVol = window.AudioManager.getVolumePercent("sfx");
+        const settings = window.AudioManager.getSettings();
+
+        const choice = prompt(
+          "🔊 AUDIO SETTINGS\n\n" +
+          `Master Volume: ${masterVol}% ${settings.masterMuted ? "(MUTED)" : ""}\n` +
+          `BGM Volume: ${bgmVol}% ${settings.bgmMuted ? "(MUTED)" : ""}\n` +
+          `SFX Volume: ${sfxVol}% ${settings.sfxMuted ? "(MUTED)" : ""}\n\n` +
+          "1. Set Master Volume (0-100)\n" +
+          "2. Set BGM Volume (0-100)\n" +
+          "3. Set SFX Volume (0-100)\n" +
+          "4. Toggle Master Mute\n" +
+          "5. Toggle BGM Mute\n" +
+          "6. Toggle SFX Mute\n" +
+          "7. Reset to Defaults\n" +
+          "8. Back to Settings\n\n" +
+          "Enter your choice:"
+        );
+
+        if (choice === "1") {
+          const vol = prompt("Enter Master Volume (0-100):");
+          const num = parseInt(vol);
+          if (!isNaN(num) && num >= 0 && num <= 100) {
+            window.AudioManager.setMasterVolume(num / 100);
+            alert(`✅ Master volume set to ${num}%`);
+          } else {
+            alert("❌ Invalid volume. Please enter 0-100.");
+          }
+          showAudioSettings();
+        } else if (choice === "2") {
+          const vol = prompt("Enter BGM Volume (0-100):");
+          const num = parseInt(vol);
+          if (!isNaN(num) && num >= 0 && num <= 100) {
+            window.AudioManager.setBGMVolume(num / 100);
+            alert(`✅ BGM volume set to ${num}%`);
+          } else {
+            alert("❌ Invalid volume. Please enter 0-100.");
+          }
+          showAudioSettings();
+        } else if (choice === "3") {
+          const vol = prompt("Enter SFX Volume (0-100):");
+          const num = parseInt(vol);
+          if (!isNaN(num) && num >= 0 && num <= 100) {
+            window.AudioManager.setSFXVolume(num / 100);
+            alert(`✅ SFX volume set to ${num}%`);
+          } else {
+            alert("❌ Invalid volume. Please enter 0-100.");
+          }
+          showAudioSettings();
+        } else if (choice === "4") {
+          const muted = window.AudioManager.toggleMasterMute();
+          alert(muted ? "🔇 Master audio MUTED" : "🔊 Master audio UNMUTED");
+          showAudioSettings();
+        } else if (choice === "5") {
+          const muted = window.AudioManager.toggleBGMMute();
+          alert(muted ? "🔇 BGM MUTED" : "🔊 BGM UNMUTED");
+          showAudioSettings();
+        } else if (choice === "6") {
+          const muted = window.AudioManager.toggleSFXMute();
+          alert(muted ? "🔇 SFX MUTED" : "🔊 SFX UNMUTED");
+          showAudioSettings();
+        } else if (choice === "7") {
+          if (confirm("Reset all audio settings to defaults?")) {
+            window.AudioManager.reset();
+            alert("✅ Audio settings reset to defaults");
+          }
+          showAudioSettings();
+        } else if (choice === "8") {
+          showSettingsMenu();
+        }
       }
 
       console.log("✅ All event listeners attached!");
