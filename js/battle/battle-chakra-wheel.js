@@ -71,10 +71,13 @@
       chakraSegment.alt = 'Chakra gauge';
       chakraContainer.appendChild(chakraSegment);
 
-      // Create chakra frame overlay (top layer, 140×140px, z-index: 10)
+      // Create chakra frame overlay (top layer, 140×140px for active, 60×60px for bench, z-index: 10)
       const chakraFrame = document.createElement('img');
       chakraFrame.className = 'chakra-frame';
-      chakraFrame.src = 'assets/ui/frames/chakraholder_icon.png';
+      // Use different frame asset for bench units
+      chakraFrame.src = isBench ?
+        'assets/ui/frames/chakraholder_iconbench.png' :
+        'assets/ui/frames/chakraholder_icon.png';
       chakraFrame.alt = 'Chakra frame';
 
       // Assemble structure: portrait → chakra container → frame
@@ -93,11 +96,19 @@
       // Cache the wheel element
       this.wheelCache.set(unit.id, unitRing);
 
+      // For active units, preserve any bench portraits that may be nested
+      const existingBenchPortrait = portraitContainer.querySelector('.bench-portrait-container');
+
       // Replace portrait container content
       portraitContainer.innerHTML = '';
       portraitContainer.appendChild(unitRing);
 
-      console.log(`[ChakraWheel] Chakra accumulation system created for ${unit.name}`);
+      // Re-append bench portrait if it existed (for active units with bench)
+      if (existingBenchPortrait && !isBench) {
+        portraitContainer.appendChild(existingBenchPortrait);
+      }
+
+      console.log(`[ChakraWheel] Chakra accumulation system created for ${unit.name}${isBench ? ' (bench)' : ''}`);
 
       return unitRing;
     },

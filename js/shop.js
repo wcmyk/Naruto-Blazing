@@ -4,10 +4,6 @@
 
   const Shop = {
     shopData: null,
-    playerResources: {
-      ryo: 0,
-      pearls: 0
-    },
     currentItem: null,
     currentQuantity: 1,
 
@@ -16,9 +12,6 @@
 
       // Load shop data
       await this.loadShopData();
-
-      // Load player resources
-      this.loadPlayerResources();
 
       // Setup event listeners
       this.setupEventListeners();
@@ -44,32 +37,17 @@
       }
     },
 
-    loadPlayerResources() {
-      // Load from localStorage
-      const saved = localStorage.getItem('blazing_resources_v1');
-      if (saved) {
-        this.playerResources = JSON.parse(saved);
-      } else {
-        // Default starting resources
-        this.playerResources = {
-          ryo: 10000,
-          pearls: 50
-        };
-        this.savePlayerResources();
-      }
-      console.log("[Shop] Player resources loaded:", this.playerResources);
-    },
-
-    savePlayerResources() {
-      localStorage.setItem('blazing_resources_v1', JSON.stringify(this.playerResources));
-    },
-
     updateResourceDisplay() {
-      const ryoEl = document.getElementById('player-ryo');
-      const pearlsEl = document.getElementById('player-pearls');
+      // Use unified Resources system
+      if (window.Resources) {
+        const ninjaPearlsEl = document.getElementById('currency-ninja-pearls');
+        const shinobitesEl = document.getElementById('currency-shinobites');
+        const ryoEl = document.getElementById('currency-ryo');
 
-      if (ryoEl) ryoEl.textContent = this.playerResources.ryo.toLocaleString();
-      if (pearlsEl) pearlsEl.textContent = this.playerResources.pearls.toLocaleString();
+        if (ninjaPearlsEl) ninjaPearlsEl.textContent = window.Resources.get('ninja_pearls').toLocaleString();
+        if (shinobitesEl) shinobitesEl.textContent = window.Resources.get('shinobites').toLocaleString();
+        if (ryoEl) ryoEl.textContent = window.Resources.get('ryo').toLocaleString();
+      }
     },
 
     setupEventListeners() {
@@ -180,15 +158,23 @@
         if (item.cost.ryo) {
           costHTML = `
             <div class="item-cost">
-              <img src="assets/icons/ryo_icon.png" alt="Ryo" onerror="this.style.display='none'">
+              <img src="assets/icons/currency/ryo.png" alt="Ryo" class="cost-icon" onerror="this.style.display='none'">
               <span>${item.cost.ryo.toLocaleString()}</span>
             </div>
           `;
-        } else if (item.cost.pearls) {
+        } else if (item.cost.ninja_pearls || item.cost.pearls) {
+          const cost = item.cost.ninja_pearls || item.cost.pearls;
           costHTML = `
             <div class="item-cost">
-              <img src="assets/icons/pearl_icon.png" alt="Pearls" onerror="this.style.display='none'">
-              <span>${item.cost.pearls.toLocaleString()}</span>
+              <img src="assets/icons/currency/ninjapearl.png" alt="Ninja Pearls" class="cost-icon" onerror="this.style.display='none'">
+              <span>${cost.toLocaleString()}</span>
+            </div>
+          `;
+        } else if (item.cost.shinobites) {
+          costHTML = `
+            <div class="item-cost">
+              <img src="assets/icons/currency/shinobite.png" alt="Shinobites" class="cost-icon" onerror="this.style.display='none'">
+              <span>${item.cost.shinobites.toLocaleString()}</span>
             </div>
           `;
         }
@@ -262,13 +248,20 @@
       if (item.cost.ryo) {
         const total = item.cost.ryo * quantity;
         costHTML = `<span style="display: flex; align-items: center; gap: 8px;">
-          <img src="assets/icons/ryo_icon.png" alt="Ryo" style="width: 20px; height: 20px;" onerror="this.style.display='none'">
+          <img src="assets/icons/currency/ryo.png" alt="Ryo" style="width: 20px; height: 20px;" onerror="this.style.display='none'">
           ${total.toLocaleString()}
         </span>`;
-      } else if (item.cost.pearls) {
-        const total = item.cost.pearls * quantity;
+      } else if (item.cost.ninja_pearls || item.cost.pearls) {
+        const cost = item.cost.ninja_pearls || item.cost.pearls;
+        const total = cost * quantity;
         costHTML = `<span style="display: flex; align-items: center; gap: 8px;">
-          <img src="assets/icons/pearl_icon.png" alt="Pearls" style="width: 20px; height: 20px;" onerror="this.style.display='none'">
+          <img src="assets/icons/currency/ninjapearl.png" alt="Ninja Pearls" style="width: 20px; height: 20px;" onerror="this.style.display='none'">
+          ${total.toLocaleString()}
+        </span>`;
+      } else if (item.cost.shinobites) {
+        const total = item.cost.shinobites * quantity;
+        costHTML = `<span style="display: flex; align-items: center; gap: 8px;">
+          <img src="assets/icons/currency/shinobite.png" alt="Shinobites" style="width: 20px; height: 20px;" onerror="this.style.display='none'">
           ${total.toLocaleString()}
         </span>`;
       }
@@ -281,29 +274,41 @@
       const quantity = parseInt(qtyInput?.value) || 1;
       const item = this.currentItem;
 
-      if (!item) return;
+      if (!item || !window.Resources) return;
 
-      // Calculate total cost
+      // Calculate total cost and determine currency type
       let totalCost = 0;
       let costType = '';
+      let costLabel = '';
 
       if (item.cost.ryo) {
         totalCost = item.cost.ryo * quantity;
         costType = 'ryo';
+        costLabel = 'Ryo';
+      } else if (item.cost.ninja_pearls) {
+        totalCost = item.cost.ninja_pearls * quantity;
+        costType = 'ninja_pearls';
+        costLabel = 'Ninja Pearls';
       } else if (item.cost.pearls) {
+        // Legacy support for old 'pearls' key
         totalCost = item.cost.pearls * quantity;
-        costType = 'pearls';
+        costType = 'ninja_pearls';
+        costLabel = 'Ninja Pearls';
+      } else if (item.cost.shinobites) {
+        totalCost = item.cost.shinobites * quantity;
+        costType = 'shinobites';
+        costLabel = 'Shinobites';
       }
 
-      // Check if player has enough resources
-      if (this.playerResources[costType] < totalCost) {
-        alert(`Insufficient ${costType}! You need ${totalCost.toLocaleString()} but only have ${this.playerResources[costType].toLocaleString()}.`);
+      // Check if player has enough resources using Resources API
+      const currentAmount = window.Resources.get(costType);
+      if (currentAmount < totalCost) {
+        alert(`Insufficient ${costLabel}! You need ${totalCost.toLocaleString()} but only have ${currentAmount.toLocaleString()}.`);
         return;
       }
 
-      // Deduct cost
-      this.playerResources[costType] -= totalCost;
-      this.savePlayerResources();
+      // Deduct cost using Resources API
+      window.Resources.subtract(costType, totalCost);
       this.updateResourceDisplay();
 
       // Add items to inventory
@@ -315,7 +320,7 @@
       // Show success modal
       this.showSuccessModal(item, quantity);
 
-      console.log(`[Shop] Purchased ${quantity}x ${item.name} for ${totalCost} ${costType}`);
+      console.log(`[Shop] Purchased ${quantity}x ${item.name} for ${totalCost} ${costLabel}`);
     },
 
     addItemsToInventory(item, quantity) {

@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="css/background.css" />
   <link rel="stylesheet" href="css/characters_abilities.css" />
   <link rel="stylesheet" href="css/character_dupe_abilities.css" />
+  <link rel="stylesheet" href="css/character-equip.css" />
 </head>
 <body class="page-characters">
   <div id="char-bg"></div>
@@ -36,6 +37,7 @@
           <button class="tab-btn" data-tab="skills">Ninjutsu</button>
           <button class="tab-btn" data-tab="support">F/B Skills</button>
           <button class="tab-btn" data-tab="abilities">Abilities</button>
+          <button class="tab-btn" data-tab="equip">Equip</button>
         </div>
 
         <div class="tab-panels">
@@ -78,6 +80,43 @@
 
           <section class="tab-panel" id="tab-abilities">
             <div class="abilities-wrap" id="char-abilities"></div>
+          </section>
+
+          <section class="tab-panel" id="tab-equip">
+            <div class="equip-wrap">
+              <div class="equip-header">
+                <h3 class="equip-title">Ultimate Equipment</h3>
+                <p class="equip-desc">Equip a once-per-battle ultimate ability</p>
+              </div>
+
+              <div class="equip-slot" id="equip-slot">
+                <div class="equip-slot-empty">
+                  <div class="equip-slot-icon">⚡</div>
+                  <div class="equip-slot-text">No Ultimate Equipped</div>
+                  <button class="btn-equip" id="btn-select-ultimate">Select Ultimate</button>
+                </div>
+              </div>
+
+              <div class="equip-info" id="equip-info" style="display:none;">
+                <div class="ultimate-card">
+                  <div class="ultimate-icon" id="ultimate-icon"></div>
+                  <div class="ultimate-details">
+                    <div class="ultimate-name" id="ultimate-name"></div>
+                    <div class="ultimate-description" id="ultimate-description"></div>
+                    <div class="ultimate-stats">
+                      <span class="ultimate-cost" id="ultimate-cost"></span>
+                      <span class="ultimate-cooldown">Once per battle</span>
+                    </div>
+                  </div>
+                  <button class="btn-unequip" id="btn-unequip-ultimate">Unequip</button>
+                </div>
+              </div>
+
+              <div class="equip-tips">
+                <p>💡 Tip: Ultimates can only be used once per battle and have powerful effects!</p>
+                <p>⚔️ Choose wisely based on your team composition and strategy</p>
+              </div>
+            </div>
           </section>
         </div>
 
@@ -143,7 +182,36 @@
     </div>
   </div>
 
+  <!-- Music Control Panel -->
+  <div class="music-control-panel" id="music-panel">
+    <div class="music-control-header">
+      <h3>Music</h3>
+      <button class="music-toggle-btn" id="music-collapse-btn" title="Toggle Panel">−</button>
+    </div>
+    <div class="music-controls">
+      <div class="music-buttons">
+        <button class="music-btn" id="music-play-btn" title="Play Music">▶</button>
+        <button class="music-btn" id="music-mute-btn" title="Mute">🔊</button>
+      </div>
+      <div class="music-volume-control">
+        <div class="music-volume-label">Volume</div>
+        <div class="music-volume-slider-container">
+          <input type="range" min="0" max="100" value="50" class="music-volume-slider" id="music-volume-slider">
+          <span class="music-volume-display" id="music-volume-display">50%</span>
+        </div>
+      </div>
+      <div class="music-visualizer">
+        <div class="music-visualizer-bar"></div>
+        <div class="music-visualizer-bar"></div>
+        <div class="music-visualizer-bar"></div>
+        <div class="music-visualizer-bar"></div>
+        <div class="music-visualizer-bar"></div>
+      </div>
+    </div>
+  </div>
+
   <!-- Core Scripts -->
+  <script src="js/music-player.js"></script>
   <script src="js/character_inv.js"></script>
   <script src="js/progression.js"></script>
   <script src="js/resources.js"></script>

@@ -99,10 +99,15 @@ html, body.page-battle {
   top: 30px;
   left: 5%;
   width: 90%;
-  height: 80px;
-  background: url("../assets/ui/gauges/speedgauge.png") center center / contain no-repeat;
+  height: 50px;
+  background: linear-gradient(90deg,
+    rgba(217, 179, 98, 0.3) 0%,
+    rgba(217, 179, 98, 0.5) 50%,
+    rgba(217, 179, 98, 0.3) 100%);
+  border: 2px solid rgba(217, 179, 98, 0.6);
+  border-radius: 25px;
   z-index: 45;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5), inset 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 /* Speed Marker - Absolutely positioned on the track */
@@ -392,6 +397,17 @@ html, body.page-battle {
 #btn-ultimate:hover {
   background: linear-gradient(135deg, #b22cb2 0%, #c93ac9 100%);
   box-shadow: 0 4px 8px rgba(178, 44, 178, 0.7);
+}
+
+#btn-equipped-ultimate {
+  background: linear-gradient(135deg, #6b1f8b 0%, #8a2aa5 100%);
+  border-color: #a6c;
+  color: #f5e0ff;
+  box-shadow: 0 2px 4px rgba(107, 31, 139, 0.5);
+}
+#btn-equipped-ultimate:hover {
+  background: linear-gradient(135deg, #922cb2 0%, #b03ac9 100%);
+  box-shadow: 0 4px 8px rgba(146, 44, 178, 0.7);
 }
 
 /* Secondary Buttons - Hidden by default in ML style */
