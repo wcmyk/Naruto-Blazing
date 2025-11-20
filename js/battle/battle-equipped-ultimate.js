@@ -446,7 +446,7 @@
      * @param {string} unitId - Unit identifier
      */
     notifyUltimateReady(unitId) {
-      console.log(`[BattleEquippedUltimate] 🔥 ULTIMATE READY for ${unitId}!`);
+      console.log(`[BattleEquippedUltimate] ULTIMATE READY for ${unitId}!`);
 
       // Show visual indicator on unit
       const unitElement = document.querySelector(`[data-unit-id="${unitId}"]`);
@@ -456,7 +456,7 @@
         // Add glowing effect
         const indicator = document.createElement('div');
         indicator.className = 'ultimate-ready-indicator';
-        indicator.textContent = '⚡ ULTIMATE READY!';
+        indicator.textContent = 'ULTIMATE READY!';
         unitElement.appendChild(indicator);
       }
 
