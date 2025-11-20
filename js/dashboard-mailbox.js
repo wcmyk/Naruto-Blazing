@@ -209,33 +209,64 @@ class DashboardMailbox {
     setTimeout(() => this.openMailbox(), 300);
   }
 
+  showCustomAlert(title, message, type = 'info') {
+    const alertHTML = `
+      <div class="custom-alert-modal" id="custom-alert-modal">
+        <div class="custom-alert-overlay" onclick="document.getElementById('custom-alert-modal').remove()"></div>
+        <div class="custom-alert-content ${type}">
+          <div class="custom-alert-header">
+            <h3>${title}</h3>
+          </div>
+          <div class="custom-alert-body">${message}</div>
+          <button class="custom-alert-ok" onclick="document.getElementById('custom-alert-modal').remove()">OK</button>
+        </div>
+      </div>
+    `;
+    document.body.insertAdjacentHTML('beforeend', alertHTML);
+    this.injectCustomAlertStyles();
+  }
+
   claimRewards(index) {
     const message = this.messages[index];
     if (!message || !message.rewards || !message.rewards.characters) {
-      alert('No rewards to claim!');
+      this.showCustomAlert('No Rewards', 'No rewards to claim!', 'error');
       return;
     }
 
     if (message.allClaimed) {
-      alert('All rewards have already been claimed!');
+      this.showCustomAlert('Already Claimed', 'All rewards have already been claimed!', 'error');
       return;
     }
 
     // Check if InventoryChar is available
     if (typeof window.InventoryChar === 'undefined') {
-      alert('Character inventory system not available. Please return to home page and try again.');
+      this.showCustomAlert('System Error', 'Character inventory system not available. Please return to home page and try again.', 'error');
       return;
     }
 
     // Add characters to inventory
     const charactersClaimed = [];
+    const characterDetails = []; // Store character details for better display
+
     message.rewards.characters.forEach(charReward => {
       const alreadyClaimed = message.claimed && message.claimed.includes(`char_${charReward.characterId}`);
       if (!alreadyClaimed) {
         // Add multiple copies
         for (let i = 0; i < charReward.quantity; i++) {
-          window.InventoryChar.add(charReward.characterId, charReward.tierCode || '3S');
+          window.InventoryChar.addCopy(charReward.characterId, 1, charReward.tierCode || '3S');
         }
+
+        // Get character data for proper display
+        const charData = window.CharacterInventory ? window.CharacterInventory.getCharacterById(charReward.characterId) : null;
+        if (charData) {
+          const starCount = charReward.tierCode ? parseInt(charReward.tierCode.charAt(0)) : 3;
+          const stars = '★'.repeat(starCount);
+          const displayName = `${charData.name} [${charData.version || 'Standard'}] ${stars}`;
+          characterDetails.push(displayName);
+        } else {
+          characterDetails.push(`${charReward.characterId} x${charReward.quantity}`);
+        }
+
         charactersClaimed.push(`${charReward.characterId} x${charReward.quantity}`);
 
         // Mark as claimed
@@ -245,7 +276,7 @@ class DashboardMailbox {
     });
 
     if (charactersClaimed.length === 0) {
-      alert('All character rewards have already been claimed!');
+      this.showCustomAlert('Already Claimed', 'All character rewards have already been claimed!', 'error');
       return;
     }
 
@@ -260,7 +291,10 @@ class DashboardMailbox {
     this.saveMessages();
 
     // Show success message
-    alert(`Rewards Claimed!\n\nYou received:\n${charactersClaimed.join('\n')}\n\nCheck your Characters page!`);
+    const displayMessage = characterDetails.length > 0
+      ? characterDetails.map(d => `• ${d}`).join('<br>')
+      : charactersClaimed.map(c => `• ${c}`).join('<br>');
+    this.showCustomAlert('Rewards Claimed! 🎉', `You received:<br><br>${displayMessage}<br><br>Check your Characters page!`, 'success');
 
     // Refresh the message view
     this.closeMessageView();
@@ -587,6 +621,66 @@ class DashboardMailbox {
           padding: 5px 0;
         }
 
+        .message-rewards li.reward-claimed {
+          opacity: 0.5;
+          text-decoration: line-through;
+        }
+
+        .btn-claim-rewards {
+          width: 100%;
+          background: linear-gradient(135deg, #3d3020 0%, #5a4a2f 25%, #4a3a25 50%, #6b5a3f 75%, #4a3a25 100%);
+          border: 2px solid #8b7355;
+          color: #d4af37;
+          font-family: 'Times New Roman', Times, serif;
+          font-size: 16px;
+          font-weight: 700;
+          padding: 14px;
+          border-radius: 8px;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+          box-shadow:
+            0 4px 8px rgba(0, 0, 0, 0.6),
+            inset 0 1px 0 rgba(255, 215, 0, 0.2),
+            inset 0 -1px 0 rgba(0, 0, 0, 0.4);
+          margin-top: 15px;
+          position: relative;
+          overflow: hidden;
+        }
+
+        .btn-claim-rewards::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: -100%;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.3), transparent);
+          transition: left 0.5s ease;
+        }
+
+        .btn-claim-rewards:hover {
+          background: linear-gradient(135deg, #4a3a25 0%, #6b5a3f 25%, #5a4a2f 50%, #7d6b4f 75%, #5a4a2f 100%);
+          border-color: #a08968;
+          color: #ffd700;
+          transform: translateY(-2px);
+          box-shadow:
+            0 6px 16px rgba(139, 115, 85, 0.6),
+            inset 0 1px 0 rgba(255, 215, 0, 0.3),
+            inset 0 -1px 0 rgba(0, 0, 0, 0.5);
+        }
+
+        .btn-claim-rewards:hover::before {
+          left: 100%;
+        }
+
+        .btn-claim-rewards:active {
+          transform: translateY(0);
+          box-shadow:
+            0 2px 4px rgba(0, 0, 0, 0.4),
+            inset 0 1px 3px rgba(0, 0, 0, 0.6);
+        }
+
         .btn-message-ok {
           width: 100%;
           background: linear-gradient(135deg, #b8985f, #d4af37);
@@ -605,6 +699,147 @@ class DashboardMailbox {
           background: linear-gradient(135deg, #d4af37, #f0e6d1);
           transform: translateY(-2px);
           box-shadow: 0 4px 12px rgba(212, 175, 55, 0.5);
+        }
+      </style>
+    `;
+
+    document.head.insertAdjacentHTML('beforeend', styles);
+  }
+
+  injectCustomAlertStyles() {
+    if (document.getElementById('custom-alert-styles')) return;
+
+    const styles = `
+      <style id="custom-alert-styles">
+        .custom-alert-modal {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          z-index: 10001;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          animation: fadeIn 0.2s ease;
+        }
+
+        @keyframes fadeIn {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+
+        .custom-alert-overlay {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: rgba(0, 0, 0, 0.85);
+          backdrop-filter: blur(5px);
+        }
+
+        .custom-alert-content {
+          position: relative;
+          background: linear-gradient(135deg, rgba(26, 31, 58, 0.98), rgba(15, 20, 35, 0.98));
+          border: 3px solid #d4af37;
+          border-radius: 16px;
+          padding: 30px;
+          max-width: 500px;
+          width: 90%;
+          box-shadow: 0 10px 50px rgba(0, 0, 0, 0.9);
+          animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+          from {
+            opacity: 0;
+            transform: translateY(-50px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        .custom-alert-content.error {
+          border-color: #ff6b6b;
+        }
+
+        .custom-alert-content.success {
+          border-color: #6bcf7f;
+        }
+
+        .custom-alert-header {
+          margin-bottom: 20px;
+          padding-bottom: 15px;
+          border-bottom: 2px solid rgba(184, 152, 95, 0.3);
+        }
+
+        .custom-alert-header h3 {
+          font-family: 'Times New Roman', Times, serif;
+          font-size: 24px;
+          font-weight: 700;
+          color: #d4af37;
+          margin: 0;
+          text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9);
+        }
+
+        .custom-alert-content.error .custom-alert-header h3 {
+          color: #ff6b6b;
+        }
+
+        .custom-alert-content.success .custom-alert-header h3 {
+          color: #6bcf7f;
+        }
+
+        .custom-alert-body {
+          font-family: 'Times New Roman', Times, serif;
+          font-size: 16px;
+          color: #f0e6d1;
+          line-height: 1.6;
+          margin-bottom: 25px;
+          text-align: center;
+        }
+
+        .custom-alert-ok {
+          width: 100%;
+          background: linear-gradient(135deg, #b8985f, #d4af37);
+          border: 2px solid #d4af37;
+          color: #1a1f3a;
+          font-family: 'Times New Roman', Times, serif;
+          font-size: 18px;
+          font-weight: 700;
+          padding: 12px;
+          border-radius: 8px;
+          cursor: pointer;
+          transition: all 0.3s ease;
+        }
+
+        .custom-alert-ok:hover {
+          background: linear-gradient(135deg, #d4af37, #f0e6d1);
+          transform: translateY(-2px);
+          box-shadow: 0 4px 12px rgba(212, 175, 55, 0.5);
+        }
+
+        .custom-alert-content.error .custom-alert-ok {
+          background: linear-gradient(135deg, #aa4a4a, #ff6b6b);
+          border-color: #ff6b6b;
+          color: #fff;
+        }
+
+        .custom-alert-content.error .custom-alert-ok:hover {
+          background: linear-gradient(135deg, #ff6b6b, #ff8787);
+        }
+
+        .custom-alert-content.success .custom-alert-ok {
+          background: linear-gradient(135deg, #4a9959, #6bcf7f);
+          border-color: #6bcf7f;
+          color: #fff;
+        }
+
+        .custom-alert-content.success .custom-alert-ok:hover {
+          background: linear-gradient(135deg, #6bcf7f, #7de092);
         }
       </style>
     `;
