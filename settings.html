@@ -308,7 +308,7 @@
 
   <script src="js/audio-manager.js"></script>
   <script src="js/username.js"></script>
-  <script src="js/character_inv.js"></script>
+  <script src="js/character_inv.js?v=3"></script>
   <script src="js/resources.js"></script>
   <script src="js/top-bar.js"></script>
   <script src="js/gift-code-system.js"></script>
@@ -420,6 +420,17 @@
       }
 
       try {
+        // Check if function exists
+        if (typeof window.InventoryChar === 'undefined') {
+          alert('InventoryChar system not loaded. Please reload the page.');
+          return;
+        }
+
+        if (typeof window.InventoryChar.cleanupInvalidCharacters !== 'function') {
+          alert('Cleanup function not available. Hard refresh the page (Ctrl+Shift+R or Cmd+Shift+R) to clear cache.');
+          return;
+        }
+
         const result = await window.InventoryChar.cleanupInvalidCharacters();
         alert(result.message);
 
