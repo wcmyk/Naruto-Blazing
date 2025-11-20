@@ -272,12 +272,13 @@
 
     // Load current audio settings
     if (typeof AudioManager !== 'undefined') {
-      bgmSlider.value = AudioManager.bgmVolume * 100;
-      bgmValue.textContent = Math.round(AudioManager.bgmVolume * 100) + '%';
-      sfxSlider.value = AudioManager.sfxVolume * 100;
-      sfxValue.textContent = Math.round(AudioManager.sfxVolume * 100) + '%';
-      muteButton.textContent = AudioManager.isMuted ? 'Muted' : 'Unmuted';
-      muteButton.classList.toggle('active', !AudioManager.isMuted);
+      const settings = AudioManager.getSettings();
+      bgmSlider.value = Math.round(settings.bgmVolume * 100);
+      bgmValue.textContent = Math.round(settings.bgmVolume * 100) + '%';
+      sfxSlider.value = Math.round(settings.sfxVolume * 100);
+      sfxValue.textContent = Math.round(settings.sfxVolume * 100) + '%';
+      muteButton.textContent = settings.masterMuted ? 'Muted' : 'Unmuted';
+      muteButton.classList.toggle('active', !settings.masterMuted);
     }
 
     // BGM Volume Control
@@ -301,7 +302,7 @@
     // Mute Toggle
     muteButton.addEventListener('click', () => {
       if (typeof AudioManager !== 'undefined') {
-        const isMuted = AudioManager.toggleMute();
+        const isMuted = AudioManager.toggleMasterMute();
         muteButton.textContent = isMuted ? 'Muted' : 'Unmuted';
         muteButton.classList.toggle('active', !isMuted);
       }
