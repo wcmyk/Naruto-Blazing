@@ -439,13 +439,7 @@
 
   // ---------- Settings Menu ----------
   function openSettingsMenu() {
-    // Open the new settings modal
-    if (typeof window.SettingsModal !== 'undefined') {
-      window.SettingsModal.open();
-    } else {
-      console.error('[Navigation] Settings modal not loaded');
-      alert('Settings system not loaded. Please reload the page.');
-    }
+    navigateTo('settings.html');
   }
 
   // ---------- Background Changer ----------
