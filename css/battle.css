@@ -399,17 +399,6 @@ html, body.page-battle {
   box-shadow: 0 4px 8px rgba(178, 44, 178, 0.7);
 }
 
-#btn-equipped-ultimate {
-  background: linear-gradient(135deg, #6b1f8b 0%, #8a2aa5 100%);
-  border-color: #a6c;
-  color: #f5e0ff;
-  box-shadow: 0 2px 4px rgba(107, 31, 139, 0.5);
-}
-#btn-equipped-ultimate:hover {
-  background: linear-gradient(135deg, #922cb2 0%, #b03ac9 100%);
-  box-shadow: 0 4px 8px rgba(146, 44, 178, 0.7);
-}
-
 /* Secondary Buttons - Hidden by default in ML style */
 #btn-secret,
 #btn-auto,
