@@ -478,11 +478,16 @@
   }
 
   /* ---------- Ramen Selector Modal ---------- */
+  let ramenClickCounts = {}; // Track click counts for each ramen
+
   function openRamenSelector(inst, character) {
     if (!hasResources) {
       alert("Resources system not available!");
       return;
     }
+
+    // Reset click counts
+    ramenClickCounts = {};
 
     const tier = inst.tierCode || minTier(character);
     let cap = tierCap(character, tier);
@@ -524,7 +529,7 @@
     // Sort ramen by tier (element doesn't matter for feeding)
     availableRamen.sort((a, b) => (a.exp || 0) - (b.exp || 0));
 
-    // Render ramen cards
+    // Render ramen cards with click counters
     RAMEN_GRID.innerHTML = '';
     availableRamen.forEach(ramen => {
       const card = document.createElement('div');
@@ -534,21 +539,54 @@
         card.setAttribute('data-element', ramen.element);
       }
 
+      ramenClickCounts[ramen.id] = 0;
+
       card.innerHTML = `
         <img src="${ramen.icon}" alt="${ramen.name}" class="ramen-icon" onerror="this.src='assets/items/placeholder.png'">
         <div class="ramen-name">${ramen.name}</div>
         <div class="ramen-exp">+${ramen.exp.toLocaleString()} EXP</div>
         <div class="ramen-quantity">×${ramen.quantity}</div>
+        <div class="ramen-counter" id="counter-${ramen.id}">0</div>
       `;
 
-      card.addEventListener('click', async () => {
-        await handleRamenFeeding(inst, character, ramen.id, cap);
-        closeRamenModal();
-        renderGrid();
+      card.addEventListener('click', (e) => {
+        // Increment counter
+        if (ramenClickCounts[ramen.id] < ramen.quantity) {
+          ramenClickCounts[ramen.id]++;
+          const counterEl = document.getElementById(`counter-${ramen.id}`);
+          if (counterEl) {
+            counterEl.textContent = ramenClickCounts[ramen.id];
+            counterEl.classList.add('active');
+          }
+        }
+      });
+
+      // Right-click to decrement
+      card.addEventListener('contextmenu', (e) => {
+        e.preventDefault();
+        if (ramenClickCounts[ramen.id] > 0) {
+          ramenClickCounts[ramen.id]--;
+          const counterEl = document.getElementById(`counter-${ramen.id}`);
+          if (counterEl) {
+            counterEl.textContent = ramenClickCounts[ramen.id];
+            if (ramenClickCounts[ramen.id] === 0) {
+              counterEl.classList.remove('active');
+            }
+          }
+        }
       });
 
       RAMEN_GRID.appendChild(card);
     });
+
+    // Add "Use Ramen" button
+    const useButton = document.createElement('button');
+    useButton.className = 'ramen-use-button';
+    useButton.textContent = 'Use Selected Ramen';
+    useButton.addEventListener('click', async () => {
+      await processRamenFeeding(inst, character, cap);
+    });
+    RAMEN_GRID.appendChild(useButton);
 
     showRamenModal();
   }
@@ -563,44 +601,35 @@
     RAMEN_MODAL.setAttribute("aria-hidden", "true");
   }
 
-  async function handleRamenFeeding(inst, character, ramenId, cap) {
+  async function processRamenFeeding(inst, character, cap) {
     if (!hasResources) return;
 
-    const ramenInfo = window.Resources.getMaterialInfo(ramenId);
-    const currentQuantity = window.Resources.get(ramenId);
+    // Collect all selected ramen
+    const selectedRamen = Object.entries(ramenClickCounts).filter(([id, count]) => count > 0);
 
-    if (currentQuantity <= 0) {
-      alert("You don't have any of this ramen!");
+    if (selectedRamen.length === 0) {
+      alert("Please select ramen to use by clicking on them!");
       return;
     }
 
-    const expGain = ramenInfo.exp || 0;
+    // Calculate total EXP
+    let totalExp = 0;
+    const ramenDetails = [];
+
+    for (const [ramenId, amount] of selectedRamen) {
+      const ramenInfo = window.Resources.getMaterialInfo(ramenId);
+      const expGain = (ramenInfo.exp || 0) * amount;
+      totalExp += expGain;
+      ramenDetails.push({ id: ramenId, name: ramenInfo.name, amount, exp: expGain });
+    }
+
     const currentLevel = inst.level || 1;
 
-    // Ask how many to use
-    const maxUsable = Math.min(currentQuantity, 99);
-    const input = prompt(`How many ${ramenInfo.name} do you want to use?\n\nAvailable: ${currentQuantity}\nEXP per ramen: ${expGain.toLocaleString()}\nCurrent Level: ${currentLevel}/${cap}`, "1");
-
-    if (!input) return; // Cancelled
-
-    const amount = parseInt(input, 10);
-    if (isNaN(amount) || amount < 1) {
-      alert("Invalid amount!");
-      return;
-    }
-
-    if (amount > currentQuantity) {
-      alert(`You only have ${currentQuantity} of this ramen!`);
-      return;
-    }
-
     // Calculate level gains
-    const totalExp = expGain * amount;
     let levelsGained = 0;
     let newLevel = currentLevel;
-
-    // Simple leveling: each level requires ~100 * level EXP (rough estimate)
     let remainingExp = totalExp;
+
     while (remainingExp > 0 && newLevel < cap) {
       const expNeeded = Math.floor(100 * newLevel); // Progressive EXP requirement
       if (remainingExp >= expNeeded) {
@@ -616,22 +645,21 @@
     newLevel = Math.min(newLevel, cap);
     levelsGained = newLevel - currentLevel;
 
-    if (levelsGained === 0) {
-      const confirmUse = confirm(`This will give ${totalExp.toLocaleString()} EXP, but won't level up your character.\n\nContinue anyway?`);
-      if (!confirmUse) return;
-    }
-
-    // Confirm feeding
-    const confirmMsg = `Feed ${amount}x ${ramenInfo.name}?\n\n` +
-                      `Total EXP: ${totalExp.toLocaleString()}\n` +
-                      `Current Level: ${currentLevel}\n` +
-                      `New Level: ${newLevel}${levelsGained > 0 ? ` (+${levelsGained})` : ''}\n\n` +
-                      `This will consume the ramen from your inventory.`;
+    // Build confirmation message
+    let confirmMsg = `Use the following ramen?\n\n`;
+    ramenDetails.forEach(r => {
+      confirmMsg += `${r.name} x${r.amount} (+${r.exp.toLocaleString()} EXP)\n`;
+    });
+    confirmMsg += `\nTotal EXP: ${totalExp.toLocaleString()}\n`;
+    confirmMsg += `Current Level: ${currentLevel}\n`;
+    confirmMsg += `New Level: ${newLevel}${levelsGained > 0 ? ` (+${levelsGained})` : ''}\n`;
 
     if (!confirm(confirmMsg)) return;
 
-    // Consume ramen
-    window.Resources.subtract(ramenId, amount);
+    // Consume all selected ramen
+    for (const [ramenId, amount] of selectedRamen) {
+      window.Resources.subtract(ramenId, amount);
+    }
 
     // Level up character
     inst.level = newLevel;
@@ -650,7 +678,11 @@
     }
 
     // Success message
-    alert(`Success!\n\n${ramenInfo.name} x${amount} used\n+${totalExp.toLocaleString()} EXP\n${levelsGained > 0 ? `Gained ${levelsGained} level${levelsGained > 1 ? 's' : ''}!` : 'EXP stored for next level'}\n\nNew Level: ${newLevel}/${cap}`);
+    alert(`Success!\n\n+${totalExp.toLocaleString()} EXP\n${levelsGained > 0 ? `Gained ${levelsGained} level${levelsGained > 1 ? 's' : ''}!` : 'EXP stored for next level'}\n\nNew Level: ${newLevel}/${cap}`);
+
+    // Close modal and refresh grid
+    closeRamenModal();
+    renderGrid();
   }
 
   if (RAMEN_CANCEL) {
