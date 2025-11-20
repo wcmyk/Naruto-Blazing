@@ -100,7 +100,7 @@ class DashboardMailbox {
         <div class="mailbox-overlay" onclick="window.DashboardMailbox.closeMailbox()"></div>
         <div class="mailbox-content">
           <div class="mailbox-header">
-            <h2 class="mailbox-title">📬 Mailbox</h2>
+            <h2 class="mailbox-title">🎁 Present Box</h2>
             <button class="mailbox-close" onclick="window.DashboardMailbox.closeMailbox()">✕</button>
           </div>
           <div class="mailbox-stats">
