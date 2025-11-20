@@ -70,7 +70,7 @@
           this.teamHolder.renderTeamHolder(this);
         }
 
-        // Initialize equipped ultimate system
+        // Initialize Last Stand Ultimate system
         if (window.BattleEquippedUltimate) {
           window.BattleEquippedUltimate.init(this);
 
@@ -81,7 +81,7 @@
             });
           }
 
-          console.log("[Battle] ✅ Equipped ultimate system initialized");
+          console.log("[Battle] ✅ Last Stand Ultimate system initialized");
         }
 
         console.log("[Battle] ✅ Battle system ready with all modules");

@@ -280,7 +280,7 @@
         attacker.chakra = Math.min(attacker.maxChakra, attacker.chakra + 1);
       }
 
-      // Track basic attack for equipped ultimate system
+      // Track basic attack for Last Stand Ultimate system
       if (window.BattleEquippedUltimate) {
         window.BattleEquippedUltimate.onBasicAttack(attacker.id);
       }
@@ -570,7 +570,7 @@
         attacker.chakra = Math.min(attacker.maxChakra, attacker.chakra + 1);
       }
 
-      // Track basic attack for equipped ultimate system
+      // Track basic attack for Last Stand Ultimate system
       if (window.BattleEquippedUltimate) {
         window.BattleEquippedUltimate.onBasicAttack(attacker.id);
       }

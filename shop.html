@@ -128,5 +128,33 @@
 
   <!-- Navigation Script -->
   <script src="js/navigation.js"></script>
+
+  <!-- Music Initialization -->
+  <script>
+    // Music initialization - start BGM on page load
+    (function() {
+      if (typeof window.AudioManager === 'undefined') {
+        console.log('[Music] AudioManager not available on this page');
+        return;
+      }
+
+      console.log('[Music] Initializing background music...');
+
+      const startMusic = () => {
+        if (!window.AudioManager.currentBGM) {
+          const bgm = window.AudioManager.playBGM('assets/music/general.mp3');
+          if (bgm) {
+            console.log('[Music] Background music started');
+          }
+        }
+      };
+
+      // Try immediate playback (may be blocked by browser)
+      setTimeout(startMusic, 500);
+
+      // Also try on first click
+      document.addEventListener('click', startMusic, { once: true });
+    })();
+  </script>
 </body>
 </html>

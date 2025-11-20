@@ -1,5 +1,5 @@
 // js/battle/battle-equipped-ultimate.js
-// Handles equipped ultimate system in battle
+// Handles Last Stand Ultimate system in battle
 // Tracks basic attack count and enables once-per-battle ultimates
 
 (() => {
@@ -14,10 +14,10 @@
     REQUIRED_BASIC_ATTACKS: 3,
 
     /**
-     * Initialize equipped ultimate system for battle
+     * Initialize Last Stand Ultimate system for battle
      */
     init(core) {
-      console.log("[BattleEquippedUltimate] Initializing equipped ultimate system");
+      console.log("[BattleEquippedUltimate] Initializing Last Stand Ultimate system");
       this.basicAttackCounts = {};
       this.ultimatesUsed = {};
       this.ultimateReady = {};
@@ -28,7 +28,7 @@
     },
 
     /**
-     * Setup equipped ultimate button click handler
+     * Setup Last Stand Ultimate button click handler
      */
     setupButtonHandler() {
       const button = document.getElementById('equipped-ultimate-btn');
@@ -39,10 +39,10 @@
     },
 
     /**
-     * Handle equipped ultimate button click
+     * Handle Last Stand Ultimate button click
      */
     async handleButtonClick() {
-      // Find the current active player unit with equipped ultimate ready
+      // Find the current active player unit with Last Stand Ultimate ready
       if (!this.core || !this.core.activeTeam) return;
 
       const readyUnit = this.core.activeTeam.find(unit =>
@@ -56,7 +56,7 @@
 
       const ultimate = this.getEquippedUltimateData(readyUnit);
       if (!ultimate) {
-        console.warn("[BattleEquippedUltimate] No equipped ultimate found");
+        console.warn("[BattleEquippedUltimate] No Last Stand Ultimate found");
         return;
       }
 
@@ -70,7 +70,7 @@
         targets = this.core.activeTeam.filter(u => u.stats.hp > 0);
       }
 
-      // Use the equipped ultimate
+      // Use the Last Stand Ultimate
       await this.useUltimate(readyUnit.id, ultimate, targets);
 
       // Update button state
@@ -78,7 +78,7 @@
     },
 
     /**
-     * Register a unit for equipped ultimate tracking
+     * Register a unit for Last Stand Ultimate tracking
      * @param {Object} unit - Battle unit object
      */
     registerUnit(unit) {
@@ -180,7 +180,7 @@
     },
 
     /**
-     * Check if a unit can use their equipped ultimate
+     * Check if a unit can use their Last Stand Ultimate
      * @param {string} unitId - Unit identifier
      * @returns {boolean}
      */
@@ -189,7 +189,7 @@
     },
 
     /**
-     * Get equipped ultimate data for a unit
+     * Get Last Stand Ultimate data for a unit
      * @param {Object} unit - Battle unit object
      * @returns {Object|null} Ultimate data or null
      */
@@ -211,7 +211,7 @@
     },
 
     /**
-     * Use equipped ultimate
+     * Use Last Stand Ultimate
      * @param {string} unitId - Unit identifier
      * @param {Object} ultimate - Ultimate data
      * @param {Array} targets - Target units
@@ -228,7 +228,7 @@
       this.ultimateReady[unitId] = false;
       this.basicAttackCounts[unitId] = 0;
 
-      console.log(`[BattleEquippedUltimate] ${unitId} using equipped ultimate: ${ultimate.name}`);
+      console.log(`[BattleEquippedUltimate] ${unitId} using Last Stand Ultimate: ${ultimate.name}`);
 
       // Show attack name (Storm 4 style)
       if (window.BattleAttackNames) {
