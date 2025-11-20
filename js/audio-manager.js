@@ -63,11 +63,9 @@
       }
     },
 
-    // Play default background music (when audio files are added)
+    // Play default background music
     playDefaultBGM() {
-      // This will silently do nothing until audio files are added
-      // Example: this.playBGM('assets/audio/bgm/menu_theme.mp3');
-      console.log("[AudioManager] Default BGM would play here (add audio files to enable)");
+      this.playBGM('assets/music/general.mp3');
     },
 
     // Stop background music
