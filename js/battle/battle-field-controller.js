@@ -35,6 +35,9 @@
       // Load domain registry
       try {
         const res = await fetch("data/domains.json");
+        if (!res.ok) {
+          throw new Error(`HTTP ${res.status}: ${res.statusText}`);
+        }
         this.registry = await res.json();
         console.log(`[BattleFieldController] 📘 Loaded ${this.registry.length} domain definitions.`);
       } catch (err) {
@@ -169,10 +172,17 @@
     playDomainMusic(src) {
       this.stopDomainMusic();
       try {
-        this.audio = new Audio(src);
-        this.audio.loop = true;
-        this.audio.volume = 0.8;
-        this.audio.play();
+        // Use global AudioManager if available, otherwise fallback to manual audio
+        if (typeof window.AudioManager !== "undefined") {
+          this.audio = window.AudioManager.playBGM(src, { loop: true });
+          console.log("[BattleFieldController] 🎵 Domain music via AudioManager");
+        } else {
+          this.audio = new Audio(src);
+          this.audio.loop = true;
+          this.audio.volume = 0.8; // Fallback volume if AudioManager not loaded
+          this.audio.play();
+          console.log("[BattleFieldController] 🎵 Domain music (fallback mode)");
+        }
       } catch (err) {
         console.warn("[BattleFieldController] ⚠️ Failed to play domain music:", err);
       }
@@ -180,7 +190,12 @@
 
     stopDomainMusic() {
       if (this.audio) {
-        this.audio.pause();
+        // Use AudioManager stop if available
+        if (typeof window.AudioManager !== "undefined" && this.audio === window.AudioManager.currentBGM) {
+          window.AudioManager.stopBGM();
+        } else {
+          this.audio.pause();
+        }
         this.audio = null;
       }
     },

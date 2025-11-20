@@ -89,8 +89,18 @@
     // Fetch character data
     try {
       const response = await fetch('data/characters.json');
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      }
       const characters = await response.json();
-      const character = characters.find(c => c.id === characterId);
+
+      // Validate character data
+      if (!Array.isArray(characters) && typeof characters !== 'object') {
+        throw new Error('Invalid character data structure');
+      }
+
+      const characterArray = Array.isArray(characters) ? characters : Object.values(characters);
+      const character = characterArray.find(c => c?.id === characterId);
 
       if (!character) {
         console.warn(`[CharacterVignette] Character not found: ${characterId}`);
@@ -201,13 +211,23 @@
   async function openCharacterSelector() {
     try {
       const response = await fetch('data/characters.json');
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      }
       const characters = await response.json();
 
+      // Validate character data
+      if (!Array.isArray(characters) && typeof characters !== 'object') {
+        throw new Error('Invalid character data structure');
+      }
+
+      const characterArray = Array.isArray(characters) ? characters : Object.values(characters);
+
       // Filter to only owned characters if inventory is available
-      let availableCharacters = characters;
+      let availableCharacters = characterArray;
       if (typeof window.CharacterInventory !== 'undefined') {
         const ownedIds = window.CharacterInventory.getAllCharacterIds();
-        availableCharacters = characters.filter(c => ownedIds.includes(c.id));
+        availableCharacters = characterArray.filter(c => ownedIds.includes(c?.id));
       }
 
       if (availableCharacters.length === 0) {

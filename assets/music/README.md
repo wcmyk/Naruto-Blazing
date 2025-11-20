@@ -1,62 +1,29 @@
-# Music Assets
+# Music Directory
 
-## Required File
+This directory contains background music for the game.
+
+## Current Music Files
 
 Place your music file here:
-
-- **`general.mp3`** - Main background music for the game
-
-## Current Configuration
-
-The audio manager is configured to play `assets/music/general.mp3` automatically on first user interaction.
-
-## How to Add Your Music
-
-1. Place your `general.mp3` file in this directory: `assets/music/general.mp3`
-2. Refresh the page
-3. Click anywhere on the page to trigger autoplay
-4. Music will start playing automatically!
-
-## Audio Settings
-
-- **Default Volume**: 30% (0.3)
-- **Loop**: Yes (music repeats continuously)
-- **Autoplay**: Triggered on first user click (browser requirement)
+- **general.mp3** - Main background music (plays on all pages)
 
 ## Supported Formats
 
-- MP3 (recommended)
-- OGG
-- WAV
+The music player supports:
+- MP3 (.mp3)
+- OGG (.ogg)
+- WAV (.wav)
 
-## File Size Recommendations
+## Adding Music
 
-- Keep file under 10MB for faster loading
-- Compress to 128-192 kbps for best quality/size balance
+1. Place your music file in this directory as `general.mp3`
+2. The music player will automatically load and play it
+3. Music preferences (volume, mute state, play/pause) are saved in browser localStorage
 
-## Audio Manager Controls
+## Future Enhancements
 
-Once the music is playing, you can control it with:
-
-```javascript
-// Adjust volume (0.0 to 1.0)
-AudioManager.setBGMVolume(0.5);
-
-// Pause music
-AudioManager.pauseBGM();
-
-// Resume music
-AudioManager.resumeBGM();
-
-// Stop music
-AudioManager.stopBGM();
-
-// Mute/unmute
-AudioManager.toggleMute();
-```
-
-## Status
-
-Waiting for `general.mp3` to be added to this directory.
-
-Once you add the file, the music will automatically play when the page loads!
+You can extend the system to support:
+- Different music for different pages
+- Multiple tracks with playlist functionality
+- Battle music
+- Special event music

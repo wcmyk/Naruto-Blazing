@@ -26,6 +26,9 @@ class DashboardAnnouncements {
   async loadAnnouncements() {
     try {
       const response = await fetch('data/announcements.json');
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      }
       const data = await response.json();
       this.announcements = data.announcements || [];
       this.autoRotateInterval = data.displaySettings?.autoRotateInterval || 8000;

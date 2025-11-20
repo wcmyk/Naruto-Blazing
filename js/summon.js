@@ -16,6 +16,9 @@
 
       // Load character pool
       const charsResponse = await fetch('data/characters.json');
+      if (!charsResponse.ok) {
+        throw new Error(`HTTP ${charsResponse.status}: ${charsResponse.statusText}`);
+      }
       const charsData = await charsResponse.json();
       allCharacters = Object.values(charsData);
 
@@ -91,6 +94,14 @@
    * Setup additional UI event handlers
    */
   function setupUIEvents() {
+    // Back button
+    const backBtn = document.getElementById('btn-back-to-home');
+    if (backBtn) {
+      backBtn.addEventListener('click', () => {
+        window.location.href = 'index.html';
+      });
+    }
+
     // Rates button
     const ratesBtn = document.getElementById('btn-rates');
     if (ratesBtn) {

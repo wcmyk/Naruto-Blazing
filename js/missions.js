@@ -70,7 +70,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Load missions
   fetch('data/missions.json')
-    .then(response => response.json())
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      }
+      return response.json();
+    })
     .then(missions => {
       allMissions = Array.isArray(missions) ? missions : [];
       const categoryNames = [...new Set(allMissions.map(m => m.category))];
