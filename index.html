@@ -73,6 +73,16 @@
     <!-- Dynamically populated by navigation.js -->
   </div>
 
+  <!-- Announcement Slideshow (Top Right, above banner panel) -->
+  <div class="announcement-slideshow">
+    <div class="announcement-track">
+      <!-- Dynamically populated by announcement.js -->
+    </div>
+    <div class="announcement-nav-dots">
+      <!-- Navigation dots -->
+    </div>
+  </div>
+
   <!-- Right Banner Panel (5 Main Navigation Banners) -->
   <div class="right-banner-panel">
     <div class="banner-button missions">
@@ -165,6 +175,7 @@
   <script src="js/top-bar.js?v=2"></script>
   <script src="js/character-vignette.js?v=2"></script>
   <script src="js/settings-modal.js?v=2"></script>
+  <script src="js/announcement-slideshow.js?v=2"></script>
   <script src="js/navigation.js?v=2"></script>
 
   <script>
@@ -214,6 +225,11 @@
       // Initialize Banner Slideshow
       if (window.DashboardBannerSlideshow) {
         await window.DashboardBannerSlideshow.init('dashboard-banner-slideshow');
+      }
+
+      // Initialize Announcement Slideshow (Top Right)
+      if (window.AnnouncementSlideshow) {
+        await window.AnnouncementSlideshow.init();
       }
 
       // Update Ninja Rank Progress Bar
