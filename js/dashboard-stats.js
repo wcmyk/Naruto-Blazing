@@ -16,6 +16,9 @@ class DashboardStats {
     try {
       // Load all available characters
       const response = await fetch('data/characters.json');
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      }
       const data = await response.json();
       this.totalCharacters = data.characters ? data.characters.length : 0;
 

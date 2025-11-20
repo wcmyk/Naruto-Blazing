@@ -48,7 +48,7 @@
       try {
         const response = await fetch(RANK_DATA_PATH);
         if (!response.ok) {
-          throw new Error(`Failed to load rank data: ${response.status}`);
+          throw new Error(`HTTP ${response.status}: ${response.statusText}`);
         }
         this.rankRequirements = await response.json();
         this.maxRank = Math.max(...Object.keys(this.rankRequirements).map(Number));

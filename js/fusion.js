@@ -32,6 +32,9 @@
     async loadFusionData() {
       try {
         const response = await fetch('data/fusions.json');
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
         this.fusionsData = await response.json();
         console.log("[Fusion] Loaded fusion data:", this.fusionsData);
       } catch (error) {
@@ -44,6 +47,9 @@
     async loadCharactersData() {
       try {
         const response = await fetch('data/characters.json');
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
         const data = await response.json();
         this.charactersData = data.characters || data;
         console.log("[Fusion] Loaded characters data");

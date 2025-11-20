@@ -76,6 +76,15 @@
     }
   }
 
+  // ---------- Make Username Holder Clickable ----------
+  function makeHolderClickable() {
+    const holder = document.querySelector('.username-holder');
+    if (holder) {
+      holder.style.cursor = 'pointer';
+      holder.addEventListener('click', openEditor);
+    }
+  }
+
   // ---------- Editor Dialog ----------
   function openEditor() {
     const newName = prompt(`Enter your username (max 20 characters):\n\nCurrent: ${_username}`, _username);
@@ -98,9 +107,13 @@
 
     // Update display when DOM is ready
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', updateDisplay);
+      document.addEventListener('DOMContentLoaded', () => {
+        updateDisplay();
+        makeHolderClickable();
+      });
     } else {
       updateDisplay();
+      makeHolderClickable();
     }
   }
 

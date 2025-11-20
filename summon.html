@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="css/summon-dev-panel.css" />
   <link rel="stylesheet" href="css/summon-banner-carousel.css" />
   <link rel="stylesheet" href="css/summon-results.css" />
+  <link rel="stylesheet" href="css/settings-modal.css" />
 </head>
 <body class="page-summon">
   <!-- Background -->
@@ -43,7 +44,7 @@
   </div>
 
   <!-- Back Button -->
-  <button class="btn-back" onclick="window.location.href='index.html'">
+  <button class="btn-back" id="btn-back-to-home">
     <span class="back-icon">◀</span>
     <span class="back-text">BACK</span>
   </button>
@@ -201,9 +202,9 @@
   </div>
 
   <!-- Scripts -->
+  <script src="js/music-player.js"></script>
   <script src="js/resources.js"></script>
   <script src="js/character_inv.js"></script>
-  <script src="js/resources.js"></script>
   <script src="js/top-bar.js"></script>
   <script src="js/summon/summon-data.js"></script>
   <script src="js/summon/summon-carousel.js"></script>
@@ -248,6 +249,9 @@
       }
     })();
   </script>
+
+  <!-- Settings Modal Script -->
+  <script src="js/settings-modal.js?v=2"></script>
 
   <!-- Navigation Script -->
   <script src="js/navigation.js"></script>

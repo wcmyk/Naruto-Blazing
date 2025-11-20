@@ -29,6 +29,9 @@ class DashboardBannerSlideshow {
   async loadBanners() {
     try {
       const response = await fetch('data/summon.json');
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      }
       const data = await response.json();
 
       // Load all banners from summon.json
@@ -104,30 +107,31 @@ class DashboardBannerSlideshow {
   }
 
   attachEventListeners() {
-    // Arrow controls
-    const leftArrow = document.getElementById('dashboard-banner-arrow-left');
-    const rightArrow = document.getElementById('dashboard-banner-arrow-right');
+    // ===== INTERACTIVE CONTROLS DISABLED - Visual only mode =====
+    // Arrow controls - DISABLED
+    // const leftArrow = document.getElementById('dashboard-banner-arrow-left');
+    // const rightArrow = document.getElementById('dashboard-banner-arrow-right');
 
-    if (leftArrow) {
-      leftArrow.addEventListener('click', () => this.previous());
-    }
+    // if (leftArrow) {
+    //   leftArrow.addEventListener('click', () => this.previous());
+    // }
 
-    if (rightArrow) {
-      rightArrow.addEventListener('click', () => this.next());
-    }
+    // if (rightArrow) {
+    //   rightArrow.addEventListener('click', () => this.next());
+    // }
 
-    // Dot navigation
-    const dots = this.container.querySelectorAll('.banner-dot');
-    dots.forEach(dot => {
-      dot.addEventListener('click', () => {
-        const index = parseInt(dot.dataset.index);
-        this.goToSlide(index);
-      });
-    });
+    // Dot navigation - DISABLED
+    // const dots = this.container.querySelectorAll('.banner-dot');
+    // dots.forEach(dot => {
+    //   dot.addEventListener('click', () => {
+    //     const index = parseInt(dot.dataset.index);
+    //     this.goToSlide(index);
+    //   });
+    // });
 
-    // Pause on hover
-    this.container.addEventListener('mouseenter', () => this.pauseAutoAdvance());
-    this.container.addEventListener('mouseleave', () => this.resumeAutoAdvance());
+    // Pause on hover - DISABLED (auto-advance continues regardless of mouse)
+    // this.container.addEventListener('mouseenter', () => this.pauseAutoAdvance());
+    // this.container.addEventListener('mouseleave', () => this.resumeAutoAdvance());
   }
 
   next() {

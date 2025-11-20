@@ -5,7 +5,9 @@
   async function fetchJSON(url, fallback = null) {
     try {
       const res = await fetch(url, { cache: "no-store" });
-      if (!res.ok) return fallback;
+      if (!res.ok) {
+        throw new Error(`HTTP ${res.status}: ${res.statusText}`);
+      }
       return await res.json();
     } catch (e) {
       console.warn(`[fetchJSON] ${url} ->`, e);

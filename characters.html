@@ -8,6 +8,8 @@
   <link rel="stylesheet" href="css/background.css" />
   <link rel="stylesheet" href="css/characters_abilities.css" />
   <link rel="stylesheet" href="css/character_dupe_abilities.css" />
+  <link rel="stylesheet" href="css/character-equip.css" />
+  <link rel="stylesheet" href="css/settings-modal.css" />
 </head>
 <body class="page-characters">
   <div id="char-bg"></div>
@@ -36,6 +38,7 @@
           <button class="tab-btn" data-tab="skills">Ninjutsu</button>
           <button class="tab-btn" data-tab="support">F/B Skills</button>
           <button class="tab-btn" data-tab="abilities">Abilities</button>
+          <button class="tab-btn" data-tab="equip">Equip</button>
         </div>
 
         <div class="tab-panels">
@@ -79,6 +82,43 @@
           <section class="tab-panel" id="tab-abilities">
             <div class="abilities-wrap" id="char-abilities"></div>
           </section>
+
+          <section class="tab-panel" id="tab-equip">
+            <div class="equip-wrap">
+              <div class="equip-header">
+                <h3 class="equip-title">Ultimate Equipment</h3>
+                <p class="equip-desc">Equip a once-per-battle ultimate ability</p>
+              </div>
+
+              <div class="equip-slot" id="equip-slot">
+                <div class="equip-slot-empty">
+                  <div class="equip-slot-icon">⚡</div>
+                  <div class="equip-slot-text">No Ultimate Equipped</div>
+                  <button class="btn-equip" id="btn-select-ultimate">Select Ultimate</button>
+                </div>
+              </div>
+
+              <div class="equip-info" id="equip-info" style="display:none;">
+                <div class="ultimate-card">
+                  <div class="ultimate-icon" id="ultimate-icon"></div>
+                  <div class="ultimate-details">
+                    <div class="ultimate-name" id="ultimate-name"></div>
+                    <div class="ultimate-description" id="ultimate-description"></div>
+                    <div class="ultimate-stats">
+                      <span class="ultimate-cost" id="ultimate-cost"></span>
+                      <span class="ultimate-cooldown">Once per battle</span>
+                    </div>
+                  </div>
+                  <button class="btn-unequip" id="btn-unequip-ultimate">Unequip</button>
+                </div>
+              </div>
+
+              <div class="equip-tips">
+                <p>💡 Tip: Ultimates can only be used once per battle and have powerful effects!</p>
+                <p>⚔️ Choose wisely based on your team composition and strategy</p>
+              </div>
+            </div>
+          </section>
         </div>
 
         <div class="char-modal-actions">
@@ -95,6 +135,24 @@
       <div class="dupe-grid" id="dupe-grid"></div>
       <div class="dupe-modal-actions">
         <button class="btn-dark" id="dupe-modal-cancel">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Ramen Selector Modal -->
+  <div id="ramen-selector-modal" class="ramen-modal" aria-hidden="true">
+    <div class="ramen-modal-panel">
+      <h2 class="ramen-modal-title">Select Ramen to Feed</h2>
+      <div class="ramen-character-info">
+        <img id="ramen-char-portrait" class="ramen-char-img" src="" alt="">
+        <div class="ramen-char-details">
+          <div id="ramen-char-name" class="ramen-char-name"></div>
+          <div id="ramen-char-level" class="ramen-char-level"></div>
+        </div>
+      </div>
+      <div class="ramen-grid" id="ramen-grid"></div>
+      <div class="ramen-modal-actions">
+        <button class="btn-dark" id="ramen-modal-cancel">Cancel</button>
       </div>
     </div>
   </div>
@@ -144,6 +202,7 @@
   </div>
 
   <!-- Core Scripts -->
+  <script src="js/music-player.js"></script>
   <script src="js/character_inv.js"></script>
   <script src="js/progression.js"></script>
   <script src="js/resources.js"></script>
@@ -155,6 +214,9 @@
   <!-- Abilities Systems -->
   <script src="js/characters_abilities.js"></script>
   <script src="js/character_dupe_abilities.js"></script>
+
+  <!-- Settings Modal Script -->
+  <script src="js/settings-modal.js?v=2"></script>
 
   <!-- Navigation Script -->
   <script src="js/navigation.js"></script>
