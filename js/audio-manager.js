@@ -174,12 +174,34 @@
         return null;
       }
 
+      // If already playing the same track, don't restart
+      if (this.currentBGM && this.currentBGM.src.endsWith(src)) {
+        console.log(`🎵 BGM already playing: ${src}`);
+        return this.currentBGM;
+      }
+
       this.stopBGM();
 
       try {
         const audio = new Audio(src);
         audio.loop = options.loop !== false; // Default true
         audio.volume = this.getEffectiveVolume("bgm");
+
+        // Restore playback position if resuming
+        const savedPosition = localStorage.getItem('bgm_playback_position');
+        const savedTrack = localStorage.getItem('bgm_current_track');
+        if (savedTrack === src && savedPosition) {
+          audio.currentTime = parseFloat(savedPosition);
+          console.log(`🎵 Resuming BGM from ${savedPosition}s`);
+        }
+
+        // Save playback position periodically for seamless page transitions
+        audio.addEventListener('timeupdate', () => {
+          if (!audio.paused) {
+            localStorage.setItem('bgm_playback_position', audio.currentTime.toString());
+            localStorage.setItem('bgm_current_track', src);
+          }
+        });
 
         const playPromise = audio.play();
         if (playPromise !== undefined) {
