@@ -208,6 +208,43 @@
   load();
   migrateIfNeeded();
 
+  // ---------- Cleanup Invalid Characters ----------
+  async function cleanupInvalidCharacters() {
+    try {
+      const res = await fetch("data/characters.json", { cache: "no-store" });
+      if (!res.ok) throw new Error(`characters.json HTTP ${res.status}`);
+      const data = await res.json();
+      const list = Array.isArray(data) ? data : (Array.isArray(data.characters) ? data.characters : []);
+
+      // Build set of valid character IDs
+      const validIds = new Set();
+      list.forEach(c => validIds.add(c.id));
+
+      // Filter out characters with invalid IDs
+      const before = _instances.length;
+      _instances = _instances.filter(inst => validIds.has(inst.charId));
+      const after = _instances.length;
+      const removed = before - after;
+
+      if (removed > 0) {
+        save();
+        console.log(`🧹 Cleaned up ${removed} invalid character(s)`);
+
+        // Refresh grid if available
+        if (typeof window.refreshCharacterGrid === "function") {
+          window.refreshCharacterGrid();
+        }
+
+        return { success: true, removed, message: `Removed ${removed} invalid character(s)` };
+      } else {
+        return { success: true, removed: 0, message: 'No invalid characters found' };
+      }
+    } catch (error) {
+      console.error('Failed to cleanup characters:', error);
+      return { success: false, message: 'Failed to cleanup: ' + error.message };
+    }
+  }
+
   global.InventoryChar = {
     allInstances,
     instancesOf,
@@ -221,53 +258,8 @@
     levelUpInstance,
     promoteTier,
     feedDupe,
-    cleanupInvalidCharacters, // Add cleanup function
+    cleanupInvalidCharacters,
   };
-
-  // ---------- Cleanup Invalid Characters ----------
-  function cleanupInvalidCharacters() {
-    const validIds = new Set();
-
-    // We'll need to check against characters.json
-    // This function will be called with the valid character IDs
-    return async function() {
-      try {
-        const res = await fetch("data/characters.json", { cache: "no-store" });
-        if (!res.ok) throw new Error(`characters.json HTTP ${res.status}`);
-        const data = await res.json();
-        const list = Array.isArray(data) ? data : (Array.isArray(data.characters) ? data.characters : []);
-
-        // Build set of valid character IDs
-        list.forEach(c => validIds.add(c.id));
-
-        // Filter out characters with invalid IDs
-        const before = _instances.length;
-        _instances = _instances.filter(inst => validIds.has(inst.charId));
-        const after = _instances.length;
-        const removed = before - after;
-
-        if (removed > 0) {
-          save();
-          console.log(`🧹 Cleaned up ${removed} invalid character(s)`);
-
-          // Refresh grid if available
-          if (typeof window.refreshCharacterGrid === "function") {
-            window.refreshCharacterGrid();
-          }
-
-          return { success: true, removed, message: `Removed ${removed} invalid character(s)` };
-        } else {
-          return { success: true, removed: 0, message: 'No invalid characters found' };
-        }
-      } catch (error) {
-        console.error('Failed to cleanup characters:', error);
-        return { success: false, message: 'Failed to cleanup: ' + error.message };
-      }
-    };
-  }
-
-  // Expose the cleanup function
-  global.InventoryChar.cleanupInvalidCharacters = cleanupInvalidCharacters();
 })(window);
 
 // ---------- Add Character by ID (main menu helper) ----------
