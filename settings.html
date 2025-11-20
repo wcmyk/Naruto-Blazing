@@ -230,6 +230,19 @@
       </div>
     </div>
 
+    <!-- Gift Code -->
+    <div class="settings-section">
+      <div class="settings-section-title">Gift Code</div>
+
+      <div class="setting-row">
+        <div class="setting-label">Enter Gift Code</div>
+        <div class="setting-control" style="display: flex; gap: 10px;">
+          <input type="text" id="gift-code-input" placeholder="Enter code here" style="padding: 8px 16px; border-radius: 6px; background: rgba(30, 30, 40, 0.9); color: #f4efe3; border: 1px solid rgba(139, 115, 85, 0.6); font-family: 'Cinzel', serif; flex: 1; text-transform: uppercase;">
+          <button class="toggle-button" id="redeem-gift-code-button">Redeem</button>
+        </div>
+      </div>
+    </div>
+
     <!-- Visual Settings -->
     <div class="settings-section">
       <div class="settings-section-title">Visual</div>
@@ -261,6 +274,8 @@
   <script src="js/character_inv.js"></script>
   <script src="js/resources.js"></script>
   <script src="js/top-bar.js"></script>
+  <script src="js/gift-code-system.js"></script>
+  <script src="js/dashboard-mailbox.js"></script>
 
   <script>
     // Audio Settings
@@ -327,6 +342,29 @@
         }
         el.classList.add(`bg-${bgNum}`);
         console.log(`[Settings] Background changed to bg-${bgNum}`);
+      }
+    });
+
+    // Gift Code Redemption
+    // Initialize Gift Code System
+    if (window.GiftCodeSystem) {
+      window.GiftCodeSystem.init();
+    }
+
+    document.getElementById('redeem-gift-code-button').addEventListener('click', async () => {
+      const input = document.getElementById('gift-code-input');
+      const code = input.value.trim();
+
+      if (!code) {
+        alert('Please enter a gift code.');
+        return;
+      }
+
+      const result = await window.GiftCodeSystem.redeemCode(code);
+      alert(result.message);
+
+      if (result.success) {
+        input.value = ''; // Clear input on success
       }
     });
   </script>
