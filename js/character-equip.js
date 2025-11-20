@@ -179,6 +179,7 @@
   function initEquipTab(characterId) {
     const btnSelect = document.getElementById('btn-select-ultimate');
     const btnUnequip = document.getElementById('btn-unequip-ultimate');
+    const infoIcon = document.getElementById('equip-info-icon');
 
     if (btnSelect) {
       btnSelect.addEventListener('click', () => {
@@ -193,6 +194,17 @@
           updateEquipUI(characterId);
           alert('Ultimate unequipped successfully');
         }
+      });
+    }
+
+    if (infoIcon) {
+      infoIcon.addEventListener('click', () => {
+        alert('Equipped Ultimate Information:\n\n' +
+              '• Ultimates can only be used once per battle\n' +
+              '• They have powerful effects that can turn the tide of battle\n' +
+              '• Perform 3 basic attacks to charge your ultimate\n' +
+              '• Using ninjutsu resets your basic attack counter\n' +
+              '• Choose ultimates that complement your team strategy');
       });
     }
 
