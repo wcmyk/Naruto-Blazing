@@ -95,7 +95,7 @@ class GiftCodeSystem {
 
     return {
       success: true,
-      message: codeData.rewards.message || 'Gift code redeemed successfully! Check your mailbox.'
+      message: codeData.rewards.message || 'Gift code redeemed successfully! Check your present box.'
     };
   }
 

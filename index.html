@@ -176,6 +176,7 @@
   <script src="js/character-vignette.js?v=2"></script>
   <script src="js/settings-modal.js?v=2"></script>
   <script src="js/announcement-slideshow.js?v=2"></script>
+  <script src="js/dashboard-mailbox.js?v=2"></script>
   <script src="js/navigation.js?v=2"></script>
 
   <script>
@@ -374,7 +375,11 @@
               alert('📢 Notice Board\n\nNo new notices at this time.');
               break;
             case 'presents':
-              alert('🎁 Present Box\n\nNo presents available.');
+              if (window.DashboardMailbox) {
+                window.DashboardMailbox.openMailbox();
+              } else {
+                alert('🎁 Present Box\n\nPresent box system not loaded. Please reload the page.');
+              }
               break;
             case 'achievements':
               alert('🏆 Achievements\n\nAchievement system coming soon!');

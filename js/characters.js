@@ -137,6 +137,32 @@
     }
   }
 
+  /* ---------- Ultimate Badge (completion indicator) ---------- */
+  function ultimateBadgeHTML(c, inst) {
+    if (!c || !c.abilities || c.abilities.length === 0) {
+      return ''; // No badge if character has no abilities
+    }
+
+    const unlockedAbilities = inst.unlockedAbilities || [];
+    const totalAbilities = c.abilities.length;
+    const allAbilitiesUnlocked = unlockedAbilities.length >= totalAbilities;
+
+    if (!allAbilitiesUnlocked) {
+      return ''; // No badge if not all abilities unlocked
+    }
+
+    const lv = safeNum(inst.level, 1);
+    const isLevel150 = lv >= 150;
+
+    if (isLevel150) {
+      // Show ultimate_max badge (all abilities + level 150)
+      return `<img class="ultimate-badge" src="assets/ui/ultimate_max.png" alt="Ultimate Max" onerror="this.style.display='none';" title="All abilities unlocked + Level 150!" />`;
+    } else {
+      // Show ultimate badge (all abilities unlocked)
+      return `<img class="ultimate-badge" src="assets/ui/ultimate.png" alt="Ultimate" onerror="this.style.display='none';" title="All abilities unlocked!" />`;
+    }
+  }
+
   /* ---------- Data ---------- */
   let BASE = [];
   let BYID = Object.create(null);
@@ -183,6 +209,7 @@
           <img class="char-portrait-img" src="${safeStr(art.portrait, c.portrait)}" alt="${c.name} portrait"
                onerror="this.onerror=null;this.src='assets/characters/_common/silhouette.png';" />
           <div class="char-card-level">${levelBadgeHTML(c, inst)}</div>
+          ${ultimateBadgeHTML(c, inst)}
         </button>
       `;
     }).join("");
