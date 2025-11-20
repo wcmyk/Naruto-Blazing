@@ -243,6 +243,43 @@
       </div>
     </div>
 
+    <!-- Player Data Management -->
+    <div class="settings-section">
+      <div class="settings-section-title">Player Data</div>
+
+      <div class="setting-row">
+        <div class="setting-label">Clean Up Invalid Characters</div>
+        <div class="setting-control">
+          <button class="toggle-button" id="cleanup-characters-button">Clean Up</button>
+        </div>
+      </div>
+
+      <div class="setting-row">
+        <div class="setting-label">Export Save Data</div>
+        <div class="setting-control">
+          <button class="toggle-button" id="export-save-button">Download Save File</button>
+        </div>
+      </div>
+
+      <div class="setting-row">
+        <div class="setting-label">Import Save Data</div>
+        <div class="setting-control" style="display: flex; gap: 10px;">
+          <input type="file" id="import-save-input" accept=".json" style="display: none;">
+          <button class="toggle-button" id="import-save-button">Upload Save File</button>
+          <label style="font-size: 12px; color: #b8985f; align-self: center;">
+            (.json file from another device)
+          </label>
+        </div>
+      </div>
+
+      <div class="setting-row">
+        <div class="setting-label">Player ID</div>
+        <div class="setting-control">
+          <span id="player-id-display" style="font-size: 12px; color: #d4af37; font-family: monospace;">Loading...</span>
+        </div>
+      </div>
+    </div>
+
     <!-- Visual Settings -->
     <div class="settings-section">
       <div class="settings-section-title">Visual</div>
@@ -276,6 +313,7 @@
   <script src="js/top-bar.js"></script>
   <script src="js/gift-code-system.js"></script>
   <script src="js/dashboard-mailbox.js"></script>
+  <script src="js/player-save-system.js"></script>
 
   <script>
     // Audio Settings
@@ -366,6 +404,78 @@
       if (result.success) {
         input.value = ''; // Clear input on success
       }
+    });
+
+    // Player Data Management
+    // Display Player ID
+    if (window.PlayerSaveSystem) {
+      const playerId = window.PlayerSaveSystem.getOrCreatePlayerId();
+      document.getElementById('player-id-display').textContent = playerId;
+    }
+
+    // Clean Up Invalid Characters
+    document.getElementById('cleanup-characters-button').addEventListener('click', async () => {
+      if (!confirm('This will remove all characters with invalid IDs from your inventory. Continue?')) {
+        return;
+      }
+
+      try {
+        const result = await window.InventoryChar.cleanupInvalidCharacters();
+        alert(result.message);
+
+        if (result.removed > 0) {
+          // Reload page to refresh character display
+          setTimeout(() => {
+            window.location.reload();
+          }, 1000);
+        }
+      } catch (error) {
+        alert('Failed to cleanup characters: ' + error.message);
+      }
+    });
+
+    // Export Save Data
+    document.getElementById('export-save-button').addEventListener('click', async () => {
+      try {
+        const result = await window.PlayerSaveSystem.downloadSaveFile();
+        alert(result.message);
+      } catch (error) {
+        alert('Failed to export save: ' + error.message);
+      }
+    });
+
+    // Import Save Data
+    document.getElementById('import-save-button').addEventListener('click', () => {
+      document.getElementById('import-save-input').click();
+    });
+
+    document.getElementById('import-save-input').addEventListener('change', async (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      const mergeChoice = confirm(
+        'Import Options:\n\n' +
+        'OK = Merge with existing data (add to current save)\n' +
+        'Cancel = Overwrite existing data (replace current save)\n\n' +
+        'Choose wisely!'
+      );
+
+      try {
+        const result = await window.PlayerSaveSystem.uploadSaveFile(file, mergeChoice);
+        alert(result.message);
+
+        if (result.success) {
+          // Reload page to apply imported data
+          setTimeout(() => {
+            window.location.reload();
+          }, 1000);
+        }
+      } catch (error) {
+        alert('Failed to import save: ' + error.message);
+      }
+
+      // Reset file input
+      e.target.value = '';
     });
   </script>
 </body>
