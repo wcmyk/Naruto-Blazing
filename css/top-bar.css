@@ -135,13 +135,14 @@ body {
   display: flex;
   gap: 20px;
   align-items: center;
-  margin-right: 0;
+  margin-right: 20px; /* Add space from edge */
+  padding-right: 10px; /* Additional padding to prevent cutoff */
 }
 
 .currency-item {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 12px; /* Increased gap between icon and amount */
   background: rgba(20, 20, 30, 0.8);
   padding: 6px 14px;
   border-radius: 20px;
@@ -165,7 +166,7 @@ body {
 
 .currency-amount {
   font-size: 16px;
-  color: #f0e6d1;
+  color: #ffffff; /* Changed to pure white */
   font-weight: 600;
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9);
   min-width: 50px;
@@ -173,18 +174,7 @@ body {
   letter-spacing: 0.3px;
 }
 
-/* === Currency Specific Styles === */
-.currency-item.ninja-pearls .currency-amount {
-  color: #64b5f6; /* Blue tint for premium currency */
-}
-
-.currency-item.shinobites .currency-amount {
-  color: #ba68c8; /* Purple tint for gacha currency */
-}
-
-.currency-item.ryo .currency-amount {
-  color: #ffd54f; /* Gold tint for standard currency */
-}
+/* === Currency Specific Styles - Removed color overrides for white text === */
 
 /* === Animation for Currency Update === */
 @keyframes currencyUpdate {

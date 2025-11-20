@@ -238,8 +238,7 @@
 
   // ---------- Settings Menu ----------
   function openSettingsMenu() {
-    // Settings popup removed - use in-game UI instead
-    alert("Settings\n\nSettings menu coming soon!\n\nFor now:\n- Username: Click your name at the top\n- Background: Will be added to settings page\n- Resources: Click Resources icon at bottom");
+    navigateTo('settings.html');
   }
 
   // ---------- Background Changer ----------

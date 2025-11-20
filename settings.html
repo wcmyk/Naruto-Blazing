@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Settings - Naruto Blazing</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="css/background.css" />
+  <link rel="stylesheet" href="css/top-bar.css" />
+  <link rel="stylesheet" href="css/dashboard.css" />
+  <style>
+    body {
+      font-family: "Cinzel", serif;
+      color: #f4efe3;
+    }
+
+    .settings-container {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 30px;
+      background: rgba(20, 20, 30, 0.95);
+      border-radius: 12px;
+      border: 2px solid rgba(139, 115, 85, 0.6);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.8);
+    }
+
+    .settings-header {
+      font-size: 32px;
+      font-weight: 700;
+      color: #d4af37;
+      text-align: center;
+      margin-bottom: 30px;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9);
+      border-bottom: 2px solid rgba(212, 175, 55, 0.4);
+      padding-bottom: 15px;
+    }
+
+    .settings-section {
+      margin-bottom: 30px;
+      padding: 20px;
+      background: rgba(30, 30, 40, 0.8);
+      border-radius: 8px;
+      border: 1px solid rgba(139, 115, 85, 0.3);
+    }
+
+    .settings-section-title {
+      font-size: 20px;
+      font-weight: 600;
+      color: #b8985f;
+      margin-bottom: 15px;
+      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);
+    }
+
+    .setting-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(139, 115, 85, 0.2);
+    }
+
+    .setting-row:last-child {
+      border-bottom: none;
+    }
+
+    .setting-label {
+      font-size: 16px;
+      color: #f0e6d1;
+    }
+
+    .setting-control {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .slider {
+      width: 200px;
+      height: 6px;
+      border-radius: 3px;
+      background: rgba(139, 115, 85, 0.3);
+      outline: none;
+      cursor: pointer;
+    }
+
+    .slider::-webkit-slider-thumb {
+      appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #d4af37;
+      cursor: pointer;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    .slider::-moz-range-thumb {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #d4af37;
+      cursor: pointer;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+      border: none;
+    }
+
+    .volume-value {
+      min-width: 40px;
+      text-align: center;
+      font-weight: 600;
+      color: #d4af37;
+    }
+
+    .toggle-button {
+      padding: 8px 20px;
+      background: linear-gradient(135deg, #1f4d8b 0%, #2a5fa5 100%);
+      border: 2px solid #66c;
+      border-radius: 6px;
+      color: #e0f0ff;
+      font-family: "Cinzel", serif;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9);
+    }
+
+    .toggle-button:hover {
+      background: linear-gradient(135deg, #2c6bb2 0%, #3a7dc9 100%);
+      box-shadow: 0 4px 8px rgba(44, 107, 178, 0.7);
+    }
+
+    .toggle-button.active {
+      background: linear-gradient(135deg, #1f8b2c 0%, #2da83d 100%);
+      border-color: #6c6;
+      color: #e6ffe0;
+    }
+
+    .back-button {
+      display: block;
+      margin: 30px auto 0;
+      padding: 12px 40px;
+      background: linear-gradient(135deg, #8b1f1f 0%, #a52a2a 100%);
+      border: 2px solid #c66;
+      border-radius: 8px;
+      color: #fff0e0;
+      font-family: "Cinzel", serif;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9);
+      text-decoration: none;
+      text-align: center;
+    }
+
+    .back-button:hover {
+      background: linear-gradient(135deg, #b22c2c 0%, #c93a3a 100%);
+      box-shadow: 0 4px 8px rgba(178, 44, 44, 0.7);
+    }
+  </style>
+</head>
+
+<body>
+  <div id="full-bg" class="bg-1"></div>
+
+  <!-- Top Bar -->
+  <div class="top-bar">
+    <div class="ninja-rank-container">
+      <span class="ninja-rank-label">Ninja Rank:</span>
+      <span class="ninja-rank-value" id="ninja-rank-value">1</span>
+    </div>
+    <div class="player-username-container">
+      <span class="player-username" id="player-username">Player</span>
+    </div>
+    <div class="currency-hud">
+      <div class="currency-item ninja-pearls">
+        <img src="assets/icons/currency/ninjapearl.png" alt="Ninja Pearls" class="currency-icon" onerror="this.style.display='none';">
+        <span class="currency-amount" id="currency-ninja-pearls">0</span>
+      </div>
+      <div class="currency-item shinobites">
+        <img src="assets/icons/currency/shinobite.png" alt="Shinobites" class="currency-icon" onerror="this.style.display='none';">
+        <span class="currency-amount" id="currency-shinobites">0</span>
+      </div>
+      <div class="currency-item ryo">
+        <img src="assets/icons/currency/ryo.png" alt="Ryo" class="currency-icon" onerror="this.style.display='none';">
+        <span class="currency-amount" id="currency-ryo">0</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="settings-container">
+    <h1 class="settings-header">Settings</h1>
+
+    <!-- Audio Settings -->
+    <div class="settings-section">
+      <div class="settings-section-title">Audio</div>
+
+      <div class="setting-row">
+        <div class="setting-label">Background Music Volume</div>
+        <div class="setting-control">
+          <input type="range" min="0" max="100" value="30" class="slider" id="bgm-volume">
+          <span class="volume-value" id="bgm-value">30%</span>
+        </div>
+      </div>
+
+      <div class="setting-row">
+        <div class="setting-label">Sound Effects Volume</div>
+        <div class="setting-control">
+          <input type="range" min="0" max="100" value="50" class="slider" id="sfx-volume">
+          <span class="volume-value" id="sfx-value">50%</span>
+        </div>
+      </div>
+
+      <div class="setting-row">
+        <div class="setting-label">Mute All Audio</div>
+        <div class="setting-control">
+          <button class="toggle-button" id="mute-button">Unmuted</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Account Settings -->
+    <div class="settings-section">
+      <div class="settings-section-title">Account</div>
+
+      <div class="setting-row">
+        <div class="setting-label">Change Username</div>
+        <div class="setting-control">
+          <button class="toggle-button" id="change-username-button">Edit</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Visual Settings -->
+    <div class="settings-section">
+      <div class="settings-section-title">Visual</div>
+
+      <div class="setting-row">
+        <div class="setting-label">Background Theme</div>
+        <div class="setting-control">
+          <select id="background-select" style="padding: 8px 16px; border-radius: 6px; background: rgba(30, 30, 40, 0.9); color: #f4efe3; border: 1px solid rgba(139, 115, 85, 0.6); font-family: 'Cinzel', serif; cursor: pointer;">
+            <option value="1">Background 1</option>
+            <option value="2">Background 2</option>
+            <option value="3">Background 3</option>
+            <option value="4">Background 4</option>
+            <option value="5">Background 5</option>
+            <option value="6">Background 6</option>
+            <option value="7">Background 7</option>
+            <option value="8">Background 8</option>
+            <option value="9">Background 9</option>
+            <option value="10">Background 10</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <a href="index.html" class="back-button">Back to Home</a>
+  </div>
+
+  <script src="js/audio-manager.js"></script>
+  <script src="js/username.js"></script>
+  <script src="js/character_inv.js"></script>
+  <script src="js/resources.js"></script>
+  <script src="js/top-bar.js"></script>
+
+  <script>
+    // Audio Settings
+    const bgmSlider = document.getElementById('bgm-volume');
+    const bgmValue = document.getElementById('bgm-value');
+    const sfxSlider = document.getElementById('sfx-volume');
+    const sfxValue = document.getElementById('sfx-value');
+    const muteButton = document.getElementById('mute-button');
+
+    // Load current audio settings
+    if (typeof AudioManager !== 'undefined') {
+      bgmSlider.value = AudioManager.bgmVolume * 100;
+      bgmValue.textContent = Math.round(AudioManager.bgmVolume * 100) + '%';
+      sfxSlider.value = AudioManager.sfxVolume * 100;
+      sfxValue.textContent = Math.round(AudioManager.sfxVolume * 100) + '%';
+      muteButton.textContent = AudioManager.isMuted ? 'Muted' : 'Unmuted';
+      muteButton.classList.toggle('active', !AudioManager.isMuted);
+    }
+
+    // BGM Volume Control
+    bgmSlider.addEventListener('input', (e) => {
+      const volume = e.target.value / 100;
+      bgmValue.textContent = e.target.value + '%';
+      if (typeof AudioManager !== 'undefined') {
+        AudioManager.setBGMVolume(volume);
+      }
+    });
+
+    // SFX Volume Control
+    sfxSlider.addEventListener('input', (e) => {
+      const volume = e.target.value / 100;
+      sfxValue.textContent = e.target.value + '%';
+      if (typeof AudioManager !== 'undefined') {
+        AudioManager.setSFXVolume(volume);
+      }
+    });
+
+    // Mute Toggle
+    muteButton.addEventListener('click', () => {
+      if (typeof AudioManager !== 'undefined') {
+        const isMuted = AudioManager.toggleMute();
+        muteButton.textContent = isMuted ? 'Muted' : 'Unmuted';
+        muteButton.classList.toggle('active', !isMuted);
+      }
+    });
+
+    // Username Change
+    document.getElementById('change-username-button').addEventListener('click', () => {
+      if (typeof window.Username !== 'undefined') {
+        window.Username.openEditor();
+      } else {
+        alert('Username system not loaded. Please return to home page.');
+      }
+    });
+
+    // Background Change
+    document.getElementById('background-select').addEventListener('change', (e) => {
+      const bgNum = e.target.value;
+      const el = document.getElementById("full-bg");
+      if (el) {
+        for (let i = 1; i <= 10; i++) {
+          el.classList.remove(`bg-${i}`);
+        }
+        el.classList.add(`bg-${bgNum}`);
+        console.log(`[Settings] Background changed to bg-${bgNum}`);
+      }
+    });
+  </script>
+</body>
+</html>

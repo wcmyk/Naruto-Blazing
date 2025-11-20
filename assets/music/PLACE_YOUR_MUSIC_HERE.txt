@@ -1,0 +1,22 @@
+MUSIC FILE NEEDED
+==================
+
+Place your music file here with this exact name:
+
+    general.mp3
+
+The audio system is already configured and will automatically
+play this file when:
+1. The page loads
+2. User clicks anywhere on the page (required by browsers)
+
+File Requirements:
+- Format: MP3, OGG, or WAV
+- Recommended: MP3 at 128-192 kbps
+- Max size: 10MB (smaller is better for loading)
+
+Current Path Expected:
+    assets/music/general.mp3
+
+Once you add the file, refresh the page and click anywhere
+to start the music!
