@@ -1,0 +1,21 @@
+{
+  "codes": [
+    {
+      "code": "TKMA777",
+      "description": "Special Gift - Taki & Mitsuha",
+      "expiryDate": null,
+      "maxRedemptions": null,
+      "rewards": {
+        "characters": [
+          {
+            "characterId": "takimitsuha",
+            "quantity": 10,
+            "tierCode": "7S"
+          }
+        ],
+        "resources": [],
+        "message": "You've received 10 copies of Taki and Mitsuha! Check your inbox to claim them."
+      }
+    }
+  ]
+}

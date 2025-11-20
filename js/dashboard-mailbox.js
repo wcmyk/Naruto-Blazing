@@ -141,12 +141,46 @@ class DashboardMailbox {
     this.markAsRead(message.id);
 
     let rewardsHTML = '';
-    if (message.rewards && Object.keys(message.rewards).length > 0) {
+    const hasCharacterRewards = message.rewards && message.rewards.characters && message.rewards.characters.length > 0;
+    const hasResourceRewards = message.rewards && message.rewards.resources && message.rewards.resources.length > 0;
+    const hasLegacyRewards = message.rewards && !hasCharacterRewards && !hasResourceRewards && Object.keys(message.rewards).length > 0;
+
+    if (hasCharacterRewards || hasResourceRewards || hasLegacyRewards) {
       rewardsHTML = '<div class="message-rewards"><h4>Rewards:</h4><ul>';
-      for (const [item, amount] of Object.entries(message.rewards)) {
-        rewardsHTML += `<li>${item}: ${amount}</li>`;
+
+      // Character rewards
+      if (hasCharacterRewards) {
+        message.rewards.characters.forEach(char => {
+          const alreadyClaimed = message.claimed && message.claimed.includes(`char_${char.characterId}`);
+          const claimStatus = alreadyClaimed ? ' (Claimed)' : '';
+          rewardsHTML += `<li class="${alreadyClaimed ? 'reward-claimed' : ''}">Character: ${char.characterId} x${char.quantity}${claimStatus}</li>`;
+        });
       }
-      rewardsHTML += '</ul></div>';
+
+      // Resource rewards
+      if (hasResourceRewards) {
+        message.rewards.resources.forEach(res => {
+          rewardsHTML += `<li>${res.name}: ${res.quantity}</li>`;
+        });
+      }
+
+      // Legacy rewards (backward compatibility)
+      if (hasLegacyRewards) {
+        for (const [item, amount] of Object.entries(message.rewards)) {
+          if (item !== 'characters' && item !== 'resources') {
+            rewardsHTML += `<li>${item}: ${amount}</li>`;
+          }
+        }
+      }
+
+      rewardsHTML += '</ul>';
+
+      // Add claim button if there are unclaimed character rewards
+      if (hasCharacterRewards && !message.allClaimed) {
+        rewardsHTML += `<button class="btn-claim-rewards" onclick="window.DashboardMailbox.claimRewards(${index})">Claim Rewards</button>`;
+      }
+
+      rewardsHTML += '</div>';
     }
 
     const date = new Date(message.date).toLocaleString();
@@ -173,6 +207,64 @@ class DashboardMailbox {
     // Update the mailbox view to reflect read status
     this.closeMailbox();
     setTimeout(() => this.openMailbox(), 300);
+  }
+
+  claimRewards(index) {
+    const message = this.messages[index];
+    if (!message || !message.rewards || !message.rewards.characters) {
+      alert('No rewards to claim!');
+      return;
+    }
+
+    if (message.allClaimed) {
+      alert('All rewards have already been claimed!');
+      return;
+    }
+
+    // Check if InventoryChar is available
+    if (typeof window.InventoryChar === 'undefined') {
+      alert('Character inventory system not available. Please return to home page and try again.');
+      return;
+    }
+
+    // Add characters to inventory
+    const charactersClaimed = [];
+    message.rewards.characters.forEach(charReward => {
+      const alreadyClaimed = message.claimed && message.claimed.includes(`char_${charReward.characterId}`);
+      if (!alreadyClaimed) {
+        // Add multiple copies
+        for (let i = 0; i < charReward.quantity; i++) {
+          window.InventoryChar.add(charReward.characterId, charReward.tierCode || '3S');
+        }
+        charactersClaimed.push(`${charReward.characterId} x${charReward.quantity}`);
+
+        // Mark as claimed
+        if (!message.claimed) message.claimed = [];
+        message.claimed.push(`char_${charReward.characterId}`);
+      }
+    });
+
+    if (charactersClaimed.length === 0) {
+      alert('All character rewards have already been claimed!');
+      return;
+    }
+
+    // Mark as all claimed if all rewards are claimed
+    const totalCharRewards = message.rewards.characters.length;
+    const claimedCharRewards = (message.claimed || []).filter(c => c.startsWith('char_')).length;
+    if (totalCharRewards === claimedCharRewards) {
+      message.allClaimed = true;
+    }
+
+    // Save messages
+    this.saveMessages();
+
+    // Show success message
+    alert(`Rewards Claimed!\n\nYou received:\n${charactersClaimed.join('\n')}\n\nCheck your Characters page!`);
+
+    // Refresh the message view
+    this.closeMessageView();
+    setTimeout(() => this.viewMessage(index), 100);
   }
 
   closeMessageView() {
