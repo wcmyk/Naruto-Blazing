@@ -101,10 +101,10 @@ body.page-characters {
 /* ---------- Ultimate Badge (completion indicator) ---------- */
 .ultimate-badge {
   position: absolute;
-  bottom: 6px;
-  right: 6px;
-  width: 36px;
-  height: 36px;
+  bottom: 35px;
+  right: 1px;
+  width: 80px;
+  height: 50px;
   object-fit: contain;
   pointer-events: none;
   user-select: none;
