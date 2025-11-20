@@ -512,6 +512,38 @@
         }
       }
 
+      // ===== MUSIC INITIALIZATION =====
+      // Start background music using AudioManager
+      if (typeof window.AudioManager !== 'undefined') {
+        console.log('🎵 Starting background music...');
+
+        // Try to play after user interaction
+        const startMusic = () => {
+          const bgm = window.AudioManager.playBGM('assets/music/general.mp3');
+          if (bgm) {
+            console.log('🎵 Background music started successfully');
+          } else {
+            console.log('⚠️ Background music failed to start');
+          }
+        };
+
+        // Add one-time click listener to start music
+        document.addEventListener('click', () => {
+          if (!window.AudioManager.currentBGM) {
+            startMusic();
+          }
+        }, { once: true });
+
+        // Also try immediately (may be blocked by browser autoplay policy)
+        setTimeout(() => {
+          if (!window.AudioManager.currentBGM) {
+            startMusic();
+          }
+        }, 1000);
+      } else {
+        console.error('❌ AudioManager not found - music cannot play');
+      }
+
       console.log("✅ All systems initialized!");
     });
   </script>
