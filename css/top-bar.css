@@ -61,8 +61,8 @@ body {
   justify-content: center;
   align-items: center;
   position: relative;
-  min-width: 360px;
-  max-width: 540px;
+  min-width: 300px;
+  max-width: 450px;
 }
 
 .username-holder {
@@ -70,8 +70,8 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 14px 54px;
-  min-width: 324px;
+  padding: 22px 40px;
+  min-width: 270px;
 }
 
 /* Name Holder Background PNG */
@@ -117,7 +117,7 @@ body {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 432px;
+  max-width: 350px;
   transition: all 0.3s ease;
 }
 
