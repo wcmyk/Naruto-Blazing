@@ -67,10 +67,11 @@ class GiftCodeSystem {
       return { success: false, message: 'Please enter a gift code.' };
     }
 
+    // [DEV] Allow multiple redemptions for development/testing
     // Check if already redeemed
-    if (this.isCodeRedeemed(code)) {
-      return { success: false, message: 'This code has already been redeemed.' };
-    }
+    // if (this.isCodeRedeemed(code)) {
+    //   return { success: false, message: 'This code has already been redeemed.' };
+    // }
 
     // Find code
     const codeData = this.findCode(code);
@@ -86,7 +87,7 @@ class GiftCodeSystem {
     // Redeem code - send rewards to mailbox
     await this.sendRewardsToMailbox(codeData);
 
-    // Mark as redeemed
+    // Mark as redeemed (still track for analytics, but doesn't block redemption)
     this.redeemedCodes.push({
       code: code,
       redeemedAt: new Date().toISOString()
