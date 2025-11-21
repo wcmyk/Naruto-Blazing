@@ -198,7 +198,11 @@
     if (iconPanelMissions) {
       iconPanelMissions.addEventListener('click', () => {
         console.log("[Navigation] Panel Missions clicked");
-        navigateTo('missions.html');
+        if (window.PanelMissions) {
+          window.PanelMissions.openPanelModal();
+        } else {
+          alert('Panel Missions system not loaded. Please reload the page.');
+        }
       });
     }
 
