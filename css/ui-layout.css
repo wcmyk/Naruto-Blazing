@@ -176,25 +176,35 @@
   opacity: 1;
 }
 
-/* Placeholder backgrounds (until PNGs are added) */
+/* Banner background images with gradient fallbacks */
 .banner-button.missions {
-  background: linear-gradient(135deg, rgba(255, 100, 50, 0.4), rgba(255, 50, 50, 0.6));
+  background:
+    url('../assets/banners/missions_banner.png') center/cover no-repeat,
+    linear-gradient(135deg, rgba(255, 100, 50, 0.4), rgba(255, 50, 50, 0.6));
 }
 
 .banner-button.characters {
-  background: linear-gradient(135deg, rgba(50, 150, 255, 0.4), rgba(50, 100, 255, 0.6));
+  background:
+    url('../assets/banners/characters_banner.png') center/cover no-repeat,
+    linear-gradient(135deg, rgba(50, 150, 255, 0.4), rgba(50, 100, 255, 0.6));
 }
 
 .banner-button.summon {
-  background: linear-gradient(135deg, rgba(200, 100, 255, 0.4), rgba(150, 50, 255, 0.6));
+  background:
+    url('../assets/banners/summon_banner.png') center/cover no-repeat,
+    linear-gradient(135deg, rgba(200, 100, 255, 0.4), rgba(150, 50, 255, 0.6));
 }
 
 .banner-button.fusion {
-  background: linear-gradient(135deg, rgba(100, 255, 150, 0.4), rgba(50, 200, 100, 0.6));
+  background:
+    url('../assets/banners/fusion_banner.png') center/cover no-repeat,
+    linear-gradient(135deg, rgba(100, 255, 150, 0.4), rgba(50, 200, 100, 0.6));
 }
 
 .banner-button.shop {
-  background: linear-gradient(135deg, rgba(255, 200, 50, 0.4), rgba(255, 150, 0, 0.6));
+  background:
+    url('../assets/banners/shop_banner.png') center/cover no-repeat,
+    linear-gradient(135deg, rgba(255, 200, 50, 0.4), rgba(255, 150, 0, 0.6));
 }
 
 /* Banner text overlay (temporary until PNGs have text) */
