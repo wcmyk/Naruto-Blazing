@@ -2,27 +2,28 @@
 
 class PanelMissions {
   constructor() {
-    this.missions = [];
+    this.panels = [];
+    this.currentPanelId = null;
   }
 
   async init() {
-    await this.loadMissions();
+    await this.loadPanels();
     this.loadMissionProgress();
     console.log('✅ Panel Missions initialized');
   }
 
-  async loadMissions() {
+  async loadPanels() {
     try {
       const response = await fetch('data/panel.json');
       if (!response.ok) {
         throw new Error(`HTTP ${response.status}: ${response.statusText}`);
       }
       const data = await response.json();
-      this.missions = data.missions || [];
-      console.log(`Loaded ${this.missions.length} panel missions`);
+      this.panels = data.panels || [];
+      console.log(`Loaded ${this.panels.length} panels`);
     } catch (error) {
-      console.error('Failed to load panel missions:', error);
-      this.missions = [];
+      console.error('Failed to load panels:', error);
+      this.panels = [];
     }
   }
 
@@ -31,11 +32,13 @@ class PanelMissions {
       const saved = localStorage.getItem('blazing_panel_mission_progress');
       if (saved) {
         const progress = JSON.parse(saved);
-        this.missions.forEach(mission => {
-          const savedMission = progress.find(m => m.id === mission.id);
-          if (savedMission) {
-            mission.completed = savedMission.completed || false;
-          }
+        this.panels.forEach(panel => {
+          panel.missions.forEach(mission => {
+            const savedMission = progress.find(m => m.id === mission.id);
+            if (savedMission) {
+              mission.completed = savedMission.completed || false;
+            }
+          });
         });
       }
     } catch (error) {
@@ -45,18 +48,29 @@ class PanelMissions {
 
   saveMissionProgress() {
     try {
-      const progress = this.missions.map(m => ({
-        id: m.id,
-        completed: m.completed
-      }));
-      localStorage.setItem('blazing_panel_mission_progress', JSON.stringify(progress));
+      const allMissions = [];
+      this.panels.forEach(panel => {
+        panel.missions.forEach(mission => {
+          allMissions.push({
+            id: mission.id,
+            completed: mission.completed
+          });
+        });
+      });
+      localStorage.setItem('blazing_panel_mission_progress', JSON.stringify(allMissions));
     } catch (error) {
       console.error('Failed to save mission progress:', error);
     }
   }
 
-  completeMission(missionId) {
-    const mission = this.missions.find(m => m.id === missionId);
+  completeMission(panelId, missionId) {
+    const panel = this.panels.find(p => p.id === panelId);
+    if (!panel) {
+      alert('Panel not found');
+      return;
+    }
+
+    const mission = panel.missions.find(m => m.id === missionId);
     if (!mission) {
       alert('Mission not found');
       return;
@@ -78,8 +92,8 @@ class PanelMissions {
     const rewardText = this.getRewardDisplayText(mission.reward);
     alert(`Mission Completed!\n\n${mission.title}\n\nReward: ${rewardText}`);
 
-    // Refresh the modal
-    this.openPanelModal();
+    // Refresh the mission list view
+    this.showPanelMissions(panelId);
   }
 
   giveReward(reward) {
@@ -144,29 +158,19 @@ class PanelMissions {
   }
 
   openPanelModal() {
-    if (this.missions.length === 0) {
-      alert('No panel missions available');
+    if (this.panels.length === 0) {
+      alert('No panels available');
       return;
     }
 
-    const missionsHTML = this.missions.map(mission => {
-      const completedClass = mission.completed ? 'completed' : '';
-      const rewardIcon = this.getRewardIcon(mission.reward);
-      const rewardText = this.getRewardDisplayText(mission.reward);
-
+    // Show panel selection view (banners only, no text)
+    const panelsHTML = this.panels.map(panel => {
       return `
-        <div class="mission-item ${completedClass}">
-          <div class="mission-info">
-            <div class="mission-title">${mission.title}</div>
-            <div class="mission-description">${mission.description}</div>
-            <div class="mission-reward">
-              <div class="mission-reward-icon">${rewardIcon}</div>
-              <div class="mission-reward-text">${rewardText}</div>
-            </div>
+        <div class="panel-banner-item" onclick="window.PanelMissions.showPanelMissions('${panel.id}')">
+          <img src="${panel.bannerImage}" alt="${panel.name}" class="panel-banner-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <div class="panel-banner-fallback" style="display: none;">
+            <div>${panel.name}</div>
           </div>
-          ${!mission.completed ?
-            `<button class="btn-complete-mission" onclick="window.PanelMissions.completeMission('${mission.id}')">Claim</button>` :
-            '<div class="mission-completed-badge">✓ Completed</div>'}
         </div>
       `;
     }).join('');
@@ -174,13 +178,13 @@ class PanelMissions {
     const modalHTML = `
       <div class="panel-modal" id="panel-modal">
         <div class="panel-overlay" onclick="window.PanelMissions.closePanelModal()"></div>
-        <div class="panel-content" style="background: url('assets/Main Background/mission-panel.png') center/cover no-repeat; background-color: rgba(0, 0, 0, 0.7); background-blend-mode: darken;">
+        <div class="panel-content">
           <div class="panel-header">
             <h2>Panel Missions</h2>
             <button class="panel-close" onclick="window.PanelMissions.closePanelModal()">✕</button>
           </div>
-          <div class="mission-list">
-            ${missionsHTML}
+          <div class="panel-banner-grid">
+            ${panelsHTML}
           </div>
         </div>
       </div>
@@ -196,11 +200,69 @@ class PanelMissions {
     this.injectPanelStyles();
   }
 
+  showPanelMissions(panelId) {
+    const panel = this.panels.find(p => p.id === panelId);
+    if (!panel) {
+      alert('Panel not found');
+      return;
+    }
+
+    this.currentPanelId = panelId;
+
+    const missionsHTML = panel.missions.map(mission => {
+      const completedClass = mission.completed ? 'completed' : '';
+      const rewardIcon = this.getRewardIcon(mission.reward);
+      const rewardText = this.getRewardDisplayText(mission.reward);
+
+      return `
+        <div class="mission-item ${completedClass}">
+          <div class="mission-info">
+            <div class="mission-title">${mission.title}</div>
+            <div class="mission-description">${mission.description}</div>
+            <div class="mission-reward">
+              <div class="mission-reward-icon">${rewardIcon}</div>
+              <div class="mission-reward-text">${rewardText}</div>
+            </div>
+          </div>
+          ${!mission.completed ?
+            `<button class="btn-complete-mission" onclick="window.PanelMissions.completeMission('${panelId}', '${mission.id}')">Claim</button>` :
+            '<div class="mission-completed-badge">✓ Completed</div>'}
+        </div>
+      `;
+    }).join('');
+
+    const modalHTML = `
+      <div class="panel-modal" id="panel-modal">
+        <div class="panel-overlay" onclick="window.PanelMissions.closePanelModal()"></div>
+        <div class="panel-content">
+          <div class="panel-header">
+            <button class="panel-back-btn" onclick="window.PanelMissions.openPanelModal()">← Back</button>
+            <h2>${panel.name}</h2>
+            <button class="panel-close" onclick="window.PanelMissions.closePanelModal()">✕</button>
+          </div>
+          <div class="mission-list">
+            ${missionsHTML}
+          </div>
+        </div>
+      </div>
+    `;
+
+    // Remove existing modal
+    const existingModal = document.getElementById('panel-modal');
+    if (existingModal) {
+      existingModal.remove();
+    }
+
+    document.body.insertAdjacentHTML('beforeend', modalHTML);
+    this.injectPanelStyles();
+  }
+
   closePanelModal() {
     const modal = document.getElementById('panel-modal');
     if (modal) {
       modal.remove();
     }
+    this.currentPanelId = null;
   }
 
   injectPanelStyles() {
@@ -232,9 +294,13 @@ class PanelMissions {
 
         .panel-content {
           position: relative;
+          background: url('assets/Main Background/mission-panel.png') center/cover no-repeat;
+          background-color: rgba(0, 0, 0, 0.7);
+          background-blend-mode: darken;
+          background-size: 120%;
           border: 3px solid #d4af37;
           border-radius: 16px;
-          padding: 30px;
+          padding: 40px;
           max-width: 800px;
           width: 90%;
           max-height: 80vh;
@@ -257,6 +323,27 @@ class PanelMissions {
           font-weight: 700;
           color: #d4af37;
           margin: 0;
+          flex: 1;
+          text-align: center;
+        }
+
+        .panel-back-btn {
+          background: rgba(139, 115, 85, 0.2);
+          border: 2px solid rgba(139, 115, 85, 0.5);
+          color: #d4af37;
+          font-family: 'Times New Roman', Times, serif;
+          font-size: 16px;
+          font-weight: 600;
+          padding: 8px 16px;
+          border-radius: 8px;
+          cursor: pointer;
+          transition: all 0.3s ease;
+        }
+
+        .panel-back-btn:hover {
+          background: rgba(139, 115, 85, 0.4);
+          border-color: rgba(212, 175, 55, 0.7);
+          transform: translateX(-2px);
         }
 
         .panel-close {
@@ -276,6 +363,53 @@ class PanelMissions {
           transform: scale(1.1);
         }
 
+        /* Panel Banner Grid */
+        .panel-banner-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+          gap: 20px;
+          padding: 10px 0;
+        }
+
+        .panel-banner-item {
+          position: relative;
+          cursor: pointer;
+          border-radius: 12px;
+          overflow: hidden;
+          border: 3px solid rgba(139, 115, 85, 0.4);
+          transition: all 0.3s ease;
+          background: rgba(20, 20, 30, 0.6);
+        }
+
+        .panel-banner-item:hover {
+          border-color: rgba(212, 175, 55, 0.9);
+          transform: translateY(-5px);
+          box-shadow: 0 8px 20px rgba(212, 175, 55, 0.4);
+        }
+
+        .panel-banner-img {
+          width: 100%;
+          height: 150px;
+          object-fit: cover;
+          display: block;
+        }
+
+        .panel-banner-fallback {
+          width: 100%;
+          height: 150px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background: linear-gradient(135deg, #3d3020 0%, #5a4a2f 25%, #4a3a25 50%, #6b5a3f 75%, #4a3a25 100%);
+          color: #d4af37;
+          font-family: 'Times New Roman', Times, serif;
+          font-size: 18px;
+          font-weight: 700;
+          text-align: center;
+          padding: 20px;
+        }
+
+        /* Mission List */
         .mission-list {
           display: flex;
           flex-direction: column;
