@@ -176,48 +176,40 @@
   opacity: 1;
 }
 
-/* Banner background images with gradient fallbacks */
+/* Banner background images with dark metallic gold fallbacks */
 .banner-button.missions {
   background:
     url('../assets/banners/missions_banner.png') center/cover no-repeat,
-    linear-gradient(135deg, rgba(255, 100, 50, 0.4), rgba(255, 50, 50, 0.6));
+    linear-gradient(135deg, rgba(61, 48, 32, 0.85), rgba(90, 74, 47, 0.9));
 }
 
 .banner-button.characters {
   background:
     url('../assets/banners/characters_banner.png') center/cover no-repeat,
-    linear-gradient(135deg, rgba(50, 150, 255, 0.4), rgba(50, 100, 255, 0.6));
+    linear-gradient(135deg, rgba(61, 48, 32, 0.85), rgba(90, 74, 47, 0.9));
 }
 
 .banner-button.summon {
   background:
     url('../assets/banners/summon_banner.png') center/cover no-repeat,
-    linear-gradient(135deg, rgba(200, 100, 255, 0.4), rgba(150, 50, 255, 0.6));
+    linear-gradient(135deg, rgba(61, 48, 32, 0.85), rgba(90, 74, 47, 0.9));
 }
 
 .banner-button.fusion {
   background:
     url('../assets/banners/fusion_banner.png') center/cover no-repeat,
-    linear-gradient(135deg, rgba(100, 255, 150, 0.4), rgba(50, 200, 100, 0.6));
+    linear-gradient(135deg, rgba(61, 48, 32, 0.85), rgba(90, 74, 47, 0.9));
 }
 
 .banner-button.shop {
   background:
     url('../assets/banners/shop_banner.png') center/cover no-repeat,
-    linear-gradient(135deg, rgba(255, 200, 50, 0.4), rgba(255, 150, 0, 0.6));
+    linear-gradient(135deg, rgba(61, 48, 32, 0.85), rgba(90, 74, 47, 0.9));
 }
 
-/* Banner text overlay (temporary until PNGs have text) */
+/* Hide banner text overlays (PNGs already have text) */
 .banner-button-text {
-  position: absolute;
-  bottom: 10px; /* Increased 20%: 8px × 1.20 = 10px */
-  left: 12px; /* Increased 20%: 10px × 1.20 = 12px */
-  font-size: 16px; /* Increased 20%: 13px × 1.20 = 16px */
-  font-weight: 700;
-  color: #fff;
-  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);
-  letter-spacing: 0.6px; /* Increased 20%: 0.5px × 1.20 = 0.6px */
-  font-family: "Cinzel", serif;
+  display: none;
 }
 
 /* ==========================================

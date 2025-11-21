@@ -1,0 +1,186 @@
+{
+  "panels": [
+    {
+      "id": "starter_panel",
+      "name": "Starter Panel",
+      "description": "Complete these missions to unlock rewards for beginners",
+      "bannerImage": "assets/banners/panel_missions/starter_panel.png",
+      "rewards": [
+        {
+          "position": 1,
+          "type": "character",
+          "characterId": "example_character_001",
+          "quantity": 1,
+          "tierCode": "5S",
+          "description": "Unlock Character",
+          "requirement": "Complete Mission 1",
+          "unlocked": false
+        },
+        {
+          "position": 2,
+          "type": "resource",
+          "resourceName": "Ninja Pearls",
+          "quantity": 50,
+          "description": "50 Ninja Pearls",
+          "requirement": "Complete Mission 2",
+          "unlocked": false
+        },
+        {
+          "position": 3,
+          "type": "resource",
+          "resourceName": "Ryo",
+          "quantity": 10000,
+          "description": "10,000 Ryo",
+          "requirement": "Complete Mission 3",
+          "unlocked": false
+        },
+        {
+          "position": 4,
+          "type": "resource",
+          "resourceName": "Shinobites",
+          "quantity": 5,
+          "description": "5 Shinobites",
+          "requirement": "Complete Mission 4",
+          "unlocked": false
+        },
+        {
+          "position": 5,
+          "type": "item",
+          "itemId": "ramen_3star",
+          "quantity": 3,
+          "description": "3x 3-Star Ramen",
+          "requirement": "Complete Mission 5",
+          "unlocked": false
+        },
+        {
+          "position": 6,
+          "type": "resource",
+          "resourceName": "Ninja Pearls",
+          "quantity": 100,
+          "description": "100 Ninja Pearls",
+          "requirement": "Complete Mission 6",
+          "unlocked": false
+        },
+        {
+          "position": 7,
+          "type": "character",
+          "characterId": "example_character_002",
+          "quantity": 1,
+          "tierCode": "6S",
+          "description": "Unlock Rare Character",
+          "requirement": "Complete Mission 7",
+          "unlocked": false
+        },
+        {
+          "position": 8,
+          "type": "resource",
+          "resourceName": "Ryo",
+          "quantity": 50000,
+          "description": "50,000 Ryo",
+          "requirement": "Complete Mission 8",
+          "unlocked": false
+        },
+        {
+          "position": 9,
+          "type": "resource",
+          "resourceName": "Ninja Pearls",
+          "quantity": 200,
+          "description": "200 Ninja Pearls (Final Reward)",
+          "requirement": "Complete All Missions",
+          "unlocked": false
+        }
+      ]
+    },
+    {
+      "id": "advanced_panel",
+      "name": "Advanced Panel",
+      "description": "Challenging missions for experienced ninjas",
+      "bannerImage": "assets/banners/panel_missions/advanced_panel.png",
+      "rewards": [
+        {
+          "position": 1,
+          "type": "resource",
+          "resourceName": "Ninja Pearls",
+          "quantity": 150,
+          "description": "150 Ninja Pearls",
+          "requirement": "Complete Advanced Mission 1",
+          "unlocked": false
+        },
+        {
+          "position": 2,
+          "type": "item",
+          "itemId": "ramen_5star",
+          "quantity": 2,
+          "description": "2x 5-Star Ramen",
+          "requirement": "Complete Advanced Mission 2",
+          "unlocked": false
+        },
+        {
+          "position": 3,
+          "type": "resource",
+          "resourceName": "Shinobites",
+          "quantity": 10,
+          "description": "10 Shinobites",
+          "requirement": "Complete Advanced Mission 3",
+          "unlocked": false
+        },
+        {
+          "position": 4,
+          "type": "character",
+          "characterId": "example_character_003",
+          "quantity": 1,
+          "tierCode": "7S",
+          "description": "Unlock Elite Character",
+          "requirement": "Complete Advanced Mission 4",
+          "unlocked": false
+        },
+        {
+          "position": 5,
+          "type": "resource",
+          "resourceName": "Ryo",
+          "quantity": 100000,
+          "description": "100,000 Ryo",
+          "requirement": "Complete Advanced Mission 5",
+          "unlocked": false
+        },
+        {
+          "position": 6,
+          "type": "resource",
+          "resourceName": "Ninja Pearls",
+          "quantity": 250,
+          "description": "250 Ninja Pearls",
+          "requirement": "Complete Advanced Mission 6",
+          "unlocked": false
+        },
+        {
+          "position": 7,
+          "type": "item",
+          "itemId": "ramen_6star",
+          "quantity": 5,
+          "description": "5x 6-Star Ramen",
+          "requirement": "Complete Advanced Mission 7",
+          "unlocked": false
+        },
+        {
+          "position": 8,
+          "type": "resource",
+          "resourceName": "Shinobites",
+          "quantity": 20,
+          "description": "20 Shinobites",
+          "requirement": "Complete Advanced Mission 8",
+          "unlocked": false
+        },
+        {
+          "position": 9,
+          "type": "character",
+          "characterId": "example_character_004",
+          "quantity": 1,
+          "tierCode": "7S",
+          "description": "Unlock Legendary Character (Final Reward)",
+          "requirement": "Complete All Advanced Missions",
+          "unlocked": false
+        }
+      ]
+    }
+  ]
+}
