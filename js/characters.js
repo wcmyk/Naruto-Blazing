@@ -683,8 +683,42 @@
     confirmMsg += `Current Level: ${currentLevel}\n`;
     confirmMsg += `New Level: ${newLevel}${levelsGained > 0 ? ` (+${levelsGained})` : ''}\n`;
 
-    if (!confirm(confirmMsg)) return;
+    if (window.ModalManager) {
+      window.ModalManager.showConfirm(
+        confirmMsg,
+        () => {
+          // Consume all selected ramen
+          for (const [ramenId, amount] of selectedRamen) {
+            window.Resources.subtract(ramenId, amount);
+          }
 
+          // Level up character
+          inst.level = newLevel;
+          window.InventoryChar.updateInstance(inst.uid, inst);
+
+          // Daily mission check
+          if (window.DailyMissions) {
+            const result = window.DailyMissions.recordAction('level_up_character');
+            if (result?.completed) {
+              if (window.ModalManager) { window.ModalManager.showInfo(`Daily Mission Completed!\n${result.dailyName}`); };
+            }
+          }
+
+          // Success message
+          if (window.ModalManager) { window.ModalManager.showInfo(`Success!\n\n+${totalExp.toLocaleString()} EXP\n${levelsGained > 0 ? `Gained ${levelsGained} level${levelsGained > 1 ? 's' : ''}!` : 'EXP stored for next level'}\n\nNew Level: ${newLevel}/${cap}`); }
+
+          // Close modal and refresh grid
+          closeRamenModal();
+          renderGrid();
+        },
+        () => {
+          // User cancelled
+        }
+      );
+      return;
+    }
+
+    // Fallback if ModalManager not available
     // Consume all selected ramen
     for (const [ramenId, amount] of selectedRamen) {
       window.Resources.subtract(ramenId, amount);
@@ -789,36 +823,56 @@
 
       // Build selection dialog
       const nextAbility = c.abilities[currentUnlocks];
-      let message = `Feed a duplicate to unlock the next ability:\n\n`;
-      message += `Ability ${currentUnlocks + 1}/${c.abilities.length}: ${nextAbility.name}\n`;
-      message += `${nextAbility.description}\n\n`;
-      message += `Available duplicates:\n`;
-      duplicates.forEach((dupe, idx) => {
+
+      const options = duplicates.map(dupe => {
         const dupeStars = starsFromTier(dupe.tierCode || minTier(c));
-        message += `${idx + 1}. Lv ${dupe.level} (${dupeStars}★) - UID: ${dupe.uid.substring(0, 8)}\n`;
+        return {
+          id: dupe.uid,
+          name: `Level ${dupe.level} (${dupeStars} stars)`,
+          description: `UID: ${dupe.uid.substring(0, 8)}`
+        };
       });
-      message += `\nEnter the number of the duplicate to feed (1-${duplicates.length}):`;
 
-      const selection = prompt(message);
-      if (!selection) return;
+      if (window.ModalManager) {
+        window.ModalManager.showSelection(
+          `Feed Duplicate - Unlock: ${nextAbility.name}\n${nextAbility.description}`,
+          options,
+          (selected) => {
+            const selectedDupe = duplicates.find(d => d.uid === selected.id);
+            if (!selectedDupe) return;
 
-      const selectedIdx = parseInt(selection) - 1;
-      if (isNaN(selectedIdx) || selectedIdx < 0 || selectedIdx >= duplicates.length) {
-        if (window.ModalManager) { window.ModalManager.showInfo("Invalid selection!"); };
+            // Confirm the feeding
+            const dupeStars = starsFromTier(selectedDupe.tierCode || minTier(c));
+            const confirmMsg = `Are you sure you want to feed this duplicate?\n\n` +
+                              `Feeding: Lv ${selectedDupe.level} (${dupeStars} stars)\n` +
+                              `To unlock: ${nextAbility.name}\n\n` +
+                              `This will permanently remove the duplicate from your inventory.`;
+
+            window.ModalManager.showConfirm(
+              confirmMsg,
+              () => {
+                // Feed the duplicate
+                if (window.characterDupeAbilities) {
+                  const result = window.characterDupeAbilities.feedDuplicateForAbility(inst, selectedDupe, c);
+
+                  if (result.success) {
+                    if (window.ModalManager) { window.ModalManager.showSuccess(`Ability Unlocked!\n\n${result.abilityName}\n${result.abilityDescription}\n\nProgress: ${result.unlockedCount}/${result.maxAbilities}`); };
+                    renderGrid();
+                    openModal(inst.uid);
+                  } else {
+                    if (window.ModalManager) { window.ModalManager.showInfo(result.message); };
+                  }
+                }
+              },
+              null
+            );
+          },
+          null
+        );
         return;
       }
 
-      const selectedDupe = duplicates[selectedIdx];
-
-      // Confirm the feeding
-      const dupeStars = starsFromTier(selectedDupe.tierCode || minTier(c));
-      const confirmMsg = `Are you sure you want to feed this duplicate?\n\n` +
-                        `Feeding: Lv ${selectedDupe.level} (${dupeStars}★)\n` +
-                        `To unlock: ${nextAbility.name}\n\n` +
-                        `This will permanently remove the duplicate from your inventory.`;
-
-      if (!confirm(confirmMsg)) return;
-
+      // Fallback (should not reach here if ModalManager loaded)
       // Feed the duplicate
       if (window.characterDupeAbilities) {
         const result = window.characterDupeAbilities.unlockNextAbility(inst.uid);
@@ -957,27 +1011,32 @@
           costStr += `${matInfo.name}: ${amt}\n`;
         }
 
-        if (!confirm(`Limit Break ${c.name}?\n\n${costStr}`)) {
+        if (window.ModalManager) {
+          window.ModalManager.showConfirm(
+            `Limit Break ${c.name}?\n\n${costStr}`,
+            async () => {
+              const res = await window.LimitBreak.performLimitBreak(inst, c);
+
+              if (!res?.ok) {
+                if (window.ModalManager) { window.ModalManager.showError(res.reason === "INSUFFICIENT_MATERIALS"
+                  ? "Insufficient materials!"
+                  : "Limit break failed!"); };
+                return;
+              }
+
+              // Update instance
+              window.InventoryChar.updateInstance(inst.uid, { limitBreakLevel: res.limitBreakLevel });
+              const fresh = window.InventoryChar.getByUid(inst.uid);
+
+              await window.renderStatusTab(c, fresh, tier);
+              renderGrid();
+
+              if (window.ModalManager) { window.ModalManager.showSuccess(`Limit Break successful! ${c.name} is now LB${res.limitBreakLevel}!`); };
+            },
+            null
+          );
           return;
         }
-
-        const res = await window.LimitBreak.performLimitBreak(inst, c);
-
-        if (!res?.ok) {
-          if (window.ModalManager) { window.ModalManager.showInfo(res.reason === "INSUFFICIENT_MATERIALS"
-            ? "Insufficient materials!"
-            : "Limit break failed!"); };
-          return;
-        }
-
-        // Update instance
-        window.InventoryChar.updateInstance(inst.uid, { limitBreakLevel: res.limitBreakLevel });
-        const fresh = window.InventoryChar.getByUid(inst.uid);
-
-        await window.renderStatusTab(c, fresh, tier);
-        renderGrid();
-
-        if (window.ModalManager) { window.ModalManager.showInfo(`Limit Break successful! ${c.name} is now LB${res.limitBreakLevel}!`); };
       };
     }
   }
