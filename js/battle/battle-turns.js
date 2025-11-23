@@ -270,6 +270,11 @@
       if (core.overlay) core.overlay.clear();
       this.clearEnemyHighlights(core);
 
+      // Update collective chakra and check for commander ultimate
+      if (core.updateCollectiveChakra) {
+        core.updateCollectiveChakra();
+      }
+
       // Unlock turn system
       this.turnLocked = false;
       this.currentUnit = null;

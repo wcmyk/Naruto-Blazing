@@ -32,6 +32,11 @@
     enemyTeam: [],
     combatants: [],
 
+    commander: null,          // Commander unit (off-field)
+    commanderBuffs: [],       // Active commander buffs
+    collectiveChakra: 0,      // Total team chakra for commander ultimate
+    commanderUltimateUsed: false, // Track if commander ultimate was triggered
+
     isPaused: true,
     speedMultiplier: 1,
     queuedAction: null,
@@ -166,7 +171,12 @@
         battleResult: document.getElementById("battle-result"),
         resultTitle: document.getElementById("result-title"),
         resultStats: document.getElementById("result-stats"),
-        btnContinue: document.getElementById("btn-continue")
+        btnContinue: document.getElementById("btn-continue"),
+
+        // Commander UI elements
+        commanderDisplay: document.getElementById("commander-display"),
+        commanderName: document.getElementById("commander-name"),
+        collectiveChakraText: document.getElementById("collective-chakra-text")
       };
 
       console.log("[BattleCore] DOM cached:", Object.keys(this.dom).filter(k => this.dom[k]).length, "elements found");
@@ -321,6 +331,14 @@
 
       console.log("[BattleCore] ✅ Loaded:", this.activeTeam.length, "active,", this.benchTeam.length, "bench");
 
+      // Load Commander (off-field support)
+      this.loadCommander(teamSlots);
+
+      // Apply commander buffs to team
+      if (this.commander && this.commanderBuffs.length > 0) {
+        this.applyCommanderBuffs();
+      }
+
       // Fallback if no team loaded
       if (this.activeTeam.length === 0) {
         console.warn("[BattleCore] No active team! Creating fallback...");
@@ -333,6 +351,224 @@
       }
       this.updateTeamHP();
       this.updateCombatants();
+    },
+
+    /* ===== Commander System ===== */
+
+    loadCommander(teamSlots) {
+      const commanderSlot = teamSlots.commander;
+      if (!commanderSlot?.uid) {
+        console.log("[BattleCore] No commander assigned");
+        return;
+      }
+
+      const inst = window.InventoryChar?.getByUid(commanderSlot.uid);
+      const base = this.charactersData.find(c => c.id === commanderSlot.charId);
+
+      if (!inst || !base) {
+        console.warn("[BattleCore] Commander data not found");
+        return;
+      }
+
+      const tier = inst.tierCode || base.starMinCode || "3S";
+      const stars = this.getStarsFromTier(tier);
+      const element = base.element || 'heart';
+
+      this.commander = {
+        base,
+        inst,
+        tier,
+        stars,
+        element: element.toLowerCase(),
+        name: base.name,
+        ultimate: this.getCommanderUltimate(base, tier)
+      };
+
+      // Calculate commander buffs
+      this.commanderBuffs = this.calculateCommanderBuffs(element, stars);
+
+      console.log(`[BattleCore] 🎖️ Commander loaded: ${base.name} (${stars}★ ${element})`);
+      console.log(`[BattleCore] 📊 Commander buffs:`, this.commanderBuffs);
+
+      // Show commander UI
+      this.showCommanderUI();
+    },
+
+    showCommanderUI() {
+      if (!this.commander || !this.dom.commanderDisplay) return;
+
+      this.dom.commanderDisplay.classList.remove('hidden');
+      if (this.dom.commanderName) {
+        this.dom.commanderName.textContent = this.commander.name;
+      }
+      this.updateCollectiveChakraUI();
+    },
+
+    updateCollectiveChakraUI() {
+      if (!this.dom.collectiveChakraText) return;
+
+      this.dom.collectiveChakraText.textContent = this.collectiveChakra;
+
+      // Add visual indicator when ready for ultimate
+      if (this.collectiveChakra >= 16 && !this.commanderUltimateUsed) {
+        this.dom.collectiveChakraText.classList.add('ready');
+      } else {
+        this.dom.collectiveChakraText.classList.remove('ready');
+      }
+    },
+
+    getStarsFromTier(code) {
+      const map = {
+        "3S":3,"4S":4,"5S":5,"6S":6,"6SB":6,"7S":7,"7SL":7,
+        "8S":8,"8SM":8,"9S":9,"9ST":9,"10SO":10
+      };
+      return map[code] || 5;
+    },
+
+    calculateCommanderBuffs(element, stars) {
+      const buffs = [];
+
+      // Baseline buffs at 5 stars
+      const baselineBuffs = {
+        body: [{ type: 'atk', value: 4, label: 'ATK' }],
+        bravery: [
+          { type: 'atk', value: 3, label: 'ATK' },
+          { type: 'hp', value: 1, label: 'HP' }
+        ],
+        wisdom: [
+          { type: 'atk', value: 3, label: 'ATK' },
+          { type: 'hp', value: 1, label: 'HP' }
+        ],
+        heart: [{ type: 'atk', value: 4, label: 'ATK' }],
+        skill: [{ type: 'speed', value: 4, label: 'Speed' }]
+      };
+
+      const elementBuffs = baselineBuffs[element] || [];
+
+      // Calculate scaling: 5 stars = baseline, 10 stars = 20%
+      const starMultiplier = stars >= 5 ? (stars - 5) / 5 : 0;
+
+      elementBuffs.forEach(buff => {
+        const scaledValue = buff.value + starMultiplier * (20 - buff.value);
+        buffs.push({
+          type: buff.type,
+          value: scaledValue / 100, // Convert to multiplier (e.g., 4% = 0.04)
+          percent: Math.round(scaledValue * 10) / 10,
+          label: buff.label
+        });
+      });
+
+      return buffs;
+    },
+
+    getCommanderUltimate(char, tierCode) {
+      if (!char?.skills?.ultimate) return null;
+
+      const ultimate = char.skills.ultimate;
+      const tierData = ultimate.byTier?.[tierCode] || ultimate.byTier?.[Object.keys(ultimate.byTier || {})[0]];
+
+      if (!tierData) return null;
+
+      return {
+        name: ultimate.name || "Commander Ultimate",
+        description: tierData.description || "Powerful ultimate attack",
+        chakraCost: tierData.chakraCost || 0,
+        range: tierData.range || "Unknown",
+        hits: tierData.hits || 0,
+        multiplier: tierData.multiplier || "Unknown",
+        effects: tierData.effects || {}
+      };
+    },
+
+    applyCommanderBuffs() {
+      console.log("[BattleCore] Applying commander buffs to team...");
+
+      this.activeTeam.forEach(unit => {
+        if (!unit || !unit.stats) return;
+
+        this.commanderBuffs.forEach(buff => {
+          const before = unit.stats[buff.type];
+
+          if (buff.type === 'atk') {
+            unit.stats.atk = Math.floor(unit.stats.atk * (1 + buff.value));
+          } else if (buff.type === 'hp') {
+            const hpBoost = Math.floor(unit.stats.maxHP * buff.value);
+            unit.stats.maxHP += hpBoost;
+            unit.stats.hp += hpBoost;
+          } else if (buff.type === 'speed') {
+            unit.stats.speed = Math.floor(unit.stats.speed * (1 + buff.value));
+          }
+
+          const after = unit.stats[buff.type];
+          console.log(`  ${unit.name}: ${buff.label} ${before} → ${after} (+${buff.percent}%)`);
+        });
+      });
+    },
+
+    updateCollectiveChakra() {
+      this.collectiveChakra = this.activeTeam.reduce((sum, unit) => {
+        return sum + (unit?.chakra || 0);
+      }, 0);
+
+      // Update UI
+      this.updateCollectiveChakraUI();
+
+      // Check for commander ultimate trigger
+      if (!this.commanderUltimateUsed && this.collectiveChakra >= 16 && this.commander?.ultimate) {
+        this.triggerCommanderUltimate();
+      }
+
+      return this.collectiveChakra;
+    },
+
+    triggerCommanderUltimate() {
+      if (!this.commander || !this.commander.ultimate || this.commanderUltimateUsed) return;
+
+      console.log(`[BattleCore] 💥 COMMANDER ULTIMATE TRIGGERED! (Collective Chakra: ${this.collectiveChakra})`);
+      console.log(`[BattleCore] ${this.commander.name}: ${this.commander.ultimate.name}`);
+
+      this.commanderUltimateUsed = true;
+
+      // Show narrator message
+      if (window.BattleNarrator) {
+        window.BattleNarrator.showAction?.(
+          `${this.commander.name}: ${this.commander.ultimate.name}!`,
+          "ultimate",
+          this.dom
+        );
+      }
+
+      // Apply ultimate effects to enemies
+      if (this.commander.ultimate.effects && window.BattleBuffs) {
+        const targets = this.commander.ultimate.range?.toLowerCase().includes("all")
+          ? this.enemyTeam.filter(e => e && !e.isKO)
+          : [this.enemyTeam.find(e => e && !e.isKO)].filter(Boolean);
+
+        if (targets.length > 0) {
+          // Apply damage/effects
+          const ultimate = this.commander.ultimate;
+          const multiplier = parseFloat(ultimate.multiplier) || 10;
+
+          // Use average team ATK as base damage
+          const avgAtk = this.activeTeam.reduce((sum, u) => sum + (u?.stats?.atk || 0), 0) / this.activeTeam.length;
+          const baseDamage = Math.floor(avgAtk * multiplier);
+
+          targets.forEach(enemy => {
+            if (this.combat && this.combat.dealDamage) {
+              this.combat.dealDamage(enemy, baseDamage, this, { isUltimate: true });
+            }
+          });
+
+          // Apply any buff/debuff effects
+          window.BattleBuffs.applyBuffEffects?.(
+            this,
+            { name: this.commander.name },
+            targets,
+            ultimate.effects,
+            "commander_ultimate"
+          );
+        }
+      }
     },
 
     /* ===== Fallback Methods (when modules not loaded) ===== */
