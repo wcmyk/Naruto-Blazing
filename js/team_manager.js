@@ -29,6 +29,11 @@
   const totalCostEl = document.getElementById("total-cost");
   const totalHealthEl = document.getElementById("total-health");
 
+  // Commander DOM elements
+  const commanderBuffDisplay = document.getElementById("commander-buff-display");
+  const commanderUltimateImg = document.getElementById("commander-ultimate-img");
+  const commanderUltimateInfo = document.getElementById("commander-ultimate-info");
+
   const previewModal = document.getElementById("char-preview-modal");
   const previewClose = document.getElementById("preview-close");
   const previewImg = document.getElementById("preview-img");
@@ -118,6 +123,77 @@
   const starCode = (char) => char?.starMaxCode || char?.starMinCode || `${char?.rarity || 1}S`;
 
   /* =========================
+   * Commander System Functions
+   * ========================= */
+
+  /**
+   * Calculate commander buffs based on element and star level
+   * @param {string} element - Character element (body, bravery, wisdom, heart, skill)
+   * @param {number} stars - Star rating (5-10)
+   * @returns {Array} Array of buff objects
+   */
+  function calculateCommanderBuffs(element, stars) {
+    const buffs = [];
+
+    // Baseline buffs at 5 stars
+    const baselineBuffs = {
+      body: [{ type: 'atk', value: 4, icon: '⚔️', label: 'ATK' }],
+      bravery: [
+        { type: 'atk', value: 3, icon: '⚔️', label: 'ATK' },
+        { type: 'hp', value: 1, icon: '❤️', label: 'Health' }
+      ],
+      wisdom: [
+        { type: 'atk', value: 3, icon: '⚔️', label: 'ATK' },
+        { type: 'hp', value: 1, icon: '❤️', label: 'Health' }
+      ],
+      heart: [{ type: 'atk', value: 4, icon: '⚔️', label: 'ATK' }],
+      skill: [{ type: 'speed', value: 4, icon: '⚡', label: 'Speed' }]
+    };
+
+    const elementBuffs = baselineBuffs[element?.toLowerCase()] || [];
+
+    // Calculate scaling: 5 stars = baseline, 10 stars = 20%
+    // Linear interpolation: buff = baseline + (stars - 5) * ((20 - baseline) / 5)
+    const starMultiplier = stars >= 5 ? (stars - 5) / 5 : 0;
+
+    elementBuffs.forEach(buff => {
+      const scaledValue = buff.value + starMultiplier * (20 - buff.value);
+      buffs.push({
+        type: buff.type,
+        value: Math.round(scaledValue * 10) / 10, // Round to 1 decimal
+        icon: buff.icon,
+        label: buff.label
+      });
+    });
+
+    return buffs;
+  }
+
+  /**
+   * Extract ultimate data from character JSON
+   * @param {Object} char - Character object
+   * @param {string} tierCode - Star tier code (e.g., "6S", "10SO")
+   * @returns {Object|null} Ultimate data or null
+   */
+  function getCommanderUltimate(char, tierCode) {
+    if (!char?.skills?.ultimate) return null;
+
+    const ultimate = char.skills.ultimate;
+    const tierData = ultimate.byTier?.[tierCode] || ultimate.byTier?.[Object.keys(ultimate.byTier || {})[0]];
+
+    if (!tierData) return null;
+
+    return {
+      name: ultimate.name || "Commander Ultimate",
+      description: tierData.description || "Powerful ultimate attack",
+      chakraCost: tierData.chakraCost || 0,
+      range: tierData.range || "Unknown",
+      hits: tierData.hits || 0,
+      multiplier: tierData.multiplier || "Unknown"
+    };
+  }
+
+  /* =========================
    * Load Character Data
    * ========================= */
   async function loadCharacters() {
@@ -198,6 +274,87 @@
     `;
   }
 
+  function renderCommanderInfo() {
+    const team = teams[currentTeam] || {};
+    const commanderAssignment = team.commander;
+    const commanderSlot = document.querySelector('.commander-slot');
+
+    if (!commanderAssignment?.uid || !commanderBuffDisplay || !commanderUltimateImg || !commanderUltimateInfo) {
+      // No commander assigned - show empty state
+      if (commanderBuffDisplay) {
+        commanderBuffDisplay.innerHTML = '<span class="no-commander">No commander assigned</span>';
+      }
+      if (commanderUltimateImg) {
+        commanderUltimateImg.innerHTML = '<span class="no-ultimate">Assign a commander to view ultimate</span>';
+      }
+      if (commanderUltimateInfo) {
+        commanderUltimateInfo.innerHTML = `
+          <div class="ultimate-name">-</div>
+          <div class="ultimate-description">Ultimate triggers when team chakra reaches 16</div>
+        `;
+      }
+      if (commanderSlot) {
+        commanderSlot.removeAttribute('data-element');
+      }
+      return;
+    }
+
+    const inst = window.InventoryChar?.getByUid(commanderAssignment.uid);
+    const char = BYID[commanderAssignment.charId];
+
+    if (!inst || !char) {
+      renderCommanderInfo(); // Recursively call with no commander
+      return;
+    }
+
+    const tier = inst.tierCode || minTier(char);
+    const stars = starsFromTier(tier);
+    const element = char.element || 'heart'; // Fallback to heart if no element
+
+    // Set element attribute for styling
+    if (commanderSlot) {
+      commanderSlot.setAttribute('data-element', element.toLowerCase());
+    }
+
+    // Calculate and display buffs
+    const buffs = calculateCommanderBuffs(element, stars);
+    if (commanderBuffDisplay) {
+      commanderBuffDisplay.innerHTML = buffs.map(buff => `
+        <div class="buff-item">
+          <span class="buff-icon">${buff.icon}</span>
+          <span class="buff-text">+${buff.value}% ${buff.label}</span>
+        </div>
+      `).join('');
+    }
+
+    // Display ultimate info
+    const ultimate = getCommanderUltimate(char, tier);
+    if (ultimate && commanderUltimateInfo) {
+      commanderUltimateInfo.innerHTML = `
+        <div class="ultimate-name">${ultimate.name}</div>
+        <div class="ultimate-description">${ultimate.description}</div>
+        <div class="ultimate-stats">
+          <span class="ultimate-stat-badge">Chakra: ${ultimate.chakraCost}</span>
+          <span class="ultimate-stat-badge">Range: ${ultimate.range}</span>
+          <span class="ultimate-stat-badge">Hits: ${ultimate.hits}</span>
+          <span class="ultimate-stat-badge">Power: ${ultimate.multiplier}</span>
+        </div>
+      `;
+    } else {
+      commanderUltimateInfo.innerHTML = `
+        <div class="ultimate-name">No Ultimate Data</div>
+        <div class="ultimate-description">Ultimate triggers when team chakra reaches 16</div>
+      `;
+    }
+
+    // Display ultimate image placeholder
+    if (commanderUltimateImg) {
+      commanderUltimateImg.innerHTML = `
+        <span class="no-ultimate">Ultimate PNG<br>(To be added)</span>
+      `;
+    }
+  }
+
   function renderTeam() {
     const team = teams[currentTeam] || {};
 
@@ -221,6 +378,7 @@
     });
 
     updateTeamStats();
+    renderCommanderInfo();
     renderCharacterGrid();
   }
 
@@ -262,6 +420,7 @@
   function renderCharacterGrid(filter = "") {
     const instances = window.InventoryChar?.allInstances() || [];
     const team = teams[currentTeam] || {};
+    // Include commander in assigned UIDs
     const assignedUids = new Set(Object.values(team).map(a => a?.uid).filter(Boolean));
 
     const filterLower = filter.toLowerCase();
@@ -360,6 +519,7 @@
       }
 
       const slotId = slot.dataset.slot;
+      const slotType = slot.dataset.type; // "active" or "commander"
       const team = teams[currentTeam];
 
       // Check if already assigned elsewhere
@@ -377,7 +537,7 @@
       saveTeams();
       renderTeam();
 
-      console.log("[Team Manager] Character assigned to", slotId);
+      console.log("[Team Manager] Character assigned to", slotId, `(${slotType})`);
 
     } catch (err) {
       console.error("[Team Manager] Drop failed:", err);
@@ -490,7 +650,8 @@
       data?.uid === selectedChar.uid
     );
     if (alreadyAssigned) {
-      alert(`This character is already assigned to ${alreadyAssigned[0]}!`);
+      const slotLabel = alreadyAssigned[0] === 'commander' ? 'Commander' : alreadyAssigned[0];
+      alert(`This character is already assigned to ${slotLabel}!`);
       return;
     }
 
