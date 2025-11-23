@@ -272,20 +272,37 @@ window.addCharacterById = async function (charId) {
     const found = list.find((c) => c.id === charId);
 
     if (!found) {
-      alert(`❌ Character ID '${charId}' not found in characters.json`);
+      if (window.ModalManager) { window.ModalManager.showError(` Character ID '${charId}' not found in characters.json`); };
       return;
     }
 
     if (typeof window.InventoryChar === "undefined") {
-      alert("⚠️ Inventory system not initialized yet.");
+      if (window.ModalManager) { window.ModalManager.showInfo(" Inventory system not initialized yet."); };
       return;
     }
 
     // Prevent duplicates unless intentionally adding more copies
     const existing = window.InventoryChar.instancesOf(charId);
     if (existing.length > 0) {
-      const addCopy = confirm(`${found.name} already exists. Add another copy?`);
-      if (!addCopy) return;
+      if (window.ModalManager) {
+        window.ModalManager.showConfirm(
+          `${found.name} already exists. Add another copy?`,
+          () => {
+            const newInst = window.InventoryChar.addCopy(found.id, 1);
+            localStorage.setItem("blazing_inventory_v2", JSON.stringify(window.InventoryChar.allInstances()));
+
+            // Refresh if on characters page
+            if (typeof window.refreshCharacterGrid === "function") {
+              window.refreshCharacterGrid();
+            }
+
+            window.ModalManager.showSuccess(`Added ${found.name}${found.version ? ` (${found.version})` : ""} to your roster!`);
+            console.log("[AddCharacterById] Added:", newInst, found);
+          },
+          null
+        );
+        return;
+      }
     }
 
     const newInst = window.InventoryChar.addCopy(found.id, 1);
@@ -296,10 +313,10 @@ window.addCharacterById = async function (charId) {
       window.refreshCharacterGrid();
     }
 
-    alert(`✅ Added ${found.name}${found.version ? ` (${found.version})` : ""} to your roster!`);
+    if (window.ModalManager) { window.ModalManager.showSuccess(`Added ${found.name}${found.version ? ` (${found.version})` : ""} to your roster!`); }
     console.log("[AddCharacterById] Added:", newInst, found);
   } catch (err) {
     console.error("[AddCharacterById] Failed:", err);
-    alert("⚠️ Failed to add character — see console for details.");
+    if (window.ModalManager) { window.ModalManager.showInfo(" Failed to add character — see console for details."); };
   }
 };
