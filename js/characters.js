@@ -248,7 +248,7 @@
 
     renderStatusTab(c, inst, tier);
     renderSkillsTab(c, inst, tier);
-    renderSupportTab(c);
+    renderSupportTab(c, inst, tier);
     renderAbilitiesTab(c, inst);
     setActiveTab("status");
 
@@ -1083,10 +1083,45 @@
   window.renderSkillsTab = renderSkillsTab;
 
   /* ---------- F/B SKILLS tab ---------- */
-  function renderSupportTab(c) {
+  function renderSupportTab(c, inst, tier) {
     const blocks = [];
-    if (c.fieldSkill) blocks.push(`<div class="support-box"><strong>Field Skill</strong><div>${c.fieldSkill}</div></div>`);
-    if (c.buddySkill) blocks.push(`<div class="support-box"><strong>Buddy Skill</strong><div>${c.buddySkill}</div></div>`);
+
+    // Handle field skill (can be string or nested object)
+    const fieldSkill = c.fieldSkill || c.skills?.fieldSkill;
+    if (fieldSkill) {
+      let fieldText = '';
+      if (typeof fieldSkill === 'string') {
+        fieldText = fieldSkill;
+      } else if (fieldSkill.byTier) {
+        // Extract from byTier structure
+        const entry = pickTierSkillEntry(fieldSkill, tier, null);
+        fieldText = entry?.description || fieldSkill.description || fieldSkill.name || '';
+      } else {
+        fieldText = fieldSkill.description || fieldSkill.name || '';
+      }
+      if (fieldText) {
+        blocks.push(`<div class="support-box"><strong>Field Skill</strong><div>${fieldText}</div></div>`);
+      }
+    }
+
+    // Handle buddy skill (can be string or nested object)
+    const buddySkill = c.buddySkill || c.skills?.buddySkill;
+    if (buddySkill) {
+      let buddyText = '';
+      if (typeof buddySkill === 'string') {
+        buddyText = buddySkill;
+      } else if (buddySkill.byTier) {
+        // Extract from byTier structure
+        const entry = pickTierSkillEntry(buddySkill, tier, null);
+        buddyText = entry?.description || buddySkill.description || buddySkill.name || '';
+      } else {
+        buddyText = buddySkill.description || buddySkill.name || '';
+      }
+      if (buddyText) {
+        blocks.push(`<div class="support-box"><strong>Buddy Skill</strong><div>${buddyText}</div></div>`);
+      }
+    }
+
     if (Array.isArray(c.syncSkills) && c.syncSkills.length) {
       blocks.push(`<div class="support-box"><strong>Sync Skills</strong><ul>${c.syncSkills.map(s => `<li>${s.type ? `<em>${s.type}:</em> ` : ""}${s.effect || s}</li>`).join("")}</ul></div>`);
     }
