@@ -76,12 +76,49 @@ Commander data is stored in localStorage under `blazing_teams_v1`:
 ```
 
 ## Files Modified
+
+### Team Setup
 - `/home/user/Naruto-Blazing/teams.html` - Added commander UI section
 - `/home/user/Naruto-Blazing/css/teams.css` - Added commander styling
 - `/home/user/Naruto-Blazing/js/team_manager.js` - Added commander logic
 
+### Battle Integration
+- `/home/user/Naruto-Blazing/battle.html` - Added collective chakra display in HUD
+- `/home/user/Naruto-Blazing/css/battle.css` - Added commander HUD styling
+- `/home/user/Naruto-Blazing/js/battle/battle-core.js` - Implemented commander loading, buff application, and ultimate trigger
+- `/home/user/Naruto-Blazing/js/battle/battle-turns.js` - Added collective chakra tracking hook
+
+## Battle Implementation
+
+### How It Works in Battle
+
+1. **Battle Start**: Commander is loaded from team data, buffs are calculated and applied to all active team members
+2. **Buff Application**: Passive buffs are permanently applied to unit stats (ATK, HP, Speed)
+3. **Chakra Tracking**: After each turn, collective chakra is calculated (sum of all 4 active units' chakra)
+4. **Ultimate Trigger**: When collective chakra reaches 16+, commander ultimate automatically triggers once per battle
+5. **Ultimate Effects**: Applies damage and buff/debuff effects from character's ultimate skill data
+
+### Battle HUD Display
+
+The battle HUD shows:
+- Commander name
+- Collective chakra value (turns red and pulses when ≥16)
+- Threshold indicator (X/16)
+
+## Existing Systems
+
+### ✅ Character Abilities (WORKING)
+File: `js/battle/battle-passives.js`
+- Passive abilities from characters.json are automatically applied
+- Examples: HP bonuses, conditional ATK, turn-based regen, damage reduction
+
+### ✅ Buffs/Debuffs (WORKING)
+File: `js/battle/battle-buffs.js`
+- Full buff/debuff system with 20+ status effects
+- Debuff cleansing, timed effects, instant heals/revives
+
 ## Future Work
-1. Add ultimate PNG images for each character
-2. Implement ultimate trigger system in battle
-3. Apply passive buffs to team stats in battle
-4. Visual effects for ultimate activation
+1. Add ultimate PNG images for each character (container ready)
+2. Enhanced visual effects for commander ultimate activation
+3. Sound effects for ultimate trigger
+4. Commander-specific animations
