@@ -989,6 +989,13 @@
     return first ? skillObj.byTier[first] : null;
   }
 
+  // Helper to extract multiplier from description if not explicitly provided
+  function extractMultiplier(skillEntry) {
+    if (skillEntry.multiplier) return skillEntry.multiplier;
+    const match = skillEntry.description?.match(/(\d+\.?\d*x)/i);
+    return match ? match[1] : "-";
+  }
+
   function renderSkillsTab(c, inst, tier) {
     SKILLS_WRAP.innerHTML = "";
     const minT = minTier(c);
@@ -1006,6 +1013,7 @@
         // Check if jutsu is unlocked by level
         const lockStatus = jutsuUnlocked ? '' : ` <span style="color:#d8b86a">🔒 (Requires Lv 20)</span>`;
         const cardClass = jutsuUnlocked ? '' : ' locked';
+        const multiplier = extractMultiplier(e);
         cards.push(`
           <div class="skill-card${cardClass}">
             <div class="skill-header"><span class="skill-type">Ninjutsu</span><span class="skill-name">${safeStr(jutsu.name,"Ninjutsu")}${lockStatus}</span></div>
@@ -1014,7 +1022,7 @@
               <span>CD: <strong>${safeNum(e.cooldown,"-")}</strong></span>
               <span>Range: <strong>${safeStr(e.range,"-")}</strong></span>
               <span>Hits: <strong>${safeNum(e.hits,"-")}</strong></span>
-              <span>Mult: <strong>${safeStr(e.multiplier,"-")}</strong></span>
+              <span>Mult: <strong>${multiplier}</strong></span>
             </div>
             <div class="skill-desc">${safeStr(e.description,"")}</div>
           </div>
@@ -1028,6 +1036,7 @@
         // Check if ultimate is unlocked by level
         const lockStatus = ultimateUnlocked ? '' : ` <span style="color:#d8b86a">🔒 (Requires Lv 50)</span>`;
         const cardClass = ultimateUnlocked ? '' : ' locked';
+        const multiplier = extractMultiplier(e);
         cards.push(`
           <div class="skill-card ultimate${cardClass}">
             <div class="skill-header"><span class="skill-type">Ultimate</span><span class="skill-name">${safeStr(ultimate.name,"Ultimate")}${lockStatus}</span></div>
@@ -1036,7 +1045,7 @@
               <span>CD: <strong>${safeNum(e.cooldown,"-")}</strong></span>
               <span>Range: <strong>${safeStr(e.range,"-")}</strong></span>
               <span>Hits: <strong>${safeNum(e.hits,"-")}</strong></span>
-              <span>Mult: <strong>${safeStr(e.multiplier,"-")}</strong></span>
+              <span>Mult: <strong>${multiplier}</strong></span>
             </div>
             <div class="skill-desc">${safeStr(e.description,"")}</div>
           </div>
