@@ -87,17 +87,19 @@
 
   // ---------- Editor Dialog ----------
   function openEditor() {
-    const newName = prompt(`Enter your username (max 20 characters):\n\nCurrent: ${_username}`, _username);
-
-    if (newName === null) {
-      // User cancelled
-      return;
-    }
-
-    if (setUsername(newName)) {
-      alert(`✅ Username updated to: ${getUsername()}`);
-    } else {
-      alert("❌ Invalid username. Please try again.\n\n- Must be 1-20 characters\n- Cannot be empty");
+    if (window.ModalManager) {
+      window.ModalManager.showPrompt(
+        `Enter your username (max 20 characters):\n\nCurrent: ${_username}`,
+        _username,
+        (newName) => {
+          if (setUsername(newName)) {
+            window.ModalManager.showSuccess(`Username updated to: ${getUsername()}`);
+          } else {
+            window.ModalManager.showError('Invalid username. Please try again.\n\n- Must be 1-20 characters\n- Cannot be empty');
+          }
+        },
+        null
+      );
     }
   }
 

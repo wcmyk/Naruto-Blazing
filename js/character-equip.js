@@ -83,7 +83,9 @@
     if (!canCharacterEquipUltimate(characterId, ultimateId)) {
       const ultimate = _ultimates[ultimateId];
       console.warn(`[CharacterEquip] ${characterId} cannot equip ${ultimate.name}`);
-      alert(`❌ ${characterId} cannot equip ${ultimate.name}.\n\nThis ultimate can only be equipped by specific characters.`);
+      if (window.ModalManager) {
+        window.ModalManager.showError(`${characterId} cannot equip ${ultimate.name}.\n\nThis ultimate can only be equipped by specific characters.`);
+      }
       return false;
     }
 
@@ -151,27 +153,32 @@
     const ultimatesList = getAvailableUltimatesForCharacter(characterId);
 
     if (ultimatesList.length === 0) {
-      alert(`❌ No equippable ultimates available for this character.\n\nCheck back later for more ultimates!`);
+      if (window.ModalManager) {
+        window.ModalManager.showError('No equippable ultimates available for this character.\n\nCheck back later for more ultimates!');
+      }
       return;
     }
 
-    let message = "Select an Ultimate to Equip:\n\n";
-    ultimatesList.forEach((ult, idx) => {
-      message += `${idx + 1}. ${ult.icon} ${ult.name}\n`;
-      message += `   Cost: ${ult.chakraCost} Chakra | Power: ${ult.power}%\n`;
-      message += `   ${ult.description.substring(0, 60)}...\n\n`;
-    });
-    message += `${ultimatesList.length + 1}. Cancel\n\nEnter number:`;
+    // Format options for selection modal
+    const options = ultimatesList.map(ult => ({
+      id: ult.id,
+      name: `${ult.icon} ${ult.name}`,
+      description: `Cost: ${ult.chakraCost} Chakra | Power: ${ult.power}% | ${ult.description.substring(0, 60)}...`
+    }));
 
-    const choice = prompt(message);
-    const num = parseInt(choice);
-
-    if (num >= 1 && num <= ultimatesList.length) {
-      const selected = ultimatesList[num - 1];
-      if (equipUltimate(characterId, selected.id)) {
-        updateEquipUI(characterId);
-        alert(`✅ Equipped ${selected.icon} ${selected.name}!`);
-      }
+    if (window.ModalManager) {
+      window.ModalManager.showSelection(
+        'Select Ultimate to Equip',
+        options,
+        (selected) => {
+          if (equipUltimate(characterId, selected.id)) {
+            updateEquipUI(characterId);
+            const ult = getUltimateData(selected.id);
+            window.ModalManager.showSuccess(`Equipped ${ult.icon} ${ult.name}!`);
+          }
+        },
+        null
+      );
     }
   }
 
@@ -189,22 +196,32 @@
 
     if (btnUnequip) {
       btnUnequip.addEventListener('click', () => {
-        if (confirm('Are you sure you want to unequip this ultimate?')) {
-          unequipUltimate(characterId);
-          updateEquipUI(characterId);
-          alert('Ultimate unequipped successfully');
+        if (window.ModalManager) {
+          window.ModalManager.showConfirm(
+            'Are you sure you want to unequip this ultimate?',
+            () => {
+              unequipUltimate(characterId);
+              updateEquipUI(characterId);
+              window.ModalManager.showSuccess('Ultimate unequipped successfully');
+            },
+            null
+          );
         }
       });
     }
 
     if (infoIcon) {
       infoIcon.addEventListener('click', () => {
-        alert('Equipped Ultimate Information:\n\n' +
-              '• Ultimates can only be used once per battle\n' +
-              '• They have powerful effects that can turn the tide of battle\n' +
-              '• Perform 3 basic attacks to charge your ultimate\n' +
-              '• Using ninjutsu resets your basic attack counter\n' +
-              '• Choose ultimates that complement your team strategy');
+        if (window.ModalManager) {
+          window.ModalManager.showInfo(
+            'Equipped Ultimate Information:\n\n' +
+            '• Ultimates can only be used once per battle\n' +
+            '• They have powerful effects that can turn the tide of battle\n' +
+            '• Perform 3 basic attacks to charge your ultimate\n' +
+            '• Using ninjutsu resets your basic attack counter\n' +
+            '• Choose ultimates that complement your team strategy'
+          );
+        }
       });
     }
 

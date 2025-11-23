@@ -231,36 +231,49 @@
       }
 
       if (availableCharacters.length === 0) {
-        alert("You don't have any characters yet! Summon or add a character first.");
+        if (window.ModalManager) {
+          window.ModalManager.showInfo("You don't have any characters yet! Summon or add a character first.");
+        }
         return;
       }
 
-      // Create selection prompt
-      let message = "Select a character for your village display:\n\n";
-      availableCharacters.forEach((char, idx) => {
-        message += `${idx + 1}. ${char.name} (${char.version})\n`;
+      // Create options for selection modal
+      const options = availableCharacters.map(char => ({
+        id: char.id,
+        name: `${char.name}`,
+        description: char.version || ''
+      }));
+
+      // Add "None" option
+      options.push({
+        id: null,
+        name: 'None',
+        description: 'Disable character display'
       });
-      message += `\n${availableCharacters.length + 1}. None (disable display)\n`;
-      message += "\nEnter number:";
 
-      const choice = prompt(message);
-      const num = parseInt(choice);
-
-      if (num >= 1 && num <= availableCharacters.length) {
-        const selected = availableCharacters[num - 1];
-        setSelectedCharacter(selected.id);
-        displayCharacter();
-        alert(`✅ Now displaying: ${selected.name}!`);
-      } else if (num === availableCharacters.length + 1) {
-        setSelectedCharacter(null);
-        displayCharacter();
-        alert("Character display disabled.");
-      } else {
-        alert("Invalid selection.");
+      if (window.ModalManager) {
+        window.ModalManager.showSelection(
+          'Select Village Display Character',
+          options,
+          (selected) => {
+            if (selected.id === null) {
+              setSelectedCharacter(null);
+              displayCharacter();
+              window.ModalManager.showSuccess('Character display disabled.');
+            } else {
+              setSelectedCharacter(selected.id);
+              displayCharacter();
+              window.ModalManager.showSuccess(`Now displaying: ${selected.name}!`);
+            }
+          },
+          null
+        );
       }
     } catch (err) {
       console.error("[CharacterVignette] Error in character selector:", err);
-      alert("Failed to load characters. Please try again.");
+      if (window.ModalManager) {
+        window.ModalManager.showError('Failed to load characters. Please try again.');
+      }
     }
   }
 

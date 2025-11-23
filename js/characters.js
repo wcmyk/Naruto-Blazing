@@ -390,7 +390,9 @@
       .filter(inst => inst.uid !== mainInst.uid); // Exclude the main character
 
     if (dupes.length === 0) {
-      alert("No duplicates available to feed!");
+      if (window.ModalManager) {
+        window.ModalManager.showInfo("No duplicates available to feed!");
+      }
       return;
     }
 
@@ -460,7 +462,7 @@
         'CHARACTER_MISMATCH': "Characters don't match!",
         'ALL_ABILITIES_UNLOCKED': "All abilities are already unlocked!"
       };
-      alert(messages[result.reason] || "Failed to feed duplicate!");
+      if (window.ModalManager) { window.ModalManager.showInfo(messages[result.reason] || "Failed to feed duplicate!"); };
       return;
     }
 
@@ -487,11 +489,11 @@
     if (window.DailyMissions) {
       const dailyResult = await window.DailyMissions.incrementDaily('daily_feed_dupe');
       if (dailyResult && dailyResult.completed) {
-        alert(`Daily Mission Completed!\n${dailyResult.dailyName}`);
+        if (window.ModalManager) { window.ModalManager.showInfo(`Daily Mission Completed!\n${dailyResult.dailyName}`); };
       }
     }
 
-    alert(`Ability unlocked!\n\n${result.unlockedAbility.name}\n${result.unlockedAbility.description || result.unlockedAbility}\n\nTotal: ${result.totalUnlocked}/${result.maxAbilities} abilities unlocked`);
+    if (window.ModalManager) { window.ModalManager.showInfo(`Ability unlocked!\n\n${result.unlockedAbility.name}\n${result.unlockedAbility.description || result.unlockedAbility}\n\nTotal: ${result.totalUnlocked}/${result.maxAbilities} abilities unlocked`); };
   }
 
   if (DUPE_CANCEL) {
@@ -509,7 +511,7 @@
 
   function openRamenSelector(inst, character) {
     if (!hasResources) {
-      alert("Resources system not available!");
+      if (window.ModalManager) { window.ModalManager.showInfo("Resources system not available!"); };
       return;
     }
 
@@ -527,7 +529,7 @@
     const currentLevel = inst.level || 1;
 
     if (currentLevel >= cap) {
-      alert("Character is already at max level!");
+      if (window.ModalManager) { window.ModalManager.showInfo("Character is already at max level!"); };
       return;
     }
 
@@ -635,7 +637,7 @@
     const selectedRamen = Object.entries(ramenClickCounts).filter(([id, count]) => count > 0);
 
     if (selectedRamen.length === 0) {
-      alert("Please select ramen to use by clicking on them!");
+      if (window.ModalManager) { window.ModalManager.showInfo("Please select ramen to use by clicking on them!"); };
       return;
     }
 
@@ -700,12 +702,12 @@
     if (window.DailyMissions) {
       const result = await window.DailyMissions.incrementDaily('daily_level_up');
       if (result && result.completed) {
-        alert(`Daily Mission Completed!\n${result.dailyName}`);
+        if (window.ModalManager) { window.ModalManager.showInfo(`Daily Mission Completed!\n${result.dailyName}`); };
       }
     }
 
     // Success message
-    alert(`Success!\n\n+${totalExp.toLocaleString()} EXP\n${levelsGained > 0 ? `Gained ${levelsGained} level${levelsGained > 1 ? 's' : ''}!` : 'EXP stored for next level'}\n\nNew Level: ${newLevel}/${cap}`);
+    if (window.ModalManager) { window.ModalManager.showInfo(`Success!\n\n+${totalExp.toLocaleString()} EXP\n${levelsGained > 0 ? `Gained ${levelsGained} level${levelsGained > 1 ? 's' : ''}!` : 'EXP stored for next level'}\n\nNew Level: ${newLevel}/${cap}`); }
 
     // Close modal and refresh grid
     closeRamenModal();
@@ -770,9 +772,9 @@
       const canUnlockMore = hasAbilities && currentUnlocks < c.abilities.length;
 
       if (!canUnlockMore) {
-        alert(hasAbilities
+        if (window.ModalManager) { window.ModalManager.showInfo(hasAbilities
           ? "All abilities already unlocked!"
-          : "This character has no abilities to unlock.");
+          : "This character has no abilities to unlock."); };
         return;
       }
 
@@ -781,7 +783,7 @@
       const duplicates = allCopies.filter(copy => copy.uid !== inst.uid);
 
       if (duplicates.length === 0) {
-        alert("No duplicates available to feed!\n\nYou need another copy of this character to unlock abilities.");
+        if (window.ModalManager) { window.ModalManager.showInfo("No duplicates available to feed!\n\nYou need another copy of this character to unlock abilities."); };
         return;
       }
 
@@ -802,7 +804,7 @@
 
       const selectedIdx = parseInt(selection) - 1;
       if (isNaN(selectedIdx) || selectedIdx < 0 || selectedIdx >= duplicates.length) {
-        alert("Invalid selection!");
+        if (window.ModalManager) { window.ModalManager.showInfo("Invalid selection!"); };
         return;
       }
 
@@ -824,13 +826,13 @@
           // Remove the fed duplicate from inventory
           window.InventoryChar.removeOneByUid(selectedDupe.uid);
 
-          alert(`✅ Ability Unlocked!\n\n${result.abilityName}\n${result.abilityDescription}\n\nProgress: ${result.unlockedCount}/${result.maxAbilities}`);
+          if (window.ModalManager) { window.ModalManager.showSuccess(` Ability Unlocked!\n\n${result.abilityName}\n${result.abilityDescription}\n\nProgress: ${result.unlockedCount}/${result.maxAbilities}`); };
 
           // Refresh displays
           window.characterDupeAbilities.refresh();
           renderGrid();
         } else {
-          alert(`⚠️ ${result.message}`);
+          if (window.ModalManager) { window.ModalManager.showInfo(` ${result.message}`); };
         }
       }
     };
@@ -884,7 +886,7 @@
       if (hasAwakening) {
         const canAfford = await window.Awakening.canAffordAwaken(inst, c);
         if (!canAfford) {
-          alert("You don't have enough materials to awaken this character!");
+          if (window.ModalManager) { window.ModalManager.showInfo("You don't have enough materials to awaken this character!"); };
           return;
         }
 
@@ -897,9 +899,9 @@
       }
 
       if (!res?.ok) {
-        alert(res.reason === "INSUFFICIENT_MATERIALS"
+        if (window.ModalManager) { window.ModalManager.showInfo(res.reason === "INSUFFICIENT_MATERIALS"
           ? "Insufficient materials for awakening!"
-          : "Max tier reached or cannot awaken.");
+          : "Max tier reached or cannot awaken."); };
         return;
       }
 
@@ -922,11 +924,11 @@
       if (window.DailyMissions) {
         const dailyResult = await window.DailyMissions.incrementDaily('daily_awaken');
         if (dailyResult && dailyResult.completed) {
-          alert(`Daily Mission Completed!\n${dailyResult.dailyName}`);
+          if (window.ModalManager) { window.ModalManager.showInfo(`Daily Mission Completed!\n${dailyResult.dailyName}`); };
         }
       }
 
-      alert(`Successfully awakened ${c.name} to ${starsFromTier(newTier)} stars!`);
+      if (window.ModalManager) { window.ModalManager.showInfo(`Successfully awakened ${c.name} to ${starsFromTier(newTier)} stars!`); }
     };
 
     // Limit Break button
@@ -936,13 +938,13 @@
 
         const canLB = window.LimitBreak.canLimitBreak(inst, c);
         if (!canLB) {
-          alert("This character cannot be limit broken yet. Must be at max tier and max level.");
+          if (window.ModalManager) { window.ModalManager.showInfo("This character cannot be limit broken yet. Must be at max tier and max level."); };
           return;
         }
 
         const canAfford = await window.LimitBreak.canAffordLimitBreak(inst, c);
         if (!canAfford) {
-          alert("You don't have enough materials for limit break!");
+          if (window.ModalManager) { window.ModalManager.showInfo("You don't have enough materials for limit break!"); };
           return;
         }
 
@@ -962,9 +964,9 @@
         const res = await window.LimitBreak.performLimitBreak(inst, c);
 
         if (!res?.ok) {
-          alert(res.reason === "INSUFFICIENT_MATERIALS"
+          if (window.ModalManager) { window.ModalManager.showInfo(res.reason === "INSUFFICIENT_MATERIALS"
             ? "Insufficient materials!"
-            : "Limit break failed!");
+            : "Limit break failed!"); };
           return;
         }
 
@@ -975,7 +977,7 @@
         await window.renderStatusTab(c, fresh, tier);
         renderGrid();
 
-        alert(`Limit Break successful! ${c.name} is now LB${res.limitBreakLevel}!`);
+        if (window.ModalManager) { window.ModalManager.showInfo(`Limit Break successful! ${c.name} is now LB${res.limitBreakLevel}!`); };
       };
     }
   }
@@ -1225,7 +1227,7 @@
 
         const freshInst = window.InventoryChar?.getByUid(inst.uid);
         if (!freshInst) {
-          alert("Character not found.");
+          if (window.ModalManager) { window.ModalManager.showInfo("Character not found."); };
           return;
         }
 
@@ -1243,7 +1245,7 @@
         }
 
         if (!res?.ok) {
-          alert("Cannot awaken: " + (res?.reason || "Unknown error"));
+          if (window.ModalManager) { window.ModalManager.showInfo("Cannot awaken: " + (res?.reason || "Unknown error")); }
           return;
         }
 
