@@ -34,7 +34,7 @@ html, body {
   max-height: 100vh;
   max-width: calc(100vh * 16 / 9); /* Force 16:9 from height */
 
-  overflow: hidden;
+  overflow: visible; /* Changed to visible to allow backgrounds */
   background: #000;
 }
 
@@ -56,7 +56,13 @@ html, body {
   left: 0;
   width: 100%;
   height: 100%;
-  overflow: visible; /* Changed from hidden to allow backgrounds */
+  overflow: visible; /* Allow backgrounds to render */
+  pointer-events: none; /* Allow clicks to pass through to children */
+}
+
+/* Re-enable pointer events for interactive elements */
+.game-content > * {
+  pointer-events: auto;
 }
 
 /* Scrollable content areas (for menus that need scrolling) */
