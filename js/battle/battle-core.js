@@ -124,6 +124,11 @@
         await window.BattleEntrance.playEntranceSequence(this);
       }
 
+      // Start battle music
+      if (window.AudioManager) {
+        window.AudioManager.playBattleMusic();
+      }
+
       // Start speed gauge system if turns module available
       if (this.turns) {
         this.turns.startSpeedGaugeTick(this);
