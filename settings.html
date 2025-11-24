@@ -243,6 +243,24 @@
       </div>
     </div>
 
+    <!-- Developer Tools -->
+    <div class="settings-section">
+      <div class="settings-section-title">Developer Tools</div>
+
+      <div class="setting-row">
+        <div class="setting-label">Add Unit Manually</div>
+        <div class="setting-control" style="display: flex; gap: 10px; flex-wrap: wrap;">
+          <input type="text" id="manual-unit-input" placeholder="naruto_01_3S*5" style="padding: 8px 16px; border-radius: 6px; background: rgba(30, 30, 40, 0.9); color: #f4efe3; border: 1px solid rgba(139, 115, 85, 0.6); font-family: 'Cinzel', serif; flex: 1; min-width: 200px;">
+          <button class="toggle-button" id="add-manual-unit-button">Add Unit</button>
+        </div>
+        <div style="font-size: 12px; color: #b8985f; margin-top: 8px;">
+          Format: <code style="background: rgba(0,0,0,0.3); padding: 2px 6px; border-radius: 3px;">characterId_tierCode*quantity</code>
+          <br>
+          Example: <code style="background: rgba(0,0,0,0.3); padding: 2px 6px; border-radius: 3px;">naruto_01_3S*5</code> (5 copies of Naruto at 3★)
+        </div>
+      </div>
+    </div>
+
     <!-- Player Data Management -->
     <div class="settings-section">
       <div class="settings-section-title">Player Data</div>
@@ -403,6 +421,69 @@
 
       if (result.success) {
         input.value = ''; // Clear input on success
+      }
+    });
+
+    // Manual Unit Addition
+    document.getElementById('add-manual-unit-button').addEventListener('click', async () => {
+      const input = document.getElementById('manual-unit-input');
+      const code = input.value.trim();
+
+      if (!code) {
+        alert('Please enter a unit code.');
+        return;
+      }
+
+      // Parse format: characterId_tierCode*quantity
+      // Example: naruto_01_3S*5
+      const match = code.match(/^(.+)_(\w+)\*(\d+)$/);
+
+      if (!match) {
+        alert('Invalid format. Use: characterId_tierCode*quantity\nExample: naruto_01_3S*5');
+        return;
+      }
+
+      const [, characterId, tierCode, quantityStr] = match;
+      const quantity = parseInt(quantityStr, 10);
+
+      if (quantity <= 0 || quantity > 100) {
+        alert('Quantity must be between 1 and 100.');
+        return;
+      }
+
+      // Verify character exists
+      try {
+        const res = await fetch('data/characters.json', { cache: 'no-store' });
+        if (!res.ok) throw new Error('Failed to load characters.json');
+        const data = await res.json();
+        const characters = Array.isArray(data) ? data : [];
+
+        const character = characters.find(c => c.id === characterId);
+        if (!character) {
+          alert(`Character ID '${characterId}' not found.\n\nAvailable IDs:\n${characters.map(c => c.id).join(', ')}`);
+          return;
+        }
+
+        // Add characters to inventory
+        if (!window.InventoryChar) {
+          alert('Inventory system not loaded. Please reload the page.');
+          return;
+        }
+
+        for (let i = 0; i < quantity; i++) {
+          window.InventoryChar.addCopy(characterId, 1, tierCode);
+        }
+
+        alert(`✅ Added ${quantity}x ${character.name} (${character.version || 'N/A'}) at ${tierCode} tier to your roster!`);
+        input.value = ''; // Clear input on success
+
+        // Refresh character grid if on characters page
+        if (typeof window.refreshCharacterGrid === 'function') {
+          window.refreshCharacterGrid();
+        }
+      } catch (error) {
+        alert('Failed to add unit: ' + error.message);
+        console.error('Manual unit addition error:', error);
       }
     });
 
