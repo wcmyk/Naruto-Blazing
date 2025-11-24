@@ -3,7 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <title>Summon — Blazing</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <!-- 16:9 Game Canvas Architecture -->
+  <link rel="stylesheet" href="css/game-canvas.css" />
+  <!-- Game UI Styles -->
   <link rel="stylesheet" href="css/summon.css" />
   <link rel="stylesheet" href="css/background.css" />
   <link rel="stylesheet" href="css/summon-dev-panel.css" />
@@ -12,14 +15,18 @@
   <link rel="stylesheet" href="css/settings-modal.css" />
 </head>
 <body class="page-summon">
-  <!-- Background -->
-  <div id="summon-bg"></div>
+  <!-- 16:9 Game Canvas Wrapper -->
+  <div class="game-canvas-wrapper">
+    <div class="game-canvas">
+      <div class="game-content">
+        <!-- Background -->
+        <div id="summon-bg"></div>
 
-  <!-- Animated Wind Particles -->
-  <div class="wind-particles" id="wind-particles"></div>
+        <!-- Animated Wind Particles -->
+        <div class="wind-particles" id="wind-particles"></div>
 
-  <!-- Top Bar Overlay - Ninja Rank & Currency HUD -->
-  <div class="top-bar">
+        <!-- Top Bar Overlay - Ninja Rank & Currency HUD -->
+        <div class="top-bar">
     <div class="ninja-rank-container">
       <span class="ninja-rank-label">Ninja Rank:</span>
       <span class="ninja-rank-value" id="ninja-rank-value">1</span>
@@ -284,5 +291,9 @@
       document.addEventListener('click', startMusic, { once: true });
     })();
   </script>
+
+      </div><!-- .game-content -->
+    </div><!-- .game-canvas -->
+  </div><!-- .game-canvas-wrapper -->
 </body>
 </html>

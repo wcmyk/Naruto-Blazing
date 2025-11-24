@@ -3,7 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <title>Blazing — Battle</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <!-- 16:9 Game Canvas Architecture -->
+  <link rel="stylesheet" href="css/game-canvas.css" />
+  <!-- Game UI Styles -->
   <link rel="stylesheet" href="css/battle.css" />
   <link rel="stylesheet" href="css/battle-ui-fixes.css" />
   <link rel="stylesheet" href="css/battle-result-professional.css" />
@@ -75,7 +78,11 @@
   </style>
 </head>
 <body class="page-battle">
-  <header class="battle-hud">
+  <!-- 16:9 Game Canvas Wrapper -->
+  <div class="game-canvas-wrapper">
+    <div class="game-canvas">
+      <div class="game-content">
+        <header class="battle-hud">
     <div class="hud-left">
       <span class="hud-label">Team HP</span>
       <div class="hp-track">
@@ -183,5 +190,9 @@
   <script defer src="js/battle/battle-hp-fix.js"></script>
   <script defer src="js/battle/battle-equipped-ultimate.js"></script>
   <script defer src="js/battle.js"></script>
+
+      </div><!-- .game-content -->
+    </div><!-- .game-canvas -->
+  </div><!-- .game-canvas-wrapper -->
 </body>
 </html>
