@@ -252,7 +252,7 @@
           const rewardText = Object.entries(loginResult.reward)
             .map(([mat, amt]) => `${mat}: ${amt}`)
             .join(", ");
-          alert(`Login Bonus Day ${loginResult.loginDay}!\n\nRewards:\n${rewardText}`);
+          if (window.ModalManager) { window.ModalManager.showInfo(`Login Bonus Day ${loginResult.loginDay}!\n\nRewards:\n${rewardText}`); }
         }
       }
 
@@ -391,27 +391,27 @@
 
           switch(action) {
             case 'notice':
-              alert('📢 Notice Board\n\nNo new notices at this time.');
+              if (window.ModalManager) { window.ModalManager.showInfo('📢 Notice Board\n\nNo new notices at this time.'); }
               break;
             case 'presents':
               if (window.DashboardMailbox) {
                 window.DashboardMailbox.openMailbox();
               } else {
-                alert('🎁 Present Box\n\nPresent box system not loaded. Please reload the page.');
+                if (window.ModalManager) { window.ModalManager.showInfo('🎁 Present Box\n\nPresent box system not loaded. Please reload the page.'); }
               }
               break;
             case 'achievements':
-              alert('🏆 Achievements\n\nAchievement system coming soon!');
+              if (window.ModalManager) { window.ModalManager.showInfo('🏆 Achievements\n\nAchievement system coming soon!'); }
               break;
             case 'panel-missions':
               if (window.PanelMissions) {
                 window.PanelMissions.openPanelModal();
               } else {
-                alert('📋 Panel Missions\n\nPanel missions system not loaded. Please reload the page.');
+                if (window.ModalManager) { window.ModalManager.showInfo('📋 Panel Missions\n\nPanel missions system not loaded. Please reload the page.'); }
               }
               break;
             case 'chat':
-              alert('💬 Chat\n\nChat system coming soon!');
+              if (window.ModalManager) { window.ModalManager.showInfo('💬 Chat\n\nChat system coming soon!'); }
               break;
             case 'inventory':
               navigateTo('inventory.html');
@@ -423,7 +423,7 @@
               navigateTo('resources.html');
               break;
             case 'guilds':
-              alert('⚔️ Guilds\n\nGuild system coming soon!');
+              if (window.ModalManager) { window.ModalManager.showInfo('⚔️ Guilds\n\nGuild system coming soon!'); }
               break;
             case 'settings':
               showSettingsMenu();
@@ -453,9 +453,9 @@
           if (newUsername && newUsername.trim()) {
             const success = window.UserProfile.setUsername(newUsername);
             if (success) {
-              alert(`✅ Username changed to: ${newUsername.trim()}`);
+              if (window.ModalManager) { window.ModalManager.showInfo(`✅ Username changed to: ${newUsername.trim()}`); }
             } else {
-              alert("❌ Failed to change username. Please use 1-20 characters.");
+              if (window.ModalManager) { window.ModalManager.showInfo("❌ Failed to change username. Please use 1-20 characters."); }
             }
           }
         } else if (choice === "2") {
@@ -464,9 +464,9 @@
           if (num >= 1 && num <= 10) {
             currentBackground = num;
             updateBG(currentBackground);
-            alert(`✅ Background changed to #${num}`);
+            if (window.ModalManager) { window.ModalManager.showInfo(`✅ Background changed to #${num}`); }
           } else {
-            alert("❌ Invalid background number. Please enter 1-10.");
+            if (window.ModalManager) { window.ModalManager.showInfo("❌ Invalid background number. Please enter 1-10."); }
           }
         } else if (choice === "3") {
           showAudioSettings();
@@ -474,7 +474,7 @@
           if (typeof window.CharacterVignette !== "undefined") {
             window.CharacterVignette.openCharacterSelector();
           } else {
-            alert("Character Vignette system not loaded yet. Please reload the page.");
+            if (window.ModalManager) { window.ModalManager.showInfo("Character Vignette system not loaded yet. Please reload the page."); }
           }
         } else if (choice === "5") {
           navigateTo("resources.html");
@@ -485,7 +485,7 @@
 
       function showAudioSettings() {
         if (typeof window.AudioManager === "undefined") {
-          alert("⚠️ Audio Manager not loaded. Please reload the page.");
+          if (window.ModalManager) { window.ModalManager.showInfo("⚠️ Audio Manager not loaded. Please reload the page."); }
           return;
         }
 
@@ -515,9 +515,9 @@
           const num = parseInt(vol);
           if (!isNaN(num) && num >= 0 && num <= 100) {
             window.AudioManager.setMasterVolume(num / 100);
-            alert(`✅ Master volume set to ${num}%`);
+            if (window.ModalManager) { window.ModalManager.showInfo(`✅ Master volume set to ${num}%`); }
           } else {
-            alert("❌ Invalid volume. Please enter 0-100.");
+            if (window.ModalManager) { window.ModalManager.showInfo("❌ Invalid volume. Please enter 0-100."); }
           }
           showAudioSettings();
         } else if (choice === "2") {
@@ -525,9 +525,9 @@
           const num = parseInt(vol);
           if (!isNaN(num) && num >= 0 && num <= 100) {
             window.AudioManager.setBGMVolume(num / 100);
-            alert(`✅ BGM volume set to ${num}%`);
+            if (window.ModalManager) { window.ModalManager.showInfo(`✅ BGM volume set to ${num}%`); }
           } else {
-            alert("❌ Invalid volume. Please enter 0-100.");
+            if (window.ModalManager) { window.ModalManager.showInfo("❌ Invalid volume. Please enter 0-100."); }
           }
           showAudioSettings();
         } else if (choice === "3") {
@@ -535,9 +535,9 @@
           const num = parseInt(vol);
           if (!isNaN(num) && num >= 0 && num <= 100) {
             window.AudioManager.setSFXVolume(num / 100);
-            alert(`✅ SFX volume set to ${num}%`);
+            if (window.ModalManager) { window.ModalManager.showInfo(`✅ SFX volume set to ${num}%`); }
           } else {
-            alert("❌ Invalid volume. Please enter 0-100.");
+            if (window.ModalManager) { window.ModalManager.showInfo("❌ Invalid volume. Please enter 0-100."); }
           }
           showAudioSettings();
         } else if (choice === "4") {
@@ -553,9 +553,9 @@
           alert(muted ? "🔇 SFX MUTED" : "🔊 SFX UNMUTED");
           showAudioSettings();
         } else if (choice === "7") {
-          if (confirm("Reset all audio settings to defaults?")) {
+          if (window.ModalManager) { window.ModalManager.showConfirm("Reset all audio settings to defaults?", () => {
             window.AudioManager.reset();
-            alert("✅ Audio settings reset to defaults");
+            if (window.ModalManager) { window.ModalManager.showInfo("✅ Audio settings reset to defaults"); }
           }
           showAudioSettings();
         } else if (choice === "8") {

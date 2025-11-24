@@ -683,15 +683,23 @@
 
   function saveTeam() {
     saveTeams();
-    alert(`Team ${currentTeam} saved!`);
+    if (window.ModalManager) {
+      window.ModalManager.showSuccess(`Team ${currentTeam} saved!`);
+    }
   }
 
   function clearTeam() {
-    if (!confirm(`Clear all characters from Team ${currentTeam}?`)) return;
-
-    teams[currentTeam] = {};
-    saveTeams();
-    renderTeam();
+    if (window.ModalManager) {
+      window.ModalManager.showConfirm(
+        `Clear all characters from Team ${currentTeam}?`,
+        () => {
+          teams[currentTeam] = {};
+          saveTeams();
+          renderTeam();
+        },
+        null
+      );
+    }
   }
 
   function filterCharacters() {
