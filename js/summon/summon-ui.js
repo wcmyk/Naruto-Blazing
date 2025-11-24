@@ -26,6 +26,7 @@ class SummonUIController {
       single: 5,
       multi: 30
     };
+    this.isFirstBannerLoad = true; // Track first banner load
   }
 
   init() {
@@ -108,6 +109,11 @@ class SummonUIController {
 
     if (this.elements.bannerName) {
       this.elements.bannerName.textContent = banner.name || 'Banner';
+      // Add flash effect to indicate banner switched
+      this.elements.bannerName.style.animation = 'none';
+      setTimeout(() => {
+        this.elements.bannerName.style.animation = 'bannerSwitch 0.5s ease-out';
+      }, 10);
     }
 
     if (this.elements.bannerDescription) {
@@ -136,6 +142,53 @@ class SummonUIController {
     }
 
     this.updateCurrencyDisplay();
+
+    // Show banner switch notification (skip on first load)
+    if (!this.isFirstBannerLoad) {
+      this.showBannerSwitchNotification(banner.name);
+    } else {
+      this.isFirstBannerLoad = false;
+    }
+  }
+
+  /**
+   * Show a notification when banner is switched
+   */
+  showBannerSwitchNotification(bannerName) {
+    // Remove existing notification if present
+    const existing = document.getElementById('banner-switch-notification');
+    if (existing) {
+      existing.remove();
+    }
+
+    // Create notification
+    const notification = document.createElement('div');
+    notification.id = 'banner-switch-notification';
+    notification.className = 'banner-switch-notification';
+    notification.innerHTML = `
+      <div class="notification-content">
+        <div class="notification-icon">🎯</div>
+        <div class="notification-text">
+          <div class="notification-title">Banner Switched</div>
+          <div class="notification-banner">${bannerName}</div>
+        </div>
+      </div>
+    `;
+
+    document.body.appendChild(notification);
+
+    // Animate in
+    setTimeout(() => {
+      notification.classList.add('show');
+    }, 10);
+
+    // Remove after 3 seconds
+    setTimeout(() => {
+      notification.classList.remove('show');
+      setTimeout(() => {
+        notification.remove();
+      }, 300);
+    }, 3000);
   }
 
   showStepProgress(show) {
