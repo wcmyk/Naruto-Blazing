@@ -66,6 +66,7 @@
       damageEl.style.letterSpacing = '2px';
       damageEl.style.fontWeight = 'bold';
       damageEl.style.zIndex = '500';
+      damageEl.style.opacity = '0';
 
       // Type-specific styling
       const styles = {
@@ -73,31 +74,31 @@
           color: '#5efc82',
           size: '3.5rem',
           shadow: '3px 3px 6px rgba(0,0,0,0.9), 0 0 15px rgba(94,252,130,0.8)',
-          animation: 'healFloat 1s ease-out forwards'
+          scale: 1.2
         },
         crit: {
           color: '#ffd700',
           size: '4.5rem',
           shadow: '3px 3px 6px rgba(0,0,0,0.9), 0 0 20px rgba(255,215,0,0.9)',
-          animation: 'damageCritFloat 1s ease-out forwards'
+          scale: 1.5
         },
         normal: {
           color: '#ffffff',
           size: '3.5rem',
           shadow: '3px 3px 6px rgba(0,0,0,0.9), 0 0 10px rgba(0,0,0,0.5)',
-          animation: 'damageFloat 1s ease-out forwards'
+          scale: 1.0
         },
         weak: {
           color: '#999999',
           size: '2.8rem',
           shadow: '2px 2px 4px rgba(0,0,0,0.7)',
-          animation: 'damageFloat 1s ease-out forwards'
+          scale: 0.8
         },
         resist: {
           color: '#4488ff',
           size: '3rem',
           shadow: '2px 2px 5px rgba(0,0,0,0.8), 0 0 10px rgba(68,136,255,0.6)',
-          animation: 'damageFloat 1s ease-out forwards'
+          scale: 0.9
         }
       };
 
@@ -105,7 +106,57 @@
       damageEl.style.fontSize = style.size;
       damageEl.style.color = style.color;
       damageEl.style.textShadow = style.shadow;
-      damageEl.style.animation = style.animation;
+
+      dom.damageLayer.appendChild(damageEl);
+
+      // Animate with GSAP for smooth, controlled animation
+      if (window.gsap) {
+        const tl = window.gsap.timeline({
+          onComplete: () => {
+            damageEl.remove();
+            console.log(`[Animations] Damage number removed after animation`);
+          }
+        });
+
+        // Pop in with scale
+        tl.fromTo(damageEl,
+          {
+            y: 0,
+            scale: style.scale * 0.5,
+            opacity: 0
+          },
+          {
+            y: -20,
+            scale: style.scale,
+            opacity: 1,
+            duration: 0.15,
+            ease: "back.out(3)"
+          }
+        )
+        // Float up
+        .to(damageEl, {
+          y: -80,
+          opacity: 1,
+          duration: 0.4,
+          ease: "power1.out"
+        })
+        // Fade out
+        .to(damageEl, {
+          y: -120,
+          opacity: 0,
+          scale: style.scale * 0.8,
+          duration: 0.3,
+          ease: "power2.in"
+        }, "-=0.1");
+      } else {
+        // Fallback to CSS animation
+        damageEl.style.animation = 'damageFloat 1s ease-out forwards';
+        damageEl.style.opacity = '1';
+        setTimeout(() => {
+          damageEl.remove();
+          console.log(`[Animations] Damage number removed after 1s`);
+        }, 1000);
+      }
 
       // Add critical hit indicator
       if (isCritical) {
@@ -121,23 +172,43 @@
         critText.style.textShadow = '2px 2px 4px rgba(0,0,0,0.8), 0 0 15px rgba(255,204,0,0.7)';
         critText.style.zIndex = '501';
         critText.style.pointerEvents = 'none';
-        critText.style.animation = 'damageFloat 1s ease-out forwards';
         critText.style.fontFamily = "'Cinzel', serif";
+        critText.style.opacity = '0';
         dom.damageLayer.appendChild(critText);
-        setTimeout(() => critText.remove(), 1000);
+
+        if (window.gsap) {
+          window.gsap.timeline({
+            onComplete: () => critText.remove()
+          })
+          .fromTo(critText,
+            { scale: 0.3, opacity: 0, rotation: -15 },
+            { scale: 1, opacity: 1, rotation: 0, duration: 0.2, ease: "back.out(4)" }
+          )
+          .to(critText, {
+            y: -30,
+            opacity: 1,
+            duration: 0.5,
+            ease: "power1.out"
+          })
+          .to(critText, {
+            y: -50,
+            opacity: 0,
+            scale: 0.8,
+            duration: 0.3,
+            ease: "power2.in"
+          });
+        } else {
+          critText.style.animation = 'damageFloat 1s ease-out forwards';
+          critText.style.opacity = '1';
+          setTimeout(() => critText.remove(), 1000);
+        }
       }
 
-      dom.damageLayer.appendChild(damageEl);
       console.log(`[Animations] ✅ Enhanced damage number created`, {
         text: damageEl.textContent,
         type: damageType,
         color: style.color
       });
-
-      setTimeout(() => {
-        damageEl.remove();
-        console.log(`[Animations] Damage number removed after 1s`);
-      }, 1000);
     },
 
     /**

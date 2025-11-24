@@ -318,9 +318,14 @@
     highlightTarget(target) {
       if (!target || !this.core?.dom?.scene) return;
 
-      // Remove previous highlights
+      // Remove previous highlights and kill their animations
       const prevHighlights = this.core.dom.scene.querySelectorAll('.target-highlight');
-      prevHighlights.forEach(h => h.remove());
+      prevHighlights.forEach(h => {
+        if (window.gsap) {
+          window.gsap.killTweensOf(h);
+        }
+        h.remove();
+      });
 
       // Find target's DOM element
       const unitEl = this.core.dom.scene.querySelector(`[data-unit-id="${target.id}"]`);
@@ -336,7 +341,8 @@
         border-radius: 50%;
         box-shadow: 0 0 20px rgba(255, 68, 68, 0.8), inset 0 0 20px rgba(255, 68, 68, 0.4);
         z-index: 100;
-        animation: targetPulse 0.6s ease-in-out infinite;
+        opacity: 0;
+        transform: scale(0.8);
       `;
 
       const rect = unitEl.getBoundingClientRect();
@@ -348,6 +354,36 @@
       highlight.style.height = `${rect.height + 10}px`;
 
       this.core.dom.scene.appendChild(highlight);
+
+      // Animate with GSAP for smooth, professional feel
+      if (window.gsap) {
+        // Initial pop-in
+        window.gsap.fromTo(highlight,
+          { scale: 0.8, opacity: 0 },
+          {
+            scale: 1,
+            opacity: 0.9,
+            duration: 0.2,
+            ease: "back.out(2)",
+            onComplete: () => {
+              // Continuous pulse
+              window.gsap.to(highlight, {
+                scale: 1.08,
+                opacity: 1,
+                duration: 0.4,
+                ease: "sine.inOut",
+                yoyo: true,
+                repeat: -1
+              });
+            }
+          }
+        );
+      } else {
+        // Fallback to CSS animation
+        highlight.style.animation = 'targetPulse 0.6s ease-in-out infinite';
+        highlight.style.opacity = '0.9';
+        highlight.style.transform = 'scale(1)';
+      }
 
       console.log(`[InputManager] Targeting: ${target.name}`);
     },

@@ -260,51 +260,102 @@
     performAttack(attacker, target, core) {
       console.log(`[Combat] ${attacker.name} attacks ${target.name}`);
 
-      // Narrate action
-      if (window.BattleNarrator) {
-        window.BattleNarrator.narrateAttack(attacker, target, core);
-      }
-
+      // Calculate damage first
       const {damage, isCritical, breakdown} = this.calculateDamage(attacker, target, 1.0);
-      target.stats.hp = Math.max(0, target.stats.hp - damage);
 
-      // Apply knockback
-      if (window.BattlePhysics) {
-        window.BattlePhysics.applyKnockback(target, attacker, 30, core);
-      }
+      // Create GSAP timeline for smooth sequencing
+      if (window.gsap) {
+        const tl = window.gsap.timeline({
+          onComplete: () => {
+            core.checkBattleEnd();
+          }
+        });
 
-      // Award chakra for attacking
-      if (core.chakra) {
-        core.chakra.addChakra(attacker, 1, core);
+        // Step 1: Narrate and apply damage immediately
+        tl.call(() => {
+          if (window.BattleNarrator) {
+            window.BattleNarrator.narrateAttack(attacker, target, core);
+          }
+
+          target.stats.hp = Math.max(0, target.stats.hp - damage);
+
+          // Apply knockback
+          if (window.BattlePhysics) {
+            window.BattlePhysics.applyKnockback(target, attacker, 30, core);
+          }
+
+          // Award chakra for attacking
+          if (core.chakra) {
+            core.chakra.addChakra(attacker, 1, core);
+          } else {
+            attacker.chakra = Math.min(attacker.maxChakra, attacker.chakra + 1);
+          }
+
+          // Track basic attack for Last Stand Ultimate system
+          if (window.BattleEquippedUltimate) {
+            window.BattleEquippedUltimate.onBasicAttack(attacker.id);
+          }
+
+          // Show damage animation
+          if (window.BattleAnimations) {
+            window.BattleAnimations.showDamage(target, damage, isCritical, core.dom, false, breakdown);
+          }
+
+          // Update displays
+          if (core.units) {
+            core.units.updateUnitDisplay(attacker, core);
+            core.units.updateUnitDisplay(target, core);
+          } else {
+            core.updateUnitDisplay(attacker);
+            core.updateUnitDisplay(target);
+          }
+
+          core.updateTeamHP();
+        });
+
+        // Step 2: Wait for HP bar animation (0.4s)
+        tl.addLabel("complete", "+=0.4");
+
       } else {
-        attacker.chakra = Math.min(attacker.maxChakra, attacker.chakra + 1);
+        // Fallback to setTimeout
+        if (window.BattleNarrator) {
+          window.BattleNarrator.narrateAttack(attacker, target, core);
+        }
+
+        target.stats.hp = Math.max(0, target.stats.hp - damage);
+
+        if (window.BattlePhysics) {
+          window.BattlePhysics.applyKnockback(target, attacker, 30, core);
+        }
+
+        if (core.chakra) {
+          core.chakra.addChakra(attacker, 1, core);
+        } else {
+          attacker.chakra = Math.min(attacker.maxChakra, attacker.chakra + 1);
+        }
+
+        if (window.BattleEquippedUltimate) {
+          window.BattleEquippedUltimate.onBasicAttack(attacker.id);
+        }
+
+        if (window.BattleAnimations) {
+          window.BattleAnimations.showDamage(target, damage, isCritical, core.dom, false, breakdown);
+        }
+
+        if (core.units) {
+          core.units.updateUnitDisplay(attacker, core);
+          core.units.updateUnitDisplay(target, core);
+        } else {
+          core.updateUnitDisplay(attacker);
+          core.updateUnitDisplay(target);
+        }
+
+        core.updateTeamHP();
+
+        setTimeout(() => {
+          core.checkBattleEnd();
+        }, 400);
       }
-
-      // Track basic attack for Last Stand Ultimate system
-      if (window.BattleEquippedUltimate) {
-        window.BattleEquippedUltimate.onBasicAttack(attacker.id);
-      }
-
-      // Show damage animation with breakdown
-      if (window.BattleAnimations) {
-        window.BattleAnimations.showDamage(target, damage, isCritical, core.dom, false, breakdown);
-      }
-
-      // Update displays
-      if (core.units) {
-        core.units.updateUnitDisplay(attacker, core);
-        core.units.updateUnitDisplay(target, core);
-      } else {
-        core.updateUnitDisplay(attacker);
-        core.updateUnitDisplay(target);
-      }
-
-      core.updateTeamHP();
-
-      // Delay battle end check to allow HP bar animation to complete
-      setTimeout(() => {
-        core.checkBattleEnd();
-      }, 400);
     },
 
     /* ===== Jutsu (Single Target Skill) ===== */
@@ -358,57 +409,107 @@
 
       console.log(`[Combat] ${attacker.name} uses ${j.meta.name} (${mult}x) on ${target.name}`);
 
-      // Display attack name BEFORE animation (Storm 4 style)
-      if (window.BattleAttackNames) {
-        const attackName = j.data.name || j.data.skillName || j.meta.name;
-        window.BattleAttackNames.showAttackName(attackName, 'jutsu');
-      }
-
-      // Narrate action
-      if (window.BattleNarrator) {
-        window.BattleNarrator.narrateJutsu(attacker, target, core);
-      }
-
-      // Wait 700ms for attack name to breathe before playing animation
-      setTimeout(() => {
-        // Play animation
-        const animGif = j.data.animationGif || attacker._ref?.base?.jutsuAnimation;
-        if (window.BattleAnimations) {
-          window.BattleAnimations.playSkillAnimation(attacker, "jutsu", animGif, core.dom);
-        }
-      }, 700);
-
-      // Calculate and apply damage
+      // Calculate damage first
       const {damage, isCritical, breakdown} = this.calculateDamage(attacker, target, mult);
-      target.stats.hp = Math.max(0, target.stats.hp - damage);
 
-      // Apply knockback after animation
-      setTimeout(() => {
-        if (window.BattlePhysics) {
-          window.BattlePhysics.applyKnockback(target, attacker, 50, core);
-        }
-      }, 300);
+      // Create GSAP timeline for smooth sequencing
+      if (window.gsap) {
+        const tl = window.gsap.timeline({
+          onComplete: () => {
+            core.checkBattleEnd();
+          }
+        });
 
-      // Show damage after animation delay
-      setTimeout(() => {
-        if (window.BattleAnimations) {
-          window.BattleAnimations.showDamage(target, damage, isCritical, core.dom, false, breakdown);
-        }
-      }, 400);
+        // Step 1: Show attack name (0s)
+        tl.call(() => {
+          if (window.BattleAttackNames) {
+            const attackName = j.data.name || j.data.skillName || j.meta.name;
+            window.BattleAttackNames.showAttackName(attackName, 'jutsu');
+          }
+          if (window.BattleNarrator) {
+            window.BattleNarrator.narrateJutsu(attacker, target, core);
+          }
+        });
 
-      // Update displays
-      if (core.units) {
-        core.units.updateUnitDisplay(attacker, core);
-        core.units.updateUnitDisplay(target, core);
+        // Step 2: Wait 0.7s for attack name to breathe
+        tl.call(() => {
+          const animGif = j.data.animationGif || attacker._ref?.base?.jutsuAnimation;
+          if (window.BattleAnimations) {
+            window.BattleAnimations.playSkillAnimation(attacker, "jutsu", animGif, core.dom);
+          }
+        }, null, "+=0.7");
+
+        // Step 3: Apply knockback at 0.3s
+        tl.call(() => {
+          if (window.BattlePhysics) {
+            window.BattlePhysics.applyKnockback(target, attacker, 50, core);
+          }
+        }, null, "-=0.4");
+
+        // Step 4: Apply damage and show damage numbers at 0.4s
+        tl.call(() => {
+          target.stats.hp = Math.max(0, target.stats.hp - damage);
+
+          if (window.BattleAnimations) {
+            window.BattleAnimations.showDamage(target, damage, isCritical, core.dom, false, breakdown);
+          }
+
+          // Update displays
+          if (core.units) {
+            core.units.updateUnitDisplay(attacker, core);
+            core.units.updateUnitDisplay(target, core);
+          } else {
+            core.updateUnitDisplay(attacker);
+            core.updateUnitDisplay(target);
+          }
+
+          core.updateTeamHP();
+        }, null, "-=0.3");
+
       } else {
-        core.updateUnitDisplay(attacker);
-        core.updateUnitDisplay(target);
+        // Fallback to setTimeout for browsers without GSAP
+        if (window.BattleAttackNames) {
+          const attackName = j.data.name || j.data.skillName || j.meta.name;
+          window.BattleAttackNames.showAttackName(attackName, 'jutsu');
+        }
+
+        if (window.BattleNarrator) {
+          window.BattleNarrator.narrateJutsu(attacker, target, core);
+        }
+
+        setTimeout(() => {
+          const animGif = j.data.animationGif || attacker._ref?.base?.jutsuAnimation;
+          if (window.BattleAnimations) {
+            window.BattleAnimations.playSkillAnimation(attacker, "jutsu", animGif, core.dom);
+          }
+        }, 700);
+
+        target.stats.hp = Math.max(0, target.stats.hp - damage);
+
+        setTimeout(() => {
+          if (window.BattlePhysics) {
+            window.BattlePhysics.applyKnockback(target, attacker, 50, core);
+          }
+        }, 300);
+
+        setTimeout(() => {
+          if (window.BattleAnimations) {
+            window.BattleAnimations.showDamage(target, damage, isCritical, core.dom, false, breakdown);
+          }
+        }, 400);
+
+        if (core.units) {
+          core.units.updateUnitDisplay(attacker, core);
+          core.units.updateUnitDisplay(target, core);
+        } else {
+          core.updateUnitDisplay(attacker);
+          core.updateUnitDisplay(target);
+        }
+
+        core.updateTeamHP();
+
+        setTimeout(() => core.checkBattleEnd(), 600);
       }
-
-      core.updateTeamHP();
-
-      // Check battle end after animation
-      setTimeout(() => core.checkBattleEnd(), 600);
 
       return true;
     },
@@ -459,75 +560,144 @@
 
       console.log(`[Combat] ${attacker.name} uses ${u.meta.name} (${mult}x) on ${targets.length} targets`);
 
-      // Display attack name BEFORE animation (Storm 4 style)
-      if (window.BattleAttackNames) {
-        const attackName = u.data.name || u.data.skillName || u.meta.name;
-        window.BattleAttackNames.showAttackName(attackName, 'ultimate');
-      }
+      // Create GSAP timeline for smooth sequencing
+      if (window.gsap) {
+        const tl = window.gsap.timeline({
+          onComplete: () => {
+            core.checkBattleEnd();
+          }
+        });
 
-      // Narrate action
-      if (window.BattleNarrator) {
-        window.BattleNarrator.narrateUltimate(attacker, targets, core);
-      }
+        // Step 1: Show attack name (0s)
+        tl.call(() => {
+          if (window.BattleAttackNames) {
+            const attackName = u.data.name || u.data.skillName || u.meta.name;
+            window.BattleAttackNames.showAttackName(attackName, 'ultimate');
+          }
+          if (window.BattleNarrator) {
+            window.BattleNarrator.narrateUltimate(attacker, targets, core);
+          }
+        });
 
-      // Wait 700ms for attack name to breathe before playing animation
-      setTimeout(() => {
-        // Play animation
-        const animGif = u.data.animationGif || attacker._ref?.base?.ultimateAnimation;
-        if (window.BattleAnimations) {
-          window.BattleAnimations.playSkillAnimation(attacker, "ultimate", animGif, core.dom);
-        }
-      }, 700);
-
-      // Hit all targets with delay
-      targets.forEach((target, i) => {
-        setTimeout(() => {
-          const {damage, isCritical, breakdown} = this.calculateDamage(attacker, target, mult);
-          target.stats.hp = Math.max(0, target.stats.hp - damage);
-
-          // Check if this defeats the final enemy (trigger shockwave + screen shake)
-          const remainingEnemies = core.enemyTeam.filter(e => e.stats.hp > 0).length;
-          const shouldFinish = window.BattleFinish?.shouldTriggerFinish(target, remainingEnemies, true);
-
-          if (shouldFinish) {
-            // Trigger finish effects (shockwave + screen shake, NO text)
-            setTimeout(() => {
-              if (window.BattleFinish) {
-                window.BattleFinish.playFinishEffects(attacker, target, core);
-              }
-            }, 300);
+        // Step 2: Wait 0.7s then play animation
+        tl.call(() => {
+          const animGif = u.data.animationGif || attacker._ref?.base?.ultimateAnimation;
+          if (window.BattleAnimations) {
+            window.BattleAnimations.playSkillAnimation(attacker, "ultimate", animGif, core.dom);
           }
 
-          // Apply knockback for ultimate
-          if (window.BattlePhysics) {
-            window.BattlePhysics.applyKnockback(target, attacker, 60, core);
-          }
-
-          setTimeout(() => {
-            if (window.BattleAnimations) {
-              window.BattleAnimations.showDamage(target, damage, isCritical, core.dom, false, breakdown);
-            }
-          }, 150);
-
+          // Update attacker display
           if (core.units) {
-            core.units.updateUnitDisplay(target, core);
+            core.units.updateUnitDisplay(attacker, core);
           } else {
-            core.updateUnitDisplay(target);
+            core.updateUnitDisplay(attacker);
           }
-        }, i * 200);
-      });
+        }, null, "+=0.7");
 
-      // Update attacker
-      if (core.units) {
-        core.units.updateUnitDisplay(attacker, core);
+        // Step 3: Hit each target with 0.2s stagger
+        targets.forEach((target, i) => {
+          tl.call(() => {
+            const {damage, isCritical, breakdown} = this.calculateDamage(attacker, target, mult);
+            target.stats.hp = Math.max(0, target.stats.hp - damage);
+
+            // Check if this defeats the final enemy
+            const remainingEnemies = core.enemyTeam.filter(e => e.stats.hp > 0).length;
+            const shouldFinish = window.BattleFinish?.shouldTriggerFinish(target, remainingEnemies, true);
+
+            // Apply knockback immediately
+            if (window.BattlePhysics) {
+              window.BattlePhysics.applyKnockback(target, attacker, 60, core);
+            }
+
+            // Show damage after 0.15s
+            window.gsap.delayedCall(0.15, () => {
+              if (window.BattleAnimations) {
+                window.BattleAnimations.showDamage(target, damage, isCritical, core.dom, false, breakdown);
+              }
+            });
+
+            // Trigger finish effects if needed
+            if (shouldFinish) {
+              window.gsap.delayedCall(0.3, () => {
+                if (window.BattleFinish) {
+                  window.BattleFinish.playFinishEffects(attacker, target, core);
+                }
+              });
+            }
+
+            // Update target display
+            if (core.units) {
+              core.units.updateUnitDisplay(target, core);
+            } else {
+              core.updateUnitDisplay(target);
+            }
+
+            core.updateTeamHP();
+          }, null, i === 0 ? "+=0" : "+=0.2");
+        });
+
       } else {
-        core.updateUnitDisplay(attacker);
+        // Fallback to setTimeout
+        if (window.BattleAttackNames) {
+          const attackName = u.data.name || u.data.skillName || u.meta.name;
+          window.BattleAttackNames.showAttackName(attackName, 'ultimate');
+        }
+
+        if (window.BattleNarrator) {
+          window.BattleNarrator.narrateUltimate(attacker, targets, core);
+        }
+
+        setTimeout(() => {
+          const animGif = u.data.animationGif || attacker._ref?.base?.ultimateAnimation;
+          if (window.BattleAnimations) {
+            window.BattleAnimations.playSkillAnimation(attacker, "ultimate", animGif, core.dom);
+          }
+        }, 700);
+
+        targets.forEach((target, i) => {
+          setTimeout(() => {
+            const {damage, isCritical, breakdown} = this.calculateDamage(attacker, target, mult);
+            target.stats.hp = Math.max(0, target.stats.hp - damage);
+
+            const remainingEnemies = core.enemyTeam.filter(e => e.stats.hp > 0).length;
+            const shouldFinish = window.BattleFinish?.shouldTriggerFinish(target, remainingEnemies, true);
+
+            if (shouldFinish) {
+              setTimeout(() => {
+                if (window.BattleFinish) {
+                  window.BattleFinish.playFinishEffects(attacker, target, core);
+                }
+              }, 300);
+            }
+
+            if (window.BattlePhysics) {
+              window.BattlePhysics.applyKnockback(target, attacker, 60, core);
+            }
+
+            setTimeout(() => {
+              if (window.BattleAnimations) {
+                window.BattleAnimations.showDamage(target, damage, isCritical, core.dom, false, breakdown);
+              }
+            }, 150);
+
+            if (core.units) {
+              core.units.updateUnitDisplay(target, core);
+            } else {
+              core.updateUnitDisplay(target);
+            }
+          }, i * 200);
+        });
+
+        if (core.units) {
+          core.units.updateUnitDisplay(attacker, core);
+        } else {
+          core.updateUnitDisplay(attacker);
+        }
+
+        core.updateTeamHP();
+
+        setTimeout(() => core.checkBattleEnd(), targets.length * 200 + 700);
       }
-
-      core.updateTeamHP();
-
-      // Check battle end after all hits
-      setTimeout(() => core.checkBattleEnd(), targets.length * 200 + 700);
 
       return true;
     },
