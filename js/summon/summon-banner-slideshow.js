@@ -259,6 +259,13 @@ class BannerSlideshow {
 
     // Sync with preview - update preview active state
     this.syncPreview(index);
+
+    // ✨ CRITICAL FIX: Actually switch the summon banner!
+    // This connects the visual banner to the actual summon system
+    if (window.SummonSystem && typeof window.SummonSystem.loadBanner === 'function') {
+      window.SummonSystem.loadBanner(index);
+      console.log(`🎯 Banner switched to index ${index}`);
+    }
   }
 
   /**

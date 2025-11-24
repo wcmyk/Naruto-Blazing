@@ -62,6 +62,7 @@
       }
 
       // Background Music
+      // Using existing music file location
       this.sounds.battleBGM = new Howl({
         src: ['assets/music/general.mp3'],
         loop: true,
@@ -71,52 +72,52 @@
         onloaderror: (id, err) => console.error('[AudioManager] Failed to load battle BGM:', err)
       });
 
-      // Sound Effects (placeholders - add actual files when available)
+      // Sound Effects - Using proper assets/audio/sfx/ structure
       // These will fail gracefully if files don't exist
       this.sounds.uiClick = new Howl({
-        src: ['assets/sfx/ui_click.mp3'],
+        src: ['assets/audio/sfx/ui_click.mp3'],
         volume: this.getEffectiveVolume('sfx'),
         preload: false
       });
 
       this.sounds.hit = new Howl({
-        src: ['assets/sfx/hit.mp3'],
+        src: ['assets/audio/sfx/hit.mp3'],
         volume: this.getEffectiveVolume('sfx'),
         preload: false
       });
 
       this.sounds.critical = new Howl({
-        src: ['assets/sfx/critical.mp3'],
+        src: ['assets/audio/sfx/critical.mp3'],
         volume: this.getEffectiveVolume('sfx') * 1.2,
         preload: false
       });
 
       this.sounds.jutsu = new Howl({
-        src: ['assets/sfx/jutsu.mp3'],
+        src: ['assets/audio/sfx/jutsu.mp3'],
         volume: this.getEffectiveVolume('sfx'),
         preload: false
       });
 
       this.sounds.ultimate = new Howl({
-        src: ['assets/sfx/ultimate.mp3'],
+        src: ['assets/audio/sfx/ultimate.mp3'],
         volume: this.getEffectiveVolume('sfx') * 1.3,
         preload: false
       });
 
       this.sounds.summon = new Howl({
-        src: ['assets/sfx/summon.mp3'],
+        src: ['assets/audio/sfx/summon.mp3'],
         volume: this.getEffectiveVolume('sfx') * 1.5,
         preload: false
       });
 
       this.sounds.victory = new Howl({
-        src: ['assets/sfx/victory.mp3'],
+        src: ['assets/audio/sfx/victory.mp3'],
         volume: this.getEffectiveVolume('sfx'),
         preload: false
       });
 
       this.sounds.defeat = new Howl({
-        src: ['assets/sfx/defeat.mp3'],
+        src: ['assets/audio/sfx/defeat.mp3'],
         volume: this.getEffectiveVolume('sfx'),
         preload: false
       });
