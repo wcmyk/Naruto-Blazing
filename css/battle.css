@@ -165,8 +165,8 @@ html, body.page-battle {
 #speed-gauge-track {
   position: absolute;
   top: 30px;
-  left: 5%;
-  width: 90%;
+  left: 10%; /* Increased from 5% to reduce width */
+  width: 80%; /* Reduced from 90% to fit properly in 16:9 canvas */
   height: 50px;
   background: linear-gradient(90deg,
     rgba(217, 179, 98, 0.3) 0%,
