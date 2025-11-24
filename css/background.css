@@ -3,7 +3,7 @@
    ========================================== */
 /* --- Base Background Style --- */
 #full-bg {
-  position: fixed;
+  position: absolute; /* Changed from fixed to work with game-canvas */
   inset: 0;
   z-index: -1;
   background-size: cover;
