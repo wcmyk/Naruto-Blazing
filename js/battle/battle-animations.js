@@ -109,6 +109,15 @@
 
       dom.damageLayer.appendChild(damageEl);
 
+      // Play sound effect
+      if (window.AudioManager) {
+        if (isCritical) {
+          window.AudioManager.playSFX('critical');
+        } else if (!isHeal) {
+          window.AudioManager.playSFX('hit');
+        }
+      }
+
       // Animate with GSAP for smooth, controlled animation
       if (window.gsap) {
         const tl = window.gsap.timeline({

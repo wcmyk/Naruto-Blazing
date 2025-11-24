@@ -1,358 +1,297 @@
-// js/audio-manager.js
-// Global Audio Management System
-// Handles background music, sound effects, and volume controls
-
-(function (global) {
+// js/audio-manager.js - Comprehensive Audio System with Howler.js
+(() => {
   "use strict";
 
-  const STORAGE_KEY = "blazing_audio_settings_v1";
+  /**
+   * AudioManager - Centralized audio system for the entire game
+   * Uses Howler.js for reliable cross-browser audio playback
+   *
+   * Features:
+   * - Background music with looping
+   * - Sound effects with sprite support
+   * - Volume controls (master, music, sfx)
+   * - Fade in/out for smooth transitions
+   * - Mobile touch unlock support
+   * - LocalStorage for volume preferences
+   */
+  const AudioManager = {
+    // Sound instances
+    sounds: {},
 
-  // Default audio settings
-  const DEFAULT_SETTINGS = {
-    masterVolume: 0.7,
-    bgmVolume: 0.8,
-    sfxVolume: 0.6,
-    masterMuted: false,
-    bgmMuted: false,
-    sfxMuted: false
-  };
+    // Volume levels (0.0 to 1.0)
+    volumes: {
+      master: 0.7,
+      music: 0.5,
+      sfx: 0.8
+    },
 
-  class AudioManager {
-    constructor() {
-      this.settings = this.load();
-      this.currentBGM = null;
-      this.activeSFX = new Set();
-
-      console.log("🎵 AudioManager initialized");
-    }
+    // State
+    initialized: false,
+    musicPlaying: null,
+    muted: false,
 
     /**
-     * Load audio settings from localStorage
+     * Initialize audio system
+     * Call this once when the game loads
      */
-    load() {
-      try {
-        const raw = localStorage.getItem(STORAGE_KEY);
-        if (!raw) {
-          console.log("🎵 No audio settings found. Using defaults...");
-          return { ...DEFAULT_SETTINGS };
+    init() {
+      if (this.initialized) return;
+
+      console.log('[AudioManager] Initializing audio system...');
+
+      // Load volume preferences
+      this.loadVolumeSettings();
+
+      // Define all sounds
+      this.defineSounds();
+
+      // Setup mobile unlock (iOS requires user interaction)
+      this.setupMobileUnlock();
+
+      this.initialized = true;
+      console.log('[AudioManager] ✅ Audio system ready');
+    },
+
+    /**
+     * Define all game sounds
+     */
+    defineSounds() {
+      if (!window.Howl) {
+        console.warn('[AudioManager] Howler.js not loaded, audio disabled');
+        return;
+      }
+
+      // Background Music
+      this.sounds.battleBGM = new Howl({
+        src: ['assets/music/general.mp3'],
+        loop: true,
+        volume: this.getEffectiveVolume('music'),
+        preload: true,
+        onload: () => console.log('[AudioManager] Battle BGM loaded'),
+        onloaderror: (id, err) => console.error('[AudioManager] Failed to load battle BGM:', err)
+      });
+
+      // Sound Effects (placeholders - add actual files when available)
+      // These will fail gracefully if files don't exist
+      this.sounds.uiClick = new Howl({
+        src: ['assets/sfx/ui_click.mp3'],
+        volume: this.getEffectiveVolume('sfx'),
+        preload: false
+      });
+
+      this.sounds.hit = new Howl({
+        src: ['assets/sfx/hit.mp3'],
+        volume: this.getEffectiveVolume('sfx'),
+        preload: false
+      });
+
+      this.sounds.critical = new Howl({
+        src: ['assets/sfx/critical.mp3'],
+        volume: this.getEffectiveVolume('sfx') * 1.2,
+        preload: false
+      });
+
+      this.sounds.jutsu = new Howl({
+        src: ['assets/sfx/jutsu.mp3'],
+        volume: this.getEffectiveVolume('sfx'),
+        preload: false
+      });
+
+      this.sounds.ultimate = new Howl({
+        src: ['assets/sfx/ultimate.mp3'],
+        volume: this.getEffectiveVolume('sfx') * 1.3,
+        preload: false
+      });
+
+      this.sounds.summon = new Howl({
+        src: ['assets/sfx/summon.mp3'],
+        volume: this.getEffectiveVolume('sfx') * 1.5,
+        preload: false
+      });
+
+      this.sounds.victory = new Howl({
+        src: ['assets/sfx/victory.mp3'],
+        volume: this.getEffectiveVolume('sfx'),
+        preload: false
+      });
+
+      this.sounds.defeat = new Howl({
+        src: ['assets/sfx/defeat.mp3'],
+        volume: this.getEffectiveVolume('sfx'),
+        preload: false
+      });
+
+      console.log('[AudioManager] Defined', Object.keys(this.sounds).length, 'sounds');
+    },
+
+    /**
+     * Setup mobile audio unlock
+     * iOS requires user interaction before playing audio
+     */
+    setupMobileUnlock() {
+      const unlock = () => {
+        // Play and immediately pause a sound to unlock
+        if (this.sounds.battleBGM && !this.sounds.battleBGM.playing()) {
+          this.sounds.battleBGM.play();
+          this.sounds.battleBGM.pause();
         }
-        const parsed = JSON.parse(raw);
-        console.log("✅ Audio settings loaded");
-        return { ...DEFAULT_SETTINGS, ...parsed };
-      } catch (err) {
-        console.error("❌ Error loading audio settings:", err);
-        return { ...DEFAULT_SETTINGS };
-      }
-    }
+
+        // Remove listeners
+        document.removeEventListener('touchstart', unlock);
+        document.removeEventListener('click', unlock);
+
+        console.log('[AudioManager] Mobile audio unlocked');
+      };
+
+      document.addEventListener('touchstart', unlock);
+      document.addEventListener('click', unlock);
+    },
 
     /**
-     * Save audio settings to localStorage
+     * Calculate effective volume (master * category)
      */
-    save() {
-      try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(this.settings));
-        console.log("💾 Audio settings saved");
-
-        // Dispatch event for UI updates
-        if (typeof window !== "undefined") {
-          window.dispatchEvent(new CustomEvent("audioSettingsChanged", {
-            detail: { settings: this.settings }
-          }));
-        }
-
-        return true;
-      } catch (err) {
-        console.error("❌ Error saving audio settings:", err);
-        return false;
-      }
-    }
-
-    /**
-     * Calculate effective volume considering mute states
-     */
-    getEffectiveVolume(type) {
-      if (this.settings.masterMuted) return 0;
-
-      const masterVol = this.settings.masterVolume;
-
-      if (type === "bgm") {
-        return this.settings.bgmMuted ? 0 : masterVol * this.settings.bgmVolume;
-      } else if (type === "sfx") {
-        return this.settings.sfxMuted ? 0 : masterVol * this.settings.sfxVolume;
-      }
-
-      return masterVol;
-    }
-
-    /**
-     * Set master volume (0.0 - 1.0)
-     */
-    setMasterVolume(volume) {
-      const vol = Math.max(0, Math.min(1, parseFloat(volume)));
-      this.settings.masterVolume = vol;
-      this.save();
-      this.updateAllVolumes();
-      console.log(`🔊 Master volume set to ${Math.round(vol * 100)}%`);
-    }
-
-    /**
-     * Set BGM volume (0.0 - 1.0)
-     */
-    setBGMVolume(volume) {
-      const vol = Math.max(0, Math.min(1, parseFloat(volume)));
-      this.settings.bgmVolume = vol;
-      this.save();
-      this.updateBGMVolume();
-      console.log(`🎵 BGM volume set to ${Math.round(vol * 100)}%`);
-    }
-
-    /**
-     * Set SFX volume (0.0 - 1.0)
-     */
-    setSFXVolume(volume) {
-      const vol = Math.max(0, Math.min(1, parseFloat(volume)));
-      this.settings.sfxVolume = vol;
-      this.save();
-      console.log(`🔔 SFX volume set to ${Math.round(vol * 100)}%`);
-    }
-
-    /**
-     * Toggle master mute
-     */
-    toggleMasterMute() {
-      this.settings.masterMuted = !this.settings.masterMuted;
-      this.save();
-      this.updateAllVolumes();
-      console.log(`🔇 Master mute: ${this.settings.masterMuted ? "ON" : "OFF"}`);
-      return this.settings.masterMuted;
-    }
-
-    /**
-     * Toggle BGM mute
-     */
-    toggleBGMMute() {
-      this.settings.bgmMuted = !this.settings.bgmMuted;
-      this.save();
-      this.updateBGMVolume();
-      console.log(`🔇 BGM mute: ${this.settings.bgmMuted ? "ON" : "OFF"}`);
-      return this.settings.bgmMuted;
-    }
-
-    /**
-     * Toggle SFX mute
-     */
-    toggleSFXMute() {
-      this.settings.sfxMuted = !this.settings.sfxMuted;
-      this.save();
-      console.log(`🔇 SFX mute: ${this.settings.sfxMuted ? "ON" : "OFF"}`);
-      return this.settings.sfxMuted;
-    }
-
-    /**
-     * Update all active audio volumes
-     */
-    updateAllVolumes() {
-      this.updateBGMVolume();
-      // SFX are typically one-shot, so we don't update them
-    }
-
-    /**
-     * Update BGM volume
-     */
-    updateBGMVolume() {
-      if (this.currentBGM) {
-        this.currentBGM.volume = this.getEffectiveVolume("bgm");
-      }
-    }
+    getEffectiveVolume(category) {
+      if (this.muted) return 0;
+      return this.volumes.master * this.volumes[category];
+    },
 
     /**
      * Play background music
      */
-    playBGM(src, options = {}) {
-      if (!src) {
-        console.warn("⚠️ No BGM source provided");
-        return null;
-      }
+    playBattleMusic() {
+      if (!this.sounds.battleBGM) return;
 
-      // If already playing the same track, don't restart
-      if (this.currentBGM && this.currentBGM.src.endsWith(src)) {
-        console.log(`🎵 BGM already playing: ${src}`);
-        return this.currentBGM;
-      }
+      if (this.sounds.battleBGM.playing()) return;
 
-      this.stopBGM();
-
-      try {
-        const audio = new Audio(src);
-        audio.loop = options.loop !== false; // Default true
-        audio.volume = this.getEffectiveVolume("bgm");
-
-        // Restore playback position if resuming
-        const savedPosition = localStorage.getItem('bgm_playback_position');
-        const savedTrack = localStorage.getItem('bgm_current_track');
-        if (savedTrack === src && savedPosition) {
-          audio.currentTime = parseFloat(savedPosition);
-          console.log(`🎵 Resuming BGM from ${savedPosition}s`);
-        }
-
-        // Save playback position periodically for seamless page transitions
-        audio.addEventListener('timeupdate', () => {
-          if (!audio.paused) {
-            localStorage.setItem('bgm_playback_position', audio.currentTime.toString());
-            localStorage.setItem('bgm_current_track', src);
-          }
-        });
-
-        const playPromise = audio.play();
-        if (playPromise !== undefined) {
-          playPromise
-            .then(() => {
-              console.log(`🎵 Playing BGM: ${src}`);
-            })
-            .catch((err) => {
-              console.warn(`⚠️ BGM autoplay blocked: ${err.message}`);
-            });
-        }
-
-        this.currentBGM = audio;
-        return audio;
-      } catch (err) {
-        console.error("❌ Error playing BGM:", err);
-        return null;
-      }
-    }
+      console.log('[AudioManager] Playing battle music');
+      this.sounds.battleBGM.volume(this.getEffectiveVolume('music'));
+      this.sounds.battleBGM.fade(0, this.getEffectiveVolume('music'), 1000);
+      this.sounds.battleBGM.play();
+      this.musicPlaying = 'battle';
+    },
 
     /**
-     * Stop background music
+     * Stop background music with fade out
      */
-    stopBGM() {
-      if (this.currentBGM) {
-        this.currentBGM.pause();
-        this.currentBGM.currentTime = 0;
-        this.currentBGM = null;
-        console.log("⏹️ BGM stopped");
-      }
-    }
+    stopMusic(fadeDuration = 1000) {
+      if (!this.sounds.battleBGM || !this.sounds.battleBGM.playing()) return;
 
-    /**
-     * Pause background music
-     */
-    pauseBGM() {
-      if (this.currentBGM) {
-        this.currentBGM.pause();
-        console.log("⏸️ BGM paused");
-      }
-    }
+      console.log('[AudioManager] Stopping music');
+      this.sounds.battleBGM.fade(this.sounds.battleBGM.volume(), 0, fadeDuration);
 
-    /**
-     * Resume background music
-     */
-    resumeBGM() {
-      if (this.currentBGM) {
-        this.currentBGM.play().catch((err) => {
-          console.warn("⚠️ Failed to resume BGM:", err);
-        });
-        console.log("▶️ BGM resumed");
-      }
-    }
+      setTimeout(() => {
+        this.sounds.battleBGM.stop();
+        this.musicPlaying = null;
+      }, fadeDuration);
+    },
 
     /**
      * Play sound effect
      */
-    playSFX(src, options = {}) {
-      if (!src) {
-        console.warn("⚠️ No SFX source provided");
-        return null;
+    playSFX(soundName) {
+      const sound = this.sounds[soundName];
+      if (!sound) {
+        // console.warn(\`[AudioManager] Sound "\${soundName}" not found\`);
+        return;
       }
+
+      // Don't play if muted
+      if (this.muted) return;
+
+      // Set volume and play
+      sound.volume(this.getEffectiveVolume('sfx'));
+      sound.play();
+    },
+
+    /**
+     * Set master volume (0.0 to 1.0)
+     */
+    setMasterVolume(volume) {
+      this.volumes.master = Math.max(0, Math.min(1, volume));
+      this.updateAllVolumes();
+      this.saveVolumeSettings();
+    },
+
+    /**
+     * Set music volume (0.0 to 1.0)
+     */
+    setMusicVolume(volume) {
+      this.volumes.music = Math.max(0, Math.min(1, volume));
+      if (this.sounds.battleBGM) {
+        this.sounds.battleBGM.volume(this.getEffectiveVolume('music'));
+      }
+      this.saveVolumeSettings();
+    },
+
+    /**
+     * Set SFX volume (0.0 to 1.0)
+     */
+    setSFXVolume(volume) {
+      this.volumes.sfx = Math.max(0, Math.min(1, volume));
+      this.saveVolumeSettings();
+    },
+
+    /**
+     * Toggle mute
+     */
+    toggleMute() {
+      this.muted = !this.muted;
+      this.updateAllVolumes();
+      this.saveVolumeSettings();
+      return this.muted;
+    },
+
+    /**
+     * Update all sound volumes
+     */
+    updateAllVolumes() {
+      if (this.sounds.battleBGM) {
+        this.sounds.battleBGM.volume(this.getEffectiveVolume('music'));
+      }
+    },
+
+    /**
+     * Save volume settings to localStorage
+     */
+    saveVolumeSettings() {
+      const settings = {
+        master: this.volumes.master,
+        music: this.volumes.music,
+        sfx: this.volumes.sfx,
+        muted: this.muted
+      };
+      localStorage.setItem('blazing_audio_settings', JSON.stringify(settings));
+    },
+
+    /**
+     * Load volume settings from localStorage
+     */
+    loadVolumeSettings() {
+      const saved = localStorage.getItem('blazing_audio_settings');
+      if (!saved) return;
 
       try {
-        const audio = new Audio(src);
-        audio.volume = this.getEffectiveVolume("sfx");
-        audio.loop = options.loop || false;
-
-        const playPromise = audio.play();
-        if (playPromise !== undefined) {
-          playPromise
-            .then(() => {
-              console.log(`🔔 Playing SFX: ${src}`);
-            })
-            .catch((err) => {
-              console.warn(`⚠️ SFX playback failed: ${err.message}`);
-            });
-        }
-
-        this.activeSFX.add(audio);
-
-        // Auto-cleanup when finished
-        audio.addEventListener("ended", () => {
-          this.activeSFX.delete(audio);
-        });
-
-        return audio;
-      } catch (err) {
-        console.error("❌ Error playing SFX:", err);
-        return null;
+        const settings = JSON.parse(saved);
+        this.volumes.master = settings.master ?? 0.7;
+        this.volumes.music = settings.music ?? 0.5;
+        this.volumes.sfx = settings.sfx ?? 0.8;
+        this.muted = settings.muted ?? false;
+        console.log('[AudioManager] Loaded volume settings:', this.volumes);
+      } catch (e) {
+        console.error('[AudioManager] Failed to load volume settings:', e);
       }
     }
+  };
 
-    /**
-     * Stop all sound effects
-     */
-    stopAllSFX() {
-      this.activeSFX.forEach((sfx) => {
-        sfx.pause();
-        sfx.currentTime = 0;
-      });
-      this.activeSFX.clear();
-      console.log("⏹️ All SFX stopped");
-    }
+  // Export to window
+  window.AudioManager = AudioManager;
 
-    /**
-     * Get current settings
-     */
-    getSettings() {
-      return { ...this.settings };
-    }
-
-    /**
-     * Get volume as percentage string
-     */
-    getVolumePercent(type) {
-      let volume;
-      switch (type) {
-        case "master":
-          volume = this.settings.masterVolume;
-          break;
-        case "bgm":
-          volume = this.settings.bgmVolume;
-          break;
-        case "sfx":
-          volume = this.settings.sfxVolume;
-          break;
-        default:
-          volume = 0;
-      }
-      return Math.round(volume * 100);
-    }
-
-    /**
-     * Reset to default settings
-     */
-    reset() {
-      this.stopBGM();
-      this.stopAllSFX();
-      this.settings = { ...DEFAULT_SETTINGS };
-      this.save();
-      console.log("🔄 Audio settings reset to defaults");
-    }
+  // Auto-initialize on load
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => AudioManager.init());
+  } else {
+    AudioManager.init();
   }
 
-  // Create singleton instance
-  const audioManager = new AudioManager();
-
-  // Export to global scope
-  global.AudioManager = audioManager;
-
-  console.log("✅ AudioManager system initialized");
-
-})(window);
+  console.log("[AudioManager] Module loaded ✅");
+})();
