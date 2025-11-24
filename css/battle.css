@@ -544,3 +544,15 @@ html, body.page-battle {
 .hidden {
   display: none !important;
 }
+
+/* === Target Highlight Animation === */
+@keyframes targetPulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 1;
+  }
+}

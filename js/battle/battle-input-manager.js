@@ -262,16 +262,129 @@
      * Find target enemy at position
      */
     findTargetAtPosition(pos) {
-      // TODO: Implement proper collision detection with enemy positions
-      // For now, return first enemy as placeholder
-      return this.core?.enemyTeam?.[0] || null;
+      if (!this.core?.enemyTeam || !this.core.dom.scene) return null;
+
+      // Get all enemy unit elements from the scene
+      const scene = this.core.dom.scene;
+      const enemies = this.core.enemyTeam.filter(e => e && e.stats.hp > 0);
+
+      // Find enemy unit whose DOM element contains the cursor position
+      for (const enemy of enemies) {
+        const unitEl = scene.querySelector(`[data-unit-id="${enemy.id}"]`);
+        if (!unitEl) continue;
+
+        const rect = unitEl.getBoundingClientRect();
+
+        // Check if cursor is within enemy's bounding box (with some padding for easier targeting)
+        const padding = 20;
+        if (
+          pos.x >= rect.left - padding &&
+          pos.x <= rect.right + padding &&
+          pos.y >= rect.top - padding &&
+          pos.y <= rect.bottom + padding
+        ) {
+          return enemy;
+        }
+      }
+
+      // If no direct hit, find closest enemy to cursor position
+      let closestEnemy = null;
+      let closestDistance = Infinity;
+
+      for (const enemy of enemies) {
+        const unitEl = scene.querySelector(`[data-unit-id="${enemy.id}"]`);
+        if (!unitEl) continue;
+
+        const rect = unitEl.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+
+        const distance = Math.sqrt(
+          Math.pow(pos.x - centerX, 2) + Math.pow(pos.y - centerY, 2)
+        );
+
+        if (distance < closestDistance) {
+          closestDistance = distance;
+          closestEnemy = enemy;
+        }
+      }
+
+      return closestEnemy;
     },
 
     /**
      * Highlight target enemy
      */
     highlightTarget(target) {
-      // TODO: Add visual highlight to targeted enemy
+      if (!target || !this.core?.dom?.scene) return;
+
+      // Remove previous highlights and kill their animations
+      const prevHighlights = this.core.dom.scene.querySelectorAll('.target-highlight');
+      prevHighlights.forEach(h => {
+        if (window.gsap) {
+          window.gsap.killTweensOf(h);
+        }
+        h.remove();
+      });
+
+      // Find target's DOM element
+      const unitEl = this.core.dom.scene.querySelector(`[data-unit-id="${target.id}"]`);
+      if (!unitEl) return;
+
+      // Create highlight overlay
+      const highlight = document.createElement('div');
+      highlight.className = 'target-highlight';
+      highlight.style.cssText = `
+        position: absolute;
+        pointer-events: none;
+        border: 3px solid #ff4444;
+        border-radius: 50%;
+        box-shadow: 0 0 20px rgba(255, 68, 68, 0.8), inset 0 0 20px rgba(255, 68, 68, 0.4);
+        z-index: 100;
+        opacity: 0;
+        transform: scale(0.8);
+      `;
+
+      const rect = unitEl.getBoundingClientRect();
+      const sceneRect = this.core.dom.scene.getBoundingClientRect();
+
+      highlight.style.left = `${rect.left - sceneRect.left - 5}px`;
+      highlight.style.top = `${rect.top - sceneRect.top - 5}px`;
+      highlight.style.width = `${rect.width + 10}px`;
+      highlight.style.height = `${rect.height + 10}px`;
+
+      this.core.dom.scene.appendChild(highlight);
+
+      // Animate with GSAP for smooth, professional feel
+      if (window.gsap) {
+        // Initial pop-in
+        window.gsap.fromTo(highlight,
+          { scale: 0.8, opacity: 0 },
+          {
+            scale: 1,
+            opacity: 0.9,
+            duration: 0.2,
+            ease: "back.out(2)",
+            onComplete: () => {
+              // Continuous pulse
+              window.gsap.to(highlight, {
+                scale: 1.08,
+                opacity: 1,
+                duration: 0.4,
+                ease: "sine.inOut",
+                yoyo: true,
+                repeat: -1
+              });
+            }
+          }
+        );
+      } else {
+        // Fallback to CSS animation
+        highlight.style.animation = 'targetPulse 0.6s ease-in-out infinite';
+        highlight.style.opacity = '0.9';
+        highlight.style.transform = 'scale(1)';
+      }
+
       console.log(`[InputManager] Targeting: ${target.name}`);
     },
 
@@ -311,6 +424,12 @@
       const overlay = document.getElementById('targeting-overlay');
       if (overlay) {
         overlay.remove();
+      }
+
+      // Remove target highlights
+      if (this.core?.dom?.scene) {
+        const highlights = this.core.dom.scene.querySelectorAll('.target-highlight');
+        highlights.forEach(h => h.remove());
       }
     },
 
