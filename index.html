@@ -3,7 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <title>Blazing — Manual Background Switch (Responsive)</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <!-- 16:9 Game Canvas Architecture -->
+  <link rel="stylesheet" href="css/game-canvas.css" />
+  <!-- Game UI Styles -->
   <link rel="stylesheet" href="css/background.css?v=2" />
   <link rel="stylesheet" href="css/top-bar.css?v=2" />
   <link rel="stylesheet" href="css/character-vignette.css?v=2" />
@@ -15,20 +18,24 @@
 </head>
 
 <body>
-  <!-- Default background -->
-  <div id="full-bg" class="bg-1"></div>
+  <!-- 16:9 Game Canvas Wrapper -->
+  <div class="game-canvas-wrapper">
+    <div class="game-canvas">
+      <div class="game-content">
+        <!-- Default background -->
+        <div id="full-bg" class="bg-1"></div>
 
-  <!-- Character Vignette Display -->
-  <div class="character-vignette-container"></div>
+        <!-- Character Vignette Display -->
+        <div class="character-vignette-container"></div>
 
-  <!-- Vignette Edge Fading Effect -->
-  <div class="vignette-overlay"></div>
+        <!-- Vignette Edge Fading Effect -->
+        <div class="vignette-overlay"></div>
 
-  <!-- Wind Animation Particles -->
-  <div class="wind-container"></div>
+        <!-- Wind Animation Particles -->
+        <div class="wind-container"></div>
 
-  <!-- Top Bar Overlay - Ninja Rank, Username & Currency HUD -->
-  <div class="top-bar">
+        <!-- Top Bar Overlay - Ninja Rank, Username & Currency HUD -->
+        <div class="top-bar">
     <!-- Left: Ninja Rank -->
     <div class="ninja-rank-container">
       <div class="ninja-rank-info">
@@ -607,5 +614,9 @@
       console.log("✅ All systems initialized!");
     });
   </script>
+
+      </div><!-- .game-content -->
+    </div><!-- .game-canvas -->
+  </div><!-- .game-canvas-wrapper -->
 </body>
 </html>
