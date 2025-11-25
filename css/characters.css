@@ -355,6 +355,32 @@ body.page-characters {
   border-color: #444;
   cursor: not-allowed;
 }
+.btn-evolve {
+  background: linear-gradient(135deg, #6b2fb0 0%, #9b4fd8 50%, #6b2fb0 100%);
+  border: 2px solid #b87ce8;
+  color: #fff;
+  font-weight: 600;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+  box-shadow: 0 0 15px rgba(155, 79, 216, 0.4);
+  animation: evolve-glow 2s ease-in-out infinite;
+}
+.btn-evolve:hover:not(:disabled) {
+  background: linear-gradient(135deg, #7b3fc0 0%, #ab5fe8 50%, #7b3fc0 100%);
+  box-shadow: 0 0 25px rgba(155, 79, 216, 0.6);
+  transform: translateY(-2px);
+}
+.btn-evolve:disabled {
+  background: #2c2c2c;
+  color: #777;
+  border-color: #444;
+  cursor: not-allowed;
+  box-shadow: none;
+  animation: none;
+}
+@keyframes evolve-glow {
+  0%, 100% { box-shadow: 0 0 15px rgba(155, 79, 216, 0.4); }
+  50% { box-shadow: 0 0 25px rgba(155, 79, 216, 0.7); }
+}
 .btn-feeddupe {
   background: linear-gradient(180deg, #3a6d9e 0%, #1f3a5f 100%);
   border: 1px solid rgba(90, 150, 200, 0.4);

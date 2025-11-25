@@ -54617,6 +54617,9 @@
         "name": "Jutsu Sealing Resistance",
         "description": "Lowers rate of getting jutsu sealed by 20% (Not F Skills)."
       }
+    ],
+    "evolvesTo": [
+      "naruto_666"
     ]
   },
   {
