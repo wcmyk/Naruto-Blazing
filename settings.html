@@ -348,14 +348,18 @@
     const muteButton = document.getElementById('mute-button');
 
     // Load current audio settings
-    if (typeof AudioManager !== 'undefined') {
-      const settings = AudioManager.getSettings();
-      bgmSlider.value = Math.round(settings.bgmVolume * 100);
-      bgmValue.textContent = Math.round(settings.bgmVolume * 100) + '%';
-      sfxSlider.value = Math.round(settings.sfxVolume * 100);
-      sfxValue.textContent = Math.round(settings.sfxVolume * 100) + '%';
-      muteButton.textContent = settings.masterMuted ? 'Muted' : 'Unmuted';
-      muteButton.classList.toggle('active', !settings.masterMuted);
+    if (typeof AudioManager !== 'undefined' && typeof AudioManager.getSettings === 'function') {
+      try {
+        const settings = AudioManager.getSettings();
+        bgmSlider.value = Math.round(settings.bgmVolume * 100);
+        bgmValue.textContent = Math.round(settings.bgmVolume * 100) + '%';
+        sfxSlider.value = Math.round(settings.sfxVolume * 100);
+        sfxValue.textContent = Math.round(settings.sfxVolume * 100) + '%';
+        muteButton.textContent = settings.masterMuted ? 'Muted' : 'Unmuted';
+        muteButton.classList.toggle('active', !settings.masterMuted);
+      } catch (error) {
+        console.warn('[Settings] Could not load audio settings:', error);
+      }
     }
 
     // BGM Volume Control
