@@ -54539,7 +54539,7 @@
     "id": "naruto_665",
     "name": "Naruto Uzumaki",
     "version": "The Inheritor",
-    "element": null,
+    "element": "heart",
     "rarity": 6,
     "starMinCode": "6S",
     "starMaxCode": "6SB",
