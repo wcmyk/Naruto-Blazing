@@ -7,6 +7,8 @@ const express = require('express');
 const cors = require('cors');
 const fs = require('fs');
 const path = require('path');
+const adminRoutes = require('./admin-routes');
+const upload = require('./upload-middleware');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -14,6 +16,9 @@ const PORT = process.env.PORT || 3000;
 // Middleware
 app.use(cors());
 app.use(express.json());
+
+// Admin routes (IMPORTANT: Add authentication in production!)
+app.use('/admin', adminRoutes);
 
 // In-memory cache (replace with Redis in production)
 let charactersCache = null;
@@ -202,6 +207,38 @@ app.post('/api/cache/clear', (req, res) => {
   });
 });
 
+/**
+ * POST /api/upload/:id
+ * Upload character images
+ */
+app.post('/api/upload/:id', upload.single('image'), (req, res) => {
+  try {
+    if (!req.file) {
+      return res.status(400).json({ error: 'No file uploaded' });
+    }
+
+    // Clear cache after upload
+    charactersCache = null;
+    cacheTimestamp = null;
+
+    res.json({
+      message: 'Image uploaded successfully',
+      file: {
+        characterId: req.params.id,
+        filename: req.file.filename,
+        path: req.file.path,
+        size: req.file.size,
+      },
+    });
+  } catch (error) {
+    console.error('Upload error:', error);
+    res.status(500).json({
+      error: 'Failed to upload image',
+      message: error.message,
+    });
+  }
+});
+
 // Start server
 app.listen(PORT, () => {
   console.log(`
@@ -211,13 +248,23 @@ app.listen(PORT, () => {
 ║  Port: ${PORT.toString().padEnd(32)}  ║
 ║  Environment: ${(process.env.NODE_ENV || 'development').padEnd(24)}  ║
 ╠════════════════════════════════════════╣
-║  Endpoints:                            ║
+║  Public Endpoints:                     ║
 ║  GET  /health                          ║
 ║  GET  /api/characters                  ║
 ║  GET  /api/characters/:id              ║
 ║  GET  /api/characters/search?q=        ║
 ║  GET  /api/stats                       ║
-║  POST /api/cache/clear                 ║
+╠════════════════════════════════════════╣
+║  Admin Endpoints:                      ║
+║  POST   /admin/characters              ║
+║  PUT    /admin/characters/:id          ║
+║  PATCH  /admin/characters/:id          ║
+║  DELETE /admin/characters/:id          ║
+║  POST   /admin/characters/bulk         ║
+║  POST   /api/upload/:id                ║
+║  GET    /admin/backups                 ║
+║  POST   /admin/backups/restore         ║
+║  GET    /admin/validate                ║
 ╚════════════════════════════════════════╝
   `);
 
