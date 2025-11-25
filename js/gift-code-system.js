@@ -101,10 +101,16 @@ class GiftCodeSystem {
   }
 
   async sendRewardsToMailbox(codeData) {
+    console.log('📬 [GiftCode] Attempting to send rewards to mailbox...');
+    console.log('📬 [GiftCode] Code data:', codeData);
+
     if (!window.DashboardMailbox) {
-      console.error('Mailbox system not available');
+      console.error('❌ [GiftCode] Mailbox system not available!');
+      alert('❌ Mailbox system not loaded. Please go to the main menu first, then try redeeming the code again.');
       return;
     }
+
+    console.log('✅ [GiftCode] Mailbox system found');
 
     const rewards = codeData.rewards;
     const message = {
@@ -117,8 +123,11 @@ class GiftCodeSystem {
       rewardType: 'giftCode' // Special type for gift code rewards
     };
 
+    console.log('📬 [GiftCode] Message to add:', message);
     window.DashboardMailbox.addMessage(message);
-    console.log(`Gift code rewards sent to mailbox: ${codeData.code}`);
+    console.log('✅ [GiftCode] Message added to mailbox');
+    console.log('📊 [GiftCode] Current mailbox message count:', window.DashboardMailbox.messages.length);
+    console.log('📊 [GiftCode] Unread count:', window.DashboardMailbox.getUnreadCount());
   }
 }
 

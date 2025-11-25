@@ -248,6 +248,16 @@
       <div class="settings-section-title">Developer Tools</div>
 
       <div class="setting-row">
+        <div class="setting-label">Add All Characters (Batch)</div>
+        <div class="setting-control">
+          <button class="toggle-button" id="batch-add-all-button" style="background: linear-gradient(135deg, #1f8b2c 0%, #2da83d 100%); border-color: #6c6;">Add All Units Now!</button>
+        </div>
+        <div style="font-size: 12px; color: #b8985f; margin-top: 8px;">
+          Instantly adds all 19 characters (evolved + unevolved) to your roster
+        </div>
+      </div>
+
+      <div class="setting-row">
         <div class="setting-label">Add Unit Manually</div>
         <div class="setting-control" style="display: flex; gap: 10px; flex-wrap: wrap;">
           <input type="text" id="manual-unit-input" placeholder="naruto_01_3S*5" style="padding: 8px 16px; border-radius: 6px; background: rgba(30, 30, 40, 0.9); color: #f4efe3; border: 1px solid rgba(139, 115, 85, 0.6); font-family: 'Cinzel', serif; flex: 1; min-width: 200px;">
@@ -332,6 +342,7 @@
   <script src="js/gift-code-system.js"></script>
   <script src="js/dashboard-mailbox.js"></script>
   <script src="js/player-save-system.js"></script>
+  <script src="js/batch-add-characters.js"></script>
 
   <script>
     // Initialize Mailbox System
@@ -467,6 +478,19 @@
         input.value = ''; // Clear input on success
       } else {
         alert(`❌ ${result.message}`);
+      }
+    });
+
+    // Batch Add All Characters
+    document.getElementById('batch-add-all-button').addEventListener('click', async () => {
+      if (!confirm('This will add all 19 characters (evolved + unevolved) to your roster. Continue?')) {
+        return;
+      }
+
+      if (typeof window.addAllCharacters === 'function') {
+        await window.addAllCharacters();
+      } else {
+        alert('❌ Batch add function not loaded. Please reload the page.');
       }
     });
 
