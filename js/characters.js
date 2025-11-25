@@ -1332,63 +1332,6 @@
           window.refreshCharacterGrid();
         }
       };
-
-      // Evolution button setup
-      const evolveBtn = document.getElementById("btn-evolve");
-      if (evolveBtn && window.CharacterEvolution) {
-        const canEvolve = window.CharacterEvolution.canEvolve(c);
-        const evolutionOptions = canEvolve ? window.CharacterEvolution.getEvolutionOptions(c) : [];
-
-        if (canEvolve && evolutionOptions.length > 0) {
-          const targetId = evolutionOptions[0]; // Use first evolution option
-          const meetsReqs = window.CharacterEvolution.meetsEvolutionRequirements(inst, c, targetId);
-
-          evolveBtn.style.display = "inline-block";
-          evolveBtn.disabled = !meetsReqs;
-
-          if (tip && !canAwaken) {
-            tip.textContent = !isMaxLevel ? "Level up to max to evolve." :
-                             !canPromote ? meetsReqs ? "Ready to evolve!" : "Cannot evolve yet." :
-                             tip.textContent;
-          }
-
-          evolveBtn.onclick = async function() {
-            if (evolveBtn.disabled) return;
-
-            const freshInst = window.InventoryChar?.getByUid(inst.uid);
-            if (!freshInst) {
-              if (window.ModalManager) { window.ModalManager.showInfo("Character not found."); }
-              return;
-            }
-
-            // Confirm evolution
-            const confirmed = confirm(`Evolve to ${targetId}? Level will reset to 1.`);
-            if (!confirmed) return;
-
-            const result = await window.CharacterEvolution.performEvolution(freshInst, c, targetId);
-
-            if (!result.ok) {
-              if (window.ModalManager) {
-                window.ModalManager.showInfo("Cannot evolve: " + (result.reason || "Unknown error"));
-              }
-              return;
-            }
-
-            // Close modal and refresh
-            if (MODAL) MODAL.setAttribute("aria-hidden", "true");
-            if (typeof window.refreshCharacterGrid === "function") {
-              window.refreshCharacterGrid();
-            }
-
-            // Show success message
-            if (window.ModalManager) {
-              window.ModalManager.showInfo(`✨ Evolution successful! ${c.name} → ${result.newCharacterId}`);
-            }
-          };
-        } else {
-          evolveBtn.style.display = "none";
-        }
-      }
     };
 
     console.log("[Awaken Fix] Applied!");
