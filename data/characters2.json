@@ -1,0 +1,163 @@
+{
+  "id": "naruto_665",
+  "name": "Naruto Uzumaki",
+  "version": "Tailed Beast Planetary Rasen Shuriken",
+  "rarity": 6,
+  "starMinCode": "6S",
+  "starMaxCode": "6SB",
+  "portrait": "assets/characters/naruto_665/portrait_6S.png",
+  "full": "assets/characters/naruto_665/full_6S.png",
+  "ultimateAnimation": "assets/animations/naruto_665/secret.mp4",
+  "secretAnimation": "assets/animations/naruto_665/ninjutsu.gif",
+
+  "element": "Heart",
+  "range": "Mid",
+  "affiliation": ["Hidden Leaf", "Ninja Alliance"],
+  "powerRank": null,
+
+  "artByTier": {
+    "6★": {
+      "portrait": "assets/characters/naruto_665/portrait_6.png",
+      "full": "assets/characters/naruto_665/full_6.png"
+    },
+    "6LB": {
+      "portrait": "assets/characters/naruto_665/portrait_6S.png",
+      "full": "assets/characters/naruto_665/full_6S.png"
+    }
+  },
+
+  "statsBase": {
+    "hp": 743,
+    "atk": 686,
+    "def": null,
+    "speed": 110,
+    "chakra": null
+  },
+
+  "statsMax": {
+    "hp": 1486,
+    "atk": 1372,
+    "def": null,
+    "speed": 221,
+    "chakra": null
+  },
+
+  "statsLimitBreak": {
+    "hp": 1906,
+    "atk": 1772,
+    "def": null,
+    "speed": 241
+  },
+
+  "growthCurve": {
+    "hp": 1.00,
+    "atk": 1.00,
+    "def": 1.00,
+    "speed": 1.00,
+    "chakra": 1.00
+  },
+
+  "luck": { "base": 1, "max": 99 },
+  "cost": { "base": 100, "max": 50 },
+
+  "passiveIcons": {
+    "6★": [],
+    "6LB": []
+  },
+
+  "fieldSkill": {
+    "6★": "Reduces chance of receiving jutsu sealing by 20%-25% (Not Field Skills)."
+  },
+
+  "buddySkill": {
+    "6★": "Reduces chance of receiving jutsu sealing by 25% (Not Field Skills)."
+  },
+
+  "syncSkills": [
+    {
+      "condition": "Sync With Hidden Leaf",
+      "effect": "Reduces Body damage taken by 15%"
+    },
+    {
+      "condition": "Sync With Ninja Alliance",
+      "effect": "Restores 50/250 HP every turn"
+    }
+  ],
+
+  "skills": {
+    "ninjutsu": {
+      "name": "Dive Bomb Rasengan",
+      "type": "Ninjutsu",
+      "byTier": {
+        "6★": {
+          "chakraCost": 5,
+          "cooldown": null,
+          "range": "Short — Circle",
+          "hits": 7,
+          "multiplier": "5.1x ATK",
+          "description": "5.1x attack to 1 enemy, knocks back. 50% chance slip damage AND/OR ATK down for 4 turns.",
+          "extraEffects": {
+            "slipChance": 50,
+            "atkDownChance": 50,
+            "debuffDuration": 4
+          }
+        }
+      }
+    },
+
+    "ultimate": {
+      "name": "Tailed Beast Planetary Rasen Shuriken",
+      "type": "Secret",
+      "byTier": {
+        "6★": {
+          "chakraCost": 10,
+          "cooldown": null,
+          "range": "Long — Circle",
+          "hits": 10,
+          "multiplier": "8.0x ATK",
+          "description": "8x attack toward all enemies in range and knocks them back. 70% chance ATK down for 5 turns. Grants 20% damage reduction for 2 turns.",
+          "effects": {
+            "atkDownChance": 70,
+            "atkDownDuration": 5,
+            "damageReductionPercent": 20,
+            "damageReductionDuration": 2
+          }
+        }
+      }
+    }
+  },
+
+  "abilities": [
+    {
+      "name": "Reduce Bravery Damage",
+      "description": "Reduces Bravery damage taken by 20%."
+    },
+    {
+      "name": "Reduce Wisdom Damage",
+      "description": "Reduces Wisdom damage taken by 20%."
+    },
+    {
+      "name": "Jutsu Sealing Resistance",
+      "description": "Lowers rate of being jutsu sealed by 20% (Not Field Skills)."
+    },
+    {
+      "name": "Self-Healing",
+      "description": "Restores 300/600 HP every turn."
+    },
+    {
+      "name": "Jutsu Sealing Resistance",
+      "description": "Lowers rate of being jutsu sealed by 20% (Not Field Skills)."
+    }
+  ],
+
+  "release": {
+    "japan": "2018-08-21",
+    "global": "2018-08-28"
+  },
+
+  "metadata": {
+    "cardNumber": 665,
+    "maxLevel": 150,
+    "hitCount": 2
+  }
+}
