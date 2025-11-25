@@ -60,7 +60,6 @@
                 <button class="btn-dark" id="btn-feeddupe">Latent Awaken</button>
                 <button class="btn-dark" id="btn-removecopy">Remove Copy</button>
                 <button class="btn-awaken" id="btn-awaken" disabled>Awaken</button>
-                <button class="btn-evolve" id="btn-evolve" disabled style="display:none;">✨ Evolve</button>
                 <button class="btn-limitbreak" id="btn-limitbreak" disabled>Limit Break</button>
               </div>
               <div class="limitbreak-info" id="limitbreak-info" style="display:none;">
@@ -237,11 +236,9 @@
       console.log('[Music] Initializing background music...');
 
       const startMusic = () => {
-        if (!window.AudioManager.currentBGM) {
-          const bgm = window.AudioManager.playBGM('assets/music/general.mp3');
-          if (bgm) {
-            console.log('[Music] Background music started');
-          }
+        if (!window.AudioManager.musicPlaying) {
+          window.AudioManager.playBattleMusic();
+          console.log('[Music] Background music started');
         }
       };
 
