@@ -334,6 +334,12 @@
   <script src="js/player-save-system.js"></script>
 
   <script>
+    // Initialize Mailbox System
+    if (window.DashboardMailbox) {
+      window.DashboardMailbox.init();
+      console.log('✅ Mailbox initialized in settings');
+    }
+
     // Audio Settings
     const bgmSlider = document.getElementById('bgm-volume');
     const bgmValue = document.getElementById('bgm-value');
@@ -416,11 +422,21 @@
         return;
       }
 
+      console.log('🎁 Attempting to redeem code:', code);
+
+      if (!window.GiftCodeSystem) {
+        alert('❌ Gift Code System not loaded. Please reload the page.');
+        return;
+      }
+
       const result = await window.GiftCodeSystem.redeemCode(code);
-      alert(result.message);
+      console.log('🎁 Redemption result:', result);
 
       if (result.success) {
+        alert(`✅ ${result.message}\n\n📬 Go to the main menu and click the Present Box icon to claim your rewards!`);
         input.value = ''; // Clear input on success
+      } else {
+        alert(`❌ ${result.message}`);
       }
     });
 
