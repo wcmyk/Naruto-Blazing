@@ -334,6 +334,12 @@
   <script src="js/player-save-system.js"></script>
 
   <script>
+    // Initialize Mailbox System
+    if (window.DashboardMailbox) {
+      window.DashboardMailbox.init();
+      console.log('✅ Mailbox initialized in settings');
+    }
+
     // Audio Settings
     const bgmSlider = document.getElementById('bgm-volume');
     const bgmValue = document.getElementById('bgm-value');
@@ -402,10 +408,25 @@
     });
 
     // Gift Code Redemption
-    // Initialize Gift Code System
-    if (window.GiftCodeSystem) {
-      window.GiftCodeSystem.init();
+    // Initialize Gift Code System with proper async handling
+    let giftCodeSystemReady = false;
+
+    async function initializeGiftCodeSystem() {
+      if (window.GiftCodeSystem) {
+        try {
+          await window.GiftCodeSystem.init();
+          giftCodeSystemReady = true;
+          console.log('✅ Gift Code System ready with', window.GiftCodeSystem.codes.length, 'codes');
+          console.log('Available codes:', window.GiftCodeSystem.codes.map(c => c.code).join(', '));
+        } catch (error) {
+          console.error('❌ Failed to initialize Gift Code System:', error);
+        }
+      } else {
+        console.error('❌ GiftCodeSystem not found');
+      }
     }
+
+    initializeGiftCodeSystem();
 
     document.getElementById('redeem-gift-code-button').addEventListener('click', async () => {
       const input = document.getElementById('gift-code-input');
@@ -416,11 +437,32 @@
         return;
       }
 
+      console.log('🎁 Attempting to redeem code:', code);
+
+      if (!window.GiftCodeSystem) {
+        alert('❌ Gift Code System not loaded. Please reload the page.');
+        console.error('GiftCodeSystem is undefined');
+        return;
+      }
+
+      if (!giftCodeSystemReady) {
+        alert('⏳ Gift Code System is still loading. Please wait a moment and try again.');
+        console.warn('Gift codes not loaded yet');
+        return;
+      }
+
+      console.log('📦 Current codes loaded:', window.GiftCodeSystem.codes.length);
+      console.log('🔍 Looking for code:', code);
+      console.log('📋 Available codes:', window.GiftCodeSystem.codes.map(c => c.code));
+
       const result = await window.GiftCodeSystem.redeemCode(code);
-      alert(result.message);
+      console.log('🎁 Redemption result:', result);
 
       if (result.success) {
+        alert(`✅ ${result.message}\n\n📬 Go to the main menu and click the Present Box icon to claim your rewards!`);
         input.value = ''; // Clear input on success
+      } else {
+        alert(`❌ ${result.message}`);
       }
     });
 
