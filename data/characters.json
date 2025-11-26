@@ -70308,18 +70308,18 @@
     "name": "Naruto Uzumaki",
     "version": "The Inheritor",
     "element": null,
-    "rarity": 6,
-    "starMinCode": "6S",
-    "starMaxCode": "6SB",
+    "rarity": 1,
+    "starMinCode": "1S",
+    "starMaxCode": "6S",
     "lbEligible": false,
     "portrait": "assets/characters/naruto_665/portrait_6S.png",
     "full": "assets/characters/naruto_665/full_6S.png",
     "ultimateAnimation": null,
     "secretAnimation": null,
     "artByTier": {
-      "6SB": {
-        "portrait": "assets/characters/naruto_666/portrait_6S.png",
-        "full": "assets/characters/naruto_666/full_6S.png"
+      "6S": {
+        "portrait": "assets/characters/naruto_665/portrait_6S.png",
+        "full": "assets/characters/naruto_665/full_6S.png"
       }
     },
     "statsBase": {
@@ -70419,8 +70419,8 @@
     "version": "The Inheritor",
     "element": null,
     "rarity": 1,
-    "starMinCode": "6SB",
-    "starMaxCode": "6SB",
+    "starMinCode": "1S",
+    "starMaxCode": "6S",
     "lbEligible": false,
     "portrait": "assets/characters/naruto_666/portrait_6S.png",
     "full": "assets/characters/naruto_666/full_6S.png",
@@ -132443,8 +132443,14 @@
       "chakra": 0.05
     },
     "range": "",
-    "luck": { "base": 0, "max": 0 },
-    "cost": { "base": 0, "max": 0 },
+    "luck": {
+      "base": 0,
+      "max": 0
+    },
+    "cost": {
+      "base": 0,
+      "max": 0
+    },
     "affiliation": [],
     "passiveIcons": {},
     "skills": {
@@ -132468,134 +132474,38 @@
             "shape": "—",
             "range": "Whole Map",
             "position": "Right",
-            "description": "4.4x attack toward all enemies in range, 70% chance of sealing jutsu for 6 turns.",
-            "nwusDescription": "4.4x attack toward all enemies in range, 85% chance of jutsu sealing for 4 seconds. 95% chance of speed reduction for 6 seconds and 90% chance of switch sealing for 10 turns."
+            "description": "4.4x attack toward all enemies in range, 70% chance of sealing jutsu for 6 turn(s).",
+            "nwusDescription": "4.4x attack toward all enemies in range, 85% chance of jutsu sealing for 4 second(s). 95% chance of speed reduction for 6 second(s) and 90% chance of switch sealing for 10 turn(s)."
           }
         }
       }
     },
     "abilities": [
-      { "name": "Nullifies Jutsu Sealing", "description": "Nullifies jutsu sealing (excluding Field Effects and F Skills)." },
-      { "name": "Nullifies Immobilization", "description": "Nullifies immobilization (not Field Effects & F Skills)." },
-      { "name": "Chakra Recovery When Dealing Direct Attacks", "description": "25% chance of restoring 2 Chakra Gauges when dealing direct attacks." },
-      { "name": "Reduce Damage", "description": "Reduces damage taken by 40%." },
-      { "name": "Nullifies Chakra Reduction Field Effect", "description": "Nullifies Chakra Reduction Field Effect." }
+      {
+        "name": "Nullifies Jutsu Sealing",
+        "description": "Nullifies jutsu sealing (excluding Field Effects and F Skills)."
+      },
+      {
+        "name": "Nullifies Immobilization",
+        "description": "Nullifies immobilization (not Field Effects & F Skills)."
+      },
+      {
+        "name": "Chakra Recovery When Dealing Direct Attacks",
+        "description": "25% chance of restoring 2 Chakra Gauges when dealing direct attacks."
+      },
+      {
+        "name": "Reduce Damage",
+        "description": "Reduces damage taken by 40%."
+      },
+      {
+        "name": "Nullifies Chakra Reduction Field Effect",
+        "description": "Nullifies Chakra Reduction Field Effect."
+      }
     ],
     "metadata": {
       "cardNumber": 2141,
       "maxLevel": null,
       "hitCount": 0
     }
-  },
-  {
-    "id": "takimitsuha_1190",
-    "name": "Taki & Mitsuha",
-    "version": "Bonds Across Time",
-    "rarity": 7,
-    "starMinCode": "7S",
-    "starMaxCode": "7S",
-    "portrait": "assets/characters/takimitsuha/portrait_7S.png",
-    "full": "assets/characters/takimitsuha/full_7S.png",
-    "ultimateAnimation": "assets/animations/takimitsuha/itomori_meteor.mp4",
-    "secretAnimation": "assets/animations/takimitsuha/fate_threads.gif",
-    "artByTier": {
-      "7S": {
-        "portrait": "assets/characters/takimitsuha/portrait_7S.png",
-        "full": "assets/characters/takimitsuha/full_7S.png"
-      }
-    },
-    "statsBase": {
-      "hp": 1712,
-      "atk": 1476,
-      "def": 600,
-      "speed": 360,
-      "chakra": 24
-    },
-    "statsMax": {
-      "hp": 3384,
-      "atk": 2952,
-      "def": 1680,
-      "speed": 620,
-      "chakra": 40
-    },
-    "growthCurve": {
-      "hp": 1.10,
-      "atk": 1.12,
-      "def": 1.06,
-      "speed": 1.05,
-      "chakra": 1.00
-    },
-    "powerRank": 1040,
-    "powerWeights": {
-      "hp": 0.35,
-      "atk": 0.40,
-      "def": 0.10,
-      "speed": 0.10,
-      "chakra": 0.05
-    },
-    "range": "Long",
-    "luck": { "base": 15, "max": 99 },
-    "cost": { "base": 80, "max": 60 },
-    "affiliation": "Bonds of Fate",
-    "passiveIcons": {
-      "7S": ["atk_up", "heal_up", "heal_up", "def_up", "speed_up", "speed_up", "speed_up"]
-    },
-    "skills": {
-      "ultimate": {
-        "name": "Celestial Impact — The Meteor of Itomori",
-        "type": "Ultimate",
-        "byTier": {
-          "7S": {
-            "chakraCost": 8,
-            "cooldown": 6,
-            "range": "All Enemies (Whole Map)",
-            "hits": 12,
-            "multiplier": "15.0x ATK",
-            "description": "Calls down a massive meteor that devastates the battlefield.",
-            "animationGif": "assets/animations/takimitsuha/itomori_meteor.mp4"
-          }
-        }
-      },
-      "secret": {
-        "name": "Threads of Fate Rewoven",
-        "type": "Secret",
-        "byTier": {
-          "7S": {
-            "chakraCost": 10,
-            "cooldown": 7,
-            "range": "Self & Allies (Global)",
-            "description": "A divine temporal link restores all allies’ bonds across time.",
-            "effects": {
-              "tag": "fateThreads",
-              "unique": true,
-              "stacking": { "mode": "refresh", "maxStacks": 1 },
-              "atkBoost": 500,
-              "speedBoostPercent": 25,
-              "healPercent": 60,
-              "revive": true,
-              "reviveWindowTurns": 3,
-              "cleanseDebuffs": true,
-              "cleanseTypes": [
-                "poison","slip","burn","bleed","stun",
-                "seal","silence","slow","atkDown",
-                "defDown","spdDown","blind"
-              ],
-              "durationTurns": 3
-            }
-          }
-        }
-      }
-    },
-    "abilities": [
-      { "name": "Fate Synchronization", "description": "At the start of battle, fills chakra gauge by 3 and reduces debuffs by 50%." },
-      { "name": "Celestial Resonance", "description": "Boosts Ultimate by 20% and reduces cooldown by 1." },
-      { "name": "Temporal Strike", "description": "Increases ATK by 250 and boosts combo DMG by 15%." },
-      { "name": "Healing Threads", "description": "Restores 200 HP each turn and boosts healing by 20%." },
-      { "name": "Bonds of Protection", "description": "Increases max HP by 500 and reduces damage by 10% above 70% HP." },
-      { "name": "Comet's Endurance", "description": "Boosts DEF by 300 and reduces crit damage by 25%." },
-      { "name": "Time Acceleration", "description": "Increases SPD by 80 and grants 20% chance for an extra turn." }
-    ]
   }
-
-
-
+]
