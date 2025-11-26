@@ -132444,14 +132444,8 @@
       "chakra": 0.05
     },
     "range": "",
-    "luck": {
-      "base": 0,
-      "max": 0
-    },
-    "cost": {
-      "base": 0,
-      "max": 0
-    },
+    "luck": { "base": 0, "max": 0 },
+    "cost": { "base": 0, "max": 0 },
     "affiliation": [],
     "passiveIcons": {},
     "skills": {
@@ -132475,33 +132469,18 @@
             "shape": "—",
             "range": "Whole Map",
             "position": "Right",
-            "description": "4.4x attack toward all enemies in range, 70% chance of sealing jutsu for 6 turn(s).",
-            "nwusDescription": "4.4x attack toward all enemies in range, 85% chance of jutsu sealing for 4 second(s). 95% chance of speed reduction for 6 second(s) and 90% chance of switch sealing for 10 turn(s)."
+            "description": "4.4x attack toward all enemies in range, 70% chance of sealing jutsu for 6 turns.",
+            "nwusDescription": "4.4x attack toward all enemies in range, 85% chance of jutsu sealing for 4 seconds. 95% chance of speed reduction for 6 seconds and 90% chance of switch sealing for 10 turns."
           }
         }
       }
     },
     "abilities": [
-      {
-        "name": "Nullifies Jutsu Sealing",
-        "description": "Nullifies jutsu sealing (excluding Field Effects and F Skills)."
-      },
-      {
-        "name": "Nullifies Immobilization",
-        "description": "Nullifies immobilization (not Field Effects & F Skills)."
-      },
-      {
-        "name": "Chakra Recovery When Dealing Direct Attacks",
-        "description": "25% chance of restoring 2 Chakra Gauges when dealing direct attacks."
-      },
-      {
-        "name": "Reduce Damage",
-        "description": "Reduces damage taken by 40%."
-      },
-      {
-        "name": "Nullifies Chakra Reduction Field Effect",
-        "description": "Nullifies Chakra Reduction Field Effect."
-      }
+      { "name": "Nullifies Jutsu Sealing", "description": "Nullifies jutsu sealing (excluding Field Effects and F Skills)." },
+      { "name": "Nullifies Immobilization", "description": "Nullifies immobilization (not Field Effects & F Skills)." },
+      { "name": "Chakra Recovery When Dealing Direct Attacks", "description": "25% chance of restoring 2 Chakra Gauges when dealing direct attacks." },
+      { "name": "Reduce Damage", "description": "Reduces damage taken by 40%." },
+      { "name": "Nullifies Chakra Reduction Field Effect", "description": "Nullifies Chakra Reduction Field Effect." }
     ],
     "metadata": {
       "cardNumber": 2141,
@@ -132509,8 +132488,6 @@
       "hitCount": 0
     }
   },
-
-  [
   {
     "id": "takimitsuha_1190",
     "name": "Taki & Mitsuha",
@@ -132558,14 +132535,8 @@
       "chakra": 0.05
     },
     "range": "Long",
-    "luck": {
-      "base": 15,
-      "max": 99
-    },
-    "cost": {
-      "base": 80,
-      "max": 60
-    },
+    "luck": { "base": 15, "max": 99 },
+    "cost": { "base": 80, "max": 60 },
     "affiliation": "Bonds of Fate",
     "passiveIcons": {
       "7S": ["atk_up", "heal_up", "heal_up", "def_up", "speed_up", "speed_up", "speed_up"]
@@ -132581,7 +132552,7 @@
             "range": "All Enemies (Whole Map)",
             "hits": 12,
             "multiplier": "15.0x ATK",
-            "description": "Calls down a massive meteor that devastates the battlefield, dealing catastrophic damage to all enemies and destroying terrain. Visual cinematic plays of the comet striking the town.",
+            "description": "Calls down a massive meteor that devastates the battlefield.",
             "animationGif": "assets/animations/takimitsuha/itomori_meteor.mp4"
           }
         }
@@ -132594,14 +132565,11 @@
             "chakraCost": 10,
             "cooldown": 7,
             "range": "Self & Allies (Global)",
-            "description": "A divine temporal link restores all allies' bonds across time. Greatly boosts ATK (+500), increases SPD, heals allies by 60% HP, revives allies fallen within the last 3 turns, and cleanses negative ailments. Lasts 3 turns.",
+            "description": "A divine temporal link restores all allies’ bonds across time.",
             "effects": {
               "tag": "fateThreads",
               "unique": true,
-              "stacking": {
-                "mode": "refresh",
-                "maxStacks": 1
-              },
+              "stacking": { "mode": "refresh", "maxStacks": 1 },
               "atkBoost": 500,
               "speedBoostPercent": 25,
               "healPercent": 60,
@@ -132609,18 +132577,9 @@
               "reviveWindowTurns": 3,
               "cleanseDebuffs": true,
               "cleanseTypes": [
-                "poison",
-                "slip",
-                "burn",
-                "bleed",
-                "stun",
-                "seal",
-                "silence",
-                "slow",
-                "atkDown",
-                "defDown",
-                "spdDown",
-                "blind"
+                "poison","slip","burn","bleed","stun",
+                "seal","silence","slow","atkDown",
+                "defDown","spdDown","blind"
               ],
               "durationTurns": 3
             }
@@ -132629,35 +132588,15 @@
       }
     },
     "abilities": [
-      {
-        "name": "Fate Synchronization",
-        "description": "At the start of battle, fills chakra gauge by 3 and reduces all incoming debuffs by 50%."
-      },
-      {
-        "name": "Celestial Resonance",
-        "description": "Boosts Ultimate damage by 20% and reduces its cooldown by 1 when used after an ally's Secret Technique."
-      },
-      {
-        "name": "Temporal Strike",
-        "description": "Increases ATK by 250 and boosts combo damage by 15%."
-      },
-      {
-        "name": "Healing Threads",
-        "description": "Restores 200 HP at the start of each turn and boosts healing received by 20%."
-      },
-      {
-        "name": "Bonds of Protection",
-        "description": "Increases max HP by 500 and grants damage reduction of 10% when HP is above 70%."
-      },
-      {
-        "name": "Comet's Endurance",
-        "description": "Boosts DEF by 300 and reduces damage from critical hits by 25%."
-      },
-      {
-        "name": "Time Acceleration",
-        "description": "Increases SPD by 80 and grants 20% chance to take an extra turn after attacking."
-      }
+      { "name": "Fate Synchronization", "description": "At the start of battle, fills chakra gauge by 3 and reduces debuffs by 50%." },
+      { "name": "Celestial Resonance", "description": "Boosts Ultimate by 20% and reduces cooldown by 1." },
+      { "name": "Temporal Strike", "description": "Increases ATK by 250 and boosts combo DMG by 15%." },
+      { "name": "Healing Threads", "description": "Restores 200 HP each turn and boosts healing by 20%." },
+      { "name": "Bonds of Protection", "description": "Increases max HP by 500 and reduces damage by 10% above 70% HP." },
+      { "name": "Comet's Endurance", "description": "Boosts DEF by 300 and reduces crit damage by 25%." },
+      { "name": "Time Acceleration", "description": "Increases SPD by 80 and grants 20% chance for an extra turn." }
     ]
   }
 ]
+
 
