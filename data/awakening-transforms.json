@@ -1,0 +1,15 @@
+{
+  "transforms": {
+    "naruto_665": {
+      "6SB": "naruto_666"
+    },
+    "naruto_659": {
+      "6S": "naruto_660"
+    }
+  },
+  "notes": {
+    "description": "Character ID transforms that occur during awakening",
+    "usage": "When a character awakens to a specific tier, check if it should transform into a different character ID",
+    "format": "characterId: { tierCode: newCharacterId }"
+  }
+}
