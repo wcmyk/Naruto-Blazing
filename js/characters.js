@@ -169,7 +169,9 @@
 
   /* ---------- Load characters.json ---------- */
   async function loadBase() {
-    const res = await fetch("data/characters.json", { cache: "no-store" });
+    // Add cache-busting timestamp to force fresh load
+    const cacheBuster = `?v=${Date.now()}`;
+    const res = await fetch(`data/characters.json${cacheBuster}`, { cache: "no-store" });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const json = await res.json();
     BASE = Array.isArray(json) ? json : (Array.isArray(json.characters) ? json.characters : []);
