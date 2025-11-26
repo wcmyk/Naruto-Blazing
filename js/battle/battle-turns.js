@@ -168,6 +168,36 @@
       console.log("[Turns] All units resumed");
     },
 
+    /**
+     * Accumulate chakra for bench units (equivalent to guarding/passing)
+     * Bench units gain 2 chakra per turn
+     */
+    accumulateBenchChakra(core) {
+      if (!Array.isArray(core.benchTeam)) return;
+
+      core.benchTeam.forEach(unit => {
+        if (!unit || unit.stats.hp <= 0) return;
+
+        const oldChakra = unit.chakra || 0;
+        const maxChakra = unit.maxChakra || 10;
+
+        // Add 2 chakra (same as guarding)
+        unit.chakra = Math.min(maxChakra, oldChakra + 2);
+
+        console.log(`[Turns] Bench unit ${unit.name} gained chakra: ${oldChakra} → ${unit.chakra}`);
+
+        // Animate chakra gain if using chakra wheel system
+        if (window.BattleChakraWheel && unit.chakra > oldChakra) {
+          window.BattleChakraWheel.animateChakraGain(unit, unit.chakra - oldChakra, core);
+        }
+
+        // Update team holder display
+        if (core.teamHolder) {
+          core.teamHolder.updateUnitChakra(unit, core);
+        }
+      });
+    },
+
     /* ===== Turn Management ===== */
 
     /**
@@ -259,6 +289,9 @@
       if (core.chakra) {
         core.chakra.resetChakraMode(this.currentUnit, core);
       }
+
+      // Bench units accumulate chakra (equivalent to guarding/passing)
+      this.accumulateBenchChakra(core);
 
       // Reset gauge to 0 after acting
       this.currentUnit.speedGauge = 0;
