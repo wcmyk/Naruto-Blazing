@@ -6,6 +6,7 @@
   "use strict";
 
   let _awakeningRequirements = null;
+  let _awakeningTransforms = null;
 
   // Load awakening requirements from JSON
   async function loadRequirements() {
@@ -22,6 +23,29 @@
       _awakeningRequirements = {};
       return {};
     }
+  }
+
+  // Load awakening transforms from JSON
+  async function loadTransforms() {
+    if (_awakeningTransforms) return _awakeningTransforms;
+
+    try {
+      const res = await fetch("data/awakening-transforms.json", { cache: "no-store" });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const data = await res.json();
+      _awakeningTransforms = data.transforms || {};
+      return _awakeningTransforms;
+    } catch (err) {
+      console.error("[Awakening] Failed to load transforms:", err);
+      _awakeningTransforms = {};
+      return {};
+    }
+  }
+
+  // Check if character should transform to a different ID at this tier
+  async function getTransformForTier(characterId, tierCode) {
+    const transforms = await loadTransforms();
+    return transforms[characterId]?.[tierCode] || null;
   }
 
   // Get awakening requirements for a tier
@@ -90,6 +114,7 @@
       return { ok: false, reason: "CANNOT_AWAKEN" };
     }
 
+    const oldCharacterId = inst.characterId || character.id;
     const tier = inst.tierCode || global.Progression.getTierBounds(character).minCode;
     const reqs = await getRequirements(tier);
 
@@ -107,6 +132,27 @@
     }
 
     const result = global.Progression.promoteTier(inst, character, mode);
+
+    if (!result.ok) {
+      return result;
+    }
+
+    // Check if character should transform to a different ID at this tier
+    const newTier = result.tier;
+    const transformToId = await getTransformForTier(oldCharacterId, newTier);
+
+    if (transformToId) {
+      console.log(`✨ [Awakening Transform] ${oldCharacterId} → ${transformToId} at tier ${newTier}`);
+      inst.characterId = transformToId;
+      result.transformed = true;
+      result.oldCharacterId = oldCharacterId;
+      result.newCharacterId = transformToId;
+
+      // Save inventory if available
+      if (global.InventoryChar && typeof global.InventoryChar.save === 'function') {
+        global.InventoryChar.save();
+      }
+    }
 
     return result;
   }
@@ -129,6 +175,20 @@
     const canDoIt = canAwaken(inst, character);
     const canPay = await canAffordAwaken(inst, character);
 
+    // Check if this awakening will transform the character
+    const currentCharacterId = inst.characterId || character.id;
+    const transformToId = await getTransformForTier(currentCharacterId, nextTier);
+    const willTransform = !!transformToId;
+
+    // Get the character data we'll be using for stats (current or transformed)
+    let previewCharacter = character;
+    if (willTransform && global.Characters) {
+      const transformedChar = await global.Characters.getCharacterById(transformToId);
+      if (transformedChar) {
+        previewCharacter = transformedChar;
+      }
+    }
+
     // Get stats preview
     const currentStats = global.Progression.computeEffectiveStatsLoreTier(
       character,
@@ -138,7 +198,7 @@
 
     const nextCap = global.Progression.levelCapForCode(nextTier);
     const nextStats = global.Progression.computeEffectiveStatsLoreTier(
-      character,
+      previewCharacter,
       1, // After awakening, level resets to 1
       nextTier
     );
@@ -157,7 +217,9 @@
       currentStats: currentStats.stats || {},
       nextStats: nextStats.stats || {},
       currentCap: currentStats.cap || 100,
-      nextCap: nextCap || 100
+      nextCap: nextCap || 100,
+      willTransform,
+      transformToId: transformToId || null
     };
   }
 
@@ -165,6 +227,8 @@
   global.Awakening = {
     loadRequirements,
     getRequirements,
+    loadTransforms,
+    getTransformForTier,
     canAwaken,
     canAffordAwaken,
     getMissingMaterials,
