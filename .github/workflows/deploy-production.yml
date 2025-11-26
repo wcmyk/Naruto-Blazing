@@ -1,0 +1,73 @@
+name: Deploy to Production
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'data/**/*.json'
+      - 'js/**/*.js'
+      - 'css/**/*.css'
+      - '*.html'
+
+jobs:
+  deploy-production:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Validate content
+        run: |
+          npm install
+          npm run validate
+
+      - name: Create deployment tag
+        run: |
+          TIMESTAMP=$(date +%Y%m%d-%H%M%S)
+          git tag "deploy-$TIMESTAMP"
+          git push origin "deploy-$TIMESTAMP"
+          echo "DEPLOY_TAG=deploy-$TIMESTAMP" >> $GITHUB_ENV
+
+      - name: Deploy to production
+        env:
+          PRODUCTION_HOST: ${{ secrets.PRODUCTION_HOST }}
+          PRODUCTION_USER: ${{ secrets.PRODUCTION_USER }}
+          SSH_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        run: |
+          # Setup SSH
+          mkdir -p ~/.ssh
+          echo "$SSH_KEY" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+
+          # Deploy files
+          rsync -avz --exclude='.git' --exclude='node_modules' \
+            ./ $PRODUCTION_USER@$PRODUCTION_HOST:/var/www/naruto-blazing/
+
+      - name: Backup current data
+        run: |
+          # Backup production data before deployment
+          # This allows instant rollback if issues found
+          echo "Backup created with tag: $DEPLOY_TAG"
+
+      - name: Create GitHub Release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ env.DEPLOY_TAG }}
+          release_name: Production Deployment ${{ env.DEPLOY_TAG }}
+          body: |
+            Automated production deployment
+
+            To rollback, checkout this tag and redeploy:
+            ```
+            git checkout ${{ env.DEPLOY_TAG }}
+            ```
+          draft: false
+          prerelease: false

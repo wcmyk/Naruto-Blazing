@@ -1,0 +1,58 @@
+name: Deploy to Staging
+
+on:
+  push:
+    branches: [staging]
+
+jobs:
+  deploy-staging:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Validate content
+        run: |
+          npm install
+          npm run validate
+
+      - name: Deploy to staging server
+        env:
+          STAGING_HOST: ${{ secrets.STAGING_HOST }}
+          STAGING_USER: ${{ secrets.STAGING_USER }}
+          SSH_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        run: |
+          # Setup SSH
+          mkdir -p ~/.ssh
+          echo "$SSH_KEY" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+
+          # Deploy files (customize based on your hosting)
+          rsync -avz --exclude='.git' --exclude='node_modules' \
+            ./ $STAGING_USER@$STAGING_HOST:/var/www/naruto-blazing-staging/
+
+      - name: Clear staging cache
+        run: |
+          # Clear any caches on staging server
+          # Customize based on your setup
+          echo "Staging deployed successfully!"
+
+      - name: Comment deployment URL
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const message = `🚀 **Deployed to Staging!**\n\nView at: https://staging.your-domain.com\n\nTest your changes before merging to main.`;
+
+            // Post to latest commit
+            github.rest.repos.createCommitComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              commit_sha: context.sha,
+              body: message
+            });

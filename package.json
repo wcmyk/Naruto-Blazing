@@ -1,0 +1,25 @@
+{
+  "name": "naruto-blazing-game",
+  "version": "1.0.0",
+  "description": "Naruto Blazing Web Game - Content Management & Development Tools",
+  "private": true,
+  "scripts": {
+    "validate": "node scripts/validate-content.js",
+    "validate:watch": "nodemon --watch data --exec 'npm run validate'",
+    "content:diff": "node scripts/content-diff.js",
+    "content:stats": "node scripts/content-stats.js",
+    "dev:frontend": "python3 -m http.server 8080",
+    "dev:backend": "cd backend && npm run dev",
+    "dev:all": "concurrently \"npm run dev:frontend\" \"npm run dev:backend\"",
+    "test": "npm run validate",
+    "prepare": "husky install"
+  },
+  "devDependencies": {
+    "husky": "^8.0.3",
+    "nodemon": "^3.0.1",
+    "concurrently": "^8.2.2"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}
