@@ -132398,7 +132398,6 @@
       "hitCount": 0
     }
   },
-  [
   {
     "id": "sasuke_2141",
     "name": "Sasuke Uchiha",
@@ -132597,6 +132596,6 @@
       { "name": "Time Acceleration", "description": "Increases SPD by 80 and grants 20% chance for an extra turn." }
     ]
   }
-]
+
 
 
