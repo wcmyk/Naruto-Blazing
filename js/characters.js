@@ -317,15 +317,18 @@
         <div class="stat-row"><span class="stat-label">Speed</span><span class="stat-value">${s.speed ?? "-"}</span></div>`;
     }
 
-    let cap = tierCap(c, tier);
+    // Get base tier cap (without limit breaks) for awakening checks
+    const baseCap = tierCap(c, tier);
 
-    // Apply extended level cap from limit breaks
+    // Display cap includes limit break extensions
+    let cap = baseCap;
     if (hasLimitBreak && inst.limitBreakLevel && inst.limitBreakLevel > 0) {
       cap = window.LimitBreak.getExtendedLevelCap(tier, inst.limitBreakLevel);
     }
 
     const level = Math.max(1, safeNum(inst.level, 1));
     const isMax = level >= cap;
+    const isMaxBaseTier = level >= baseCap; // At base tier max (for awakening)
 
     // Update level display with red color when level > 100 or at MAX (150)
     // Remove any existing special classes first
@@ -345,11 +348,11 @@
     }
     LV_CAP_EL.textContent   = String(cap);
 
-    // Awakening check
-    const canAwaken = hasProg && typeof window.Progression.canAwaken === "function" && isMax && window.Progression.canAwaken(inst, c);
+    // Awakening check - use base tier cap, not extended cap
+    const canAwaken = hasProg && typeof window.Progression.canAwaken === "function" && isMaxBaseTier && window.Progression.canAwaken(inst, c);
 
     BTN_AWAKEN.disabled = !canAwaken;
-    TIP_EL.textContent = canAwaken ? "Ready to awaken." : (isMax ? "Max level reached. Awaken when eligible." : "Level up to max to awaken.");
+    TIP_EL.textContent = canAwaken ? "Ready to awaken." : (isMaxBaseTier ? "Max tier level reached." : `Level up to ${baseCap} to awaken.`);
 
     // Limit break display
     const maxLB = hasLimitBreak ? window.LimitBreak.getMaxLimitBreakLevel(tier) : 0;
@@ -1242,123 +1245,4 @@
     }
   })();
 
-})();
-
-/* ===== Awaken Button Fix (runs AFTER main code) ===== */
-(function fixAwakenButton(){
-  console.log("[Awaken Fix] Patch loading...");
-
-  function waitForRenderStatusTab() {
-    if (typeof window.renderStatusTab !== "function") {
-      setTimeout(waitForRenderStatusTab, 100);
-      return;
-    }
-    applyPatch();
-  }
-
-  function applyPatch() {
-    const originalRenderStatusTab = window.renderStatusTab;
-
-    window.renderStatusTab = function(c, inst, tier) {
-      originalRenderStatusTab(c, inst, tier);
-
-      const btn = document.getElementById("btn-awaken");
-      const tip = document.getElementById("awaken-tip");
-
-      if (!btn || !c || !inst) return;
-
-      const level = Number(inst.level) || 1;
-      const cap = window.Progression?.levelCapForCode?.(tier) || 100;
-      const isMaxLevel = level >= cap;
-      const canPromote = window.Progression?.canPromoteTier?.(inst, c) || false;
-      const canAwaken = isMaxLevel && canPromote;
-
-      console.log("[Awaken]", c.name, "Lv", level, "/", cap, "canAwaken:", canAwaken);
-
-      btn.disabled = !canAwaken;
-
-      if (tip) {
-        tip.textContent = !isMaxLevel ? "Level up to max to awaken." :
-                         !canPromote ? "Max tier reached." :
-                         "Ready to awaken!";
-      }
-
-      btn.onclick = async function() {
-        if (btn.disabled) return;
-
-        const freshInst = window.InventoryChar?.getByUid(inst.uid);
-        if (!freshInst) {
-          if (window.ModalManager) { window.ModalManager.showInfo("Character not found."); };
-          return;
-        }
-
-        // Use Awakening system if available (handles transformations)
-        let res;
-        if (typeof window.Awakening?.performAwaken === "function") {
-          const canAfford = await window.Awakening.canAffordAwaken(freshInst, c);
-          if (!canAfford) {
-            if (window.ModalManager) { window.ModalManager.showInfo("You don't have enough materials to awaken this character!"); };
-            return;
-          }
-          res = await window.Awakening.performAwaken(freshInst, c, "reset");
-        } else if (typeof window.InventoryChar?.promoteTier === "function") {
-          res = window.InventoryChar.promoteTier(freshInst.uid, "reset", c);
-        } else if (typeof window.Progression?.promoteTier === "function") {
-          res = window.Progression.promoteTier(freshInst, c, "reset");
-          if (res?.ok) {
-            window.InventoryChar?.updateInstance(freshInst.uid, {
-              tierCode: res.tier,
-              level: 1
-            });
-          }
-        }
-
-        if (!res?.ok) {
-          if (window.ModalManager) { window.ModalManager.showInfo("Cannot awaken: " + (res?.reason || "Unknown error")); }
-          return;
-        }
-
-        // Update instance if not auto-persisted
-        if (!res.persisted && res.tier) {
-          window.InventoryChar?.updateInstance(freshInst.uid, {
-            tierCode: res.tier,
-            level: res.level ?? 1
-          });
-        }
-
-        const updated = window.InventoryChar?.getByUid(freshInst.uid);
-        const newTier = updated?.tierCode || tier;
-
-        const img = document.getElementById("char-modal-img");
-        if (img && typeof window.resolveTierArt === "function") {
-          const art = window.resolveTierArt(c, newTier);
-          img.src = art.full || art.portrait || img.src;
-        }
-
-        const starsEl = document.getElementById("nameplate-stars");
-        if (starsEl && typeof window.starsFromTier === "function" && typeof window.renderStars === "function") {
-          starsEl.innerHTML = window.renderStars(window.starsFromTier(newTier));
-        }
-
-        if (typeof window.renderStatusTab === "function") {
-          window.renderStatusTab(c, updated, newTier);
-        }
-        if (typeof window.renderSkillsTab === "function") {
-          window.renderSkillsTab(c, updated, newTier);
-        }
-        if (typeof window.refreshCharacterGrid === "function") {
-          window.refreshCharacterGrid();
-        }
-
-        if (window.ModalManager) {
-          const stars = window.starsFromTier?.(newTier) || newTier;
-          window.ModalManager.showInfo(`Successfully awakened ${c.name} to ${stars} stars!`);
-        }
-      };
-    };
-
-    console.log("[Awaken Fix] Applied!");
-  }
-
-  waitForRenderStatusTab();
 })();
