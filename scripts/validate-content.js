@@ -7,6 +7,7 @@
 
 const fs = require('fs');
 const path = require('path');
+const config = require('./validation-config');
 
 // ANSI colors for terminal output
 const colors = {
@@ -60,8 +61,8 @@ function validateCharacters(characters) {
   }
 
   const characterIds = new Set();
-  const requiredFields = ['id', 'name', 'rarity', 'statsBase', 'statsMax'];
-  const validRarities = [1, 2, 3, 4, 5, 6];
+  const requiredFields = config.characters.requiredFields;
+  const validRarities = config.characters.rarity.validValues;
 
   characters.forEach((char, index) => {
     const prefix = `Character #${index} (${char.id || 'unknown'})`;
@@ -83,7 +84,7 @@ function validateCharacters(characters) {
 
     // Check rarity
     if (char.rarity && !validRarities.includes(char.rarity)) {
-      error(`${prefix}: Invalid rarity ${char.rarity} (must be 1-6)`);
+      error(`${prefix}: Invalid rarity ${char.rarity} (must be ${config.characters.rarity.min}-${config.characters.rarity.max})`);
     }
 
     // Check stats
@@ -96,10 +97,10 @@ function validateCharacters(characters) {
       }
 
       // Warn about unusual stats
-      if (char.statsMax.atk > 10000) {
+      if (char.statsMax.atk > config.characters.stats.maxAtkWarning) {
         warning(`${prefix}: Very high ATK: ${char.statsMax.atk}`);
       }
-      if (char.statsMax.hp > 100000) {
+      if (char.statsMax.hp > config.characters.stats.maxHpWarning) {
         warning(`${prefix}: Very high HP: ${char.statsMax.hp}`);
       }
     }
