@@ -1283,7 +1283,7 @@
                          "Ready to awaken!";
       }
 
-      btn.onclick = function() {
+      btn.onclick = async function() {
         if (btn.disabled) return;
 
         const freshInst = window.InventoryChar?.getByUid(inst.uid);
@@ -1292,8 +1292,16 @@
           return;
         }
 
+        // Use Awakening system if available (handles transformations)
         let res;
-        if (typeof window.InventoryChar?.promoteTier === "function") {
+        if (typeof window.Awakening?.performAwaken === "function") {
+          const canAfford = await window.Awakening.canAffordAwaken(freshInst, c);
+          if (!canAfford) {
+            if (window.ModalManager) { window.ModalManager.showInfo("You don't have enough materials to awaken this character!"); };
+            return;
+          }
+          res = await window.Awakening.performAwaken(freshInst, c, "reset");
+        } else if (typeof window.InventoryChar?.promoteTier === "function") {
           res = window.InventoryChar.promoteTier(freshInst.uid, "reset", c);
         } else if (typeof window.Progression?.promoteTier === "function") {
           res = window.Progression.promoteTier(freshInst, c, "reset");
@@ -1308,6 +1316,14 @@
         if (!res?.ok) {
           if (window.ModalManager) { window.ModalManager.showInfo("Cannot awaken: " + (res?.reason || "Unknown error")); }
           return;
+        }
+
+        // Update instance if not auto-persisted
+        if (!res.persisted && res.tier) {
+          window.InventoryChar?.updateInstance(freshInst.uid, {
+            tierCode: res.tier,
+            level: res.level ?? 1
+          });
         }
 
         const updated = window.InventoryChar?.getByUid(freshInst.uid);
@@ -1332,6 +1348,11 @@
         }
         if (typeof window.refreshCharacterGrid === "function") {
           window.refreshCharacterGrid();
+        }
+
+        if (window.ModalManager) {
+          const stars = window.starsFromTier?.(newTier) || newTier;
+          window.ModalManager.showInfo(`Successfully awakened ${c.name} to ${stars} stars!`);
         }
       };
     };
