@@ -70317,9 +70317,9 @@
     "ultimateAnimation": null,
     "secretAnimation": null,
     "artByTier": {
-      "6S": {
-        "portrait": "assets/characters/naruto_665/portrait_6S.png",
-        "full": "assets/characters/naruto_665/full_6S.png"
+      "6SB": {
+        "portrait": "assets/characters/naruto_666/portrait_6S.png",
+        "full": "assets/characters/naruto_666/full_6S.png"
       }
     },
     "statsBase": {
