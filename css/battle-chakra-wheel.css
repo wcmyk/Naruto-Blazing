@@ -69,7 +69,7 @@
   height: 56px;
 }
 
-/* Chakra segments - single rotating arc */
+/* Chakra segments - individual segments positioned at fixed angles */
 .chakra-segment {
   position: absolute;
   width: 100%;
@@ -78,8 +78,13 @@
   left: 0;
   object-fit: contain;
   transform-origin: center center;
-  transform: rotate(180deg); /* Start at bottom */
-  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 0; /* Hidden by default */
+  transition: opacity 0.3s ease-in-out;
+}
+
+/* Active segments are visible */
+.chakra-segment.active {
+  opacity: 1;
 }
 
 /* =========================================
@@ -125,19 +130,22 @@
 }
 
 /* === Chakra Gain Flash Effect === */
-.unit-ring.chakra-gain-flash .chakra-segment {
+.chakra-segment.chakra-gain-flash {
   animation: chakraGainFlash 0.5s ease-out;
 }
 
 @keyframes chakraGainFlash {
   0% {
     filter: brightness(1);
+    opacity: 0;
   }
   50% {
     filter: brightness(2) drop-shadow(0 0 10px rgba(100, 150, 255, 1));
+    opacity: 1;
   }
   100% {
     filter: brightness(1);
+    opacity: 1;
   }
 }
 
