@@ -11,12 +11,12 @@
    * ============================= */
   // Order from lowest to highest
   const TIER_ORDER = [
-    "3S","4S","5S","6S","6SB","7S","7SL","8S","8SM","9S","9ST","10SO"
+    "1S","2S","3S","4S","5S","6S","6SB","7S","7SL","8S","8SM","9S","9ST","10SO"
   ];
 
   // Default level caps per tier (tune as you like)
   const TIER_CAPS = {
-    "3S": 40, "4S": 55, "5S": 70,
+    "1S": 20, "2S": 30, "3S": 40, "4S": 55, "5S": 70,
     "6S": 100, "6SB": 100,
     "7S": 100, "7SL": 100,
     "8S": 110, "8SM": 120,
@@ -27,7 +27,7 @@
   // Baseline progress (0..1) across the TOTAL spectrum (absolute),
   // used to derive a relative fraction between a character's min↔max bands.
   const TIER_PROGRESS_ABS = {
-    "3S": 0.10, "4S": 0.25, "5S": 0.45,
+    "1S": 0.03, "2S": 0.06, "3S": 0.10, "4S": 0.25, "5S": 0.45,
     "6S": 0.70, "6SB": 0.76,
     "7S": 0.82, "7SL": 0.87,
     "8S": 0.91, "8SM": 0.94,

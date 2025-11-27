@@ -192,7 +192,24 @@
       return;
     }
 
-    GRID.innerHTML = instances.map(inst => {
+    // Sort characters by star rating (highest to lowest)
+    const sortedInstances = instances.sort((a, b) => {
+      const charA = BYID[a.charId];
+      const charB = BYID[b.charId];
+
+      // Get tier codes
+      const tierA = a.tierCode || (charA ? minTier(charA) : "3S");
+      const tierB = b.tierCode || (charB ? minTier(charB) : "3S");
+
+      // Get star counts from tier codes
+      const starsA = starsFromTier(tierA);
+      const starsB = starsFromTier(tierB);
+
+      // Sort by stars descending (highest first)
+      return starsB - starsA;
+    });
+
+    GRID.innerHTML = sortedInstances.map(inst => {
       const c = BYID[inst.charId];
       if (!c) {
         return `
