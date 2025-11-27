@@ -96064,14 +96064,14 @@
     "starMinCode": "1S",
     "starMaxCode": "6S",
     "lbEligible": false,
-    "portrait": "assets/characters/executioner_s_934/portrait_6S.png",
-    "full": "assets/characters/executioner_s_934/full_6S.png",
+    "portrait": "assets/characters/executioner_s_blade_934/portrait_6S.png",
+    "full": "assets/characters/executioner_s_blade_934/full_6S.png",
     "ultimateAnimation": null,
     "secretAnimation": null,
     "artByTier": {
       "6S": {
-        "portrait": "assets/characters/executioner_s_934/portrait_6S.png",
-        "full": "assets/characters/executioner_s_934/full_6S.png"
+        "portrait": "assets/characters/executioner_s_blade_934/portrait_6S.png",
+        "full": "assets/characters/executioner_s_blade_934/full_6S.png"
       }
     },
     "statsBase": {},
