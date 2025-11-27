@@ -1042,59 +1042,65 @@
           inst = window.InventoryChar.getByUid(inst.uid);
           console.log("[UI Debug] Updated local references to new character");
 
-          // *** FORCE COMPLETE MODAL REFRESH VIA AJAX ***
+          // *** ANIMATION FIRST, THEN MODAL REFRESH ***
           // Save the UID before closing modal
           const currentUid = inst.uid;
-          console.log("[UI Debug] Forcing complete modal refresh for UID:", currentUid);
+          console.log("[UI Debug] Closing modal to play animation, then will reopen with new character");
 
           // Close current modal
           closeModal();
 
-          // Immediately reopen with fresh data from localStorage (AJAX pattern)
-          // This guarantees ALL UI elements refresh with new character data
-          setTimeout(() => {
-            openModalByUid(currentUid);
-            console.log("[UI Debug] Modal reopened with updated character data");
+          // Play awakening animation FIRST (while modal is closed)
+          // Animation shows old character → blur → reveal new character
+          if (window.AwakeningAnimation && typeof window.AwakeningAnimation.play === 'function') {
+            setTimeout(() => {
+              try {
+                console.log("[UI Debug] Playing awakening animation overlay");
+                console.log("[UI Debug] Old character:", oldCharacterName, "→ New character:", c.name);
+                console.log("[UI Debug] Old artwork:", oldArtworkUrl);
+                console.log("[UI Debug] New artwork:", newArtworkUrl);
 
-            // Force refresh the inventory grid to show updated character
-            renderGrid();
+                // Play animation - modal reopens AFTER animation completes
+                window.AwakeningAnimation.play(
+                  oldCharacterName,
+                  c.name,
+                  oldArtworkUrl,
+                  newArtworkUrl,
+                  () => {
+                    console.log("[UI Debug] Animation completed - now reopening modal with new character");
 
-            // Trigger daily mission
-            if (window.DailyMissions) {
-              window.DailyMissions.incrementDaily('daily_awaken').then(dailyResult => {
-                if (dailyResult && dailyResult.completed) {
-                  if (window.ModalManager) { window.ModalManager.showInfo(`Daily Mission Completed!\n${dailyResult.dailyName}`); };
-                }
-              });
-            }
+                    // AFTER animation completes, reopen modal with new character data
+                    openModalByUid(currentUid);
+                    console.log("[UI Debug] Modal reopened with updated character data");
 
-            // Play awakening animation as full-screen overlay (non-blocking)
-            if (window.AwakeningAnimation && typeof window.AwakeningAnimation.play === 'function') {
-              setTimeout(() => {
-                try {
-                  console.log("[UI Debug] Playing awakening animation overlay");
-                  console.log("[UI Debug] Old character:", oldCharacterName, "→ New character:", c.name);
-                  console.log("[UI Debug] Old artwork:", oldArtworkUrl);
-                  console.log("[UI Debug] New artwork:", newArtworkUrl);
+                    // Force refresh the inventory grid to show updated character
+                    renderGrid();
 
-                  // Don't await - let it play as overlay while UI is already updated
-                  window.AwakeningAnimation.play(
-                    oldCharacterName,
-                    c.name,
-                    oldArtworkUrl,
-                    newArtworkUrl,
-                    () => {
-                      console.log("[UI Debug] Animation completed");
+                    // Trigger daily mission
+                    if (window.DailyMissions) {
+                      window.DailyMissions.incrementDaily('daily_awaken').then(dailyResult => {
+                        if (dailyResult && dailyResult.completed) {
+                          if (window.ModalManager) { window.ModalManager.showInfo(`Daily Mission Completed!\n${dailyResult.dailyName}`); };
+                        }
+                      });
                     }
-                  );
-                } catch (error) {
-                  console.error("[UI Debug] Animation error:", error);
-                }
-              }, 200); // Small delay to let modal fully render first
-            } else {
-              console.warn("[UI Debug] AwakeningAnimation not available");
-            }
-          }, 100); // Small delay to let modal close animation complete
+                  }
+                );
+              } catch (error) {
+                console.error("[UI Debug] Animation error:", error);
+                // If animation fails, still reopen modal
+                openModalByUid(currentUid);
+                renderGrid();
+              }
+            }, 100); // Small delay to let modal close animation complete
+          } else {
+            console.warn("[UI Debug] AwakeningAnimation not available - reopening modal immediately");
+            // If no animation available, just reopen modal
+            setTimeout(() => {
+              openModalByUid(currentUid);
+              renderGrid();
+            }, 100);
+          }
         } else {
           console.error("[UI Debug] Failed to load new character:", res.newCharacterId);
           await updateUIAfterAwakening();
