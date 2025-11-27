@@ -135,7 +135,7 @@
       return { ok: false, reason: "CANNOT_AWAKEN" };
     }
 
-    const oldCharacterId = inst.characterId || character.id;
+    const oldCharacterId = inst.charId || character.id;
     const tier = inst.tierCode || global.Progression.getTierBounds(character).minCode;
     const reqs = await getRequirements(tier);
 
@@ -168,8 +168,8 @@
     if (transformToId) {
       console.log(`✨ [Awakening Transform] ${oldCharacterId} → ${transformToId} at tier ${newTier}`);
 
-      // Update the instance character ID
-      inst.characterId = transformToId;
+      // Update the instance character ID (use 'charId' not 'characterId')
+      inst.charId = transformToId;
 
       // Set transformation flags in result
       result.transformed = true;
@@ -209,7 +209,7 @@
     const canPay = await canAffordAwaken(inst, character);
 
     // Check if this awakening will transform the character
-    const currentCharacterId = inst.characterId || character.id;
+    const currentCharacterId = inst.charId || character.id;
     const transformToId = await getTransformForTier(currentCharacterId, nextTier);
     const willTransform = !!transformToId;
 
