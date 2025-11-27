@@ -981,8 +981,27 @@
         return;
       }
 
-      if (!res.persisted && res.tier) {
-        window.InventoryChar.updateInstance(inst.uid, { tierCode: res.tier, level: res.level ?? 1 });
+      // Check if character transformed to a new ID
+      if (res.transformed && res.newCharacterId) {
+        // Update instance with new character ID, tier, and level
+        window.InventoryChar.updateInstance(inst.uid, {
+          characterId: res.newCharacterId,
+          tierCode: res.tier,
+          level: res.level ?? 1
+        });
+
+        // Reload the new character data
+        const newCharacter = await window.Characters.getCharacterById(res.newCharacterId);
+        if (newCharacter) {
+          // Update all references to use the new character
+          c = newCharacter;
+          inst = window.InventoryChar.getByUid(inst.uid);
+        }
+      } else {
+        // Standard awakening without transformation
+        if (!res.persisted && res.tier) {
+          window.InventoryChar.updateInstance(inst.uid, { tierCode: res.tier, level: res.level ?? 1 });
+        }
       }
 
       const fresh = window.InventoryChar.getByUid(inst.uid);
@@ -991,6 +1010,12 @@
       const art = resolveTierArt(c, newTier);
       MODAL_IMG.src = safeStr(art.full, art.portrait);
       NP_STARS.innerHTML = renderStars(starsFromTier(newTier));
+
+      // Update nameplate with new character name/version if transformed
+      if (res.transformed && c) {
+        NP_NAME.textContent = c.name || "";
+        NP_VERSION.textContent = c.version || "";
+      }
 
       await window.renderStatusTab(c, fresh, newTier);
       renderSkillsTab(c, fresh, newTier);
