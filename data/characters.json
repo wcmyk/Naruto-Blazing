@@ -109126,14 +109126,14 @@
     "starMinCode": "1S",
     "starMaxCode": "6S",
     "lbEligible": false,
-    "portrait": "assets/characters/kinkaku_ginkaku_2082/portrait_5S.png",
-    "full": "assets/characters/kinkaku_ginkaku_2082/full_5S.png",
+    "portrait": "assets/characters/kinkaku_ginkaku_2082/portrait_6S.png",
+    "full": "assets/characters/kinkaku_ginkaku_2082/full_6S.png",
     "ultimateAnimation": null,
     "secretAnimation": null,
     "artByTier": {
       "6S": {
         "portrait": "assets/characters/kinkaku_ginkaku_2082/portrait_5S.png",
-        "full": "assets/characters/kinkaku_ginkaku_2082/full_5S.png"
+        "full": "assets/characters/kinkaku_ginkaku_2082/full_5S.png",
       }
     },
     "statsBase": {
