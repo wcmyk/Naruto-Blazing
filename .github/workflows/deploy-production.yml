@@ -1,12 +1,13 @@
 name: Deploy to Production (Disabled)
 
-on: []  # Disables all automatic triggers
+on:
+  workflow_dispatch:  # Only runs if you manually run it
 
 jobs:
   disabled-deployment:
     runs-on: ubuntu-latest
     steps:
-      - name: Deployment Disabled
+      - name: Deployment Disabled Notice
         run: |
-          echo "⚠️ Production deployment is currently disabled."
-          echo "No deployment steps will run."
+          echo "🚫 Deployment is disabled."
+          echo "This workflow will not run unless manually triggered."
