@@ -96114,7 +96114,7 @@
     }
   },
   {
-    "id": "gamachan_935",
+    "id": "gama_chan_935",
     "name": "Gama-chan",
     "version": "Flat",
     "element": null,
@@ -96122,14 +96122,14 @@
     "starMinCode": "1S",
     "starMaxCode": "1S",
     "lbEligible": false,
-    "portrait": "assets/characters/gamachan_935/portrait_1S.png",
-    "full": "assets/characters/gamachan_935/full_1S.png",
+    "portrait": "assets/characters/gama_chan_935/portrait_1S.png",
+    "full": "assets/characters/gama_chan_935/full_1S.png",
     "ultimateAnimation": null,
     "secretAnimation": null,
     "artByTier": {
       "1S": {
-        "portrait": "assets/characters/gamachan_935/portrait_1S.png",
-        "full": "assets/characters/gamachan_935/full_1S.png"
+        "portrait": "assets/characters/gama_chan_935/portrait_1S.png",
+        "full": "assets/characters/gama_chan_935/full_1S.png"
       }
     },
     "statsBase": {},
@@ -96172,7 +96172,7 @@
     }
   },
   {
-    "id": "gamachan_936",
+    "id": "gama_chan_936",
     "name": "Gama-chan",
     "version": "Full to the Brim",
     "element": null,
@@ -96180,14 +96180,14 @@
     "starMinCode": "1S",
     "starMaxCode": "2S",
     "lbEligible": false,
-    "portrait": "assets/characters/gamachan_936/portrait_2S.png",
-    "full": "assets/characters/gamachan_936/full_2S.png",
+    "portrait": "assets/characters/gama_chan_936/portrait_2S.png",
+    "full": "assets/characters/gama_chan_936/full_2S.png",
     "ultimateAnimation": null,
     "secretAnimation": null,
     "artByTier": {
       "2S": {
-        "portrait": "assets/characters/gamachan_936/portrait_2S.png",
-        "full": "assets/characters/gamachan_936/full_2S.png"
+        "portrait": "assets/characters/gama_chan_936/portrait_2S.png",
+        "full": "assets/characters/gama_chan_936/full_2S.png"
       }
     },
     "statsBase": {},
@@ -96238,14 +96238,14 @@
     "starMinCode": "1S",
     "starMaxCode": "3S",
     "lbEligible": false,
-    "portrait": "assets/characters/gamachan_937/portrait_3S.png",
-    "full": "assets/characters/gamachan_937/full_3S.png",
+    "portrait": "assets/characters/gama_chan_937/portrait_3S.png",
+    "full": "assets/characters/gama_chan_937/full_3S.png",
     "ultimateAnimation": null,
     "secretAnimation": null,
     "artByTier": {
       "3S": {
-        "portrait": "assets/characters/gamachan_937/portrait_3S.png",
-        "full": "assets/characters/gamachan_937/full_3S.png"
+        "portrait": "assets/characters/gama_chan_937/portrait_3S.png",
+        "full": "assets/characters/gama_chan_937/full_3S.png"
       }
     },
     "statsBase": {},
@@ -97502,14 +97502,14 @@
     "starMinCode": "1S",
     "starMaxCode": "4S",
     "lbEligible": false,
-    "portrait": "assets/characters/gamachan_1161/portrait_4S.png",
-    "full": "assets/characters/gamachan_1161/full_4S.png",
+    "portrait": "assets/characters/gama_chan_1161/portrait_4S.png",
+    "full": "assets/characters/gama_chan_1161/full_4S.png",
     "ultimateAnimation": null,
     "secretAnimation": null,
     "artByTier": {
       "4S": {
-        "portrait": "assets/characters/gamachan_1161/portrait_4S.png",
-        "full": "assets/characters/gamachan_1161/full_4S.png"
+        "portrait": "assets/characters/gama_chan_1161/portrait_4S.png",
+        "full": "assets/characters/gama_chan_1161/full_4S.png"
       }
     },
     "statsBase": {},
@@ -98132,7 +98132,7 @@
     }
   },
   {
-    "id": "worldclass_1188",
+    "id": "world_class_ramen_1188",
     "name": "World-Class Ramen",
     "version": "Ultimate Cup",
     "element": null,
@@ -98140,14 +98140,14 @@
     "starMinCode": "1S",
     "starMaxCode": "5S",
     "lbEligible": false,
-    "portrait": "assets/characters/worldclass_1188/portrait_5S.png",
-    "full": "assets/characters/worldclass_1188/full_5S.png",
+    "portrait": "assets/characters/world_class_ramen_1188/portrait_5S.png",
+    "full": "assets/characters/world_class_ramen_1188/full_5S.png",
     "ultimateAnimation": null,
     "secretAnimation": null,
     "artByTier": {
       "5S": {
-        "portrait": "assets/characters/worldclass_1188/portrait_5S.png",
-        "full": "assets/characters/worldclass_1188/full_5S.png"
+        "portrait": "assets/characters/world_class_ramen_1188/portrait_5S.png",
+        "full": "assets/characters/world_class_ramen_1188/full_5S.png"
       }
     },
     "statsBase": {},
@@ -98314,14 +98314,14 @@
     "starMinCode": "1S",
     "starMaxCode": "4S",
     "lbEligible": false,
-    "portrait": "assets/characters/mechanical_1193/portrait_4S.png",
-    "full": "assets/characters/mechanical_1193/full_4S.png",
+    "portrait": "assets/characters/mechanical_1193/portrait_5S.png",
+    "full": "assets/characters/mechanical_1193/full_5S.png",
     "ultimateAnimation": null,
     "secretAnimation": null,
     "artByTier": {
       "4S": {
-        "portrait": "assets/characters/mechanical_1193/portrait_4S.png",
-        "full": "assets/characters/mechanical_1193/full_4S.png"
+        "portrait": "assets/characters/mechanical_1193/portrait_5S.png",
+        "full": "assets/characters/mechanical_1193/full_5S.png"
       }
     },
     "statsBase": {},
@@ -99184,14 +99184,14 @@
     "starMinCode": "1S",
     "starMaxCode": "5S",
     "lbEligible": false,
-    "portrait": "assets/characters/lucky_1230/portrait_5S.png",
-    "full": "assets/characters/lucky_1230/full_5S.png",
+    "portrait": "assets/limit-break/lucky_1230/portrait_5S.png",
+    "full": "assets/limit-break/lucky_1230/full_5S.png",
     "ultimateAnimation": null,
     "secretAnimation": null,
     "artByTier": {
       "5S": {
-        "portrait": "assets/characters/lucky_1230/portrait_5S.png",
-        "full": "assets/characters/lucky_1230/full_5S.png"
+        "portrait": "assets/limit-break/lucky_1230/portrait_5S.png",
+        "full": "assets/limit-break/lucky_1230/full_5S.png"
       }
     },
     "statsBase": {},
@@ -109118,7 +109118,7 @@
     }
   },
   {
-    "id": "kinkakuginkaku_2082",
+    "id": "kinkaku_ginkaku_2082",
     "name": "Kinkaku/Ginkaku",
     "version": "Cataclysm-Eaters",
     "element": null,
@@ -109126,14 +109126,14 @@
     "starMinCode": "1S",
     "starMaxCode": "6S",
     "lbEligible": false,
-    "portrait": "assets/characters/kinkakuginkaku_2082/portrait_6S.png",
-    "full": "assets/characters/kinkakuginkaku_2082/full_6S.png",
+    "portrait": "assets/characters/kinkaku_ginkaku_2082/portrait_5S.png",
+    "full": "assets/characters/kinkaku_ginkaku_2082/full_5S.png",
     "ultimateAnimation": null,
     "secretAnimation": null,
     "artByTier": {
       "6S": {
-        "portrait": "assets/characters/kinkakuginkaku_2082/portrait_6S.png",
-        "full": "assets/characters/kinkakuginkaku_2082/full_6S.png"
+        "portrait": "assets/characters/kinkaku_ginkaku_2082/portrait_6S.png",
+        "full": "assets/characters/kinkaku_ginkaku_2082/full_6S.png"
       }
     },
     "statsBase": {
@@ -109236,14 +109236,14 @@
     "starMinCode": "1S",
     "starMaxCode": "6S",
     "lbEligible": false,
-    "portrait": "assets/characters/kinkakuginkaku_2083/portrait_6S.png",
-    "full": "assets/characters/kinkakuginkaku_2083/full_6S.png",
+    "portrait": "assets/characters/kinkaku_ginkaku_2083/portrait_6S.png",
+    "full": "assets/characters/kinkaku_ginkaku_2083/full_6S.png",
     "ultimateAnimation": null,
     "secretAnimation": null,
     "artByTier": {
       "6S": {
-        "portrait": "assets/characters/kinkakuginkaku_2083/portrait_6S.png",
-        "full": "assets/characters/kinkakuginkaku_2083/full_6S.png"
+        "portrait": "assets/characters/kinkaku_ginkaku_2083/portrait_6S.png",
+        "full": "assets/characters/kinkaku_ginkaku_2083/full_6S.png"
       }
     },
     "statsBase": {
