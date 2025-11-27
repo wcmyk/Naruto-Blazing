@@ -1038,39 +1038,59 @@
           inst = window.InventoryChar.getByUid(inst.uid);
           console.log("[UI Debug] Updated local references to new character");
 
-          // *** UPDATE UI IMMEDIATELY FIRST ***
-          await updateUIAfterAwakening();
-          console.log("[UI Debug] UI updated immediately after transformation");
+          // *** FORCE COMPLETE MODAL REFRESH VIA AJAX ***
+          // Save the UID before closing modal
+          const currentUid = inst.uid;
+          console.log("[UI Debug] Forcing complete modal refresh for UID:", currentUid);
 
-          // Trigger daily mission
-          if (window.DailyMissions) {
-            const dailyResult = await window.DailyMissions.incrementDaily('daily_awaken');
-            if (dailyResult && dailyResult.completed) {
-              if (window.ModalManager) { window.ModalManager.showInfo(`Daily Mission Completed!\n${dailyResult.dailyName}`); };
-            }
-          }
+          // Close current modal
+          closeModal();
 
-          // Play awakening animation as overlay (non-blocking)
-          if (window.AwakeningAnimation && typeof window.AwakeningAnimation.play === 'function') {
-            try {
-              const newArt = resolveTierArt(c, res.tier);
-              const newArtworkUrl = safeStr(newArt.full, newArt.portrait);
+          // Immediately reopen with fresh data from localStorage (AJAX pattern)
+          // This guarantees ALL UI elements refresh with new character data
+          setTimeout(() => {
+            openModalByUid(currentUid);
+            console.log("[UI Debug] Modal reopened with updated character data");
 
-              console.log("[UI Debug] Playing awakening animation overlay");
-              // Don't await - let it play as overlay while UI is already updated
-              window.AwakeningAnimation.play(
-                oldCharacterName,
-                c.name,
-                oldArtworkUrl,
-                newArtworkUrl,
-                () => {
-                  console.log("[UI Debug] Animation completed");
+            // Force refresh the inventory grid to show updated character
+            renderGrid();
+
+            // Trigger daily mission
+            if (window.DailyMissions) {
+              window.DailyMissions.incrementDaily('daily_awaken').then(dailyResult => {
+                if (dailyResult && dailyResult.completed) {
+                  if (window.ModalManager) { window.ModalManager.showInfo(`Daily Mission Completed!\n${dailyResult.dailyName}`); };
                 }
-              );
-            } catch (error) {
-              console.error("[UI Debug] Animation error:", error);
+              });
             }
-          }
+
+            // Play awakening animation as full-screen overlay (non-blocking)
+            if (window.AwakeningAnimation && typeof window.AwakeningAnimation.play === 'function') {
+              setTimeout(() => {
+                try {
+                  console.log("[UI Debug] Playing awakening animation overlay");
+                  console.log("[UI Debug] Old character:", oldCharacterName, "→ New character:", c.name);
+                  console.log("[UI Debug] Old artwork:", oldArtworkUrl);
+                  console.log("[UI Debug] New artwork:", newArtworkUrl);
+
+                  // Don't await - let it play as overlay while UI is already updated
+                  window.AwakeningAnimation.play(
+                    oldCharacterName,
+                    c.name,
+                    oldArtworkUrl,
+                    newArtworkUrl,
+                    () => {
+                      console.log("[UI Debug] Animation completed");
+                    }
+                  );
+                } catch (error) {
+                  console.error("[UI Debug] Animation error:", error);
+                }
+              }, 200); // Small delay to let modal fully render first
+            } else {
+              console.warn("[UI Debug] AwakeningAnimation not available");
+            }
+          }, 100); // Small delay to let modal close animation complete
         } else {
           console.error("[UI Debug] Failed to load new character:", res.newCharacterId);
           await updateUIAfterAwakening();
@@ -1082,20 +1102,35 @@
           window.InventoryChar.updateInstance(inst.uid, { tierCode: res.tier, level: res.level ?? 1 });
         }
 
-        // Update UI immediately for non-transformation awakenings
-        await updateUIAfterAwakening();
+        // *** FORCE COMPLETE MODAL REFRESH VIA AJAX (same as transformation path) ***
+        const currentUid = inst.uid;
+        console.log("[UI Debug] Forcing complete modal refresh for UID:", currentUid);
 
-        // Trigger daily mission
-        if (window.DailyMissions) {
-          const dailyResult = await window.DailyMissions.incrementDaily('daily_awaken');
-          if (dailyResult && dailyResult.completed) {
-            if (window.ModalManager) { window.ModalManager.showInfo(`Daily Mission Completed!\n${dailyResult.dailyName}`); };
+        // Close current modal
+        closeModal();
+
+        // Immediately reopen with fresh data from localStorage (AJAX pattern)
+        setTimeout(() => {
+          openModalByUid(currentUid);
+          console.log("[UI Debug] Modal reopened with updated character data");
+
+          // Force refresh the inventory grid to show updated character
+          renderGrid();
+
+          // Trigger daily mission
+          if (window.DailyMissions) {
+            window.DailyMissions.incrementDaily('daily_awaken').then(dailyResult => {
+              if (dailyResult && dailyResult.completed) {
+                if (window.ModalManager) { window.ModalManager.showInfo(`Daily Mission Completed!\n${dailyResult.dailyName}`); };
+              }
+            });
           }
-        }
 
-        if (window.ModalManager) {
-          window.ModalManager.showInfo(`Successfully awakened ${c.name} to ${starsFromTier(res.tier)} stars!`);
-        }
+          // Show success message
+          if (window.ModalManager) {
+            window.ModalManager.showInfo(`Successfully awakened ${c.name} to ${starsFromTier(res.tier)} stars!`);
+          }
+        }, 100); // Small delay to let modal close animation complete
       }
     };
 
