@@ -85350,14 +85350,14 @@
     "starMinCode": "1S",
     "starMaxCode": "6S",
     "lbEligible": false,
-    "portrait": "assets/characters/obito_804/portrait_6S.png",
-    "full": "assets/characters/obito_804/full_6S.png",
+    "portrait": "assets/characters/obito_804/portrait_5S.png",
+    "full": "assets/characters/obito_804/full_5S.png",
     "ultimateAnimation": null,
     "secretAnimation": null,
     "artByTier": {
       "6S": {
-        "portrait": "assets/characters/obito_804/portrait_6S.png",
-        "full": "assets/characters/obito_804/full_6S.png"
+        "portrait": "assets/characters/obito_805/portrait_6S.png",
+        "full": "assets/characters/obito_805/full_6S.png"
       }
     },
     "statsBase": {
@@ -95948,14 +95948,14 @@
     "starMinCode": "1S",
     "starMaxCode": "2S",
     "lbEligible": false,
-    "portrait": "assets/characters/attack_932/portrait_2S.png",
-    "full": "assets/characters/attack_932/full_2S.png",
+    "portrait": "assets/awakening-materials/attack_boost_932/portrait_2S.png",
+    "full": "assets/awakening-materials/attack_boost_932/full_2S.png",
     "ultimateAnimation": null,
     "secretAnimation": null,
     "artByTier": {
       "2S": {
-        "portrait": "assets/characters/attack_932/portrait_2S.png",
-        "full": "assets/characters/attack_932/full_2S.png"
+        "portrait": "assets/awakening-materials/attack_boost_932/portrait_2S.png",
+        "full": "assets/awakening-materials/attack_boost_932/full_2S.png"
       }
     },
     "statsBase": {},
@@ -96006,14 +96006,14 @@
     "starMinCode": "1S",
     "starMaxCode": "3S",
     "lbEligible": false,
-    "portrait": "assets/characters/attack_933/portrait_3S.png",
-    "full": "assets/characters/attack_933/full_3S.png",
+    "portrait": "assets/awakening-materials/attack_boost_933/portrait_3S.png",
+    "full": "assets/awakening-materials/attack_boost_933/full_3S.png",
     "ultimateAnimation": null,
     "secretAnimation": null,
     "artByTier": {
       "3S": {
-        "portrait": "assets/characters/attack_933/portrait_3S.png",
-        "full": "assets/characters/attack_933/full_3S.png"
+        "portrait": "assets/awakening-materials/attack_boost_933/portrait_3S.png",
+        "full": "assets/awakening-materials/attack_boost_933/full_3S.png"
       }
     },
     "statsBase": {},
