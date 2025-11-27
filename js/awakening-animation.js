@@ -14,10 +14,12 @@
    * @param {string} oldArtworkUrl - Old character artwork URL
    * @param {string} newArtworkUrl - New character artwork URL
    * @param {Function} onComplete - Callback when animation finishes
+   * @param {string} theme - Color theme: 'gold' (default) or 'purple'
    */
-  async function playAwakeningAnimation(oldCharacterName, newCharacterName, oldArtworkUrl, newArtworkUrl, onComplete) {
+  async function playAwakeningAnimation(oldCharacterName, newCharacterName, oldArtworkUrl, newArtworkUrl, onComplete, theme = 'gold') {
     console.log("[Awakening Animation] Starting animation...");
     console.log(`[Awakening Animation] ${oldCharacterName} → ${newCharacterName}`);
+    console.log(`[Awakening Animation] Theme: ${theme}`);
 
     // Create overlay
     const overlay = document.createElement("div");
@@ -46,9 +48,12 @@
       })
     ]);
 
+    // Apply theme class
+    const themeClass = theme === 'purple' ? 'purple' : '';
+
     // Add character image container (starts with old character)
     const characterContainer = document.createElement("div");
-    characterContainer.className = "awakening-character";
+    characterContainer.className = `awakening-character ${themeClass}`.trim();
     const characterImg = document.createElement("img");
     characterImg.src = oldArtworkUrl;
     characterImg.alt = `${oldCharacterName} transforming`;
@@ -62,9 +67,9 @@
       console.log("[Awakening Animation] Switched to new character image");
     }, 3500);
 
-    // Add golden energy circle
+    // Add energy circle (gold or purple)
     const circle = document.createElement("div");
-    circle.className = "awakening-circle";
+    circle.className = `awakening-circle ${themeClass}`.trim();
     container.appendChild(circle);
 
     // Create rotating ring for kanji characters
@@ -75,7 +80,7 @@
     // Add Japanese characters in a ring around the character
     KANJI_CHARACTERS.forEach((kanji) => {
       const kanjiEl = document.createElement("div");
-      kanjiEl.className = "awakening-kanji";
+      kanjiEl.className = `awakening-kanji ${themeClass}`.trim();
       kanjiEl.textContent = kanji;
       kanjiRing.appendChild(kanjiEl);
     });
@@ -83,7 +88,7 @@
     // Add sparkle particles orbiting around
     for (let i = 0; i < 40; i++) {
       const particle = document.createElement("div");
-      particle.className = "awakening-particle";
+      particle.className = `awakening-particle ${themeClass}`.trim();
 
       // Create circular orbit pattern
       const angle = (i / 40) * Math.PI * 2;
@@ -103,23 +108,24 @@
     // Add energy ripples
     for (let i = 0; i < 3; i++) {
       const ripple = document.createElement("div");
-      ripple.className = "awakening-ripple";
+      ripple.className = `awakening-ripple ${themeClass}`.trim();
       container.appendChild(ripple);
     }
 
     // Add flash effect
     const flash = document.createElement("div");
-    flash.className = "awakening-flash";
+    flash.className = `awakening-flash ${themeClass}`.trim();
     container.appendChild(flash);
 
     // Add success text
     const successText = document.createElement("div");
-    successText.className = "awakening-success";
+    successText.className = `awakening-success ${themeClass}`.trim();
+    const completeColor = theme === 'purple' ? '#8b4789' : '#996600';
     successText.innerHTML = `
       <div style="font-size: 24px; margin-bottom: 10px;">${oldCharacterName}</div>
       <div style="font-size: 32px; margin: 10px 0;">↓</div>
       <div style="font-size: 28px; margin-bottom: 15px;">${newCharacterName}</div>
-      <div style="font-size: 22px; color: #ffaa00; text-shadow: 0 0 15px #ffaa00;">AWAKENING COMPLETE!</div>
+      <div style="font-size: 22px; color: ${completeColor}; text-shadow: 0 0 15px ${completeColor};">AWAKENING COMPLETE!</div>
     `;
     container.appendChild(successText);
 

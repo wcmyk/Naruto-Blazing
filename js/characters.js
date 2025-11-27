@@ -1031,42 +1031,40 @@
           const newArtworkUrl = safeStr(newArt.full, newArt.portrait);
           console.log(`[UI Debug] New artwork URL: ${newArtworkUrl}`);
 
-          // Save the UID before closing modal
+          // Save the UID for later
           const currentUid = inst.uid;
-          console.log("[UI Debug] Closing modal to play animation...");
 
-          // Close current modal
-          closeModal();
-
-          // Play awakening animation FIRST (while modal is closed)
-          // Animation shows old character → blur → reveal new character
+          // 🚀 1. Play animation FIRST (modal stays open, animation plays as overlay)
           if (window.AwakeningAnimation && typeof window.AwakeningAnimation.play === 'function') {
-            setTimeout(() => {
-              try {
-                console.log("[UI Debug] Playing awakening animation overlay");
-                console.log("[UI Debug] Old character:", oldCharacterName, "→ New character:", newCharacter.name);
-                console.log("[UI Debug] Old artwork:", oldArtworkUrl);
-                console.log("[UI Debug] New artwork:", newArtworkUrl);
+            try {
+              console.log("[UI Debug] Playing awakening animation (modal stays open)...");
+              console.log("[UI Debug] Old character:", oldCharacterName, "→ New character:", newCharacter.name);
+              console.log("[UI Debug] Old artwork:", oldArtworkUrl);
+              console.log("[UI Debug] New artwork:", newArtworkUrl);
 
-                // Play animation - localStorage updates AFTER animation completes
-                window.AwakeningAnimation.play(
-                  oldCharacterName,
-                  newCharacter.name,
-                  oldArtworkUrl,
-                  newArtworkUrl,
-                  () => {
-                    console.log("[UI Debug] Animation completed");
+              // Play animation - modal stays open during animation
+              window.AwakeningAnimation.play(
+                oldCharacterName,
+                newCharacter.name,
+                oldArtworkUrl,
+                newArtworkUrl,
+                () => {
+                  console.log("[UI Debug] Animation completed");
 
-                    // *** NOW UPDATE LOCALSTORAGE AFTER ANIMATION ***
-                    console.log("[UI Debug] Updating localStorage with new character ID...");
-                    window.InventoryChar.updateInstance(currentUid, {
-                      charId: res.newCharacterId,
-                      tierCode: res.tier,
-                      level: res.level ?? 1
-                    });
-                    console.log("[UI Debug] LocalStorage updated successfully");
+                  // 🧠 2. NOW close modal (after animation)
+                  closeModal();
 
-                    // Now reopen modal with new character data from localStorage
+                  // 💾 3. Update localStorage with new character data
+                  console.log("[UI Debug] Updating localStorage with new character ID...");
+                  window.InventoryChar.updateInstance(currentUid, {
+                    charId: res.newCharacterId,
+                    tierCode: res.tier,
+                    level: res.level ?? 1
+                  });
+                  console.log("[UI Debug] LocalStorage updated successfully");
+
+                  // 🔄 4. Reopen modal with refreshed data
+                  setTimeout(() => {
                     openModalByUid(currentUid);
                     console.log("[UI Debug] Modal reopened with updated character data");
 
@@ -1081,18 +1079,33 @@
                         }
                       });
                     }
-                  }
-                );
-              } catch (error) {
-                console.error("[UI Debug] Animation error:", error);
-                // If animation fails, still reopen modal
+                  }, 100);
+                },
+                'gold' // Default theme: darker gold
+              );
+            } catch (error) {
+              console.error("[UI Debug] Animation error:", error);
+              // If animation fails, still update and refresh
+              window.InventoryChar.updateInstance(currentUid, {
+                charId: res.newCharacterId,
+                tierCode: res.tier,
+                level: res.level ?? 1
+              });
+              closeModal();
+              setTimeout(() => {
                 openModalByUid(currentUid);
                 renderGrid();
-              }
-            }, 100); // Small delay to let modal close animation complete
+              }, 100);
+            }
           } else {
-            console.warn("[UI Debug] AwakeningAnimation not available - reopening modal immediately");
-            // If no animation available, just reopen modal
+            console.warn("[UI Debug] AwakeningAnimation not available");
+            // If no animation, just update and refresh
+            window.InventoryChar.updateInstance(currentUid, {
+              charId: res.newCharacterId,
+              tierCode: res.tier,
+              level: res.level ?? 1
+            });
+            closeModal();
             setTimeout(() => {
               openModalByUid(currentUid);
               renderGrid();
