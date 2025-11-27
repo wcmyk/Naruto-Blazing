@@ -593,7 +593,7 @@
       ramenClickCounts[ramen.id] = 0;
 
       card.innerHTML = `
-        <img src="${ramen.icon}" alt="${ramen.name}" class="ramen-icon" onerror="this.src='assets/items/placeholder.png'">
+        <img src="${ramen.icon}" alt="${ramen.name}" class="ramen-icon" onerror="this.onerror=null; this.style.display='none';">
         <div class="ramen-name">${ramen.name}</div>
         <div class="ramen-exp">+${ramen.exp.toLocaleString()} EXP</div>
         <div class="ramen-quantity">×${ramen.quantity}</div>

@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const card = document.createElement('div');
       card.className = 'item-card';
       card.innerHTML = `
-        <img src="${item.icon}" alt="${item.name}" class="item-icon" onerror="this.src='assets/items/placeholder.png'">
+        <img src="${item.icon}" alt="${item.name}" class="item-icon" onerror="this.onerror=null; this.style.display='none';">
         <div class="item-name">${item.name}</div>
         <div class="item-quantity">×${item.quantity}</div>
       `;
@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const usageNote = document.getElementById('item-usage-note');
 
     icon.src = item.icon;
-    icon.onerror = () => { icon.src = 'assets/items/placeholder.png'; };
+    icon.onerror = () => { icon.onerror = null; icon.style.display = 'none'; };
     name.textContent = item.name;
     description.textContent = item.description;
     quantityDisplay.textContent = item.quantity;
