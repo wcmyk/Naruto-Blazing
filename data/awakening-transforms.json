@@ -1,1121 +1,1852 @@
-{
-  "transforms": {
-    "akatsuchi_2078": {
-      "5SB": "akatsuchi_2079"
-    },
-    "ameyuri_484": {
-      "5SB": "ameyuri_485"
-    },
-    "anko_094": {
-      "3SB": "anko_095"
-    },
-    "anko_682": {
-      "5SB": "anko_683"
-    },
-    "ao_765": {
-      "5SB": "ao_766"
-    },
-    "ashura_2109": {
-      "5SB": "ashura_2110"
-    },
-    "ashura_517": {
-      "5SB": "ashura_518"
-    },
-    "ashura_789": {
-      "6SB": "ashura_790"
-    },
-    "asuma_214": {
-      "4SB": "asuma_215"
-    },
-    "asuma_848": {
-      "6SB": "asuma_849"
-    },
-    "baki_104": {
-      "3SB": "baki_105"
-    },
-    "cee_880": {
-      "5SB": "cee_881"
-    },
-    "chino_570": {
-      "5SB": "chino_571"
-    },
-    "chiriku_325": {
-      "5SB": "chiriku_326"
-    },
-    "chiyo_339": {
-      "5SB": "chiyo_340"
-    },
-    "choji_014": {
-      "3SB": "choji_015"
-    },
-    "choji_058": {
-      "4SB": "choji_059"
-    },
-    "choji_2040": {
-      "5SB": "choji_2041"
-    },
-    "choji_225": {
-      "5SB": "choji_226"
-    },
-    "chojuro_366": {
-      "5SB": "chojuro_367"
-    },
-    "chojuro_564": {
-      "5SB": "chojuro_565"
-    },
-    "choza_114": {
-      "3SB": "choza_115"
-    },
-    "dan_2066": {
-      "5SB": "dan_2067"
-    },
-    "danzo_2034": {
-      "6SB": "danzo_2035"
-    },
-    "danzo_373": {
-      "5SB": "danzo_374"
-    },
-    "darui_385": {
-      "5SB": "darui_386"
-    },
-    "darui_758": {
-      "5SB": "darui_759"
-    },
-    "deidara_219": {
-      "5SB": "deidara_220"
-    },
-    "deidara_350": {
-      "5SB": "deidara_351"
-    },
-    "deidara_440": {
-      "5SB": "deidara_441"
-    },
-    "deidara_731": {
-      "5SB": "deidara_732"
-    },
-    "deidara_836": {
-      "6SB": "deidara_837"
-    },
-    "deidara_884": {
-      "5SB": "deidara_885"
-    },
-    "fourth_356": {
-      "5SB": "fourth_357"
-    },
-    "fourth_466": {
-      "5SB": "fourth_467"
-    },
-    "fugaku_2022": {
-      "5SB": "fugaku_2023"
-    },
-    "fuguki_596": {
-      "5SB": "fuguki_597"
-    },
-    "fuu_413": {
-      "5SB": "fuu_414"
-    },
-    "gaara_050": {
-      "5SB": "gaara_051"
-    },
-    "gaara_173": {
-      "5SB": "gaara_174"
-    },
-    "gaara_185": {
-      "4SB": "gaara_186"
-    },
-    "gaara_267": {
-      "5SB": "gaara_268"
-    },
-    "gaara_283": {
-      "5SB": "gaara_284"
-    },
-    "gaara_436": {
-      "5SB": "gaara_437"
-    },
-    "gaara_729": {
-      "5SB": "gaara_730"
-    },
-    "gaara_834": {
-      "5SB": "gaara_835"
-    },
-    "gengetsu_488": {
-      "5SB": "gengetsu_489"
-    },
-    "gengo_298": {
-      "5SB": "gengo_299"
-    },
-    "hagoromo_2044": {
-      "6SB": "hagoromo_2045"
-    },
-    "haku_137": {
-      "4SB": "haku_138"
-    },
-    "haku_139": {
-      "5SB": "haku_140"
-    },
-    "haku_423": {
-      "5SB": "haku_424"
-    },
-    "han_543": {
-      "5SB": "han_544"
-    },
-    "hanabi_773": {
-      "5SB": "hanabi_774"
-    },
-    "hanzo_341": {
-      "5SB": "hanzo_342"
-    },
-    "hanzo_449": {
-      "5SB": "hanzo_450"
-    },
-    "hashirama_2017": {
-      "6SB": "hashirama_2018"
-    },
-    "hashirama_2057": {
-      "5SB": "hashirama_2058"
-    },
-    "hashirama_417": {
-      "5SB": "hashirama_418"
-    },
-    "hashirama_697": {
-      "5SB": "hashirama_698"
-    },
-    "hashirama_745": {
-      "5SB": "hashirama_746"
-    },
-    "hayate_096": {
-      "3SB": "hayate_097"
-    },
-    "hayate_183": {
-      "4SB": "hayate_184"
-    },
-    "hayate_778": {
-      "5SB": "hayate_779"
-    },
-    "hiashi_116": {
-      "3SB": "hiashi_117"
-    },
-    "hidan_321": {
-      "5SB": "hidan_322"
-    },
-    "hidan_829": {
-      "5SB": "hidan_830"
-    },
-    "hinata_016": {
-      "3SB": "hinata_017"
-    },
-    "hinata_060": {
-      "4SB": "hinata_061"
-    },
-    "hinata_156": {
-      "4SB": "hinata_157"
-    },
-    "hinata_2002": {
-      "5SB": "hinata_2003"
-    },
-    "hinata_242": {
-      "5SB": "hinata_243"
-    },
-    "hinata_275": {
-      "5SB": "hinata_276"
-    },
-    "hinata_329": {
-      "5SB": "hinata_330"
-    },
-    "hinata_756": {
-      "5SB": "hinata_757"
-    },
-    "hiruzen_070": {
-      "4SB": "hiruzen_071"
-    },
-    "hiruzen_200": {
-      "5SB": "hiruzen_201"
-    },
-    "hiruzen_798": {
-      "5SB": "hiruzen_799"
-    },
-    "hizashi_118": {
-      "3SB": "hizashi_119"
-    },
-    "ibiki_092": {
-      "3SB": "ibiki_093"
-    },
-    "indra_2111": {
-      "6SB": "indra_2112"
-    },
-    "indra_515": {
-      "5SB": "indra_516"
-    },
-    "indra_787": {
-      "5SB": "indra_788"
-    },
-    "ino_012": {
-      "3SB": "ino_013"
-    },
-    "ino_056": {
-      "4SB": "ino_057"
-    },
-    "ino_154": {
-      "4SB": "ino_155"
-    },
-    "ino_263": {
-      "5SB": "ino_264"
-    },
-    "ino_549": {
-      "5SB": "ino_550"
-    },
-    "ino_691": {
-      "5SB": "ino_692"
-    },
-    "inoichi_112": {
-      "3SB": "inoichi_113"
-    },
-    "iruka_022": {
-      "3SB": "iruka_023"
-    },
-    "iruka_871": {
-      "5SB": "iruka_872"
-    },
-    "itachi_088": {
-      "4SB": "itachi_089"
-    },
-    "itachi_2031": {
-      "5SB": "itachi_2032"
-    },
-    "itachi_208": {
-      "4SB": "itachi_209"
-    },
-    "itachi_210": {
-      "5SB": "itachi_211"
-    },
-    "itachi_308": {
-      "5SB": "itachi_309"
-    },
-    "itachi_387": {
-      "5SB": "itachi_388"
-    },
-    "itachi_504": {
-      "5SB": "itachi_505"
-    },
-    "itachi_699": {
-      "5SB": "itachi_700"
-    },
-    "izumo_844": {
-      "5SB": "izumo_845"
-    },
-    "izuna_2026": {
-      "5SB": "izuna_2027"
-    },
-    "izuna_751": {
-      "5SB": "izuna_752"
-    },
-    "izuna_775": {
-      "5SB": "izuna_776"
-    },
-    "jinin_581": {
-      "5SB": "jinin_582"
-    },
-    "jinpachi_562": {
-      "5SB": "jinpachi_563"
-    },
-    "jiraiya_072": {
-      "4SB": "jiraiya_073"
-    },
-    "jiraiya_246": {
-      "5SB": "jiraiya_247"
-    },
-    "jiraiya_335": {
-      "5SB": "jiraiya_336"
-    },
-    "jiraiya_444": {
-      "5SB": "jiraiya_445"
-    },
-    "jiraiya_610": {
-      "5SB": "jiraiya_611"
-    },
-    "jirobo_084": {
-      "4SB": "jirobo_085"
-    },
-    "jirobo_198": {
-      "4SB": "jirobo_199"
-    },
-    "jirobo_227": {
-      "5SB": "jirobo_228"
-    },
-    "jugo_306": {
-      "5SB": "jugo_307"
-    },
-    "jugo_623": {
-      "5SB": "jugo_624"
-    },
-    "juzo_716": {
-      "5SB": "juzo_717"
-    },
-    "kabuto_076": {
-      "4SB": "kabuto_077"
-    },
-    "kabuto_169": {
-      "4SB": "kabuto_170"
-    },
-    "kabuto_392": {
-      "5SB": "kabuto_393"
-    },
-    "kabuto_642": {
-      "5SB": "kabuto_643"
-    },
-    "kaguya_2042": {
-      "5SB": "kaguya_2043"
-    },
-    "kaguya_512": {
-      "5SB": "kaguya_513"
-    },
-    "kaguya_593": {
-      "5SB": "kaguya_594"
-    },
-    "kaguya_749": {
-      "6SB": "kaguya_750"
-    },
-    "kakashi_008": {
-      "4SB": "kakashi_009"
-    },
-    "kakashi_048": {
-      "5SB": "kakashi_049"
-    },
-    "kakashi_146": {
-      "5SB": "kakashi_147"
-    },
-    "kakashi_2125": {
-      "5SB": "kakashi_2126"
-    },
-    "kakashi_255": {
-      "5SB": "kakashi_256"
-    },
-    "kakashi_313": {
-      "5SB": "kakashi_314"
-    },
-    "kakashi_425": {
-      "5SB": "kakashi_426"
-    },
-    "kakashi_587": {
-      "5SB": "kakashi_588"
-    },
-    "kakashi_734": {
-      "5SB": "kakashi_735"
-    },
-    "kakashi_854": {
-      "5SB": "kakashi_855"
-    },
-    "kakkou_106": {
-      "3SB": "kakkou_107"
-    },
-    "kakuzu_323": {
-      "5SB": "kakuzu_324"
-    },
-    "kakuzu_693": {
-      "5SB": "kakuzu_694"
-    },
-    "kankuro_165": {
-      "4SB": "kankuro_166"
-    },
-    "kankuro_189": {
-      "4SB": "kankuro_190"
-    },
-    "kankuro_2055": {
-      "5SB": "kankuro_2056"
-    },
-    "kankuro_438": {
-      "5SB": "kankuro_439"
-    },
-    "karin_300": {
-      "5SB": "karin_301"
-    },
-    "karin_362": {
-      "5SB": "karin_363"
-    },
-    "kiba_018": {
-      "3SB": "kiba_019"
-    },
-    "kiba_062": {
-      "4SB": "kiba_063"
-    },
-    "kiba_223": {
-      "4SB": "kiba_224"
-    },
-    "kiba_566": {
-      "5SB": "kiba_567"
-    },
-    "kidomaru_080": {
-      "4SB": "kidomaru_081"
-    },
-    "kidomaru_194": {
-      "4SB": "kidomaru_195"
-    },
-    "kidomaru_233": {
-      "5SB": "kidomaru_234"
-    },
-    "killer_1155": {
-      "6SB": "killer_1156"
-    },
-    "killer_354": {
-      "5SB": "killer_355"
-    },
-    "killer_462": {
-      "5SB": "killer_463"
-    },
-    "kimimaro_086": {
-      "4SB": "kimimaro_087"
-    },
-    "kimimaro_273": {
-      "5SB": "kimimaro_274"
-    },
-    "kimimaro_886": {
-      "5SB": "kimimaro_887"
-    },
-    "kinkakuginkaku_2082": {
-      "6SB": "kinkakuginkaku_2083"
-    },
-    "kisame_090": {
-      "4SB": "kisame_091"
-    },
-    "kisame_319": {
-      "5SB": "kisame_320"
-    },
-    "kisame_719": {
-      "6SB": "kisame_720"
-    },
-    "konan_2048": {
-      "5SB": "konan_2049"
-    },
-    "konan_337": {
-      "5SB": "konan_338"
-    },
-    "konan_377": {
-      "5SB": "konan_378"
-    },
-    "konan_547": {
-      "5SB": "konan_548"
-    },
-    "konohamaru_100": {
-      "3SB": "konohamaru_101"
-    },
-    "konohamaru_346": {
-      "5SB": "konohamaru_347"
-    },
-    "kotetsu_852": {
-      "5SB": "kotetsu_853"
-    },
-    "kurenai_216": {
-      "4SB": "kurenai_217"
-    },
-    "kurotsuchi_526": {
-      "5SB": "kurotsuchi_527"
-    },
-    "kushimaru_545": {
-      "5SB": "kushimaru_546"
-    },
-    "kushina_231": {
-      "5SB": "kushina_232"
-    },
-    "kushina_296": {
-      "5SB": "kushina_297"
-    },
-    "kushina_530": {
-      "5SB": "kushina_531"
-    },
-    "kushina_839": {
-      "5SB": "kushina_840"
-    },
-    "madara_2024": {
-      "5SB": "madara_2025"
-    },
-    "madara_2059": {
-      "6SB": "madara_2060"
-    },
-    "madara_333": {
-      "5SB": "madara_334"
-    },
-    "madara_434": {
-      "5SB": "madara_435"
-    },
-    "madara_589": {
-      "5SB": "madara_590"
-    },
-    "madara_646": {
-      "5SB": "madara_647"
-    },
-    "madara_680": {
-      "5SB": "madara_681"
-    },
-    "madara_695": {
-      "5SB": "madara_696"
-    },
-    "madara_747": {
-      "5SB": "madara_748"
-    },
-    "madara_859": {
-      "6SB": "madara_860"
-    },
-    "mangetsu_629": {
-      "5SB": "mangetsu_630"
-    },
-    "masked_2102": {
-      "6SB": "masked_2103"
-    },
-    "masked_631": {
-      "5SB": "masked_632"
-    },
-    "mei_358": {
-      "5SB": "mei_359"
-    },
-    "might_212": {
-      "5SB": "might_213"
-    },
-    "might_315": {
-      "5SB": "might_316"
-    },
-    "might_432": {
-      "5SB": "might_433"
-    },
-    "might_486": {
-      "5SB": "might_487"
-    },
-    "might_591": {
-      "5SB": "might_592"
-    },
-    "might_657": {
-      "5SB": "might_658"
-    },
-    "minato_2100": {
-      "5SB": "minato_2101"
-    },
-    "minato_229": {
-      "5SB": "minato_230"
-    },
-    "minato_409": {
-      "5SB": "minato_410"
-    },
-    "minato_528": {
-      "5SB": "minato_529"
-    },
-    "minato_627": {
-      "5SB": "minato_628"
-    },
-    "minato_678": {
-      "5SB": "minato_679"
-    },
-    "minato_760": {
-      "5SB": "minato_761"
-    },
-    "mizuki_098": {
-      "3SB": "mizuki_099"
-    },
-    "nagato_360": {
-      "5SB": "nagato_361"
-    },
-    "nagato_534": {
-      "5SB": "nagato_535"
-    },
-    "nagato_823": {
-      "5SB": "nagato_824"
-    },
-    "naruto_044": {
-      "5SB": "naruto_045"
-    },
-    "naruto_135": {
-      "3SB": "naruto_136"
-    },
-    "naruto_161": {
-      "5SB": "naruto_162"
-    },
-    "naruto_179": {
-      "4SB": "naruto_180"
-    },
-    "naruto_2000": {
-      "5SB": "naruto_2001"
-    },
-    "naruto_2089": {
-      "6SB": "naruto_2090"
-    },
-    "naruto_2114": {
-      "6SB": "naruto_2115"
-    },
-    "naruto_2137": {
-      "5SB": "naruto_2138"
-    },
-    "naruto_237": {
-      "5SB": "naruto_238"
-    },
-    "naruto_259": {
-      "5SB": "naruto_260"
-    },
-    "naruto_281": {
-      "5SB": "naruto_282"
-    },
-    "naruto_327": {
-      "5SB": "naruto_328"
-    },
-    "naruto_348": {
-      "5SB": "naruto_349"
-    },
-    "naruto_383": {
-      "5SB": "naruto_384"
-    },
-    "naruto_400": {
-      "5SB": "naruto_401"
-    },
-    "naruto_421": {
-      "5SB": "naruto_422"
-    },
-    "naruto_427": {
-      "5SB": "naruto_428"
-    },
-    "naruto_482": {
-      "5SB": "naruto_483"
-    },
-    "naruto_551": {
-      "5SB": "naruto_552"
-    },
-    "naruto_583": {
-      "5SB": "naruto_584"
-    },
-    "naruto_659": {
-      "6S": "naruto_660"
-    },
-    "naruto_665": {
-      "6SB": "naruto_666"
-    },
-    "naruto_800": {
-      "5SB": "naruto_801"
-    },
-    "naruto_819": {
-      "6SB": "naruto_820"
-    },
-    "naruto_891": {
-      "5SB": "naruto_892"
-    },
-    "neji_066": {
-      "4SB": "neji_067"
-    },
-    "neji_150": {
-      "5SB": "neji_151"
-    },
-    "neji_2004": {
-      "6SB": "neji_2005"
-    },
-    "obito_2071": {
-      "6SB": "obito_2072"
-    },
-    "obito_2080": {
-      "5SB": "obito_2081"
-    },
-    "obito_253": {
-      "5SB": "obito_254"
-    },
-    "obito_394": {
-      "5SB": "obito_395"
-    },
-    "obito_411": {
-      "5SB": "obito_412"
-    },
-    "obito_468": {
-      "5SB": "obito_469"
-    },
-    "obito_710": {
-      "5SB": "obito_711"
-    },
-    "obito_736": {
-      "6SB": "obito_737"
-    },
-    "obito_804": {
-      "5SB": "obito_805"
-    },
-    "obito_856": {
-      "5SB": "obito_857"
-    },
-    "ohnoki_368": {
-      "5SB": "ohnoki_369"
-    },
-    "omoi_821": {
-      "5SB": "omoi_822"
-    },
-    "orochimaru_074": {
-      "4SB": "orochimaru_075"
-    },
-    "orochimaru_171": {
-      "4SB": "orochimaru_172"
-    },
-    "orochimaru_269": {
-      "5SB": "orochimaru_270"
-    },
-    "orochimaru_446": {
-      "5SB": "orochimaru_447"
-    },
-    "orochimaru_831": {
-      "5SB": "orochimaru_832"
-    },
-    "orochimaru_888": {
-      "6SB": "orochimaru_889"
-    },
-    "pain_352": {
-      "5SB": "pain_353"
-    },
-    "pain_451": {
-      "5SB": "pain_452"
-    },
-    "pain_604": {
-      "5SB": "pain_605"
-    },
-    "pain_612": {
-      "5SB": "pain_613"
-    },
-    "pain_640": {
-      "5SB": "pain_641"
-    },
-    "pain_676": {
-      "5SB": "pain_677"
-    },
-    "pain_727": {
-      "5SB": "pain_728"
-    },
-    "pain_817": {
-      "5SB": "pain_818"
-    },
-    "pakura_815": {
-      "5SB": "pakura_816"
-    },
-    "rasa_442": {
-      "5SB": "rasa_443"
-    },
-    "rin_251": {
-      "5SB": "rin_252"
-    },
-    "rin_294": {
-      "5SB": "rin_295"
-    },
-    "rock_148": {
-      "5SB": "rock_149"
-    },
-    "rock_158": {
-      "4SB": "rock_159"
-    },
-    "rock_506": {
-      "5SB": "rock_507"
-    },
-    "rock_809": {
-      "5SB": "rock_810"
-    },
-    "roshi_553": {
-      "5SB": "roshi_554"
-    },
-    "roshi_896": {
-      "5SB": "roshi_897"
-    },
-    "rou_285": {
-      "5SB": "rou_286"
-    },
-    "sai_239": {
-      "5SB": "sai_240"
-    },
-    "sai_500": {
-      "5SB": "sai_501"
-    },
-    "sai_873": {
-      "5SB": "sai_874"
-    },
-    "sakon_082": {
-      "4SB": "sakon_083"
-    },
-    "sakon_196": {
-      "4SB": "sakon_197"
-    },
-    "sakumo_2010": {
-      "5SB": "sakumo_2011"
-    },
-    "sakura_006": {
-      "3SB": "sakura_007"
-    },
-    "sakura_052": {
-      "4SB": "sakura_053"
-    },
-    "sakura_152": {
-      "5SB": "sakura_153"
-    },
-    "sakura_2069": {
-      "5SB": "sakura_2070"
-    },
-    "sakura_235": {
-      "5SB": "sakura_236"
-    },
-    "sakura_277": {
-      "5SB": "sakura_278"
-    },
-    "sakura_364": {
-      "5SB": "sakura_365"
-    },
-    "sakura_379": {
-      "4SB": "sakura_380"
-    },
-    "sakura_398": {
-      "5SB": "sakura_399"
-    },
-    "sakura_480": {
-      "5SB": "sakura_481"
-    },
-    "sakura_510": {
-      "5SB": "sakura_511"
-    },
-    "sakura_754": {
-      "5SB": "sakura_755"
-    },
-    "sakura_868": {
-      "5SB": "sakura_869"
-    },
-    "sasori_221": {
-      "5SB": "sasori_222"
-    },
-    "sasori_644": {
-      "5SB": "sasori_645"
-    },
-    "sasori_784": {
-      "5SB": "sasori_785"
-    },
-    "sasori_882": {
-      "5SB": "sasori_883"
-    },
-    "sasuke_004": {
-      "3SB": "sasuke_005"
-    },
-    "sasuke_046": {
-      "5SB": "sasuke_047"
-    },
-    "sasuke_175": {
-      "5SB": "sasuke_176"
-    },
-    "sasuke_177": {
-      "5SB": "sasuke_178"
-    },
-    "sasuke_2012": {
-      "5SB": "sasuke_2013"
-    },
-    "sasuke_2029": {
-      "5SB": "sasuke_2030"
-    },
-    "sasuke_2116": {
-      "6SB": "sasuke_2117"
-    },
-    "sasuke_2131": {
-      "5SB": "sasuke_2132"
-    },
-    "sasuke_244": {
-      "5SB": "sasuke_245"
-    },
-    "sasuke_261": {
-      "5SB": "sasuke_262"
-    },
-    "sasuke_302": {
-      "5SB": "sasuke_303"
-    },
-    "sasuke_343": {
-      "5SB": "sasuke_344"
-    },
-    "sasuke_370": {
-      "5SB": "sasuke_371"
-    },
-    "sasuke_389": {
-      "5SB": "sasuke_390"
-    },
-    "sasuke_419": {
-      "5SB": "sasuke_420"
-    },
-    "sasuke_429": {
-      "5SB": "sasuke_430"
-    },
-    "sasuke_490": {
-      "5SB": "sasuke_491"
-    },
-    "sasuke_502": {
-      "5SB": "sasuke_503"
-    },
-    "sasuke_568": {
-      "5SB": "sasuke_569"
-    },
-    "sasuke_585": {
-      "5SB": "sasuke_586"
-    },
-    "sasuke_661": {
-      "5SB": "sasuke_662"
-    },
-    "sasuke_667": {
-      "6SB": "sasuke_668"
-    },
-    "sasuke_702": {
-      "6SB": "sasuke_703"
-    },
-    "sasuke_802": {
-      "5SB": "sasuke_803"
-    },
-    "shibi_108": {
-      "3SB": "shibi_109"
-    },
-    "shikaku_110": {
-      "3SB": "shikaku_111"
-    },
-    "shikamaru_010": {
-      "3SB": "shikamaru_011"
-    },
-    "shikamaru_054": {
-      "4SB": "shikamaru_055"
-    },
-    "shikamaru_181": {
-      "4SB": "shikamaru_182"
-    },
-    "shikamaru_291": {
-      "5SB": "shikamaru_292"
-    },
-    "shikamaru_807": {
-      "5SB": "shikamaru_808"
-    },
-    "shikamaru_846": {
-      "5SB": "shikamaru_847"
-    },
-    "shino_020": {
-      "3SB": "shino_021"
-    },
-    "shino_064": {
-      "4SB": "shino_065"
-    },
-    "shisui_396": {
-      "5SB": "shisui_397"
-    },
-    "shisui_714": {
-      "5SB": "shisui_715"
-    },
-    "shizune_102": {
-      "3SB": "shizune_103"
-    },
-    "shizune_712": {
-      "5SB": "shizune_713"
-    },
-    "soku_287": {
-      "5SB": "soku_288"
-    },
-    "suigetsu_304": {
-      "5SB": "suigetsu_305"
-    },
-    "suigetsu_621": {
-      "5SB": "suigetsu_622"
-    },
-    "tayuya_078": {
-      "4SB": "tayuya_079"
-    },
-    "tayuya_192": {
-      "4SB": "tayuya_193"
-    },
-    "tayuya_257": {
-      "5SB": "tayuya_258"
-    },
-    "temari_163": {
-      "4SB": "temari_164"
-    },
-    "temari_187": {
-      "4SB": "temari_188"
-    },
-    "temari_289": {
-      "5SB": "temari_290"
-    },
-    "tenten_068": {
-      "4SB": "tenten_069"
-    },
-    "tenten_265": {
-      "5SB": "tenten_266"
-    },
-    "tenten_579": {
-      "5SB": "tenten_580"
-    },
-    "tenten_795": {
-      "5SB": "tenten_796"
-    },
-    "tenzo_2046": {
-      "5SB": "tenzo_2047"
-    },
-    "third_470": {
-      "5SB": "third_471"
-    },
-    "tobi_317": {
-      "5SB": "tobi_318"
-    },
-    "tobirama_407": {
-      "5SB": "tobirama_408"
-    },
-    "tobirama_762": {
-      "6SB": "tobirama_763"
-    },
-    "torune_625": {
-      "5SB": "torune_626"
-    },
-    "tsume_120": {
-      "3SB": "tsume_121"
-    },
-    "tsunade_167": {
-      "5SB": "tsunade_168"
-    },
-    "tsunade_2014": {
-      "5SB": "tsunade_2015"
-    },
-    "tsunade_279": {
-      "5SB": "tsunade_280"
-    },
-    "tsunade_375": {
-      "5SB": "tsunade_376"
-    },
-    "tsunade_460": {
-      "5SB": "tsunade_461"
-    },
-    "tsunade_532": {
-      "5SB": "tsunade_533"
-    },
-    "ukonsakon_248": {
-      "5SB": "ukonsakon_249"
-    },
-    "utakata_310": {
-      "5SB": "utakata_311"
-    },
-    "utakata_648": {
-      "5SB": "utakata_649"
-    },
-    "yagura_464": {
-      "5SB": "yagura_465"
-    },
-    "yagura_606": {
-      "5SB": "yagura_607"
-    },
-    "yamato_271": {
-      "5SB": "yamato_272"
-    },
-    "yugito_331": {
-      "5SB": "yugito_332"
-    },
-    "yugito_608": {
-      "5SB": "yugito_609"
-    },
-    "zabuza_142": {
-      "5SB": "zabuza_143"
-    },
-    "zabuza_144": {
-      "4SB": "zabuza_145"
-    },
-    "zabuza_415": {
-      "5SB": "zabuza_416"
-    },
-    "zetsu_381": {
-      "5SB": "zetsu_382"
-    }
+[
+  {
+    "fromId": "akatsuchi_2078",
+    "toId": "akatsuchi_2079",
+    "tier": "5SB"
   },
-  "notes": {
-    "description": "Character ID transforms that occur during awakening",
-    "usage": "When a character awakens to a specific tier, check if it should transform into a different character ID",
-    "format": "characterId: { tierCode: newCharacterId }",
-    "generated": "Auto-generated from characters.json",
-    "count": 370
+  {
+    "fromId": "ameyuri_484",
+    "toId": "ameyuri_485",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "anko_094",
+    "toId": "anko_095",
+    "tier": "3SB"
+  },
+  {
+    "fromId": "anko_682",
+    "toId": "anko_683",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "ao_765",
+    "toId": "ao_766",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "ashura_2109",
+    "toId": "ashura_2110",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "ashura_517",
+    "toId": "ashura_518",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "ashura_789",
+    "toId": "ashura_790",
+    "tier": "6SB"
+  },
+  {
+    "fromId": "asuma_214",
+    "toId": "asuma_215",
+    "tier": "4SB"
+  },
+  {
+    "fromId": "asuma_848",
+    "toId": "asuma_849",
+    "tier": "6SB"
+  },
+  {
+    "fromId": "baki_104",
+    "toId": "baki_105",
+    "tier": "3SB"
+  },
+  {
+    "fromId": "cee_880",
+    "toId": "cee_881",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "chino_570",
+    "toId": "chino_571",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "chiriku_325",
+    "toId": "chiriku_326",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "chiyo_339",
+    "toId": "chiyo_340",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "choji_014",
+    "toId": "choji_015",
+    "tier": "3SB"
+  },
+  {
+    "fromId": "choji_058",
+    "toId": "choji_059",
+    "tier": "4SB"
+  },
+  {
+    "fromId": "choji_2040",
+    "toId": "choji_2041",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "choji_225",
+    "toId": "choji_226",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "chojuro_366",
+    "toId": "chojuro_367",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "chojuro_564",
+    "toId": "chojuro_565",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "choza_114",
+    "toId": "choza_115",
+    "tier": "3SB"
+  },
+  {
+    "fromId": "dan_2066",
+    "toId": "dan_2067",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "danzo_2034",
+    "toId": "danzo_2035",
+    "tier": "6SB"
+  },
+  {
+    "fromId": "danzo_373",
+    "toId": "danzo_374",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "darui_385",
+    "toId": "darui_386",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "darui_758",
+    "toId": "darui_759",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "deidara_219",
+    "toId": "deidara_220",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "deidara_350",
+    "toId": "deidara_351",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "deidara_440",
+    "toId": "deidara_441",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "deidara_731",
+    "toId": "deidara_732",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "deidara_836",
+    "toId": "deidara_837",
+    "tier": "6SB"
+  },
+  {
+    "fromId": "deidara_884",
+    "toId": "deidara_885",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "fourth_356",
+    "toId": "fourth_357",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "fourth_466",
+    "toId": "fourth_467",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "fugaku_2022",
+    "toId": "fugaku_2023",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "fuguki_596",
+    "toId": "fuguki_597",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "fuu_413",
+    "toId": "fuu_414",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "gaara_050",
+    "toId": "gaara_051",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "gaara_173",
+    "toId": "gaara_174",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "gaara_185",
+    "toId": "gaara_186",
+    "tier": "4SB"
+  },
+  {
+    "fromId": "gaara_267",
+    "toId": "gaara_268",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "gaara_283",
+    "toId": "gaara_284",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "gaara_436",
+    "toId": "gaara_437",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "gaara_729",
+    "toId": "gaara_730",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "gaara_834",
+    "toId": "gaara_835",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "gengetsu_488",
+    "toId": "gengetsu_489",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "gengo_298",
+    "toId": "gengo_299",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "hagoromo_2044",
+    "toId": "hagoromo_2045",
+    "tier": "6SB"
+  },
+  {
+    "fromId": "haku_137",
+    "toId": "haku_138",
+    "tier": "4SB"
+  },
+  {
+    "fromId": "haku_139",
+    "toId": "haku_140",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "haku_423",
+    "toId": "haku_424",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "han_543",
+    "toId": "han_544",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "hanabi_773",
+    "toId": "hanabi_774",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "hanzo_341",
+    "toId": "hanzo_342",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "hanzo_449",
+    "toId": "hanzo_450",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "hashirama_2017",
+    "toId": "hashirama_2018",
+    "tier": "6SB"
+  },
+  {
+    "fromId": "hashirama_2057",
+    "toId": "hashirama_2058",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "hashirama_417",
+    "toId": "hashirama_418",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "hashirama_697",
+    "toId": "hashirama_698",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "hashirama_745",
+    "toId": "hashirama_746",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "hayate_096",
+    "toId": "hayate_097",
+    "tier": "3SB"
+  },
+  {
+    "fromId": "hayate_183",
+    "toId": "hayate_184",
+    "tier": "4SB"
+  },
+  {
+    "fromId": "hayate_778",
+    "toId": "hayate_779",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "hiashi_116",
+    "toId": "hiashi_117",
+    "tier": "3SB"
+  },
+  {
+    "fromId": "hidan_321",
+    "toId": "hidan_322",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "hidan_829",
+    "toId": "hidan_830",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "hinata_016",
+    "toId": "hinata_017",
+    "tier": "3SB"
+  },
+  {
+    "fromId": "hinata_060",
+    "toId": "hinata_061",
+    "tier": "4SB"
+  },
+  {
+    "fromId": "hinata_156",
+    "toId": "hinata_157",
+    "tier": "4SB"
+  },
+  {
+    "fromId": "hinata_2002",
+    "toId": "hinata_2003",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "hinata_242",
+    "toId": "hinata_243",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "hinata_275",
+    "toId": "hinata_276",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "hinata_329",
+    "toId": "hinata_330",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "hinata_756",
+    "toId": "hinata_757",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "hiruzen_070",
+    "toId": "hiruzen_071",
+    "tier": "4SB"
+  },
+  {
+    "fromId": "hiruzen_200",
+    "toId": "hiruzen_201",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "hiruzen_798",
+    "toId": "hiruzen_799",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "hizashi_118",
+    "toId": "hizashi_119",
+    "tier": "3SB"
+  },
+  {
+    "fromId": "ibiki_092",
+    "toId": "ibiki_093",
+    "tier": "3SB"
+  },
+  {
+    "fromId": "indra_2111",
+    "toId": "indra_2112",
+    "tier": "6SB"
+  },
+  {
+    "fromId": "indra_515",
+    "toId": "indra_516",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "indra_787",
+    "toId": "indra_788",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "ino_012",
+    "toId": "ino_013",
+    "tier": "3SB"
+  },
+  {
+    "fromId": "ino_056",
+    "toId": "ino_057",
+    "tier": "4SB"
+  },
+  {
+    "fromId": "ino_154",
+    "toId": "ino_155",
+    "tier": "4SB"
+  },
+  {
+    "fromId": "ino_263",
+    "toId": "ino_264",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "ino_549",
+    "toId": "ino_550",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "ino_691",
+    "toId": "ino_692",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "inoichi_112",
+    "toId": "inoichi_113",
+    "tier": "3SB"
+  },
+  {
+    "fromId": "iruka_022",
+    "toId": "iruka_023",
+    "tier": "3SB"
+  },
+  {
+    "fromId": "iruka_871",
+    "toId": "iruka_872",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "itachi_088",
+    "toId": "itachi_089",
+    "tier": "4SB"
+  },
+  {
+    "fromId": "itachi_2031",
+    "toId": "itachi_2032",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "itachi_208",
+    "toId": "itachi_209",
+    "tier": "4SB"
+  },
+  {
+    "fromId": "itachi_210",
+    "toId": "itachi_211",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "itachi_308",
+    "toId": "itachi_309",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "itachi_387",
+    "toId": "itachi_388",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "itachi_504",
+    "toId": "itachi_505",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "itachi_699",
+    "toId": "itachi_700",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "izumo_844",
+    "toId": "izumo_845",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "izuna_2026",
+    "toId": "izuna_2027",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "izuna_751",
+    "toId": "izuna_752",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "izuna_775",
+    "toId": "izuna_776",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "jinin_581",
+    "toId": "jinin_582",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "jinpachi_562",
+    "toId": "jinpachi_563",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "jiraiya_072",
+    "toId": "jiraiya_073",
+    "tier": "4SB"
+  },
+  {
+    "fromId": "jiraiya_246",
+    "toId": "jiraiya_247",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "jiraiya_335",
+    "toId": "jiraiya_336",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "jiraiya_444",
+    "toId": "jiraiya_445",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "jiraiya_610",
+    "toId": "jiraiya_611",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "jirobo_084",
+    "toId": "jirobo_085",
+    "tier": "4SB"
+  },
+  {
+    "fromId": "jirobo_198",
+    "toId": "jirobo_199",
+    "tier": "4SB"
+  },
+  {
+    "fromId": "jirobo_227",
+    "toId": "jirobo_228",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "jugo_306",
+    "toId": "jugo_307",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "jugo_623",
+    "toId": "jugo_624",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "juzo_716",
+    "toId": "juzo_717",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "kabuto_076",
+    "toId": "kabuto_077",
+    "tier": "4SB"
+  },
+  {
+    "fromId": "kabuto_169",
+    "toId": "kabuto_170",
+    "tier": "4SB"
+  },
+  {
+    "fromId": "kabuto_392",
+    "toId": "kabuto_393",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "kabuto_642",
+    "toId": "kabuto_643",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "kaguya_2042",
+    "toId": "kaguya_2043",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "kaguya_512",
+    "toId": "kaguya_513",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "kaguya_593",
+    "toId": "kaguya_594",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "kaguya_749",
+    "toId": "kaguya_750",
+    "tier": "6SB"
+  },
+  {
+    "fromId": "kakashi_008",
+    "toId": "kakashi_009",
+    "tier": "4SB"
+  },
+  {
+    "fromId": "kakashi_048",
+    "toId": "kakashi_049",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "kakashi_146",
+    "toId": "kakashi_147",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "kakashi_2125",
+    "toId": "kakashi_2126",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "kakashi_255",
+    "toId": "kakashi_256",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "kakashi_313",
+    "toId": "kakashi_314",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "kakashi_425",
+    "toId": "kakashi_426",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "kakashi_587",
+    "toId": "kakashi_588",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "kakashi_734",
+    "toId": "kakashi_735",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "kakashi_854",
+    "toId": "kakashi_855",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "kakkou_106",
+    "toId": "kakkou_107",
+    "tier": "3SB"
+  },
+  {
+    "fromId": "kakuzu_323",
+    "toId": "kakuzu_324",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "kakuzu_693",
+    "toId": "kakuzu_694",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "kankuro_165",
+    "toId": "kankuro_166",
+    "tier": "4SB"
+  },
+  {
+    "fromId": "kankuro_189",
+    "toId": "kankuro_190",
+    "tier": "4SB"
+  },
+  {
+    "fromId": "kankuro_2055",
+    "toId": "kankuro_2056",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "kankuro_438",
+    "toId": "kankuro_439",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "karin_300",
+    "toId": "karin_301",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "karin_362",
+    "toId": "karin_363",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "kiba_018",
+    "toId": "kiba_019",
+    "tier": "3SB"
+  },
+  {
+    "fromId": "kiba_062",
+    "toId": "kiba_063",
+    "tier": "4SB"
+  },
+  {
+    "fromId": "kiba_223",
+    "toId": "kiba_224",
+    "tier": "4SB"
+  },
+  {
+    "fromId": "kiba_566",
+    "toId": "kiba_567",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "kidomaru_080",
+    "toId": "kidomaru_081",
+    "tier": "4SB"
+  },
+  {
+    "fromId": "kidomaru_194",
+    "toId": "kidomaru_195",
+    "tier": "4SB"
+  },
+  {
+    "fromId": "kidomaru_233",
+    "toId": "kidomaru_234",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "killer_1155",
+    "toId": "killer_1156",
+    "tier": "6SB"
+  },
+  {
+    "fromId": "killer_354",
+    "toId": "killer_355",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "killer_462",
+    "toId": "killer_463",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "kimimaro_086",
+    "toId": "kimimaro_087",
+    "tier": "4SB"
+  },
+  {
+    "fromId": "kimimaro_273",
+    "toId": "kimimaro_274",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "kimimaro_886",
+    "toId": "kimimaro_887",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "kinkakuginkaku_2082",
+    "toId": "kinkakuginkaku_2083",
+    "tier": "6SB"
+  },
+  {
+    "fromId": "kisame_090",
+    "toId": "kisame_091",
+    "tier": "4SB"
+  },
+  {
+    "fromId": "kisame_319",
+    "toId": "kisame_320",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "kisame_719",
+    "toId": "kisame_720",
+    "tier": "6SB"
+  },
+  {
+    "fromId": "konan_2048",
+    "toId": "konan_2049",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "konan_337",
+    "toId": "konan_338",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "konan_377",
+    "toId": "konan_378",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "konan_547",
+    "toId": "konan_548",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "konohamaru_100",
+    "toId": "konohamaru_101",
+    "tier": "3SB"
+  },
+  {
+    "fromId": "konohamaru_346",
+    "toId": "konohamaru_347",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "kotetsu_852",
+    "toId": "kotetsu_853",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "kurenai_216",
+    "toId": "kurenai_217",
+    "tier": "4SB"
+  },
+  {
+    "fromId": "kurotsuchi_526",
+    "toId": "kurotsuchi_527",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "kushimaru_545",
+    "toId": "kushimaru_546",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "kushina_231",
+    "toId": "kushina_232",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "kushina_296",
+    "toId": "kushina_297",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "kushina_530",
+    "toId": "kushina_531",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "kushina_839",
+    "toId": "kushina_840",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "madara_2024",
+    "toId": "madara_2025",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "madara_2059",
+    "toId": "madara_2060",
+    "tier": "6SB"
+  },
+  {
+    "fromId": "madara_333",
+    "toId": "madara_334",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "madara_434",
+    "toId": "madara_435",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "madara_589",
+    "toId": "madara_590",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "madara_646",
+    "toId": "madara_647",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "madara_680",
+    "toId": "madara_681",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "madara_695",
+    "toId": "madara_696",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "madara_747",
+    "toId": "madara_748",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "madara_859",
+    "toId": "madara_860",
+    "tier": "6SB"
+  },
+  {
+    "fromId": "mangetsu_629",
+    "toId": "mangetsu_630",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "masked_2102",
+    "toId": "masked_2103",
+    "tier": "6SB"
+  },
+  {
+    "fromId": "masked_631",
+    "toId": "masked_632",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "mei_358",
+    "toId": "mei_359",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "might_212",
+    "toId": "might_213",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "might_315",
+    "toId": "might_316",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "might_432",
+    "toId": "might_433",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "might_486",
+    "toId": "might_487",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "might_591",
+    "toId": "might_592",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "might_657",
+    "toId": "might_658",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "minato_2100",
+    "toId": "minato_2101",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "minato_229",
+    "toId": "minato_230",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "minato_409",
+    "toId": "minato_410",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "minato_528",
+    "toId": "minato_529",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "minato_627",
+    "toId": "minato_628",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "minato_678",
+    "toId": "minato_679",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "minato_760",
+    "toId": "minato_761",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "mizuki_098",
+    "toId": "mizuki_099",
+    "tier": "3SB"
+  },
+  {
+    "fromId": "nagato_360",
+    "toId": "nagato_361",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "nagato_534",
+    "toId": "nagato_535",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "nagato_823",
+    "toId": "nagato_824",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "naruto_044",
+    "toId": "naruto_045",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "naruto_135",
+    "toId": "naruto_136",
+    "tier": "3SB"
+  },
+  {
+    "fromId": "naruto_161",
+    "toId": "naruto_162",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "naruto_179",
+    "toId": "naruto_180",
+    "tier": "4SB"
+  },
+  {
+    "fromId": "naruto_2000",
+    "toId": "naruto_2001",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "naruto_2089",
+    "toId": "naruto_2090",
+    "tier": "6SB"
+  },
+  {
+    "fromId": "naruto_2114",
+    "toId": "naruto_2115",
+    "tier": "6SB"
+  },
+  {
+    "fromId": "naruto_2137",
+    "toId": "naruto_2138",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "naruto_237",
+    "toId": "naruto_238",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "naruto_259",
+    "toId": "naruto_260",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "naruto_281",
+    "toId": "naruto_282",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "naruto_327",
+    "toId": "naruto_328",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "naruto_348",
+    "toId": "naruto_349",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "naruto_383",
+    "toId": "naruto_384",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "naruto_400",
+    "toId": "naruto_401",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "naruto_421",
+    "toId": "naruto_422",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "naruto_427",
+    "toId": "naruto_428",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "naruto_482",
+    "toId": "naruto_483",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "naruto_551",
+    "toId": "naruto_552",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "naruto_583",
+    "toId": "naruto_584",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "naruto_659",
+    "toId": "naruto_660",
+    "tier": "6S"
+  },
+  {
+    "fromId": "naruto_665",
+    "toId": "naruto_666",
+    "tier": "6SB"
+  },
+  {
+    "fromId": "naruto_800",
+    "toId": "naruto_801",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "naruto_819",
+    "toId": "naruto_820",
+    "tier": "6SB"
+  },
+  {
+    "fromId": "naruto_891",
+    "toId": "naruto_892",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "neji_066",
+    "toId": "neji_067",
+    "tier": "4SB"
+  },
+  {
+    "fromId": "neji_150",
+    "toId": "neji_151",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "neji_2004",
+    "toId": "neji_2005",
+    "tier": "6SB"
+  },
+  {
+    "fromId": "obito_2071",
+    "toId": "obito_2072",
+    "tier": "6SB"
+  },
+  {
+    "fromId": "obito_2080",
+    "toId": "obito_2081",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "obito_253",
+    "toId": "obito_254",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "obito_394",
+    "toId": "obito_395",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "obito_411",
+    "toId": "obito_412",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "obito_468",
+    "toId": "obito_469",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "obito_710",
+    "toId": "obito_711",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "obito_736",
+    "toId": "obito_737",
+    "tier": "6SB"
+  },
+  {
+    "fromId": "obito_804",
+    "toId": "obito_805",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "obito_856",
+    "toId": "obito_857",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "ohnoki_368",
+    "toId": "ohnoki_369",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "omoi_821",
+    "toId": "omoi_822",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "orochimaru_074",
+    "toId": "orochimaru_075",
+    "tier": "4SB"
+  },
+  {
+    "fromId": "orochimaru_171",
+    "toId": "orochimaru_172",
+    "tier": "4SB"
+  },
+  {
+    "fromId": "orochimaru_269",
+    "toId": "orochimaru_270",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "orochimaru_446",
+    "toId": "orochimaru_447",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "orochimaru_831",
+    "toId": "orochimaru_832",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "orochimaru_888",
+    "toId": "orochimaru_889",
+    "tier": "6SB"
+  },
+  {
+    "fromId": "pain_352",
+    "toId": "pain_353",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "pain_451",
+    "toId": "pain_452",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "pain_604",
+    "toId": "pain_605",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "pain_612",
+    "toId": "pain_613",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "pain_640",
+    "toId": "pain_641",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "pain_676",
+    "toId": "pain_677",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "pain_727",
+    "toId": "pain_728",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "pain_817",
+    "toId": "pain_818",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "pakura_815",
+    "toId": "pakura_816",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "rasa_442",
+    "toId": "rasa_443",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "rin_251",
+    "toId": "rin_252",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "rin_294",
+    "toId": "rin_295",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "rock_148",
+    "toId": "rock_149",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "rock_158",
+    "toId": "rock_159",
+    "tier": "4SB"
+  },
+  {
+    "fromId": "rock_506",
+    "toId": "rock_507",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "rock_809",
+    "toId": "rock_810",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "roshi_553",
+    "toId": "roshi_554",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "roshi_896",
+    "toId": "roshi_897",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "rou_285",
+    "toId": "rou_286",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "sai_239",
+    "toId": "sai_240",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "sai_500",
+    "toId": "sai_501",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "sai_873",
+    "toId": "sai_874",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "sakon_082",
+    "toId": "sakon_083",
+    "tier": "4SB"
+  },
+  {
+    "fromId": "sakon_196",
+    "toId": "sakon_197",
+    "tier": "4SB"
+  },
+  {
+    "fromId": "sakumo_2010",
+    "toId": "sakumo_2011",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "sakura_006",
+    "toId": "sakura_007",
+    "tier": "3SB"
+  },
+  {
+    "fromId": "sakura_052",
+    "toId": "sakura_053",
+    "tier": "4SB"
+  },
+  {
+    "fromId": "sakura_152",
+    "toId": "sakura_153",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "sakura_2069",
+    "toId": "sakura_2070",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "sakura_235",
+    "toId": "sakura_236",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "sakura_277",
+    "toId": "sakura_278",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "sakura_364",
+    "toId": "sakura_365",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "sakura_379",
+    "toId": "sakura_380",
+    "tier": "4SB"
+  },
+  {
+    "fromId": "sakura_398",
+    "toId": "sakura_399",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "sakura_480",
+    "toId": "sakura_481",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "sakura_510",
+    "toId": "sakura_511",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "sakura_754",
+    "toId": "sakura_755",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "sakura_868",
+    "toId": "sakura_869",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "sasori_221",
+    "toId": "sasori_222",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "sasori_644",
+    "toId": "sasori_645",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "sasori_784",
+    "toId": "sasori_785",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "sasori_882",
+    "toId": "sasori_883",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "sasuke_004",
+    "toId": "sasuke_005",
+    "tier": "3SB"
+  },
+  {
+    "fromId": "sasuke_046",
+    "toId": "sasuke_047",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "sasuke_175",
+    "toId": "sasuke_176",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "sasuke_177",
+    "toId": "sasuke_178",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "sasuke_2012",
+    "toId": "sasuke_2013",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "sasuke_2029",
+    "toId": "sasuke_2030",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "sasuke_2116",
+    "toId": "sasuke_2117",
+    "tier": "6SB"
+  },
+  {
+    "fromId": "sasuke_2131",
+    "toId": "sasuke_2132",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "sasuke_244",
+    "toId": "sasuke_245",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "sasuke_261",
+    "toId": "sasuke_262",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "sasuke_302",
+    "toId": "sasuke_303",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "sasuke_343",
+    "toId": "sasuke_344",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "sasuke_370",
+    "toId": "sasuke_371",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "sasuke_389",
+    "toId": "sasuke_390",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "sasuke_419",
+    "toId": "sasuke_420",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "sasuke_429",
+    "toId": "sasuke_430",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "sasuke_490",
+    "toId": "sasuke_491",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "sasuke_502",
+    "toId": "sasuke_503",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "sasuke_568",
+    "toId": "sasuke_569",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "sasuke_585",
+    "toId": "sasuke_586",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "sasuke_661",
+    "toId": "sasuke_662",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "sasuke_667",
+    "toId": "sasuke_668",
+    "tier": "6SB"
+  },
+  {
+    "fromId": "sasuke_702",
+    "toId": "sasuke_703",
+    "tier": "6SB"
+  },
+  {
+    "fromId": "sasuke_802",
+    "toId": "sasuke_803",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "shibi_108",
+    "toId": "shibi_109",
+    "tier": "3SB"
+  },
+  {
+    "fromId": "shikaku_110",
+    "toId": "shikaku_111",
+    "tier": "3SB"
+  },
+  {
+    "fromId": "shikamaru_010",
+    "toId": "shikamaru_011",
+    "tier": "3SB"
+  },
+  {
+    "fromId": "shikamaru_054",
+    "toId": "shikamaru_055",
+    "tier": "4SB"
+  },
+  {
+    "fromId": "shikamaru_181",
+    "toId": "shikamaru_182",
+    "tier": "4SB"
+  },
+  {
+    "fromId": "shikamaru_291",
+    "toId": "shikamaru_292",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "shikamaru_807",
+    "toId": "shikamaru_808",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "shikamaru_846",
+    "toId": "shikamaru_847",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "shino_020",
+    "toId": "shino_021",
+    "tier": "3SB"
+  },
+  {
+    "fromId": "shino_064",
+    "toId": "shino_065",
+    "tier": "4SB"
+  },
+  {
+    "fromId": "shisui_396",
+    "toId": "shisui_397",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "shisui_714",
+    "toId": "shisui_715",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "shizune_102",
+    "toId": "shizune_103",
+    "tier": "3SB"
+  },
+  {
+    "fromId": "shizune_712",
+    "toId": "shizune_713",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "soku_287",
+    "toId": "soku_288",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "suigetsu_304",
+    "toId": "suigetsu_305",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "suigetsu_621",
+    "toId": "suigetsu_622",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "tayuya_078",
+    "toId": "tayuya_079",
+    "tier": "4SB"
+  },
+  {
+    "fromId": "tayuya_192",
+    "toId": "tayuya_193",
+    "tier": "4SB"
+  },
+  {
+    "fromId": "tayuya_257",
+    "toId": "tayuya_258",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "temari_163",
+    "toId": "temari_164",
+    "tier": "4SB"
+  },
+  {
+    "fromId": "temari_187",
+    "toId": "temari_188",
+    "tier": "4SB"
+  },
+  {
+    "fromId": "temari_289",
+    "toId": "temari_290",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "tenten_068",
+    "toId": "tenten_069",
+    "tier": "4SB"
+  },
+  {
+    "fromId": "tenten_265",
+    "toId": "tenten_266",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "tenten_579",
+    "toId": "tenten_580",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "tenten_795",
+    "toId": "tenten_796",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "tenzo_2046",
+    "toId": "tenzo_2047",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "third_470",
+    "toId": "third_471",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "tobi_317",
+    "toId": "tobi_318",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "tobirama_407",
+    "toId": "tobirama_408",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "tobirama_762",
+    "toId": "tobirama_763",
+    "tier": "6SB"
+  },
+  {
+    "fromId": "torune_625",
+    "toId": "torune_626",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "tsume_120",
+    "toId": "tsume_121",
+    "tier": "3SB"
+  },
+  {
+    "fromId": "tsunade_167",
+    "toId": "tsunade_168",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "tsunade_2014",
+    "toId": "tsunade_2015",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "tsunade_279",
+    "toId": "tsunade_280",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "tsunade_375",
+    "toId": "tsunade_376",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "tsunade_460",
+    "toId": "tsunade_461",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "tsunade_532",
+    "toId": "tsunade_533",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "ukonsakon_248",
+    "toId": "ukonsakon_249",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "utakata_310",
+    "toId": "utakata_311",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "utakata_648",
+    "toId": "utakata_649",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "yagura_464",
+    "toId": "yagura_465",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "yagura_606",
+    "toId": "yagura_607",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "yamato_271",
+    "toId": "yamato_272",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "yugito_331",
+    "toId": "yugito_332",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "yugito_608",
+    "toId": "yugito_609",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "zabuza_142",
+    "toId": "zabuza_143",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "zabuza_144",
+    "toId": "zabuza_145",
+    "tier": "4SB"
+  },
+  {
+    "fromId": "zabuza_415",
+    "toId": "zabuza_416",
+    "tier": "5SB"
+  },
+  {
+    "fromId": "zetsu_381",
+    "toId": "zetsu_382",
+    "tier": "5SB"
   }
-}
+]

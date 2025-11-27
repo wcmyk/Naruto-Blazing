@@ -4,7 +4,9 @@
       "id": "bf_naruto_klm",
       "name": "Blazing Festival: Naruto (KLM)",
       "type": "blazing-festival",
-      "featured": ["naruto_uzumaki_klm"],
+      "featured": [
+        "naruto_uzumaki_klm"
+      ],
       "description": "Blazing Festival banner featuring Naruto Uzumaki in Kurama Link Mode!",
       "image": "assets/summon/banners/bf_naruto_klm.png"
     },
@@ -12,7 +14,9 @@
       "id": "bf_sasuke_rinne",
       "name": "Blazing Festival: Sasuke (Rinne Sharingan)",
       "type": "blazing-festival",
-      "featured": ["sasuke_uchiha_rinne_sharingan"],
+      "featured": [
+        "sasuke_uchiha_rinne_sharingan"
+      ],
       "description": "Blazing Festival banner featuring Sasuke with the Rinne Sharingan!",
       "image": "assets/summon/banners/bf_sasuke_rinne.png"
     },
@@ -20,7 +24,9 @@
       "id": "bf_hashirama",
       "name": "Blazing Festival: Hashirama",
       "type": "blazing-festival",
-      "featured": ["hashirama_senju"],
+      "featured": [
+        "hashirama_senju"
+      ],
       "description": "Blazing Festival banner featuring the First Hokage!",
       "image": "assets/summon/banners/bf_hashirama.png"
     },
@@ -28,7 +34,9 @@
       "id": "bf_madara",
       "name": "Blazing Festival: Madara",
       "type": "blazing-festival",
-      "featured": ["madara_uchiha"],
+      "featured": [
+        "madara_uchiha"
+      ],
       "description": "Blazing Festival banner featuring Madara Uchiha!",
       "image": "assets/summon/banners/bf_madara.png"
     },
@@ -36,7 +44,9 @@
       "id": "bf_naruto_six_paths",
       "name": "Blazing Festival: Six Paths Naruto",
       "type": "blazing-festival",
-      "featured": ["naruto_uzumaki_six_paths"],
+      "featured": [
+        "naruto_uzumaki_six_paths"
+      ],
       "description": "Blazing Festival banner featuring Naruto with Six Paths power!",
       "image": "assets/summon/banners/bf_naruto_six_paths.png"
     },
@@ -44,7 +54,9 @@
       "id": "bf_sasuke_perfect_susanoo",
       "name": "Blazing Festival: Sasuke (Perfect Susanoo)",
       "type": "blazing-festival",
-      "featured": ["sasuke_uchiha_perfect_susanoo"],
+      "featured": [
+        "sasuke_uchiha_perfect_susanoo"
+      ],
       "description": "Blazing Festival banner featuring Sasuke's Perfect Susanoo!",
       "image": "assets/summon/banners/bf_sasuke_susanoo.png"
     },
@@ -52,7 +64,9 @@
       "id": "bf_kaguya",
       "name": "Blazing Festival: Kaguya",
       "type": "blazing-festival",
-      "featured": ["kaguya_otsutsuki"],
+      "featured": [
+        "kaguya_otsutsuki"
+      ],
       "description": "Blazing Festival banner featuring Kaguya Otsutsuki!",
       "image": "assets/summon/banners/bf_kaguya.png"
     },
@@ -60,7 +74,9 @@
       "id": "bf_obito_ten_tails",
       "name": "Blazing Festival: Obito (Ten Tails)",
       "type": "blazing-festival",
-      "featured": ["obito_uchiha_jinchuriki"],
+      "featured": [
+        "obito_uchiha_jinchuriki"
+      ],
       "description": "Blazing Festival banner featuring Ten-Tails Jinchuriki Obito!",
       "image": "assets/summon/banners/bf_obito.png"
     },
@@ -68,7 +84,9 @@
       "id": "bf_might_guy_8th_gate",
       "name": "Blazing Festival: Might Guy (8th Gate)",
       "type": "blazing-festival",
-      "featured": ["might_guy_eight_gates"],
+      "featured": [
+        "might_guy_eight_gates"
+      ],
       "description": "Blazing Festival banner featuring Eight Gates Released Formation!",
       "image": "assets/summon/banners/bf_guy.png"
     },
@@ -76,7 +94,9 @@
       "id": "bf_kabuto_sage",
       "name": "Blazing Festival: Kabuto (Sage Mode)",
       "type": "blazing-festival",
-      "featured": ["kabuto_yakushi_sage_mode"],
+      "featured": [
+        "kabuto_yakushi_sage_mode"
+      ],
       "description": "Blazing Festival banner featuring Sage Mode Kabuto!",
       "image": "assets/summon/banners/bf_kabuto.png"
     },
@@ -84,7 +104,9 @@
       "id": "bf_pain_tendo",
       "name": "Blazing Festival: Pain (Tendo)",
       "type": "blazing-festival",
-      "featured": ["pain_tendo"],
+      "featured": [
+        "pain_tendo"
+      ],
       "description": "Blazing Festival banner featuring Pain!",
       "image": "assets/summon/banners/bf_pain.png"
     },
@@ -92,7 +114,9 @@
       "id": "bf_itachi_edo",
       "name": "Blazing Festival: Itachi (Edo)",
       "type": "blazing-festival",
-      "featured": ["itachi_uchiha_edo"],
+      "featured": [
+        "itachi_uchiha_edo"
+      ],
       "description": "Blazing Festival banner featuring Edo Tensei Itachi!",
       "image": "assets/summon/banners/bf_itachi_edo.png"
     },
@@ -100,7 +124,9 @@
       "id": "bb_naruto_sage",
       "name": "Blazing Bash: Naruto (Sage Mode)",
       "type": "blazing-bash",
-      "featured": ["naruto_uzumaki_sage_mode"],
+      "featured": [
+        "naruto_uzumaki_sage_mode"
+      ],
       "description": "Blazing Bash banner featuring Sage Mode Naruto!",
       "image": "assets/summon/banners/bb_naruto_sage.png"
     },
@@ -108,7 +134,9 @@
       "id": "bb_sasuke_cm2",
       "name": "Blazing Bash: Sasuke (CM2)",
       "type": "blazing-bash",
-      "featured": ["sasuke_uchiha_curse_mark_2"],
+      "featured": [
+        "sasuke_uchiha_curse_mark_2"
+      ],
       "description": "Blazing Bash banner featuring Curse Mark 2 Sasuke!",
       "image": "assets/summon/banners/bb_sasuke_cm2.png"
     },
@@ -116,7 +144,9 @@
       "id": "bb_rock_lee_6th_gate",
       "name": "Blazing Bash: Rock Lee (6th Gate)",
       "type": "blazing-bash",
-      "featured": ["rock_lee_sixth_gate"],
+      "featured": [
+        "rock_lee_sixth_gate"
+      ],
       "description": "Blazing Bash banner featuring Sixth Gate Rock Lee!",
       "image": "assets/summon/banners/bb_lee.png"
     },
@@ -124,7 +154,9 @@
       "id": "bb_gaara_shukaku",
       "name": "Blazing Bash: Gaara (Shukaku Cloak)",
       "type": "blazing-bash",
-      "featured": ["gaara_shukaku_cloak"],
+      "featured": [
+        "gaara_shukaku_cloak"
+      ],
       "description": "Blazing Bash banner featuring Shukaku Cloak Gaara!",
       "image": "assets/summon/banners/bb_gaara.png"
     },
@@ -132,7 +164,9 @@
       "id": "bb_neji",
       "name": "Blazing Bash: Neji",
       "type": "blazing-bash",
-      "featured": ["neji_hyuga_pvp"],
+      "featured": [
+        "neji_hyuga_pvp"
+      ],
       "description": "Blazing Bash banner featuring Neji Hyuga!",
       "image": "assets/summon/banners/bb_neji.png"
     },
@@ -140,7 +174,9 @@
       "id": "bb_shikamaru",
       "name": "Blazing Bash: Shikamaru",
       "type": "blazing-bash",
-      "featured": ["shikamaru_nara_pvp"],
+      "featured": [
+        "shikamaru_nara_pvp"
+      ],
       "description": "Blazing Bash banner featuring Shikamaru Nara!",
       "image": "assets/summon/banners/bb_shikamaru.png"
     },
@@ -148,7 +184,9 @@
       "id": "bb_kiba",
       "name": "Blazing Bash: Kiba",
       "type": "blazing-bash",
-      "featured": ["kiba_inuzuka_pvp"],
+      "featured": [
+        "kiba_inuzuka_pvp"
+      ],
       "description": "Blazing Bash banner featuring Kiba Inuzuka!",
       "image": "assets/summon/banners/bb_kiba.png"
     },
@@ -156,7 +194,9 @@
       "id": "bb_shino",
       "name": "Blazing Bash: Shino",
       "type": "blazing-bash",
-      "featured": ["shino_aburame_pvp"],
+      "featured": [
+        "shino_aburame_pvp"
+      ],
       "description": "Blazing Bash banner featuring Shino Aburame!",
       "image": "assets/summon/banners/bb_shino.png"
     },
@@ -164,7 +204,9 @@
       "id": "bb_kakashi",
       "name": "Blazing Bash: Kakashi",
       "type": "blazing-bash",
-      "featured": ["kakashi_hatake_pvp"],
+      "featured": [
+        "kakashi_hatake_pvp"
+      ],
       "description": "Blazing Bash banner featuring Kakashi Hatake!",
       "image": "assets/summon/banners/bb_kakashi.png"
     },
@@ -172,7 +214,9 @@
       "id": "anniv1_naruto",
       "name": "1st Anniversary: Naruto",
       "type": "anniversary",
-      "featured": ["naruto_uzumaki_six_paths_1st_anniversary"],
+      "featured": [
+        "naruto_uzumaki_six_paths_1st_anniversary"
+      ],
       "description": "1st Anniversary celebration banner featuring special Naruto!",
       "image": "assets/summon/banners/anniv1_naruto.png"
     },
@@ -180,7 +224,9 @@
       "id": "anniv1_sasuke",
       "name": "1st Anniversary: Sasuke",
       "type": "anniversary",
-      "featured": ["sasuke_uchiha_rinne_sharingan_1st_anniversary"],
+      "featured": [
+        "sasuke_uchiha_rinne_sharingan_1st_anniversary"
+      ],
       "description": "1st Anniversary celebration banner featuring special Sasuke!",
       "image": "assets/summon/banners/anniv1_sasuke.png"
     },
@@ -188,7 +234,9 @@
       "id": "anniv2_naruto",
       "name": "2nd Anniversary: Naruto",
       "type": "anniversary",
-      "featured": ["naruto_uzumaki_2nd_anniv_v5_mode"],
+      "featured": [
+        "naruto_uzumaki_2nd_anniv_v5_mode"
+      ],
       "description": "2nd Anniversary celebration banner featuring V5 Mode Naruto!",
       "image": "assets/summon/banners/anniv2_naruto.png"
     },
@@ -196,7 +244,9 @@
       "id": "anniv2_sasuke",
       "name": "2nd Anniversary: Sasuke",
       "type": "anniversary",
-      "featured": ["sasuke_uchiha_complete_susanoo"],
+      "featured": [
+        "sasuke_uchiha_complete_susanoo"
+      ],
       "description": "2nd Anniversary celebration banner featuring Complete Susanoo Sasuke!",
       "image": "assets/summon/banners/anniv2_sasuke.png"
     },
@@ -204,7 +254,9 @@
       "id": "anniv3_dual",
       "name": "3rd Anniversary: Dual Unit",
       "type": "anniversary",
-      "featured": ["naruto_sasuke_indra_asura_dual"],
+      "featured": [
+        "naruto_sasuke_indra_asura_dual"
+      ],
       "description": "3rd Anniversary celebration banner featuring the ultimate dual unit!",
       "image": "assets/summon/banners/anniv3_dual.png"
     },
@@ -212,7 +264,9 @@
       "id": "anniv4_naruto",
       "name": "4th Anniversary: Naruto (Baryon Precursor)",
       "type": "anniversary",
-      "featured": ["naruto_uzumaki_final_blazing_festival"],
+      "featured": [
+        "naruto_uzumaki_final_blazing_festival"
+      ],
       "description": "4th Anniversary celebration banner featuring the final form!",
       "image": "assets/summon/banners/anniv4_naruto.png"
     },
@@ -339,8 +393,8 @@
   ],
   "baseRates": {
     "7star": 0.33,
-    "6star": 3.0,
-    "5star": 12.0,
+    "6star": 3,
+    "5star": 12,
     "4star": 84.67
   },
   "standardPool5Star": [
@@ -372,5 +426,568 @@
     "Pain (5★)",
     "Konan (5★)",
     "Kabuto (5★)"
+  ],
+  "pools": [
+    {
+      "id": "bf_naruto_klm",
+      "name": "Blazing Festival: Naruto (KLM)",
+      "type": "blazing-festival",
+      "characters": [
+        "naruto_uzumaki_klm"
+      ],
+      "rates": {
+        "7star": 0.33,
+        "6star": 3,
+        "5star": 12,
+        "4star": 84.67
+      },
+      "description": "Blazing Festival banner featuring Naruto Uzumaki in Kurama Link Mode!"
+    },
+    {
+      "id": "bf_sasuke_rinne",
+      "name": "Blazing Festival: Sasuke (Rinne Sharingan)",
+      "type": "blazing-festival",
+      "characters": [
+        "sasuke_uchiha_rinne_sharingan"
+      ],
+      "rates": {
+        "7star": 0.33,
+        "6star": 3,
+        "5star": 12,
+        "4star": 84.67
+      },
+      "description": "Blazing Festival banner featuring Sasuke with the Rinne Sharingan!"
+    },
+    {
+      "id": "bf_hashirama",
+      "name": "Blazing Festival: Hashirama",
+      "type": "blazing-festival",
+      "characters": [
+        "hashirama_senju"
+      ],
+      "rates": {
+        "7star": 0.33,
+        "6star": 3,
+        "5star": 12,
+        "4star": 84.67
+      },
+      "description": "Blazing Festival banner featuring the First Hokage!"
+    },
+    {
+      "id": "bf_madara",
+      "name": "Blazing Festival: Madara",
+      "type": "blazing-festival",
+      "characters": [
+        "madara_uchiha"
+      ],
+      "rates": {
+        "7star": 0.33,
+        "6star": 3,
+        "5star": 12,
+        "4star": 84.67
+      },
+      "description": "Blazing Festival banner featuring Madara Uchiha!"
+    },
+    {
+      "id": "bf_naruto_six_paths",
+      "name": "Blazing Festival: Six Paths Naruto",
+      "type": "blazing-festival",
+      "characters": [
+        "naruto_uzumaki_six_paths"
+      ],
+      "rates": {
+        "7star": 0.33,
+        "6star": 3,
+        "5star": 12,
+        "4star": 84.67
+      },
+      "description": "Blazing Festival banner featuring Naruto with Six Paths power!"
+    },
+    {
+      "id": "bf_sasuke_perfect_susanoo",
+      "name": "Blazing Festival: Sasuke (Perfect Susanoo)",
+      "type": "blazing-festival",
+      "characters": [
+        "sasuke_uchiha_perfect_susanoo"
+      ],
+      "rates": {
+        "7star": 0.33,
+        "6star": 3,
+        "5star": 12,
+        "4star": 84.67
+      },
+      "description": "Blazing Festival banner featuring Sasuke's Perfect Susanoo!"
+    },
+    {
+      "id": "bf_kaguya",
+      "name": "Blazing Festival: Kaguya",
+      "type": "blazing-festival",
+      "characters": [
+        "kaguya_otsutsuki"
+      ],
+      "rates": {
+        "7star": 0.33,
+        "6star": 3,
+        "5star": 12,
+        "4star": 84.67
+      },
+      "description": "Blazing Festival banner featuring Kaguya Otsutsuki!"
+    },
+    {
+      "id": "bf_obito_ten_tails",
+      "name": "Blazing Festival: Obito (Ten Tails)",
+      "type": "blazing-festival",
+      "characters": [
+        "obito_uchiha_jinchuriki"
+      ],
+      "rates": {
+        "7star": 0.33,
+        "6star": 3,
+        "5star": 12,
+        "4star": 84.67
+      },
+      "description": "Blazing Festival banner featuring Ten-Tails Jinchuriki Obito!"
+    },
+    {
+      "id": "bf_might_guy_8th_gate",
+      "name": "Blazing Festival: Might Guy (8th Gate)",
+      "type": "blazing-festival",
+      "characters": [
+        "might_guy_eight_gates"
+      ],
+      "rates": {
+        "7star": 0.33,
+        "6star": 3,
+        "5star": 12,
+        "4star": 84.67
+      },
+      "description": "Blazing Festival banner featuring Eight Gates Released Formation!"
+    },
+    {
+      "id": "bf_kabuto_sage",
+      "name": "Blazing Festival: Kabuto (Sage Mode)",
+      "type": "blazing-festival",
+      "characters": [
+        "kabuto_yakushi_sage_mode"
+      ],
+      "rates": {
+        "7star": 0.33,
+        "6star": 3,
+        "5star": 12,
+        "4star": 84.67
+      },
+      "description": "Blazing Festival banner featuring Sage Mode Kabuto!"
+    },
+    {
+      "id": "bf_pain_tendo",
+      "name": "Blazing Festival: Pain (Tendo)",
+      "type": "blazing-festival",
+      "characters": [
+        "pain_tendo"
+      ],
+      "rates": {
+        "7star": 0.33,
+        "6star": 3,
+        "5star": 12,
+        "4star": 84.67
+      },
+      "description": "Blazing Festival banner featuring Pain!"
+    },
+    {
+      "id": "bf_itachi_edo",
+      "name": "Blazing Festival: Itachi (Edo)",
+      "type": "blazing-festival",
+      "characters": [
+        "itachi_uchiha_edo"
+      ],
+      "rates": {
+        "7star": 0.33,
+        "6star": 3,
+        "5star": 12,
+        "4star": 84.67
+      },
+      "description": "Blazing Festival banner featuring Edo Tensei Itachi!"
+    },
+    {
+      "id": "bb_naruto_sage",
+      "name": "Blazing Bash: Naruto (Sage Mode)",
+      "type": "blazing-bash",
+      "characters": [
+        "naruto_uzumaki_sage_mode"
+      ],
+      "rates": {
+        "7star": 0.33,
+        "6star": 3,
+        "5star": 12,
+        "4star": 84.67
+      },
+      "description": "Blazing Bash banner featuring Sage Mode Naruto!"
+    },
+    {
+      "id": "bb_sasuke_cm2",
+      "name": "Blazing Bash: Sasuke (CM2)",
+      "type": "blazing-bash",
+      "characters": [
+        "sasuke_uchiha_curse_mark_2"
+      ],
+      "rates": {
+        "7star": 0.33,
+        "6star": 3,
+        "5star": 12,
+        "4star": 84.67
+      },
+      "description": "Blazing Bash banner featuring Curse Mark 2 Sasuke!"
+    },
+    {
+      "id": "bb_rock_lee_6th_gate",
+      "name": "Blazing Bash: Rock Lee (6th Gate)",
+      "type": "blazing-bash",
+      "characters": [
+        "rock_lee_sixth_gate"
+      ],
+      "rates": {
+        "7star": 0.33,
+        "6star": 3,
+        "5star": 12,
+        "4star": 84.67
+      },
+      "description": "Blazing Bash banner featuring Sixth Gate Rock Lee!"
+    },
+    {
+      "id": "bb_gaara_shukaku",
+      "name": "Blazing Bash: Gaara (Shukaku Cloak)",
+      "type": "blazing-bash",
+      "characters": [
+        "gaara_shukaku_cloak"
+      ],
+      "rates": {
+        "7star": 0.33,
+        "6star": 3,
+        "5star": 12,
+        "4star": 84.67
+      },
+      "description": "Blazing Bash banner featuring Shukaku Cloak Gaara!"
+    },
+    {
+      "id": "bb_neji",
+      "name": "Blazing Bash: Neji",
+      "type": "blazing-bash",
+      "characters": [
+        "neji_hyuga_pvp"
+      ],
+      "rates": {
+        "7star": 0.33,
+        "6star": 3,
+        "5star": 12,
+        "4star": 84.67
+      },
+      "description": "Blazing Bash banner featuring Neji Hyuga!"
+    },
+    {
+      "id": "bb_shikamaru",
+      "name": "Blazing Bash: Shikamaru",
+      "type": "blazing-bash",
+      "characters": [
+        "shikamaru_nara_pvp"
+      ],
+      "rates": {
+        "7star": 0.33,
+        "6star": 3,
+        "5star": 12,
+        "4star": 84.67
+      },
+      "description": "Blazing Bash banner featuring Shikamaru Nara!"
+    },
+    {
+      "id": "bb_kiba",
+      "name": "Blazing Bash: Kiba",
+      "type": "blazing-bash",
+      "characters": [
+        "kiba_inuzuka_pvp"
+      ],
+      "rates": {
+        "7star": 0.33,
+        "6star": 3,
+        "5star": 12,
+        "4star": 84.67
+      },
+      "description": "Blazing Bash banner featuring Kiba Inuzuka!"
+    },
+    {
+      "id": "bb_shino",
+      "name": "Blazing Bash: Shino",
+      "type": "blazing-bash",
+      "characters": [
+        "shino_aburame_pvp"
+      ],
+      "rates": {
+        "7star": 0.33,
+        "6star": 3,
+        "5star": 12,
+        "4star": 84.67
+      },
+      "description": "Blazing Bash banner featuring Shino Aburame!"
+    },
+    {
+      "id": "bb_kakashi",
+      "name": "Blazing Bash: Kakashi",
+      "type": "blazing-bash",
+      "characters": [
+        "kakashi_hatake_pvp"
+      ],
+      "rates": {
+        "7star": 0.33,
+        "6star": 3,
+        "5star": 12,
+        "4star": 84.67
+      },
+      "description": "Blazing Bash banner featuring Kakashi Hatake!"
+    },
+    {
+      "id": "anniv1_naruto",
+      "name": "1st Anniversary: Naruto",
+      "type": "anniversary",
+      "characters": [
+        "naruto_uzumaki_six_paths_1st_anniversary"
+      ],
+      "rates": {
+        "7star": 0.33,
+        "6star": 3,
+        "5star": 12,
+        "4star": 84.67
+      },
+      "description": "1st Anniversary celebration banner featuring special Naruto!"
+    },
+    {
+      "id": "anniv1_sasuke",
+      "name": "1st Anniversary: Sasuke",
+      "type": "anniversary",
+      "characters": [
+        "sasuke_uchiha_rinne_sharingan_1st_anniversary"
+      ],
+      "rates": {
+        "7star": 0.33,
+        "6star": 3,
+        "5star": 12,
+        "4star": 84.67
+      },
+      "description": "1st Anniversary celebration banner featuring special Sasuke!"
+    },
+    {
+      "id": "anniv2_naruto",
+      "name": "2nd Anniversary: Naruto",
+      "type": "anniversary",
+      "characters": [
+        "naruto_uzumaki_2nd_anniv_v5_mode"
+      ],
+      "rates": {
+        "7star": 0.33,
+        "6star": 3,
+        "5star": 12,
+        "4star": 84.67
+      },
+      "description": "2nd Anniversary celebration banner featuring V5 Mode Naruto!"
+    },
+    {
+      "id": "anniv2_sasuke",
+      "name": "2nd Anniversary: Sasuke",
+      "type": "anniversary",
+      "characters": [
+        "sasuke_uchiha_complete_susanoo"
+      ],
+      "rates": {
+        "7star": 0.33,
+        "6star": 3,
+        "5star": 12,
+        "4star": 84.67
+      },
+      "description": "2nd Anniversary celebration banner featuring Complete Susanoo Sasuke!"
+    },
+    {
+      "id": "anniv3_dual",
+      "name": "3rd Anniversary: Dual Unit",
+      "type": "anniversary",
+      "characters": [
+        "naruto_sasuke_indra_asura_dual"
+      ],
+      "rates": {
+        "7star": 0.33,
+        "6star": 3,
+        "5star": 12,
+        "4star": 84.67
+      },
+      "description": "3rd Anniversary celebration banner featuring the ultimate dual unit!"
+    },
+    {
+      "id": "anniv4_naruto",
+      "name": "4th Anniversary: Naruto (Baryon Precursor)",
+      "type": "anniversary",
+      "characters": [
+        "naruto_uzumaki_final_blazing_festival"
+      ],
+      "rates": {
+        "7star": 0.33,
+        "6star": 3,
+        "5star": 12,
+        "4star": 84.67
+      },
+      "description": "4th Anniversary celebration banner featuring the final form!"
+    },
+    {
+      "id": "birthday_naruto",
+      "name": "Birthday: Naruto",
+      "type": "birthday",
+      "characters": [],
+      "rates": {
+        "7star": 0.33,
+        "6star": 3,
+        "5star": 12,
+        "4star": 84.67
+      },
+      "description": "Celebrate Naruto's birthday! All Naruto versions available."
+    },
+    {
+      "id": "birthday_sasuke",
+      "name": "Birthday: Sasuke",
+      "type": "birthday",
+      "characters": [],
+      "rates": {
+        "7star": 0.33,
+        "6star": 3,
+        "5star": 12,
+        "4star": 84.67
+      },
+      "description": "Celebrate Sasuke's birthday! All Sasuke versions available."
+    },
+    {
+      "id": "birthday_sakura",
+      "name": "Birthday: Sakura",
+      "type": "birthday",
+      "characters": [],
+      "rates": {
+        "7star": 0.33,
+        "6star": 3,
+        "5star": 12,
+        "4star": 84.67
+      },
+      "description": "Celebrate Sakura's birthday! All Sakura versions available."
+    },
+    {
+      "id": "birthday_hinata",
+      "name": "Birthday: Hinata",
+      "type": "birthday",
+      "characters": [],
+      "rates": {
+        "7star": 0.33,
+        "6star": 3,
+        "5star": 12,
+        "4star": 84.67
+      },
+      "description": "Celebrate Hinata's birthday! All Hinata versions available."
+    },
+    {
+      "id": "birthday_kakashi",
+      "name": "Birthday: Kakashi",
+      "type": "birthday",
+      "characters": [],
+      "rates": {
+        "7star": 0.33,
+        "6star": 3,
+        "5star": 12,
+        "4star": 84.67
+      },
+      "description": "Celebrate Kakashi's birthday! All Kakashi versions available."
+    },
+    {
+      "id": "birthday_itachi",
+      "name": "Birthday: Itachi",
+      "type": "birthday",
+      "characters": [],
+      "rates": {
+        "7star": 0.33,
+        "6star": 3,
+        "5star": 12,
+        "4star": 84.67
+      },
+      "description": "Celebrate Itachi's birthday! All Itachi versions available."
+    },
+    {
+      "id": "birthday_obito",
+      "name": "Birthday: Obito",
+      "type": "birthday",
+      "characters": [],
+      "rates": {
+        "7star": 0.33,
+        "6star": 3,
+        "5star": 12,
+        "4star": 84.67
+      },
+      "description": "Celebrate Obito's birthday! All Obito versions available."
+    },
+    {
+      "id": "birthday_shikamaru",
+      "name": "Birthday: Shikamaru",
+      "type": "birthday",
+      "characters": [],
+      "rates": {
+        "7star": 0.33,
+        "6star": 3,
+        "5star": 12,
+        "4star": 84.67
+      },
+      "description": "Celebrate Shikamaru's birthday! All Shikamaru versions available."
+    },
+    {
+      "id": "birthday_gaara",
+      "name": "Birthday: Gaara",
+      "type": "birthday",
+      "characters": [],
+      "rates": {
+        "7star": 0.33,
+        "6star": 3,
+        "5star": 12,
+        "4star": 84.67
+      },
+      "description": "Celebrate Gaara's birthday! All Gaara versions available."
+    },
+    {
+      "id": "birthday_tsunade",
+      "name": "Birthday: Tsunade",
+      "type": "birthday",
+      "characters": [],
+      "rates": {
+        "7star": 0.33,
+        "6star": 3,
+        "5star": 12,
+        "4star": 84.67
+      },
+      "description": "Celebrate Tsunade's birthday! All Tsunade versions available."
+    },
+    {
+      "id": "birthday_jiraiya",
+      "name": "Birthday: Jiraiya",
+      "type": "birthday",
+      "characters": [],
+      "rates": {
+        "7star": 0.33,
+        "6star": 3,
+        "5star": 12,
+        "4star": 84.67
+      },
+      "description": "Celebrate Jiraiya's birthday! All Jiraiya versions available."
+    },
+    {
+      "id": "birthday_minato",
+      "name": "Birthday: Minato",
+      "type": "birthday",
+      "characters": [],
+      "rates": {
+        "7star": 0.33,
+        "6star": 3,
+        "5star": 12,
+        "4star": 84.67
+      },
+      "description": "Celebrate Minato's birthday! All Minato versions available."
+    }
   ]
 }
