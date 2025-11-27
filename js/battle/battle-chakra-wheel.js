@@ -125,7 +125,7 @@
     },
 
     /**
-     * Update chakra gauge segments (shows individual segments based on current chakra)
+     * Update chakra gauge segments (shows proportional fill based on jutsu/ultimate costs)
      */
     updateChakraWheel(unit, core) {
       const wheel = this.wheelCache.get(unit.id);
@@ -137,6 +137,11 @@
       const currentChakra = unit.chakra || 0;
       const maxChakra = unit.maxChakra || 10;
 
+      // Get jutsu and ultimate costs from unit's skills
+      const skills = window.BattleCombat?.getUnitSkills(unit);
+      const jutsuCost = Number(skills?.jutsu?.data?.chakraCost ?? 4);
+      const ultimateCost = Number(skills?.ultimate?.data?.chakraCost ?? 8);
+
       // Get chakra history for this unit
       let history = this.chakraHistory.get(unit.id);
       if (!history) {
@@ -144,22 +149,41 @@
         this.chakraHistory.set(unit.id, history);
       }
 
-      // Add current chakra segments to history
-      for (let i = 0; i < currentChakra; i++) {
+      // Add current chakra segments to history (proportional to costs)
+      // Calculate how many segments to show based on progress toward ultimate
+      const segmentsToShow = Math.min(
+        this.MAX_CHAKRA_SEGMENTS,
+        Math.floor((currentChakra / ultimateCost) * this.MAX_CHAKRA_SEGMENTS)
+      );
+
+      for (let i = 0; i < segmentsToShow; i++) {
         history.add(i);
       }
 
-      // Update segment visibility based on history
+      // Update segment visibility and styling based on thresholds
       const chakraSegments = wheel.querySelectorAll('.chakra-segment');
       chakraSegments.forEach((segment, index) => {
+        // Calculate threshold indices
+        const jutsuThreshold = Math.floor((jutsuCost / ultimateCost) * this.MAX_CHAKRA_SEGMENTS);
+        const isJutsuRange = index < jutsuThreshold;
+        const isUltimateRange = index >= jutsuThreshold;
+
         if (history.has(index)) {
           segment.classList.add('active');
+          // Add visual distinction for jutsu vs ultimate range
+          if (isJutsuRange) {
+            segment.classList.add('jutsu-range');
+            segment.classList.remove('ultimate-range');
+          } else if (isUltimateRange) {
+            segment.classList.add('ultimate-range');
+            segment.classList.remove('jutsu-range');
+          }
         } else {
-          segment.classList.remove('active');
+          segment.classList.remove('active', 'jutsu-range', 'ultimate-range');
         }
       });
 
-      console.log(`[ChakraWheel] ${unit.name}: ${currentChakra}/${maxChakra} chakra (${history.size} segments in history)`);
+      console.log(`[ChakraWheel] ${unit.name}: ${currentChakra}/${maxChakra} chakra (jutsu:${jutsuCost}, ult:${ultimateCost}) showing ${segmentsToShow}/${this.MAX_CHAKRA_SEGMENTS} segments`);
 
       // Check if ultimate-ready (show red ring)
       this.checkUltimateReady(unit, wheel, core);

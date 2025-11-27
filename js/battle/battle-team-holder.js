@@ -214,17 +214,34 @@
 
       // Perform the swap after animation starts
       setTimeout(() => {
+        // Update unit flags BEFORE swapping
+        const oldActiveUnit = core.activeTeam[cardIndex];
+        const oldBenchUnit = core.benchTeam[cardIndex];
+
+        oldActiveUnit.isActive = false;
+        oldActiveUnit.isBench = true;
+        oldBenchUnit.isActive = true;
+        oldBenchUnit.isBench = false;
+
+        // Reset speed gauge for incoming unit
+        oldBenchUnit.speedGauge = 0;
+
         // Swap units in the team arrays
         [core.activeTeam[cardIndex], core.benchTeam[cardIndex]] =
-          [core.benchTeam[cardIndex], core.activeTeam[cardIndex]];
+          [oldBenchUnit, oldActiveUnit];
 
-        // Remove chakra wheels (they'll be recreated)
-        if (window.BattleChakraWheel) {
-          window.BattleChakraWheel.removeChakraWheel(activeUnit.id);
-          window.BattleChakraWheel.removeChakraWheel(benchUnit.id);
+        // Update combatants list to reflect the swap on battlefield
+        if (core.updateCombatants) {
+          core.updateCombatants();
         }
 
-        // Re-render the specific card
+        // Remove old chakra wheels (they'll be recreated with proper context)
+        if (window.BattleChakraWheel) {
+          window.BattleChakraWheel.removeChakraWheel(oldActiveUnit.id);
+          window.BattleChakraWheel.removeChakraWheel(oldBenchUnit.id);
+        }
+
+        // Re-render the specific card with swapped units
         const newCardHTML = this.createUnitCardHTML(
           core.activeTeam[cardIndex],
           core.benchTeam[cardIndex],
@@ -235,6 +252,18 @@
         // Re-attach chakra wheels and listeners
         setTimeout(() => {
           this.attachAllChakraWheels(core);
+
+          // Update battlefield rendering to show the new active unit
+          if (core.units) {
+            core.units.renderAllUnits(core);
+          }
+
+          // Update speed gauge display
+          if (core.turns) {
+            core.turns.updateSpeedGaugeDisplay(core);
+          }
+
+          console.log(`[TeamHolder] ✅ Switch complete: ${oldActiveUnit.name} → bench, ${oldBenchUnit.name} → active`);
         }, 50);
 
       }, 200); // Half-way through the animation
