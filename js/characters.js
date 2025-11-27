@@ -985,11 +985,12 @@
       console.log("[UI Debug] Awakening result:", { transformed: res.transformed, newCharacterId: res.newCharacterId, tier: res.tier });
 
       if (res.transformed && res.newCharacterId) {
-        console.log(`[UI Debug] Character transformed from ${inst.characterId} to ${res.newCharacterId}`);
+        console.log(`[UI Debug] Character transformed from ${inst.charId} to ${res.newCharacterId}`);
 
         // Update instance with new character ID, tier, and level
+        // IMPORTANT: Use 'charId' not 'characterId' - that's the correct property name in inventory
         window.InventoryChar.updateInstance(inst.uid, {
-          characterId: res.newCharacterId,
+          charId: res.newCharacterId,
           tierCode: res.tier,
           level: res.level ?? 1
         });
@@ -1017,19 +1018,25 @@
       const fresh = window.InventoryChar.getByUid(inst.uid);
       const newTier = fresh?.tierCode || maxTier(c);
 
+      // Force refresh artwork with cache busting
       const art = resolveTierArt(c, newTier);
-      MODAL_IMG.src = safeStr(art.full, art.portrait);
+      const timestamp = Date.now();
+      MODAL_IMG.src = safeStr(art.full, art.portrait) + `?t=${timestamp}`;
       NP_STARS.innerHTML = renderStars(starsFromTier(newTier));
 
-      // Update nameplate with new character name/version if transformed
-      if (res.transformed && c) {
-        NP_NAME.textContent = c.name || "";
-        NP_VERSION.textContent = c.version || "";
-      }
+      // Update nameplate with new character name/version
+      NP_NAME.textContent = c.name || "";
+      NP_VERSION.textContent = c.version || "";
 
+      // Update all UI elements
       await window.renderStatusTab(c, fresh, newTier);
       renderSkillsTab(c, fresh, newTier);
+
+      // Force refresh the inventory grid to show updated character
       renderGrid();
+
+      // Log successful UI update
+      console.log(`[UI Debug] UI fully refreshed for ${c.name} (${c.id}) at tier ${newTier}`);
 
       // Trigger daily mission
       if (window.DailyMissions) {
