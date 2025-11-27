@@ -1021,16 +1021,7 @@
         console.log(`[UI Debug] Saved old character data: ${oldCharacterName} at tier ${oldTier}`);
         console.log(`[UI Debug] Old artwork URL: ${oldArtworkUrl}`);
 
-        // Now update instance with new character ID, tier, and level
-        // IMPORTANT: Use 'charId' not 'characterId' - that's the correct property name in inventory
-        window.InventoryChar.updateInstance(inst.uid, {
-          charId: res.newCharacterId,
-          tierCode: res.tier,
-          level: res.level ?? 1
-        });
-        console.log("[UI Debug] Instance updated with new character ID");
-
-        // Reload the new character data from BYID
+        // Get the new character data from BYID
         const newCharacter = BYID[res.newCharacterId];
         if (newCharacter) {
           console.log(`[UI Debug] Loaded new character: ${newCharacter.name} (${newCharacter.id})`);
@@ -1040,15 +1031,9 @@
           const newArtworkUrl = safeStr(newArt.full, newArt.portrait);
           console.log(`[UI Debug] New artwork URL: ${newArtworkUrl}`);
 
-          // Update all references to use the new character
-          c = newCharacter;
-          inst = window.InventoryChar.getByUid(inst.uid);
-          console.log("[UI Debug] Updated local references to new character");
-
-          // *** ANIMATION FIRST, THEN MODAL REFRESH ***
           // Save the UID before closing modal
           const currentUid = inst.uid;
-          console.log("[UI Debug] Closing modal to play animation, then will reopen with new character");
+          console.log("[UI Debug] Closing modal to play animation...");
 
           // Close current modal
           closeModal();
@@ -1059,20 +1044,29 @@
             setTimeout(() => {
               try {
                 console.log("[UI Debug] Playing awakening animation overlay");
-                console.log("[UI Debug] Old character:", oldCharacterName, "→ New character:", c.name);
+                console.log("[UI Debug] Old character:", oldCharacterName, "→ New character:", newCharacter.name);
                 console.log("[UI Debug] Old artwork:", oldArtworkUrl);
                 console.log("[UI Debug] New artwork:", newArtworkUrl);
 
-                // Play animation - modal reopens AFTER animation completes
+                // Play animation - localStorage updates AFTER animation completes
                 window.AwakeningAnimation.play(
                   oldCharacterName,
-                  c.name,
+                  newCharacter.name,
                   oldArtworkUrl,
                   newArtworkUrl,
                   () => {
-                    console.log("[UI Debug] Animation completed - now reopening modal with new character");
+                    console.log("[UI Debug] Animation completed");
 
-                    // AFTER animation completes, reopen modal with new character data
+                    // *** NOW UPDATE LOCALSTORAGE AFTER ANIMATION ***
+                    console.log("[UI Debug] Updating localStorage with new character ID...");
+                    window.InventoryChar.updateInstance(currentUid, {
+                      charId: res.newCharacterId,
+                      tierCode: res.tier,
+                      level: res.level ?? 1
+                    });
+                    console.log("[UI Debug] LocalStorage updated successfully");
+
+                    // Now reopen modal with new character data from localStorage
                     openModalByUid(currentUid);
                     console.log("[UI Debug] Modal reopened with updated character data");
 
