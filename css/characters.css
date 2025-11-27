@@ -306,29 +306,25 @@ body.page-characters::-webkit-scrollbar {
   min-height: 450px; /* Ensure consistent minimum height */
   max-height: 450px; /* Lock maximum height */
   overflow-y: auto;  /* Enable scrolling for overflow content */
+  scrollbar-width: none; /* Firefox - hide scrollbar */
+  -ms-overflow-style: none; /* IE and Edge - hide scrollbar */
+}
+/* Hide scrollbar for Chrome, Safari and Opera */
+.tab-panels::-webkit-scrollbar {
+  display: none;
 }
 .tab-panel {
   display: none;
   min-height: 420px; /* All tabs have same minimum height */
   overflow-y: auto;  /* Individual tab scrolling */
+  scrollbar-width: none; /* Firefox - hide scrollbar */
+  -ms-overflow-style: none; /* IE and Edge - hide scrollbar */
+}
+/* Hide scrollbar for Chrome, Safari and Opera */
+.tab-panel::-webkit-scrollbar {
+  display: none;
 }
 .tab-panel.is-active { display: block; }
-
-/* Custom scrollbar for tab panels */
-.tab-panel::-webkit-scrollbar {
-  width: 6px;
-}
-.tab-panel::-webkit-scrollbar-track {
-  background: rgba(0, 0, 0, 0.2);
-  border-radius: 4px;
-}
-.tab-panel::-webkit-scrollbar-thumb {
-  background: rgba(217, 179, 98, 0.4);
-  border-radius: 4px;
-}
-.tab-panel::-webkit-scrollbar-thumb:hover {
-  background: rgba(217, 179, 98, 0.6);
-}
 
 /* ---------- Stats Grid ---------- */
 .stats-grid {
@@ -353,6 +349,12 @@ body.page-characters::-webkit-scrollbar {
 .growth-ops {
   max-height: 320px;  /* Prevent overflow in status tab */
   overflow-y: auto;   /* Allow scrolling if needed */
+  scrollbar-width: none; /* Firefox - hide scrollbar */
+  -ms-overflow-style: none; /* IE and Edge - hide scrollbar */
+}
+/* Hide scrollbar for Chrome, Safari and Opera */
+.growth-ops::-webkit-scrollbar {
+  display: none;
 }
 .level-strip {
   display: flex;
@@ -662,6 +664,12 @@ body.page-characters::-webkit-scrollbar {
   max-height: 450px;                    /* lock maximum height */
   overflow-y: auto;                     /* scroll inside the right side only */
   padding: 14px 20px 8px;
+  scrollbar-width: none;                /* Firefox - hide scrollbar */
+  -ms-overflow-style: none;             /* IE and Edge - hide scrollbar */
+}
+/* Hide scrollbar for Chrome, Safari and Opera */
+.tab-panels::-webkit-scrollbar {
+  display: none;
 }
 .char-modal-actions{
   margin-top: 8px;
