@@ -1,0 +1,50 @@
+name: Validate Content
+
+on:
+  push:
+    branches: [main, staging, develop]
+    paths:
+      - 'data/**/*.json'
+  pull_request:
+    branches: [main, staging]
+    paths:
+      - 'data/**/*.json'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Run content validation
+        run: |
+          npm install
+          npm run validate
+
+      - name: Generate content stats
+        if: success()
+        run: |
+          npm run content:stats > content-stats.txt
+          cat content-stats.txt
+
+      - name: Comment validation results on PR
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const fs = require('fs');
+            const stats = fs.readFileSync('content-stats.txt', 'utf8');
+
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `## Content Validation ✅\n\nValidation passed successfully!\n\n<details>\n<summary>Content Statistics</summary>\n\n\`\`\`\n${stats}\n\`\`\`\n\n</details>`
+            });
