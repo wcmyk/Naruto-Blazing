@@ -33,7 +33,22 @@
       const res = await fetch("data/awakening-transforms.json", { cache: "no-store" });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const data = await res.json();
-      _awakeningTransforms = data.transforms || {};
+
+      // Convert array to lookup map: { characterId: { tierCode: transformToId } }
+      if (Array.isArray(data)) {
+        _awakeningTransforms = {};
+        data.forEach(transform => {
+          if (!transform.fromId || !transform.toId || !transform.tier) return;
+
+          if (!_awakeningTransforms[transform.fromId]) {
+            _awakeningTransforms[transform.fromId] = {};
+          }
+          _awakeningTransforms[transform.fromId][transform.tier] = transform.toId;
+        });
+      } else {
+        _awakeningTransforms = data.transforms || {};
+      }
+
       return _awakeningTransforms;
     } catch (err) {
       console.error("[Awakening] Failed to load transforms:", err);
