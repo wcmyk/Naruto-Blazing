@@ -161,6 +161,7 @@
     // Check if character should transform to a different ID at this tier
     const newTier = result.tier;
     console.log(`[Awakening Debug] Checking transform for ${oldCharacterId} at tier ${newTier}`);
+    console.log(`[Awakening Debug] Available transforms for ${oldCharacterId}:`, await loadTransforms().then(t => t[oldCharacterId]));
 
     const transformToId = await getTransformForTier(oldCharacterId, newTier);
     console.log(`[Awakening Debug] Transform result:`, transformToId);
