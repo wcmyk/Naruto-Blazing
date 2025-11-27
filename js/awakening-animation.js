@@ -168,6 +168,15 @@
     play: playAwakeningAnimation
   };
 
-  console.log("[Awakening Animation] Module loaded");
+  console.log("[Awakening Animation] ✅ Module loaded successfully");
+  console.log("[Awakening Animation] Available at window.AwakeningAnimation.play");
+
+  // Test that we can create elements (basic sanity check)
+  try {
+    const testDiv = document.createElement("div");
+    console.log("[Awakening Animation] ✅ DOM manipulation working");
+  } catch (e) {
+    console.error("[Awakening Animation] ❌ DOM manipulation failed:", e);
+  }
 
 })(window);

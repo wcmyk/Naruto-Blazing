@@ -1038,34 +1038,37 @@
           inst = window.InventoryChar.getByUid(inst.uid);
           console.log("[UI Debug] Updated local references to new character");
 
-          // Play awakening animation if available
+          // *** UPDATE UI IMMEDIATELY FIRST ***
+          await updateUIAfterAwakening();
+          console.log("[UI Debug] UI updated immediately after transformation");
+
+          // Trigger daily mission
+          if (window.DailyMissions) {
+            const dailyResult = await window.DailyMissions.incrementDaily('daily_awaken');
+            if (dailyResult && dailyResult.completed) {
+              if (window.ModalManager) { window.ModalManager.showInfo(`Daily Mission Completed!\n${dailyResult.dailyName}`); };
+            }
+          }
+
+          // Play awakening animation as overlay (non-blocking)
           if (window.AwakeningAnimation && typeof window.AwakeningAnimation.play === 'function') {
-            const newArt = resolveTierArt(c, res.tier);
-            const newArtworkUrl = safeStr(newArt.full, newArt.portrait);
+            try {
+              const newArt = resolveTierArt(c, res.tier);
+              const newArtworkUrl = safeStr(newArt.full, newArt.portrait);
 
-            await window.AwakeningAnimation.play(
-              oldCharacterName,
-              c.name,
-              oldArtworkUrl,
-              newArtworkUrl,
-              async () => {
-                // Update UI after animation completes
-                await updateUIAfterAwakening();
-
-                // Trigger daily mission
-                if (window.DailyMissions) {
-                  const dailyResult = await window.DailyMissions.incrementDaily('daily_awaken');
-                  if (dailyResult && dailyResult.completed) {
-                    if (window.ModalManager) { window.ModalManager.showInfo(`Daily Mission Completed!\n${dailyResult.dailyName}`); };
-                  }
+              console.log("[UI Debug] Playing awakening animation overlay");
+              // Don't await - let it play as overlay while UI is already updated
+              window.AwakeningAnimation.play(
+                oldCharacterName,
+                c.name,
+                oldArtworkUrl,
+                newArtworkUrl,
+                () => {
+                  console.log("[UI Debug] Animation completed");
                 }
-              }
-            );
-          } else {
-            // No animation available, update UI immediately
-            await updateUIAfterAwakening();
-            if (window.ModalManager) {
-              window.ModalManager.showInfo(`Successfully awakened to ${c.name}!`);
+              );
+            } catch (error) {
+              console.error("[UI Debug] Animation error:", error);
             }
           }
         } else {
