@@ -984,6 +984,32 @@
       // Check if character transformed to a new ID
       console.log("[UI Debug] Awakening result:", { transformed: res.transformed, newCharacterId: res.newCharacterId, tier: res.tier });
 
+      // Function to update UI after awakening (used after animation or immediately)
+      const updateUIAfterAwakening = async () => {
+        const fresh = window.InventoryChar.getByUid(inst.uid);
+        const newTier = fresh?.tierCode || maxTier(c);
+
+        // Force refresh artwork with cache busting
+        const art = resolveTierArt(c, newTier);
+        const timestamp = Date.now();
+        MODAL_IMG.src = safeStr(art.full, art.portrait) + `?t=${timestamp}`;
+        NP_STARS.innerHTML = renderStars(starsFromTier(newTier));
+
+        // Update nameplate with new character name/version
+        NP_NAME.textContent = c.name || "";
+        NP_VERSION.textContent = c.version || "";
+
+        // Update all UI elements
+        await window.renderStatusTab(c, fresh, newTier);
+        renderSkillsTab(c, fresh, newTier);
+
+        // Force refresh the inventory grid to show updated character
+        renderGrid();
+
+        // Log successful UI update
+        console.log(`[UI Debug] UI fully refreshed for ${c.name} (${c.id}) at tier ${newTier}`);
+      };
+
       if (res.transformed && res.newCharacterId) {
         console.log(`[UI Debug] Character transformed from ${inst.charId} to ${res.newCharacterId}`);
 
@@ -1000,12 +1026,47 @@
         const newCharacter = await window.Characters.getCharacterById(res.newCharacterId);
         if (newCharacter) {
           console.log(`[UI Debug] Loaded new character: ${newCharacter.name} (${newCharacter.id})`);
+
+          // Get old character name for animation
+          const oldCharacterName = c.name;
+
           // Update all references to use the new character
           c = newCharacter;
           inst = window.InventoryChar.getByUid(inst.uid);
           console.log("[UI Debug] Updated local references to new character");
+
+          // Play awakening animation if available
+          if (window.AwakeningAnimation && typeof window.AwakeningAnimation.play === 'function') {
+            const art = resolveTierArt(c, res.tier);
+            const artworkUrl = safeStr(art.full, art.portrait);
+
+            await window.AwakeningAnimation.play(
+              oldCharacterName,
+              c.name,
+              artworkUrl,
+              async () => {
+                // Update UI after animation completes
+                await updateUIAfterAwakening();
+
+                // Trigger daily mission
+                if (window.DailyMissions) {
+                  const dailyResult = await window.DailyMissions.incrementDaily('daily_awaken');
+                  if (dailyResult && dailyResult.completed) {
+                    if (window.ModalManager) { window.ModalManager.showInfo(`Daily Mission Completed!\n${dailyResult.dailyName}`); };
+                  }
+                }
+              }
+            );
+          } else {
+            // No animation available, update UI immediately
+            await updateUIAfterAwakening();
+            if (window.ModalManager) {
+              window.ModalManager.showInfo(`Successfully awakened to ${c.name}!`);
+            }
+          }
         } else {
           console.error("[UI Debug] Failed to load new character:", res.newCharacterId);
+          await updateUIAfterAwakening();
         }
       } else {
         console.log("[UI Debug] Standard awakening without transformation");
@@ -1013,40 +1074,22 @@
         if (!res.persisted && res.tier) {
           window.InventoryChar.updateInstance(inst.uid, { tierCode: res.tier, level: res.level ?? 1 });
         }
-      }
 
-      const fresh = window.InventoryChar.getByUid(inst.uid);
-      const newTier = fresh?.tierCode || maxTier(c);
+        // Update UI immediately for non-transformation awakenings
+        await updateUIAfterAwakening();
 
-      // Force refresh artwork with cache busting
-      const art = resolveTierArt(c, newTier);
-      const timestamp = Date.now();
-      MODAL_IMG.src = safeStr(art.full, art.portrait) + `?t=${timestamp}`;
-      NP_STARS.innerHTML = renderStars(starsFromTier(newTier));
+        // Trigger daily mission
+        if (window.DailyMissions) {
+          const dailyResult = await window.DailyMissions.incrementDaily('daily_awaken');
+          if (dailyResult && dailyResult.completed) {
+            if (window.ModalManager) { window.ModalManager.showInfo(`Daily Mission Completed!\n${dailyResult.dailyName}`); };
+          }
+        }
 
-      // Update nameplate with new character name/version
-      NP_NAME.textContent = c.name || "";
-      NP_VERSION.textContent = c.version || "";
-
-      // Update all UI elements
-      await window.renderStatusTab(c, fresh, newTier);
-      renderSkillsTab(c, fresh, newTier);
-
-      // Force refresh the inventory grid to show updated character
-      renderGrid();
-
-      // Log successful UI update
-      console.log(`[UI Debug] UI fully refreshed for ${c.name} (${c.id}) at tier ${newTier}`);
-
-      // Trigger daily mission
-      if (window.DailyMissions) {
-        const dailyResult = await window.DailyMissions.incrementDaily('daily_awaken');
-        if (dailyResult && dailyResult.completed) {
-          if (window.ModalManager) { window.ModalManager.showInfo(`Daily Mission Completed!\n${dailyResult.dailyName}`); };
+        if (window.ModalManager) {
+          window.ModalManager.showInfo(`Successfully awakened ${c.name} to ${starsFromTier(res.tier)} stars!`);
         }
       }
-
-      if (window.ModalManager) { window.ModalManager.showInfo(`Successfully awakened ${c.name} to ${starsFromTier(newTier)} stars!`); }
     };
 
     // Limit Break button
