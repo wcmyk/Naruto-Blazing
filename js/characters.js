@@ -593,7 +593,7 @@
       ramenClickCounts[ramen.id] = 0;
 
       card.innerHTML = `
-        <img src="${ramen.icon}" alt="${ramen.name}" class="ramen-icon" onerror="this.src='assets/items/placeholder.png'">
+        <img src="${ramen.icon}" alt="${ramen.name}" class="ramen-icon" onerror="this.onerror=null; this.style.display='none';">
         <div class="ramen-name">${ramen.name}</div>
         <div class="ramen-exp">+${ramen.exp.toLocaleString()} EXP</div>
         <div class="ramen-quantity">×${ramen.quantity}</div>
@@ -982,54 +982,176 @@
       }
 
       // Check if character transformed to a new ID
-      if (res.transformed && res.newCharacterId) {
-        // Update instance with new character ID, tier, and level
-        window.InventoryChar.updateInstance(inst.uid, {
-          characterId: res.newCharacterId,
-          tierCode: res.tier,
-          level: res.level ?? 1
-        });
+      console.log("[UI Debug] Awakening result:", { transformed: res.transformed, newCharacterId: res.newCharacterId, tier: res.tier });
 
-        // Reload the new character data
-        const newCharacter = await window.Characters.getCharacterById(res.newCharacterId);
+      // Function to update UI after awakening (used after animation or immediately)
+      const updateUIAfterAwakening = async () => {
+        const fresh = window.InventoryChar.getByUid(inst.uid);
+        const newTier = fresh?.tierCode || maxTier(c);
+
+        // Force refresh artwork with cache busting
+        const art = resolveTierArt(c, newTier);
+        const timestamp = Date.now();
+        MODAL_IMG.src = safeStr(art.full, art.portrait) + `?t=${timestamp}`;
+        NP_STARS.innerHTML = renderStars(starsFromTier(newTier));
+
+        // Update nameplate with new character name/version
+        NP_NAME.textContent = c.name || "";
+        NP_VERSION.textContent = c.version || "";
+
+        // Update all UI elements
+        await window.renderStatusTab(c, fresh, newTier);
+        renderSkillsTab(c, fresh, newTier);
+
+        // Force refresh the inventory grid to show updated character
+        renderGrid();
+
+        // Log successful UI update
+        console.log(`[UI Debug] UI fully refreshed for ${c.name} (${c.id}) at tier ${newTier}`);
+      };
+
+      if (res.transformed && res.newCharacterId) {
+        console.log(`[UI Debug] Character transformed from ${inst.charId} to ${res.newCharacterId}`);
+
+        // *** GET OLD CHARACTER DATA BEFORE UPDATING ANYTHING ***
+        const oldCharacterName = c.name;
+        const oldTier = inst.tierCode || maxTier(c);
+        const oldArt = resolveTierArt(c, oldTier);
+        const oldArtworkUrl = safeStr(oldArt.full, oldArt.portrait);
+        console.log(`[UI Debug] Saved old character data: ${oldCharacterName} at tier ${oldTier}`);
+        console.log(`[UI Debug] Old artwork URL: ${oldArtworkUrl}`);
+
+        // Get the new character data from BYID
+        const newCharacter = BYID[res.newCharacterId];
         if (newCharacter) {
-          // Update all references to use the new character
-          c = newCharacter;
-          inst = window.InventoryChar.getByUid(inst.uid);
+          console.log(`[UI Debug] Loaded new character: ${newCharacter.name} (${newCharacter.id})`);
+
+          // Calculate new character artwork
+          const newArt = resolveTierArt(newCharacter, res.tier);
+          const newArtworkUrl = safeStr(newArt.full, newArt.portrait);
+          console.log(`[UI Debug] New artwork URL: ${newArtworkUrl}`);
+
+          // Save the UID for later
+          const currentUid = inst.uid;
+
+          // 🚀 1. Play animation FIRST (modal stays open, animation plays as overlay)
+          if (window.AwakeningAnimation && typeof window.AwakeningAnimation.play === 'function') {
+            try {
+              console.log("[UI Debug] Playing awakening animation (modal stays open)...");
+              console.log("[UI Debug] Old character:", oldCharacterName, "→ New character:", newCharacter.name);
+              console.log("[UI Debug] Old artwork:", oldArtworkUrl);
+              console.log("[UI Debug] New artwork:", newArtworkUrl);
+
+              // Play animation - modal stays open during animation
+              window.AwakeningAnimation.play(
+                oldCharacterName,
+                newCharacter.name,
+                oldArtworkUrl,
+                newArtworkUrl,
+                () => {
+                  console.log("[UI Debug] Animation completed");
+
+                  // 🧠 2. NOW close modal (after animation)
+                  closeModal();
+
+                  // 💾 3. Update localStorage with new character data
+                  console.log("[UI Debug] Updating localStorage with new character ID...");
+                  window.InventoryChar.updateInstance(currentUid, {
+                    charId: res.newCharacterId,
+                    tierCode: res.tier,
+                    level: res.level ?? 1
+                  });
+                  console.log("[UI Debug] LocalStorage updated successfully");
+
+                  // 🔄 4. Reopen modal with refreshed data
+                  setTimeout(() => {
+                    openModalByUid(currentUid);
+                    console.log("[UI Debug] Modal reopened with updated character data");
+
+                    // Force refresh the inventory grid to show updated character
+                    renderGrid();
+
+                    // Trigger daily mission
+                    if (window.DailyMissions) {
+                      window.DailyMissions.incrementDaily('daily_awaken').then(dailyResult => {
+                        if (dailyResult && dailyResult.completed) {
+                          if (window.ModalManager) { window.ModalManager.showInfo(`Daily Mission Completed!\n${dailyResult.dailyName}`); };
+                        }
+                      });
+                    }
+                  }, 100);
+                },
+                'gold' // Default theme: darker gold
+              );
+            } catch (error) {
+              console.error("[UI Debug] Animation error:", error);
+              // If animation fails, still update and refresh
+              window.InventoryChar.updateInstance(currentUid, {
+                charId: res.newCharacterId,
+                tierCode: res.tier,
+                level: res.level ?? 1
+              });
+              closeModal();
+              setTimeout(() => {
+                openModalByUid(currentUid);
+                renderGrid();
+              }, 100);
+            }
+          } else {
+            console.warn("[UI Debug] AwakeningAnimation not available");
+            // If no animation, just update and refresh
+            window.InventoryChar.updateInstance(currentUid, {
+              charId: res.newCharacterId,
+              tierCode: res.tier,
+              level: res.level ?? 1
+            });
+            closeModal();
+            setTimeout(() => {
+              openModalByUid(currentUid);
+              renderGrid();
+            }, 100);
+          }
+        } else {
+          console.error("[UI Debug] Failed to load new character:", res.newCharacterId);
+          await updateUIAfterAwakening();
         }
       } else {
+        console.log("[UI Debug] Standard awakening without transformation");
         // Standard awakening without transformation
         if (!res.persisted && res.tier) {
           window.InventoryChar.updateInstance(inst.uid, { tierCode: res.tier, level: res.level ?? 1 });
         }
+
+        // *** FORCE COMPLETE MODAL REFRESH VIA AJAX (same as transformation path) ***
+        const currentUid = inst.uid;
+        console.log("[UI Debug] Forcing complete modal refresh for UID:", currentUid);
+
+        // Close current modal
+        closeModal();
+
+        // Immediately reopen with fresh data from localStorage (AJAX pattern)
+        setTimeout(() => {
+          openModalByUid(currentUid);
+          console.log("[UI Debug] Modal reopened with updated character data");
+
+          // Force refresh the inventory grid to show updated character
+          renderGrid();
+
+          // Trigger daily mission
+          if (window.DailyMissions) {
+            window.DailyMissions.incrementDaily('daily_awaken').then(dailyResult => {
+              if (dailyResult && dailyResult.completed) {
+                if (window.ModalManager) { window.ModalManager.showInfo(`Daily Mission Completed!\n${dailyResult.dailyName}`); };
+              }
+            });
+          }
+
+          // Show success message
+          if (window.ModalManager) {
+            window.ModalManager.showInfo(`Successfully awakened ${c.name} to ${starsFromTier(res.tier)} stars!`);
+          }
+        }, 100); // Small delay to let modal close animation complete
       }
-
-      const fresh = window.InventoryChar.getByUid(inst.uid);
-      const newTier = fresh?.tierCode || maxTier(c);
-
-      const art = resolveTierArt(c, newTier);
-      MODAL_IMG.src = safeStr(art.full, art.portrait);
-      NP_STARS.innerHTML = renderStars(starsFromTier(newTier));
-
-      // Update nameplate with new character name/version if transformed
-      if (res.transformed && c) {
-        NP_NAME.textContent = c.name || "";
-        NP_VERSION.textContent = c.version || "";
-      }
-
-      await window.renderStatusTab(c, fresh, newTier);
-      renderSkillsTab(c, fresh, newTier);
-      renderGrid();
-
-      // Trigger daily mission
-      if (window.DailyMissions) {
-        const dailyResult = await window.DailyMissions.incrementDaily('daily_awaken');
-        if (dailyResult && dailyResult.completed) {
-          if (window.ModalManager) { window.ModalManager.showInfo(`Daily Mission Completed!\n${dailyResult.dailyName}`); };
-        }
-      }
-
-      if (window.ModalManager) { window.ModalManager.showInfo(`Successfully awakened ${c.name} to ${starsFromTier(newTier)} stars!`); }
     };
 
     // Limit Break button

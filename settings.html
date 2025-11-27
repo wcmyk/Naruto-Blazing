@@ -157,6 +157,21 @@
       box-shadow: 0 4px 8px rgba(178, 44, 44, 0.7);
     }
   </style>
+  <!-- Hide scrollbar but keep functionality -->
+  <style>
+    /* Hide scrollbar for Chrome, Safari and Opera */
+    body::-webkit-scrollbar,
+    html::-webkit-scrollbar,
+    *::-webkit-scrollbar {
+      display: none;
+    }
+
+    /* Hide scrollbar for IE, Edge and Firefox */
+    body, html, * {
+      -ms-overflow-style: none;  /* IE and Edge */
+      scrollbar-width: none;  /* Firefox */
+    }
+  </style>
 </head>
 
 <body>
