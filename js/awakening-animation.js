@@ -1,21 +1,23 @@
 // js/awakening-animation.js
-// Awakening Animation System - Epic transformation animation with Japanese characters
+// Awakening Animation System - Kanji orbiting around character with blur transition
 
 (function (global) {
   "use strict";
 
-  // Japanese characters meaning "Awakening" / "Evolution" / "Power"
-  const KANJI_CHARACTERS = ["覚", "醒", "進", "化", "力"];
+  // Japanese characters meaning "Awakening" / "Evolution" / "Power" / "Transform"
+  const KANJI_CHARACTERS = ["覚", "醒", "進", "化", "力", "変", "身", "昇"];
 
   /**
    * Play the awakening animation
    * @param {string} oldCharacterName - Name of the base character
    * @param {string} newCharacterName - Name of the evolved character
-   * @param {string} newArtworkUrl - Full artwork URL of the evolved character
+   * @param {string} oldArtworkUrl - Old character artwork URL
+   * @param {string} newArtworkUrl - New character artwork URL
    * @param {Function} onComplete - Callback when animation finishes
    */
-  async function playAwakeningAnimation(oldCharacterName, newCharacterName, newArtworkUrl, onComplete) {
+  async function playAwakeningAnimation(oldCharacterName, newCharacterName, oldArtworkUrl, newArtworkUrl, onComplete) {
     console.log("[Awakening Animation] Starting animation...");
+    console.log(`[Awakening Animation] ${oldCharacterName} → ${newCharacterName}`);
 
     // Create overlay
     const overlay = document.createElement("div");
@@ -27,61 +29,81 @@
     container.className = "awakening-container";
     overlay.appendChild(container);
 
-    // Add Japanese characters
-    KANJI_CHARACTERS.forEach((kanji, index) => {
-      const kanjiEl = document.createElement("div");
-      kanjiEl.className = "awakening-kanji";
-      kanjiEl.textContent = kanji;
+    // Preload both images
+    const oldImg = new Image();
+    const newImg = new Image();
 
-      // Position characters in a circle pattern
-      const angle = (index / KANJI_CHARACTERS.length) * Math.PI * 2;
-      const radius = 150;
-      const x = Math.cos(angle) * radius;
-      const y = Math.sin(angle) * radius;
-      kanjiEl.style.left = `calc(50% + ${x}px)`;
-      kanjiEl.style.top = `calc(50% + ${y}px)`;
-      kanjiEl.style.transform = `translate(-50%, -50%)`;
+    await Promise.all([
+      new Promise((resolve, reject) => {
+        oldImg.onload = resolve;
+        oldImg.onerror = reject;
+        oldImg.src = oldArtworkUrl;
+      }),
+      new Promise((resolve, reject) => {
+        newImg.onload = resolve;
+        newImg.onerror = reject;
+        newImg.src = newArtworkUrl;
+      })
+    ]);
 
-      container.appendChild(kanjiEl);
-    });
+    // Add character image container (starts with old character)
+    const characterContainer = document.createElement("div");
+    characterContainer.className = "awakening-character";
+    const characterImg = document.createElement("img");
+    characterImg.src = oldArtworkUrl;
+    characterImg.alt = `${oldCharacterName} transforming`;
+    characterContainer.appendChild(characterImg);
+    container.appendChild(characterContainer);
 
-    // Add golden circle
+    // Switch to new character image at the peak of blur (3.5s into animation)
+    setTimeout(() => {
+      characterImg.src = newArtworkUrl;
+      characterImg.alt = `${newCharacterName} awakened form`;
+      console.log("[Awakening Animation] Switched to new character image");
+    }, 3500);
+
+    // Add golden energy circle
     const circle = document.createElement("div");
     circle.className = "awakening-circle";
     container.appendChild(circle);
 
-    // Add sparkle particles
-    for (let i = 0; i < 30; i++) {
+    // Create rotating ring for kanji characters
+    const kanjiRing = document.createElement("div");
+    kanjiRing.className = "awakening-kanji-ring";
+    container.appendChild(kanjiRing);
+
+    // Add Japanese characters in a ring around the character
+    KANJI_CHARACTERS.forEach((kanji) => {
+      const kanjiEl = document.createElement("div");
+      kanjiEl.className = "awakening-kanji";
+      kanjiEl.textContent = kanji;
+      kanjiRing.appendChild(kanjiEl);
+    });
+
+    // Add sparkle particles orbiting around
+    for (let i = 0; i < 40; i++) {
       const particle = document.createElement("div");
       particle.className = "awakening-particle";
 
-      // Random position and movement
-      const angle = Math.random() * Math.PI * 2;
-      const distance = 50 + Math.random() * 100;
-      const tx = Math.cos(angle) * distance;
-      const ty = Math.sin(angle) * distance;
+      // Create circular orbit pattern
+      const angle = (i / 40) * Math.PI * 2;
+      const radius = 200 + Math.random() * 100;
+      const tx = Math.cos(angle) * radius;
+      const ty = Math.sin(angle) * radius;
 
       particle.style.setProperty('--tx', `${tx}px`);
       particle.style.setProperty('--ty', `${ty}px`);
       particle.style.left = '50%';
       particle.style.top = '50%';
-      particle.style.animationDelay = `${1 + Math.random() * 2}s`;
+      particle.style.animationDelay = `${Math.random() * 2}s`;
 
       container.appendChild(particle);
     }
 
-    // Add energy beams
-    for (let i = 0; i < 4; i++) {
-      const beam = document.createElement("div");
-      beam.className = "awakening-beam";
-      container.appendChild(beam);
-    }
-
-    // Add ripple effects
+    // Add energy ripples
     for (let i = 0; i < 3; i++) {
       const ripple = document.createElement("div");
       ripple.className = "awakening-ripple";
-      ripple.style.animationDelay = `${1.5 + i * 0.5}s`;
       container.appendChild(ripple);
     }
 
@@ -90,62 +112,54 @@
     flash.className = "awakening-flash";
     container.appendChild(flash);
 
-    // Preload the new character image
-    const img = new Image();
-    await new Promise((resolve, reject) => {
-      img.onload = resolve;
-      img.onerror = reject;
-      img.src = newArtworkUrl;
-    });
-
-    // Add character image (will appear after flash)
-    const characterContainer = document.createElement("div");
-    characterContainer.className = "awakening-character";
-    const characterImg = document.createElement("img");
-    characterImg.src = newArtworkUrl;
-    characterImg.alt = `${newCharacterName} awakened form`;
-    characterContainer.appendChild(characterImg);
-    container.appendChild(characterContainer);
-
     // Add success text
     const successText = document.createElement("div");
     successText.className = "awakening-success";
     successText.innerHTML = `
-      <div>${oldCharacterName}</div>
-      <div style="font-size: 24px; margin: 10px 0;">↓</div>
-      <div>${newCharacterName}</div>
-      <div style="font-size: 20px; margin-top: 15px; color: #ffaa00;">AWAKENING COMPLETE!</div>
+      <div style="font-size: 24px; margin-bottom: 10px;">${oldCharacterName}</div>
+      <div style="font-size: 32px; margin: 10px 0;">↓</div>
+      <div style="font-size: 28px; margin-bottom: 15px;">${newCharacterName}</div>
+      <div style="font-size: 22px; color: #ffaa00; text-shadow: 0 0 15px #ffaa00;">AWAKENING COMPLETE!</div>
     `;
     container.appendChild(successText);
 
     // Activate overlay
     setTimeout(() => {
       overlay.classList.add("active");
-    }, 10);
+    }, 50);
 
     // Play sound effect if available
     if (global.AudioManager && typeof global.AudioManager.playSFX === 'function') {
-      setTimeout(() => global.AudioManager.playSFX('awakening'), 2000);
+      setTimeout(() => {
+        try {
+          global.AudioManager.playSFX('awakening');
+        } catch (e) {
+          console.log("[Awakening Animation] Audio not available");
+        }
+      }, 500);
     }
 
     // Auto-close after animation completes
-    setTimeout(() => {
+    const closeDuration = 5500; // 5.5 seconds total
+    const closeTimeout = setTimeout(() => {
+      closeAnimation();
+    }, closeDuration);
+
+    // Function to close the animation
+    function closeAnimation() {
+      clearTimeout(closeTimeout);
       overlay.classList.remove("active");
       setTimeout(() => {
         overlay.remove();
         console.log("[Awakening Animation] Animation complete");
         if (onComplete) onComplete();
-      }, 300);
-    }, 4500); // Total animation duration: 4.5 seconds
+      }, 500);
+    }
 
     // Allow click to skip
     overlay.addEventListener('click', () => {
-      overlay.classList.remove("active");
-      setTimeout(() => {
-        overlay.remove();
-        console.log("[Awakening Animation] Animation skipped by user");
-        if (onComplete) onComplete();
-      }, 300);
+      console.log("[Awakening Animation] Animation skipped by user");
+      closeAnimation();
     });
   }
 

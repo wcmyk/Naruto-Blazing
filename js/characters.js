@@ -1027,8 +1027,11 @@
         if (newCharacter) {
           console.log(`[UI Debug] Loaded new character: ${newCharacter.name} (${newCharacter.id})`);
 
-          // Get old character name for animation
+          // Get old character data for animation (before updating c)
           const oldCharacterName = c.name;
+          const oldTier = inst.tierCode || maxTier(c);
+          const oldArt = resolveTierArt(c, oldTier);
+          const oldArtworkUrl = safeStr(oldArt.full, oldArt.portrait);
 
           // Update all references to use the new character
           c = newCharacter;
@@ -1037,13 +1040,14 @@
 
           // Play awakening animation if available
           if (window.AwakeningAnimation && typeof window.AwakeningAnimation.play === 'function') {
-            const art = resolveTierArt(c, res.tier);
-            const artworkUrl = safeStr(art.full, art.portrait);
+            const newArt = resolveTierArt(c, res.tier);
+            const newArtworkUrl = safeStr(newArt.full, newArt.portrait);
 
             await window.AwakeningAnimation.play(
               oldCharacterName,
               c.name,
-              artworkUrl,
+              oldArtworkUrl,
+              newArtworkUrl,
               async () => {
                 // Update UI after animation completes
                 await updateUIAfterAwakening();
