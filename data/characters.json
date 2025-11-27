@@ -95929,14 +95929,14 @@
     "starMinCode": "1S",
     "starMaxCode": "1S",
     "lbEligible": false,
-    "portrait": "assets/characters/awakening_900/portrait_1S.png",
-    "full": "assets/characters/awakening_900/full_1S.png",
+    "portrait": "assets/awakening-materials/awakening_900/portrait_1S.png",
+    "full": "assets/awakening-materials/awakening_900/full_1S.png",
     "ultimateAnimation": null,
     "secretAnimation": null,
     "artByTier": {
       "1S": {
-        "portrait": "assets/characters/awakening_900/portrait_1S.png",
-        "full": "assets/characters/awakening_900/full_1S.png"
+        "portrait": "assets/awakening-materials/awakening_900/portrait_1S.png",
+        "full": "assets/awakening-materials/awakening_900/full_1S.png"
       }
     },
     "statsBase": {},
@@ -95987,14 +95987,14 @@
     "starMinCode": "1S",
     "starMaxCode": "2S",
     "lbEligible": false,
-    "portrait": "assets/characters/awakening_901/portrait_2S.png",
-    "full": "assets/characters/awakening_901/full_2S.png",
+    "portrait": "assets/awakening-materials/awakening_901/portrait_2S.png",
+    "full": "assets/awakening-materials/awakening_901/full_2S.png",
     "ultimateAnimation": null,
     "secretAnimation": null,
     "artByTier": {
       "2S": {
-        "portrait": "assets/characters/awakening_901/portrait_2S.png",
-        "full": "assets/characters/awakening_901/full_2S.png"
+        "portrait": "assets/awakening-materials/awakening_901/portrait_2S.png",
+        "full": "assets/awakening-materials/awakening_901/full_2S.png"
       }
     },
     "statsBase": {},
@@ -96045,14 +96045,14 @@
     "starMinCode": "1S",
     "starMaxCode": "3S",
     "lbEligible": false,
-    "portrait": "assets/characters/awakening_902/portrait_3S.png",
-    "full": "assets/characters/awakening_902/full_3S.png",
+    "portrait": "assets/awakening-materials/awakening_902/portrait_3S.png",
+    "full": "assets/awakening-materials/awakening_902/full_3S.png",
     "ultimateAnimation": null,
     "secretAnimation": null,
     "artByTier": {
       "3S": {
-        "portrait": "assets/characters/awakening_902/portrait_3S.png",
-        "full": "assets/characters/awakening_902/full_3S.png"
+        "portrait": "assets/awakening-materials/awakening_902/portrait_3S.png",
+        "full": "assets/awakening-materials/awakening_902/full_3S.png"
       }
     },
     "statsBase": {},
@@ -96103,14 +96103,14 @@
     "starMinCode": "1S",
     "starMaxCode": "1S",
     "lbEligible": false,
-    "portrait": "assets/characters/awakening_903/portrait_1S.png",
-    "full": "assets/characters/awakening_903/full_1S.png",
+    "portrait": "assets/awakening-materials/awakening_903/portrait_1S.png",
+    "full": "assets/awakening-materials/awakening_903/full_1S.png",
     "ultimateAnimation": null,
     "secretAnimation": null,
     "artByTier": {
       "1S": {
-        "portrait": "assets/characters/awakening_903/portrait_1S.png",
-        "full": "assets/characters/awakening_903/full_1S.png"
+        "portrait": "assets/awakening-materials/awakening_903/portrait_1S.png",
+        "full": "assets/awakening-materials/awakening_903/full_1S.png"
       }
     },
     "statsBase": {},
@@ -96161,14 +96161,14 @@
     "starMinCode": "1S",
     "starMaxCode": "2S",
     "lbEligible": false,
-    "portrait": "assets/characters/awakening_904/portrait_2S.png",
-    "full": "assets/characters/awakening_904/full_2S.png",
+    "portrait": "assets/awakening-materials/awakening_904/portrait_2S.png",
+    "full": "assets/awakening-materials/awakening_904/full_2S.png",
     "ultimateAnimation": null,
     "secretAnimation": null,
     "artByTier": {
       "2S": {
-        "portrait": "assets/characters/awakening_904/portrait_2S.png",
-        "full": "assets/characters/awakening_904/full_2S.png"
+        "portrait": "assets/awakening-materials/awakening_904/portrait_2S.png",
+        "full": "assets/awakening-materials/awakening_904/full_2S.png"
       }
     },
     "statsBase": {},
@@ -96219,14 +96219,14 @@
     "starMinCode": "1S",
     "starMaxCode": "3S",
     "lbEligible": false,
-    "portrait": "assets/characters/awakening_905/portrait_3S.png",
-    "full": "assets/characters/awakening_905/full_3S.png",
+    "portrait": "assets/awakening-materials/awakening_905/portrait_3S.png",
+    "full": "assets/awakening-materials/awakening_905/full_3S.png",
     "ultimateAnimation": null,
     "secretAnimation": null,
     "artByTier": {
       "3S": {
-        "portrait": "assets/characters/awakening_905/portrait_3S.png",
-        "full": "assets/characters/awakening_905/full_3S.png"
+        "portrait": "assets/awakening-materials/awakening_905/portrait_3S.png",
+        "full": "assets/awakening-materials/awakening_905/full_3S.png"
       }
     },
     "statsBase": {},
@@ -96277,14 +96277,14 @@
     "starMinCode": "1S",
     "starMaxCode": "1S",
     "lbEligible": false,
-    "portrait": "assets/characters/awakening_906/portrait_1S.png",
-    "full": "assets/characters/awakening_906/full_1S.png",
+    "portrait": "assets/awakening-materials/awakening_906/portrait_1S.png",
+    "full": "assets/awakening-materials/awakening_906/full_1S.png",
     "ultimateAnimation": null,
     "secretAnimation": null,
     "artByTier": {
       "1S": {
-        "portrait": "assets/characters/awakening_906/portrait_1S.png",
-        "full": "assets/characters/awakening_906/full_1S.png"
+        "portrait": "assets/awakening-materials/awakening_906/portrait_1S.png",
+        "full": "assets/awakening-materials/awakening_906/full_1S.png"
       }
     },
     "statsBase": {},
@@ -96335,14 +96335,14 @@
     "starMinCode": "1S",
     "starMaxCode": "2S",
     "lbEligible": false,
-    "portrait": "assets/characters/awakening_907/portrait_2S.png",
-    "full": "assets/characters/awakening_907/full_2S.png",
+    "portrait": "assets/awakening-materials/awakening_907/portrait_2S.png",
+    "full": "assets/awakening-materials/awakening_907/full_2S.png",
     "ultimateAnimation": null,
     "secretAnimation": null,
     "artByTier": {
       "2S": {
-        "portrait": "assets/characters/awakening_907/portrait_2S.png",
-        "full": "assets/characters/awakening_907/full_2S.png"
+        "portrait": "assets/awakening-materials/awakening_907/portrait_2S.png",
+        "full": "assets/awakening-materials/awakening_907/full_2S.png"
       }
     },
     "statsBase": {},
@@ -96393,14 +96393,14 @@
     "starMinCode": "1S",
     "starMaxCode": "3S",
     "lbEligible": false,
-    "portrait": "assets/characters/awakening_908/portrait_3S.png",
-    "full": "assets/characters/awakening_908/full_3S.png",
+    "portrait": "assets/awakening-materials/awakening_908/portrait_3S.png",
+    "full": "assets/awakening-materials/awakening_908/full_3S.png",
     "ultimateAnimation": null,
     "secretAnimation": null,
     "artByTier": {
       "3S": {
-        "portrait": "assets/characters/awakening_908/portrait_3S.png",
-        "full": "assets/characters/awakening_908/full_3S.png"
+        "portrait": "assets/awakening-materials/awakening_908/portrait_3S.png",
+        "full": "assets/awakening-materials/awakening_908/full_3S.png"
       }
     },
     "statsBase": {},
@@ -96451,14 +96451,14 @@
     "starMinCode": "1S",
     "starMaxCode": "1S",
     "lbEligible": false,
-    "portrait": "assets/characters/awakening_909/portrait_1S.png",
-    "full": "assets/characters/awakening_909/full_1S.png",
+    "portrait": "assets/awakening-materials/awakening_909/portrait_1S.png",
+    "full": "assets/awakening-materials/awakening_909/full_1S.png",
     "ultimateAnimation": null,
     "secretAnimation": null,
     "artByTier": {
       "1S": {
-        "portrait": "assets/characters/awakening_909/portrait_1S.png",
-        "full": "assets/characters/awakening_909/full_1S.png"
+        "portrait": "assets/awakening-materials/awakening_909/portrait_1S.png",
+        "full": "assets/awakening-materials/awakening_909/full_1S.png"
       }
     },
     "statsBase": {},
@@ -96509,14 +96509,14 @@
     "starMinCode": "1S",
     "starMaxCode": "2S",
     "lbEligible": false,
-    "portrait": "assets/characters/awakening_910/portrait_2S.png",
-    "full": "assets/characters/awakening_910/full_2S.png",
+    "portrait": "assets/awakening-materials/awakening_910/portrait_2S.png",
+    "full": "assets/awakening-materials/awakening_910/full_2S.png",
     "ultimateAnimation": null,
     "secretAnimation": null,
     "artByTier": {
       "2S": {
-        "portrait": "assets/characters/awakening_910/portrait_2S.png",
-        "full": "assets/characters/awakening_910/full_2S.png"
+        "portrait": "assets/awakening-materials/awakening_910/portrait_2S.png",
+        "full": "assets/awakening-materials/awakening_910/full_2S.png"
       }
     },
     "statsBase": {},
@@ -96567,14 +96567,14 @@
     "starMinCode": "1S",
     "starMaxCode": "3S",
     "lbEligible": false,
-    "portrait": "assets/characters/awakening_911/portrait_3S.png",
-    "full": "assets/characters/awakening_911/full_3S.png",
+    "portrait": "assets/awakening-materials/awakening_911/portrait_3S.png",
+    "full": "assets/awakening-materials/awakening_911/full_3S.png",
     "ultimateAnimation": null,
     "secretAnimation": null,
     "artByTier": {
       "3S": {
-        "portrait": "assets/characters/awakening_911/portrait_3S.png",
-        "full": "assets/characters/awakening_911/full_3S.png"
+        "portrait": "assets/awakening-materials/awakening_911/portrait_3S.png",
+        "full": "assets/awakening-materials/awakening_911/full_3S.png"
       }
     },
     "statsBase": {},
@@ -96625,14 +96625,14 @@
     "starMinCode": "1S",
     "starMaxCode": "1S",
     "lbEligible": false,
-    "portrait": "assets/characters/awakening_912/portrait_1S.png",
-    "full": "assets/characters/awakening_912/full_1S.png",
+    "portrait": "assets/awakening-materials/awakening_912/portrait_1S.png",
+    "full": "assets/awakening-materials/awakening_912/full_1S.png",
     "ultimateAnimation": null,
     "secretAnimation": null,
     "artByTier": {
       "1S": {
-        "portrait": "assets/characters/awakening_912/portrait_1S.png",
-        "full": "assets/characters/awakening_912/full_1S.png"
+        "portrait": "assets/awakening-materials/awakening_912/portrait_1S.png",
+        "full": "assets/awakening-materials/awakening_912/full_1S.png"
       }
     },
     "statsBase": {},
@@ -96683,14 +96683,14 @@
     "starMinCode": "1S",
     "starMaxCode": "2S",
     "lbEligible": false,
-    "portrait": "assets/characters/awakening_913/portrait_2S.png",
-    "full": "assets/characters/awakening_913/full_2S.png",
+    "portrait": "assets/awakening-materials/awakening_913/portrait_2S.png",
+    "full": "assets/awakening-materials/awakening_913/full_2S.png",
     "ultimateAnimation": null,
     "secretAnimation": null,
     "artByTier": {
       "2S": {
-        "portrait": "assets/characters/awakening_913/portrait_2S.png",
-        "full": "assets/characters/awakening_913/full_2S.png"
+        "portrait": "assets/awakening-materials/awakening_913/portrait_2S.png",
+        "full": "assets/awakening-materials/awakening_913/full_2S.png"
       }
     },
     "statsBase": {},
@@ -96741,14 +96741,14 @@
     "starMinCode": "1S",
     "starMaxCode": "3S",
     "lbEligible": false,
-    "portrait": "assets/characters/awakening_914/portrait_3S.png",
-    "full": "assets/characters/awakening_914/full_3S.png",
+    "portrait": "assets/awakening-materials/awakening_914/portrait_3S.png",
+    "full": "assets/awakening-materials/awakening_914/full_3S.png",
     "ultimateAnimation": null,
     "secretAnimation": null,
     "artByTier": {
       "3S": {
-        "portrait": "assets/characters/awakening_914/portrait_3S.png",
-        "full": "assets/characters/awakening_914/full_3S.png"
+        "portrait": "assets/awakening-materials/awakening_914/portrait_3S.png",
+        "full": "assets/awakening-materials/awakening_914/full_3S.png"
       }
     },
     "statsBase": {},
@@ -98945,14 +98945,14 @@
     "starMinCode": "1S",
     "starMaxCode": "4S",
     "lbEligible": false,
-    "portrait": "assets/characters/awakening_952/portrait_4S.png",
-    "full": "assets/characters/awakening_952/full_4S.png",
+    "portrait": "assets/awakening-materials/awakening_952/portrait_4S.png",
+    "full": "assets/awakening-materials/awakening_952/full_4S.png",
     "ultimateAnimation": null,
     "secretAnimation": null,
     "artByTier": {
       "4S": {
-        "portrait": "assets/characters/awakening_952/portrait_4S.png",
-        "full": "assets/characters/awakening_952/full_4S.png"
+        "portrait": "assets/awakening-materials/awakening_952/portrait_4S.png",
+        "full": "assets/awakening-materials/awakening_952/full_4S.png"
       }
     },
     "statsBase": {},
@@ -99003,14 +99003,14 @@
     "starMinCode": "1S",
     "starMaxCode": "4S",
     "lbEligible": false,
-    "portrait": "assets/characters/awakening_953/portrait_4S.png",
-    "full": "assets/characters/awakening_953/full_4S.png",
+    "portrait": "assets/awakening-materials/awakening_953/portrait_4S.png",
+    "full": "assets/awakening-materials/awakening_953/full_4S.png",
     "ultimateAnimation": null,
     "secretAnimation": null,
     "artByTier": {
       "4S": {
-        "portrait": "assets/characters/awakening_953/portrait_4S.png",
-        "full": "assets/characters/awakening_953/full_4S.png"
+        "portrait": "assets/awakening-materials/awakening_953/portrait_4S.png",
+        "full": "assets/awakening-materials/awakening_953/full_4S.png"
       }
     },
     "statsBase": {},
@@ -99061,14 +99061,14 @@
     "starMinCode": "1S",
     "starMaxCode": "4S",
     "lbEligible": false,
-    "portrait": "assets/characters/awakening_954/portrait_4S.png",
-    "full": "assets/characters/awakening_954/full_4S.png",
+    "portrait": "assets/awakening-materials/awakening_954/portrait_4S.png",
+    "full": "assets/awakening-materials/awakening_954/full_4S.png",
     "ultimateAnimation": null,
     "secretAnimation": null,
     "artByTier": {
       "4S": {
-        "portrait": "assets/characters/awakening_954/portrait_4S.png",
-        "full": "assets/characters/awakening_954/full_4S.png"
+        "portrait": "assets/awakening-materials/awakening_954/portrait_4S.png",
+        "full": "assets/awakening-materials/awakening_954/full_4S.png"
       }
     },
     "statsBase": {},
@@ -99119,14 +99119,14 @@
     "starMinCode": "1S",
     "starMaxCode": "4S",
     "lbEligible": false,
-    "portrait": "assets/characters/awakening_955/portrait_4S.png",
-    "full": "assets/characters/awakening_955/full_4S.png",
+    "portrait": "assets/awakening-materials/awakening_955/portrait_4S.png",
+    "full": "assets/awakening-materials/awakening_955/full_4S.png",
     "ultimateAnimation": null,
     "secretAnimation": null,
     "artByTier": {
       "4S": {
-        "portrait": "assets/characters/awakening_955/portrait_4S.png",
-        "full": "assets/characters/awakening_955/full_4S.png"
+        "portrait": "assets/awakening-materials/awakening_955/portrait_4S.png",
+        "full": "assets/awakening-materials/awakening_955/full_4S.png"
       }
     },
     "statsBase": {},
@@ -99177,14 +99177,14 @@
     "starMinCode": "1S",
     "starMaxCode": "4S",
     "lbEligible": false,
-    "portrait": "assets/characters/awakening_956/portrait_4S.png",
-    "full": "assets/characters/awakening_956/full_4S.png",
+    "portrait": "assets/awakening-materials/awakening_956/portrait_4S.png",
+    "full": "assets/awakening-materials/awakening_956/full_4S.png",
     "ultimateAnimation": null,
     "secretAnimation": null,
     "artByTier": {
       "4S": {
-        "portrait": "assets/characters/awakening_956/portrait_4S.png",
-        "full": "assets/characters/awakening_956/full_4S.png"
+        "portrait": "assets/awakening-materials/awakening_956/portrait_4S.png",
+        "full": "assets/awakening-materials/awakening_956/full_4S.png"
       }
     },
     "statsBase": {},
@@ -116333,14 +116333,14 @@
     "starMinCode": "1S",
     "starMaxCode": "1S",
     "lbEligible": false,
-    "portrait": "assets/characters/awakening_1255/portrait_1S.png",
-    "full": "assets/characters/awakening_1255/full_1S.png",
+    "portrait": "assets/awakening-materials/awakening_1255/portrait_1S.png",
+    "full": "assets/awakening-materials/awakening_1255/full_1S.png",
     "ultimateAnimation": null,
     "secretAnimation": null,
     "artByTier": {
       "1S": {
-        "portrait": "assets/characters/awakening_1255/portrait_1S.png",
-        "full": "assets/characters/awakening_1255/full_1S.png"
+        "portrait": "assets/awakening-materials/awakening_1255/portrait_1S.png",
+        "full": "assets/awakening-materials/awakening_1255/full_1S.png"
       }
     },
     "statsBase": {},
@@ -116391,14 +116391,14 @@
     "starMinCode": "1S",
     "starMaxCode": "1S",
     "lbEligible": false,
-    "portrait": "assets/characters/awakening_1256/portrait_1S.png",
-    "full": "assets/characters/awakening_1256/full_1S.png",
+    "portrait": "assets/awakening-materials/awakening_1256/portrait_1S.png",
+    "full": "assets/awakening-materials/awakening_1256/full_1S.png",
     "ultimateAnimation": null,
     "secretAnimation": null,
     "artByTier": {
       "1S": {
-        "portrait": "assets/characters/awakening_1256/portrait_1S.png",
-        "full": "assets/characters/awakening_1256/full_1S.png"
+        "portrait": "assets/awakening-materials/awakening_1256/portrait_1S.png",
+        "full": "assets/awakening-materials/awakening_1256/full_1S.png"
       }
     },
     "statsBase": {},
@@ -116449,14 +116449,14 @@
     "starMinCode": "1S",
     "starMaxCode": "1S",
     "lbEligible": false,
-    "portrait": "assets/characters/awakening_1257/portrait_1S.png",
-    "full": "assets/characters/awakening_1257/full_1S.png",
+    "portrait": "assets/awakening-materials/awakening_1257/portrait_1S.png",
+    "full": "assets/awakening-materials/awakening_1257/full_1S.png",
     "ultimateAnimation": null,
     "secretAnimation": null,
     "artByTier": {
       "1S": {
-        "portrait": "assets/characters/awakening_1257/portrait_1S.png",
-        "full": "assets/characters/awakening_1257/full_1S.png"
+        "portrait": "assets/awakening-materials/awakening_1257/portrait_1S.png",
+        "full": "assets/awakening-materials/awakening_1257/full_1S.png"
       }
     },
     "statsBase": {},
