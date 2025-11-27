@@ -1013,7 +1013,15 @@
       if (res.transformed && res.newCharacterId) {
         console.log(`[UI Debug] Character transformed from ${inst.charId} to ${res.newCharacterId}`);
 
-        // Update instance with new character ID, tier, and level
+        // *** GET OLD CHARACTER DATA BEFORE UPDATING ANYTHING ***
+        const oldCharacterName = c.name;
+        const oldTier = inst.tierCode || maxTier(c);
+        const oldArt = resolveTierArt(c, oldTier);
+        const oldArtworkUrl = safeStr(oldArt.full, oldArt.portrait);
+        console.log(`[UI Debug] Saved old character data: ${oldCharacterName} at tier ${oldTier}`);
+        console.log(`[UI Debug] Old artwork URL: ${oldArtworkUrl}`);
+
+        // Now update instance with new character ID, tier, and level
         // IMPORTANT: Use 'charId' not 'characterId' - that's the correct property name in inventory
         window.InventoryChar.updateInstance(inst.uid, {
           charId: res.newCharacterId,
@@ -1027,15 +1035,10 @@
         if (newCharacter) {
           console.log(`[UI Debug] Loaded new character: ${newCharacter.name} (${newCharacter.id})`);
 
-          // Get old character data for animation (before updating c)
-          const oldCharacterName = c.name;
-          const oldTier = inst.tierCode || maxTier(c);
-          const oldArt = resolveTierArt(c, oldTier);
-          const oldArtworkUrl = safeStr(oldArt.full, oldArt.portrait);
-
           // Calculate new character artwork
           const newArt = resolveTierArt(newCharacter, res.tier);
           const newArtworkUrl = safeStr(newArt.full, newArt.portrait);
+          console.log(`[UI Debug] New artwork URL: ${newArtworkUrl}`);
 
           // Update all references to use the new character
           c = newCharacter;
