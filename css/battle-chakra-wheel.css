@@ -87,6 +87,16 @@
   opacity: 1;
 }
 
+/* Jutsu range segments (blue-ish tint) */
+.chakra-segment.active.jutsu-range {
+  filter: brightness(1.1) hue-rotate(-10deg);
+}
+
+/* Ultimate range segments (stronger, more intense) */
+.chakra-segment.active.ultimate-range {
+  filter: brightness(1.3) saturate(1.4);
+}
+
 /* =========================================
    CHAKRA HOLDER FRAME (TOP LAYER, z-index: 10)
    ========================================= */

@@ -145,10 +145,14 @@
 /* Switch animation states */
 .active-portrait-container.switching {
   animation: activeSpin 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  filter: brightness(1.3) drop-shadow(0 0 10px rgba(100, 180, 255, 0.8));
+  z-index: 100;
 }
 
 .bench-portrait-container.switching {
   animation: benchSwap 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  filter: brightness(1.3) drop-shadow(0 0 10px rgba(255, 215, 0, 0.8));
+  z-index: 101;
 }
 
 /* Active portrait spins in place */
