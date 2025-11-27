@@ -27,9 +27,13 @@
 
   // Load awakening transforms from JSON
   async function loadTransforms() {
-    if (_awakeningTransforms) return _awakeningTransforms;
+    if (_awakeningTransforms) {
+      console.log("[Awakening Debug] Using cached transforms");
+      return _awakeningTransforms;
+    }
 
     try {
+      console.log("[Awakening Debug] Loading transforms from JSON...");
       const res = await fetch("data/awakening-transforms.json", { cache: "no-store" });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const data = await res.json();
@@ -45,6 +49,8 @@
           }
           _awakeningTransforms[transform.fromId][transform.tier] = transform.toId;
         });
+        console.log(`[Awakening Debug] Loaded ${data.length} transform mappings`);
+        console.log("[Awakening Debug] Sample: naruto_659 ->", _awakeningTransforms["naruto_659"]);
       } else {
         _awakeningTransforms = data.transforms || {};
       }
@@ -154,11 +160,18 @@
 
     // Check if character should transform to a different ID at this tier
     const newTier = result.tier;
+    console.log(`[Awakening Debug] Checking transform for ${oldCharacterId} at tier ${newTier}`);
+
     const transformToId = await getTransformForTier(oldCharacterId, newTier);
+    console.log(`[Awakening Debug] Transform result:`, transformToId);
 
     if (transformToId) {
       console.log(`✨ [Awakening Transform] ${oldCharacterId} → ${transformToId} at tier ${newTier}`);
+
+      // Update the instance character ID
       inst.characterId = transformToId;
+
+      // Set transformation flags in result
       result.transformed = true;
       result.oldCharacterId = oldCharacterId;
       result.newCharacterId = transformToId;
@@ -166,7 +179,12 @@
       // Save inventory if available
       if (global.InventoryChar && typeof global.InventoryChar.save === 'function') {
         global.InventoryChar.save();
+        console.log(`✅ [Awakening Transform] Saved inventory with new characterId: ${transformToId}`);
+      } else {
+        console.warn(`⚠️ [Awakening Transform] InventoryChar.save not available`);
       }
+    } else {
+      console.log(`[Awakening Debug] No transformation found for ${oldCharacterId} at tier ${newTier}`);
     }
 
     return result;

@@ -982,22 +982,32 @@
       }
 
       // Check if character transformed to a new ID
+      console.log("[UI Debug] Awakening result:", { transformed: res.transformed, newCharacterId: res.newCharacterId, tier: res.tier });
+
       if (res.transformed && res.newCharacterId) {
+        console.log(`[UI Debug] Character transformed from ${inst.characterId} to ${res.newCharacterId}`);
+
         // Update instance with new character ID, tier, and level
         window.InventoryChar.updateInstance(inst.uid, {
           characterId: res.newCharacterId,
           tierCode: res.tier,
           level: res.level ?? 1
         });
+        console.log("[UI Debug] Instance updated with new character ID");
 
         // Reload the new character data
         const newCharacter = await window.Characters.getCharacterById(res.newCharacterId);
         if (newCharacter) {
+          console.log(`[UI Debug] Loaded new character: ${newCharacter.name} (${newCharacter.id})`);
           // Update all references to use the new character
           c = newCharacter;
           inst = window.InventoryChar.getByUid(inst.uid);
+          console.log("[UI Debug] Updated local references to new character");
+        } else {
+          console.error("[UI Debug] Failed to load new character:", res.newCharacterId);
         }
       } else {
+        console.log("[UI Debug] Standard awakening without transformation");
         // Standard awakening without transformation
         if (!res.persisted && res.tier) {
           window.InventoryChar.updateInstance(inst.uid, { tierCode: res.tier, level: res.level ?? 1 });
