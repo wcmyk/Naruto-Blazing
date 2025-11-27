@@ -1022,8 +1022,8 @@
         });
         console.log("[UI Debug] Instance updated with new character ID");
 
-        // Reload the new character data
-        const newCharacter = await window.Characters.getCharacterById(res.newCharacterId);
+        // Reload the new character data from BYID
+        const newCharacter = BYID[res.newCharacterId];
         if (newCharacter) {
           console.log(`[UI Debug] Loaded new character: ${newCharacter.name} (${newCharacter.id})`);
 
@@ -1032,6 +1032,10 @@
           const oldTier = inst.tierCode || maxTier(c);
           const oldArt = resolveTierArt(c, oldTier);
           const oldArtworkUrl = safeStr(oldArt.full, oldArt.portrait);
+
+          // Calculate new character artwork
+          const newArt = resolveTierArt(newCharacter, res.tier);
+          const newArtworkUrl = safeStr(newArt.full, newArt.portrait);
 
           // Update all references to use the new character
           c = newCharacter;
