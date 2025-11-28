@@ -1,15 +1,13 @@
-// js/missions.js — FINAL VERSION (Fully Restored Functionality + Modern UI)
-// Loads mission categories, banners, difficulty icons, and routes to teams.html pre-battle mode
-
+// js/missions.js (FULL FUNCTIONALITY — UPDATED FOR NEW CSS)
 document.addEventListener('DOMContentLoaded', () => {
   const tabsContainer = document.querySelector('.mission-tabs');
   const listContainer = document.querySelector('.mission-list');
 
   let allMissions = [];
 
-  /**
-   * RENDER ALL MISSIONS FOR SELECTED CATEGORY
-   */
+  // ============================================================
+  // Render missions for a category
+  // ============================================================
   function renderMissionsForCategory(categoryName) {
     // Sort missions cleanly
     const missionsToRender = allMissions
@@ -19,21 +17,29 @@ document.addEventListener('DOMContentLoaded', () => {
     listContainer.innerHTML = '';
 
     missionsToRender.forEach(mission => {
-      const card = document.createElement('div');
-      card.className = 'mission-card';
 
-      // ----- Banner -----
+      // ======================================================
+      // Mission Card
+      // ======================================================
+      const card = document.createElement('div');
+      card.className = 'mission-item'; // <-- Matches missions.css
+
+      // -------------------- Banner --------------------------
       const banner = document.createElement('img');
       banner.className = 'mission-banner';
       banner.src = mission.banner;
       banner.alt = mission.name || 'Mission Banner';
       card.appendChild(banner);
 
-      // ----- Mission Controls Container -----
+      // ======================================================
+      // Controls Section (difficulty + start)
+      // ======================================================
       const controls = document.createElement('div');
       controls.className = 'mission-controls';
 
-      // ----- Difficulty Icon Row -----
+      // ======================================================
+      // Difficulty Icons Container
+      // ======================================================
       const difficultyContainer = document.createElement('div');
       difficultyContainer.className = 'difficulty-icons-container';
 
@@ -41,35 +47,36 @@ document.addEventListener('DOMContentLoaded', () => {
       let selectedDifficulty = availableDifficulties[0] || 'S';
 
       availableDifficulties.forEach(rank => {
-        const btn = document.createElement('button');
-        btn.className = 'difficulty-icon-btn';
-        btn.dataset.difficulty = rank;
+        const iconButton = document.createElement('button');
+        iconButton.className = 'difficulty-icon-btn'; // <-- Styled in CSS
+        iconButton.dataset.difficulty = rank;
 
         const icon = document.createElement('img');
-        icon.src = `assets/icons/rank_${rank.toLowerCase()}.png`;
-        icon.alt = `${rank} Rank`;
+        icon.src = `assets/icons/${rank.toLowerCase()}_icons.png`;
+        icon.alt = `Rank ${rank}`;
+        icon.className = 'difficulty-icon-img';
+
         icon.onerror = () => {
           // fallback to text if missing icon
           icon.style.display = 'none';
-          btn.textContent = rank;
-          btn.style.color = '#FFD700';
-          btn.style.fontSize = '22px';
-          btn.style.fontWeight = 'bold';
+          iconButton.textContent = rank;
+          iconButton.classList.add('difficulty-fallback');
         };
 
         btn.appendChild(icon);
 
-        // initial selection highlight
+        // Default selected difficulty
         if (rank === selectedDifficulty) {
-          btn.classList.add('active');
+          iconButton.classList.add('active');
         }
 
-        btn.addEventListener('click', () => {
-          // toggle active class for ALL buttons
-          difficultyContainer.querySelectorAll('.difficulty-icon-btn')
-            .forEach(b => b.classList.remove('active'));
+        // ----------------- Button Click Logic -------------------
+        iconButton.addEventListener('click', () => {
+          difficultyContainer
+            .querySelectorAll('.difficulty-icon-btn')
+            .forEach(btn => btn.classList.remove('active'));
 
-          btn.classList.add('active');
+          iconButton.classList.add('active');
           selectedDifficulty = rank;
         });
 
@@ -78,20 +85,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
       controls.appendChild(difficultyContainer);
 
-      // ----- Start Mission Button -----
+      // ======================================================
+      // START MISSION BUTTON
+      // ======================================================
       const startButton = document.createElement('button');
-      startButton.className = 'start-btn';
+      startButton.className = 'mission-start-btn'; // <-- Styled version
       startButton.textContent = 'Start Mission';
 
       startButton.addEventListener('click', () => {
-        // Save mission context for the battle page
+        // Save context
         localStorage.setItem('currentMissionId', String(mission.id));
         localStorage.setItem('currentDifficulty', selectedDifficulty);
         localStorage.setItem('currentMissionName', mission.name || '');
         localStorage.setItem('currentMissionBanner', mission.banner || '');
 
-        // small fade-out transition
-        document.body.style.transition = 'opacity 0.25s linear';
+        // Fade transition
+        document.body.style.transition = 'opacity 0.2s linear';
         document.body.style.opacity = '0';
 
         setTimeout(() => {
@@ -100,25 +109,25 @@ document.addEventListener('DOMContentLoaded', () => {
       });
 
       controls.appendChild(startButton);
-
-      // Attach controls under banner
       card.appendChild(controls);
       listContainer.appendChild(card);
     });
 
-    // highlight active tab
-    document.querySelectorAll('.tab-btn').forEach(btn => {
-      btn.classList.toggle('active', btn.textContent === categoryName);
+    // ======================================================
+    // Update active tab CSS
+    // ======================================================
+    document.querySelectorAll('.mission-tab').forEach(tab => {
+      tab.classList.toggle('active', tab.textContent === categoryName);
     });
   }
 
-  /**
-   * LOAD MISSION JSON
-   */
+  // ============================================================
+  // Load missions.json
+  // ============================================================
   fetch('data/missions.json')
-    .then(res => {
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      return res.json();
+    .then(response => {
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      return response.json();
     })
     .then(missions => {
       allMissions = Array.isArray(missions) ? missions : [];
@@ -131,18 +140,22 @@ document.addEventListener('DOMContentLoaded', () => {
       // build unique category list
       const categoryNames = [...new Set(allMissions.map(m => m.category))];
 
-      // render tabs
+      // Render category tabs
       tabsContainer.innerHTML = '';
       categoryNames.forEach(name => {
         const tab = document.createElement('button');
-        tab.className = 'tab-btn';
+        tab.className = 'mission-tab'; // <-- UPDATED
         tab.textContent = name;
         tab.addEventListener('click', () => renderMissionsForCategory(name));
         tabsContainer.appendChild(tab);
       });
 
-      // load first category automatically
-      renderMissionsForCategory(categoryNames[0]);
+      // Load first category by default
+      if (categoryNames.length > 0) {
+        renderMissionsForCategory(categoryNames[0]);
+      } else {
+        listContainer.innerHTML = '<p class="error-message">No missions found.</p>';
+      }
     })
     .catch(err => {
       console.error('Mission load failed:', err);
