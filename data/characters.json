@@ -70823,6 +70823,7 @@
     "lbEligible": true,
     "portrait": "assets/characters/naruto_660/portrait_6S.png",
     "full": "assets/characters/naruto_660/full_6S.png",
+    "jutsuAnimation": null,
     "ultimateAnimation": null,
     "secretAnimation": null,
     "artByTier": {
@@ -70833,7 +70834,7 @@
     },
     "statsBase": {
       "hp": 22496,
-      "atk": 1162,
+      "atk": 100162,
       "speed": 139
     },
     "statsMax": {
