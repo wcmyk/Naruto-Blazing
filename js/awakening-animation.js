@@ -121,11 +121,12 @@
     const successText = document.createElement("div");
     successText.className = `awakening-success ${themeClass}`.trim();
     const completeColor = theme === 'purple' ? '#8b4789' : '#996600';
+    const completeText = theme === 'purple' ? 'LIMIT BREAK COMPLETE!' : 'AWAKENING COMPLETE!';
     successText.innerHTML = `
       <div style="font-size: 24px; margin-bottom: 10px;">${oldCharacterName}</div>
       <div style="font-size: 32px; margin: 10px 0;">↓</div>
       <div style="font-size: 28px; margin-bottom: 15px;">${newCharacterName}</div>
-      <div style="font-size: 22px; color: ${completeColor}; text-shadow: 0 0 15px ${completeColor};">AWAKENING COMPLETE!</div>
+      <div style="font-size: 22px; color: ${completeColor}; text-shadow: 0 0 15px ${completeColor};">${completeText}</div>
     `;
     container.appendChild(successText);
 

@@ -1193,14 +1193,69 @@
                 return;
               }
 
-              // Update instance
-              window.InventoryChar.updateInstance(inst.uid, { limitBreakLevel: res.limitBreakLevel });
-              const fresh = window.InventoryChar.getByUid(inst.uid);
+              // Get character artwork for animation
+              const currentLB = inst.limitBreakLevel || 0;
+              const newLB = res.limitBreakLevel;
+              const art = resolveTierArt(c, tier);
+              const artworkUrl = safeStr(art.full, art.portrait);
 
-              await window.renderStatusTab(c, fresh, tier);
-              renderGrid();
+              // Save UID for later
+              const currentUid = inst.uid;
 
-              if (window.ModalManager) { window.ModalManager.showSuccess(`Limit Break successful! ${c.name} is now LB${res.limitBreakLevel}!`); };
+              // Play limit break animation with purple theme
+              if (window.AwakeningAnimation && typeof window.AwakeningAnimation.play === 'function') {
+                try {
+                  console.log("[Limit Break] Playing limit break animation...");
+                  console.log(`[Limit Break] ${c.name} LB${currentLB} → LB${newLB}`);
+
+                  // Play animation - use same character artwork for before/after
+                  window.AwakeningAnimation.play(
+                    `${c.name} LB${currentLB}`,
+                    `${c.name} LB${newLB}`,
+                    artworkUrl,
+                    artworkUrl,
+                    async () => {
+                      console.log("[Limit Break] Animation completed");
+
+                      // Update instance after animation
+                      window.InventoryChar.updateInstance(currentUid, { limitBreakLevel: newLB });
+                      const fresh = window.InventoryChar.getByUid(currentUid);
+
+                      await window.renderStatusTab(c, fresh, tier);
+                      renderGrid();
+
+                      if (window.ModalManager) {
+                        window.ModalManager.showSuccess(`Limit Break successful! ${c.name} is now LB${newLB}!`);
+                      }
+                    },
+                    'purple'  // Purple theme for limit break
+                  );
+                } catch (error) {
+                  console.error("[Limit Break] Animation error:", error);
+                  // Fallback: update without animation
+                  window.InventoryChar.updateInstance(currentUid, { limitBreakLevel: newLB });
+                  const fresh = window.InventoryChar.getByUid(currentUid);
+
+                  await window.renderStatusTab(c, fresh, tier);
+                  renderGrid();
+
+                  if (window.ModalManager) {
+                    window.ModalManager.showSuccess(`Limit Break successful! ${c.name} is now LB${newLB}!`);
+                  }
+                }
+              } else {
+                console.warn("[Limit Break] AwakeningAnimation not available, updating without animation");
+                // Fallback: update without animation
+                window.InventoryChar.updateInstance(currentUid, { limitBreakLevel: newLB });
+                const fresh = window.InventoryChar.getByUid(currentUid);
+
+                await window.renderStatusTab(c, fresh, tier);
+                renderGrid();
+
+                if (window.ModalManager) {
+                  window.ModalManager.showSuccess(`Limit Break successful! ${c.name} is now LB${newLB}!`);
+                }
+              }
             },
             null
           );
