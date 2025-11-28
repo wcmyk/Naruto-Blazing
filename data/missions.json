@@ -10,148 +10,60 @@
         {
           "stage": 1,
           "map": "assets/maps/bg_020101_mori.png",
-          "waves": [
-            {
-              "enemies": [
-                "slime_01"
-              ]
-            }
-          ],
-          "rewards": {
-            "ryo": 300,
-            "ramen_1star": 1
-          }
+          "waves": [ { "enemies": [ "slime_01" ] } ],
+          "rewards": { "ryo": 1000, "ramen_1star": 5 }
         },
         {
           "stage": 2,
           "map": "assets/maps/bg_020102_mori.png",
-          "waves": [
-            {
-              "enemies": [
-                "slime_01"
-              ]
-            }
-          ],
-          "rewards": {
-            "ryo": 400,
-            "scroll_3star": 1
-          }
+          "waves": [ { "enemies": [ "slime_01" ] } ],
+          "rewards": { "ryo": 1200, "scroll_3star": 2 }
         },
         {
           "stage": 3,
           "map": "assets/maps/bg_020103_mori.png",
-          "waves": [
-            {
-              "enemies": [
-                "slime_01",
-                "slime_01"
-              ]
-            }
-          ],
-          "rewards": {
-            "ryo": 500,
-            "scroll_body": 1
-          }
+          "waves": [ { "enemies": [ "slime_01", "slime_01" ] } ],
+          "rewards": { "ryo": 1500, "scroll_body": 2, "ramen_1star": 10 }
         }
       ],
       "B": [
         {
           "stage": 1,
           "map": "assets/maps/bg_020101_mori.png",
-          "waves": [
-            {
-              "enemies": [
-                "slime_01",
-                "goblin_archer_01"
-              ]
-            }
-          ],
-          "rewards": {
-            "ryo": 500,
-            "ramen_2star": 1
-          }
+          "waves": [ { "enemies": [ "slime_01", "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 2000, "ramen_2star": 5 }
         },
         {
           "stage": 2,
           "map": "assets/maps/bg_020102_mori.png",
-          "waves": [
-            {
-              "enemies": [
-                "goblin_archer_01"
-              ]
-            }
-          ],
-          "rewards": {
-            "ryo": 600,
-            "scroll_4star": 1
-          }
+          "waves": [ { "enemies": [ "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 2500, "scroll_4star": 2 }
         },
         {
           "stage": 3,
           "map": "assets/maps/bg_020103_mori.png",
-          "waves": [
-            {
-              "enemies": [
-                "goblin_archer_01",
-                "goblin_archer_01"
-              ]
-            }
-          ],
-          "rewards": {
-            "ryo": 800,
-            "scroll_body": 2
-          }
+          "waves": [ { "enemies": [ "goblin_archer_01", "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 3000, "scroll_body": 5, "ramen_2star": 10 }
         }
       ],
       "A": [
         {
           "stage": 1,
           "map": "assets/maps/bg_020101_mori.png",
-          "waves": [
-            {
-              "enemies": [
-                "goblin_archer_01",
-                "goblin_archer_01"
-              ]
-            }
-          ],
-          "rewards": {
-            "ryo": 700,
-            "ramen_2star": 1,
-            "scroll_4star": 1
-          }
+          "waves": [ { "enemies": [ "goblin_archer_01", "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 5000, "ramen_3star": 5 }
         },
         {
           "stage": 2,
           "map": "assets/maps/bg_020102_mori.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01"
-              ]
-            }
-          ],
-          "rewards": {
-            "ryo": 800,
-            "scroll_body": 2
-          }
+          "waves": [ { "enemies": [ "rock_golem_01" ] } ],
+          "rewards": { "ryo": 6000, "scroll_body": 5 }
         },
         {
           "stage": 3,
           "map": "assets/maps/bg_020103_mori.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "goblin_archer_01"
-              ]
-            }
-          ],
-          "rewards": {
-            "ryo": 1000,
-            "scroll_body": 2,
-            "awakening_stone_4": 1
-          }
+          "waves": [ { "enemies": [ "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "gems": 15, "ryo": 10000, "scroll_body": 10, "awakening_stone_4": 1, "ramen_3star": 10 }
         }
       ]
     }
@@ -167,147 +79,60 @@
         {
           "stage": 1,
           "map": "assets/maps/bg_170101_tenti.png",
-          "waves": [
-            {
-              "enemies": [
-                "slime_01"
-              ]
-            }
-          ],
-          "rewards": {
-            "ryo": 300,
-            "ramen_1star": 1
-          }
+          "waves": [ { "enemies": [ "slime_01" ] } ],
+          "rewards": { "ryo": 1000, "ramen_1star": 5 }
         },
         {
           "stage": 2,
           "map": "assets/maps/bg_170102_tenti.png",
-          "waves": [
-            {
-              "enemies": [
-                "goblin_archer_01"
-              ]
-            }
-          ],
-          "rewards": {
-            "ryo": 350,
-            "scroll_basic": 1
-          }
+          "waves": [ { "enemies": [ "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 1200, "scroll_basic": 2 }
         },
         {
           "stage": 3,
           "map": "assets/maps/bg_170103_tenti.png",
-          "waves": [
-            {
-              "enemies": [
-                "goblin_archer_01"
-              ]
-            }
-          ],
-          "rewards": {
-            "ryo": 400,
-            "scroll_basic": 1
-          }
+          "waves": [ { "enemies": [ "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 1500, "scroll_basic": 3, "ramen_1star": 10 }
         }
       ],
       "B": [
         {
           "stage": 1,
           "map": "assets/maps/bg_170101_tenti.png",
-          "waves": [
-            {
-              "enemies": [
-                "slime_01",
-                "goblin_archer_01"
-              ]
-            }
-          ],
-          "rewards": {
-            "ryo": 500,
-            "ramen_2star": 1
-          }
+          "waves": [ { "enemies": [ "slime_01", "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 2000, "ramen_2star": 5 }
         },
         {
           "stage": 2,
           "map": "assets/maps/bg_170102_tenti.png",
-          "waves": [
-            {
-              "enemies": [
-                "goblin_archer_01",
-                "goblin_archer_01"
-              ]
-            }
-          ],
-          "rewards": {
-            "ryo": 550,
-            "scroll_basic": 2
-          }
+          "waves": [ { "enemies": [ "goblin_archer_01", "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 2500, "scroll_basic": 5 }
         },
         {
           "stage": 3,
           "map": "assets/maps/bg_170103_tenti.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01"
-              ]
-            }
-          ],
-          "rewards": {
-            "ryo": 600,
-            "scroll_advanced": 1
-          }
+          "waves": [ { "enemies": [ "rock_golem_01" ] } ],
+          "rewards": { "ryo": 3000, "scroll_advanced": 2, "ramen_2star": 10 }
         }
       ],
       "A": [
         {
           "stage": 1,
           "map": "assets/maps/bg_170101_tenti.png",
-          "waves": [
-            {
-              "enemies": [
-                "goblin_archer_01",
-                "goblin_archer_01"
-              ]
-            }
-          ],
-          "rewards": {
-            "ryo": 700,
-            "ramen_2star": 1,
-            "scroll_advanced": 1
-          }
+          "waves": [ { "enemies": [ "goblin_archer_01", "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 5000, "ramen_3star": 5, "scroll_advanced": 3 }
         },
         {
           "stage": 2,
           "map": "assets/maps/bg_170102_tenti.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01"
-              ]
-            }
-          ],
-          "rewards": {
-            "ryo": 800,
-            "scroll_advanced": 2
-          }
+          "waves": [ { "enemies": [ "rock_golem_01" ] } ],
+          "rewards": { "ryo": 6000, "scroll_advanced": 5 }
         },
         {
           "stage": 3,
           "map": "assets/maps/bg_170103_tenti.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "goblin_archer_01"
-              ]
-            }
-          ],
-          "rewards": {
-            "ryo": 1000,
-            "scroll_advanced": 2,
-            "awakening_stone_4": 1
-          }
+          "waves": [ { "enemies": [ "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "gems": 15, "ryo": 10000, "scroll_advanced": 10, "awakening_stone_4": 1, "ramen_3star": 10 }
         }
       ]
     }
@@ -323,151 +148,60 @@
         {
           "stage": 1,
           "map": "assets/maps/bg_020201_mori.png",
-          "waves": [
-            {
-              "enemies": [
-                "slime_01",
-                "slime_01"
-              ]
-            }
-          ],
-          "rewards": {
-            "ryo": 300,
-            "ramen_1star": 1
-          }
+          "waves": [ { "enemies": [ "slime_01", "slime_01" ] } ],
+          "rewards": { "ryo": 1000, "ramen_1star": 5 }
         },
         {
           "stage": 2,
           "map": "assets/maps/bg_020202_mori.png",
-          "waves": [
-            {
-              "enemies": [
-                "goblin_archer_01"
-              ]
-            }
-          ],
-          "rewards": {
-            "ryo": 350,
-            "scroll_basic": 1
-          }
+          "waves": [ { "enemies": [ "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 1200, "scroll_basic": 2 }
         },
         {
           "stage": 3,
           "map": "assets/maps/bg_020203_mori.png",
-          "waves": [
-            {
-              "enemies": [
-                "goblin_archer_01",
-                "slime_01"
-              ]
-            }
-          ],
-          "rewards": {
-            "ryo": 400,
-            "scroll_basic": 1
-          }
+          "waves": [ { "enemies": [ "goblin_archer_01", "slime_01" ] } ],
+          "rewards": { "ryo": 1500, "scroll_basic": 3, "ramen_1star": 10 }
         }
       ],
       "B": [
         {
           "stage": 1,
           "map": "assets/maps/bg_020201_mori.png",
-          "waves": [
-            {
-              "enemies": [
-                "goblin_archer_01",
-                "goblin_archer_01"
-              ]
-            }
-          ],
-          "rewards": {
-            "ryo": 500,
-            "ramen_2star": 1
-          }
+          "waves": [ { "enemies": [ "goblin_archer_01", "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 2000, "ramen_2star": 5 }
         },
         {
           "stage": 2,
           "map": "assets/maps/bg_020202_mori.png",
-          "waves": [
-            {
-              "enemies": [
-                "goblin_archer_01",
-                "slime_01"
-              ]
-            }
-          ],
-          "rewards": {
-            "ryo": 550,
-            "scroll_basic": 2
-          }
+          "waves": [ { "enemies": [ "goblin_archer_01", "slime_01" ] } ],
+          "rewards": { "ryo": 2500, "scroll_basic": 5 }
         },
         {
           "stage": 3,
           "map": "assets/maps/bg_020203_mori.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01"
-              ]
-            }
-          ],
-          "rewards": {
-            "ryo": 600,
-            "scroll_advanced": 1
-          }
+          "waves": [ { "enemies": [ "rock_golem_01" ] } ],
+          "rewards": { "ryo": 3000, "scroll_advanced": 2, "ramen_2star": 10 }
         }
       ],
       "A": [
         {
           "stage": 1,
           "map": "assets/maps/bg_020201_mori.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "goblin_archer_01"
-              ]
-            }
-          ],
-          "rewards": {
-            "ryo": 700,
-            "ramen_2star": 1,
-            "scroll_advanced": 1
-          }
+          "waves": [ { "enemies": [ "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 5000, "ramen_3star": 5, "scroll_advanced": 3 }
         },
         {
           "stage": 2,
           "map": "assets/maps/bg_020202_mori.png",
-          "waves": [
-            {
-              "enemies": [
-                "goblin_archer_01",
-                "goblin_archer_01",
-                "slime_01"
-              ]
-            }
-          ],
-          "rewards": {
-            "ryo": 800,
-            "scroll_advanced": 2
-          }
+          "waves": [ { "enemies": [ "goblin_archer_01", "goblin_archer_01", "slime_01" ] } ],
+          "rewards": { "ryo": 6000, "scroll_advanced": 5 }
         },
         {
           "stage": 3,
           "map": "assets/maps/bg_020203_mori.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "rock_golem_01"
-              ]
-            }
-          ],
-          "rewards": {
-            "ryo": 1000,
-            "scroll_advanced": 2,
-            "awakening_stone_4": 1
-          }
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "gems": 15, "ryo": 10000, "scroll_advanced": 10, "awakening_stone_4": 1, "ramen_3star": 10 }
         }
       ]
     }
@@ -483,176 +217,60 @@
         {
           "stage": 1,
           "map": "assets/maps/bg_170101_tenti.png",
-          "waves": [
-            {
-              "enemies": [
-                "goblin_archer_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 2000, "ramen_2star": 5 }
         },
         {
           "stage": 2,
           "map": "assets/maps/bg_170102_tenti.png",
-          "waves": [
-            {
-              "enemies": [
-                "goblin_archer_01",
-                "slime_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "goblin_archer_01", "slime_01" ] } ],
+          "rewards": { "ryo": 2500, "scroll_basic": 3 }
         },
         {
           "stage": 3,
           "map": "assets/maps/bg_170103_tenti.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01"
-              ]
-            }
-          ]
-        }
-      ],
-      "S": [
-        {
-          "stage": 1,
-          "map": "assets/maps/bg_170101_tenti.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "rock_golem_01"
-              ]
-            }
-          ]
-        },
-        {
-          "stage": 2,
-          "map": "assets/maps/bg_170102_tenti.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "goblin_archer_01"
-              ]
-            }
-          ]
-        },
-        {
-          "stage": 3,
-          "map": "assets/maps/bg_170103_tenti.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "rock_golem_01",
-                "goblin_archer_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01" ] } ],
+          "rewards": { "ryo": 3000, "scroll_basic": 5, "ramen_2star": 10 }
         }
       ],
       "A": [
         {
           "stage": 1,
           "map": "assets/maps/bg_170101_tenti.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "goblin_archer_01"
-              ]
-            }
-          ],
-          "rewards": {
-            "ryo": 700,
-            "ramen_2star": 1,
-            "scroll_advanced": 1
-          }
+          "waves": [ { "enemies": [ "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 5000, "ramen_3star": 5, "scroll_advanced": 3 }
         },
         {
           "stage": 2,
           "map": "assets/maps/bg_170102_tenti.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "rock_golem_01"
-              ]
-            }
-          ],
-          "rewards": {
-            "ryo": 800,
-            "scroll_advanced": 2
-          }
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 6000, "scroll_advanced": 5 }
         },
         {
           "stage": 3,
           "map": "assets/maps/bg_170103_tenti.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "rock_golem_01",
-                "goblin_archer_01"
-              ]
-            }
-          ],
-          "rewards": {
-            "ryo": 1000,
-            "scroll_advanced": 2,
-            "awakening_stone_4": 1
-          }
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "gems": 15, "ryo": 10000, "scroll_advanced": 10, "awakening_stone_4": 1, "ramen_3star": 10 }
         }
       ],
-      "C": [
+      "S": [
         {
           "stage": 1,
           "map": "assets/maps/bg_170101_tenti.png",
-          "waves": [
-            {
-              "enemies": [
-                "slime_01"
-              ]
-            }
-          ],
-          "rewards": {
-            "ryo": 300,
-            "ramen_1star": 1
-          }
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 12000, "ramen_4star": 5 }
         },
         {
           "stage": 2,
           "map": "assets/maps/bg_170102_tenti.png",
-          "waves": [
-            {
-              "enemies": [
-                "goblin_archer_01"
-              ]
-            }
-          ],
-          "rewards": {
-            "ryo": 350,
-            "scroll_basic": 1
-          }
+          "waves": [ { "enemies": [ "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 15000, "scroll_advanced": 15 }
         },
         {
           "stage": 3,
           "map": "assets/maps/bg_170103_tenti.png",
-          "waves": [
-            {
-              "enemies": [
-                "goblin_archer_01",
-                "slime_01"
-              ]
-            }
-          ],
-          "rewards": {
-            "ryo": 400,
-            "scroll_basic": 1
-          }
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "gems": 20, "ryo": 25000, "scroll_advanced": 20, "awakening_stone_4": 3, "ramen_4star": 10 }
         }
       ]
     }
@@ -668,122 +286,60 @@
         {
           "stage": 1,
           "map": "assets/maps/bg_040101_heigen.png",
-          "waves": [
-            {
-              "enemies": [
-                "slime_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "slime_01" ] } ],
+          "rewards": { "ryo": 1000, "ramen_1star": 5 }
         },
         {
           "stage": 2,
           "map": "assets/maps/bg_040102_heigen.png",
-          "waves": [
-            {
-              "enemies": [
-                "slime_01",
-                "slime_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "slime_01", "slime_01" ] } ],
+          "rewards": { "ryo": 1200, "scroll_basic": 2 }
         },
         {
           "stage": 3,
           "map": "assets/maps/bg_040103_heigen.png",
-          "waves": [
-            {
-              "enemies": [
-                "goblin_archer_01"
-              ]
-            }
-          ]
-        }
-      ],
-      "A": [
-        {
-          "stage": 1,
-          "map": "assets/maps/bg_040101_heigen.png",
-          "waves": [
-            {
-              "enemies": [
-                "goblin_archer_01",
-                "goblin_archer_01"
-              ]
-            }
-          ]
-        },
-        {
-          "stage": 2,
-          "map": "assets/maps/bg_040102_heigen.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01"
-              ]
-            }
-          ]
-        },
-        {
-          "stage": 3,
-          "map": "assets/maps/bg_040103_heigen.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "slime_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 1500, "scroll_basic": 3, "ramen_1star": 10 }
         }
       ],
       "B": [
         {
           "stage": 1,
           "map": "assets/maps/bg_040101_heigen.png",
-          "waves": [
-            {
-              "enemies": [
-                "goblin_archer_01",
-                "goblin_archer_01"
-              ]
-            }
-          ],
-          "rewards": {
-            "ryo": 500,
-            "ramen_2star": 1
-          }
+          "waves": [ { "enemies": [ "goblin_archer_01", "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 2000, "ramen_2star": 5 }
         },
         {
           "stage": 2,
           "map": "assets/maps/bg_040102_heigen.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01"
-              ]
-            }
-          ],
-          "rewards": {
-            "ryo": 550,
-            "scroll_basic": 2
-          }
+          "waves": [ { "enemies": [ "rock_golem_01" ] } ],
+          "rewards": { "ryo": 2500, "scroll_basic": 5 }
         },
         {
           "stage": 3,
           "map": "assets/maps/bg_040103_heigen.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "goblin_archer_01"
-              ]
-            }
-          ],
-          "rewards": {
-            "ryo": 600,
-            "scroll_advanced": 1
-          }
+          "waves": [ { "enemies": [ "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 3000, "scroll_advanced": 2, "ramen_2star": 10 }
+        }
+      ],
+      "A": [
+        {
+          "stage": 1,
+          "map": "assets/maps/bg_040101_heigen.png",
+          "waves": [ { "enemies": [ "goblin_archer_01", "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 5000, "ramen_3star": 5, "scroll_advanced": 3 }
+        },
+        {
+          "stage": 2,
+          "map": "assets/maps/bg_040102_heigen.png",
+          "waves": [ { "enemies": [ "rock_golem_01" ] } ],
+          "rewards": { "ryo": 6000, "scroll_advanced": 5 }
+        },
+        {
+          "stage": 3,
+          "map": "assets/maps/bg_040103_heigen.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "slime_01" ] } ],
+          "rewards": { "gems": 15, "ryo": 10000, "scroll_advanced": 10, "awakening_stone_4": 1, "ramen_3star": 10 }
         }
       ]
     }
@@ -795,177 +351,64 @@
     "banner": "assets/missions/banners/m_006.png",
     "sortOrder": 6,
     "difficulties": {
-      "A": [
+      "B": [
         {
           "stage": 1,
           "map": "assets/maps/bg_020201_mori.png",
-          "waves": [
-            {
-              "enemies": [
-                "goblin_archer_01",
-                "goblin_archer_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "goblin_archer_01", "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 2000, "ramen_2star": 5 }
         },
         {
           "stage": 2,
           "map": "assets/maps/bg_020202_mori.png",
-          "waves": [
-            {
-              "enemies": [
-                "goblin_archer_01",
-                "rock_golem_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01" ] } ],
+          "rewards": { "ryo": 2500, "scroll_basic": 5 }
         },
         {
           "stage": 3,
           "map": "assets/maps/bg_020203_mori.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 3000, "scroll_advanced": 2, "ramen_2star": 10 }
+        }
+      ],
+      "A": [
+        {
+          "stage": 1,
+          "map": "assets/maps/bg_020201_mori.png",
+          "waves": [ { "enemies": [ "goblin_archer_01", "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 5000, "ramen_3star": 5, "scroll_advanced": 3 }
+        },
+        {
+          "stage": 2,
+          "map": "assets/maps/bg_020202_mori.png",
+          "waves": [ { "enemies": [ "goblin_archer_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 6000, "scroll_advanced": 5 }
+        },
+        {
+          "stage": 3,
+          "map": "assets/maps/bg_020203_mori.png",
+          "waves": [ { "enemies": [ "rock_golem_01" ] } ],
+          "rewards": { "gems": 15, "ryo": 10000, "scroll_advanced": 10, "awakening_stone_4": 1, "ramen_3star": 10 }
         }
       ],
       "S": [
         {
           "stage": 1,
           "map": "assets/maps/bg_020201_mori.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "goblin_archer_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 12000, "ramen_4star": 5 }
         },
         {
           "stage": 2,
           "map": "assets/maps/bg_020202_mori.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "rock_golem_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 15000, "scroll_advanced": 15 }
         },
         {
           "stage": 3,
           "map": "assets/maps/bg_020203_mori.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "rock_golem_01",
-                "goblin_archer_01"
-              ]
-            }
-          ]
-        }
-      ],
-      "B": [
-        {
-          "stage": 1,
-          "map": "assets/maps/bg_020201_mori.png",
-          "waves": [
-            {
-              "enemies": [
-                "goblin_archer_01",
-                "goblin_archer_01"
-              ]
-            }
-          ],
-          "rewards": {
-            "ryo": 500,
-            "ramen_2star": 1
-          }
-        },
-        {
-          "stage": 2,
-          "map": "assets/maps/bg_020202_mori.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01"
-              ]
-            }
-          ],
-          "rewards": {
-            "ryo": 550,
-            "scroll_basic": 2
-          }
-        },
-        {
-          "stage": 3,
-          "map": "assets/maps/bg_020203_mori.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "goblin_archer_01"
-              ]
-            }
-          ],
-          "rewards": {
-            "ryo": 600,
-            "scroll_advanced": 1
-          }
-        }
-      ],
-      "C": [
-        {
-          "stage": 1,
-          "map": "assets/maps/bg_020201_mori.png",
-          "waves": [
-            {
-              "enemies": [
-                "slime_01"
-              ]
-            }
-          ],
-          "rewards": {
-            "ryo": 300,
-            "ramen_1star": 1
-          }
-        },
-        {
-          "stage": 2,
-          "map": "assets/maps/bg_020202_mori.png",
-          "waves": [
-            {
-              "enemies": [
-                "goblin_archer_01"
-              ]
-            }
-          ],
-          "rewards": {
-            "ryo": 350,
-            "scroll_basic": 1
-          }
-        },
-        {
-          "stage": 3,
-          "map": "assets/maps/bg_020203_mori.png",
-          "waves": [
-            {
-              "enemies": [
-                "goblin_archer_01",
-                "slime_01"
-              ]
-            }
-          ],
-          "rewards": {
-            "ryo": 400,
-            "scroll_basic": 1
-          }
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "gems": 20, "ryo": 25000, "scroll_advanced": 20, "awakening_stone_4": 3, "ramen_4star": 10 }
         }
       ]
     }
@@ -977,44 +420,64 @@
     "banner": "assets/missions/banners/m_007.png",
     "sortOrder": 1,
     "difficulties": {
-      "S": [
+      "A": [
         {
           "stage": 1,
           "map": "assets/maps/bg_030101_kaido.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "rock_golem_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 5000, "ramen_3star": 5 }
         },
         {
           "stage": 2,
           "map": "assets/maps/bg_030102_kaido.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "goblin_archer_01",
-                "rock_golem_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 6000, "scroll_advanced": 5 }
         },
         {
           "stage": 3,
           "map": "assets/maps/bg_030103_kaido.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "rock_golem_01",
-                "rock_golem_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "gems": 15, "ryo": 10000, "ramen_3star": 10, "awakening_stone_4": 1 }
+        }
+      ],
+      "S": [
+        {
+          "stage": 1,
+          "map": "assets/maps/bg_030101_kaido.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 12000, "ramen_4star": 5 }
+        },
+        {
+          "stage": 2,
+          "map": "assets/maps/bg_030102_kaido.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "goblin_archer_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 15000, "scroll_advanced": 15 }
+        },
+        {
+          "stage": 3,
+          "map": "assets/maps/bg_030103_kaido.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "gems": 20, "ryo": 25000, "ramen_4star": 10, "awakening_stone_4": 3 }
+        }
+      ],
+      "SS": [
+        {
+          "stage": 1,
+          "map": "assets/maps/bg_030101_kaido.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 30000, "ramen_5star": 5 }
+        },
+        {
+          "stage": 2,
+          "map": "assets/maps/bg_030102_kaido.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 40000, "scroll_advanced": 20 }
+        },
+        {
+          "stage": 3,
+          "map": "assets/maps/bg_030103_kaido.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "gems": 30, "ryo": 50000, "ramen_5star": 10, "awakening_stone_5": 1 }
         }
       ]
     }
@@ -1030,158 +493,80 @@
         {
           "stage": 1,
           "map": "assets/maps/bg_170101_tenti.png",
-          "waves": [
-            {
-              "enemies": [
-                "slime_01",
-                "slime_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "slime_01", "slime_01" ] } ],
+          "rewards": { "ryo": 1000, "ramen_1star": 10 }
         },
         {
           "stage": 2,
           "map": "assets/maps/bg_170102_tenti.png",
-          "waves": [
-            {
-              "enemies": [
-                "slime_01",
-                "goblin_archer_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "slime_01", "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 1200, "ramen_1star": 15 }
         },
         {
           "stage": 3,
           "map": "assets/maps/bg_170103_tenti.png",
-          "waves": [
-            {
-              "enemies": [
-                "goblin_archer_01",
-                "goblin_archer_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "goblin_archer_01", "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 1500, "ramen_1star": 20 }
         }
       ],
       "B": [
         {
           "stage": 1,
           "map": "assets/maps/bg_170101_tenti.png",
-          "waves": [
-            {
-              "enemies": [
-                "goblin_archer_01",
-                "goblin_archer_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "goblin_archer_01", "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 2000, "ramen_2star": 10 }
         },
         {
           "stage": 2,
           "map": "assets/maps/bg_170102_tenti.png",
-          "waves": [
-            {
-              "enemies": [
-                "goblin_archer_01",
-                "rock_golem_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "goblin_archer_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 2500, "ramen_2star": 15 }
         },
         {
           "stage": 3,
           "map": "assets/maps/bg_170103_tenti.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "rock_golem_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 3000, "ramen_2star": 20 }
         }
       ],
       "A": [
         {
           "stage": 1,
           "map": "assets/maps/bg_170101_tenti.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "rock_golem_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 5000, "ramen_3star": 10 }
         },
         {
           "stage": 2,
           "map": "assets/maps/bg_170102_tenti.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "goblin_archer_01",
-                "rock_golem_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "goblin_archer_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 6000, "ramen_3star": 15 }
         },
         {
           "stage": 3,
           "map": "assets/maps/bg_170103_tenti.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "rock_golem_01",
-                "rock_golem_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "gems": 15, "ryo": 10000, "ramen_3star": 20 }
         }
       ],
       "S": [
         {
           "stage": 1,
           "map": "assets/maps/bg_170101_tenti.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "rock_golem_01",
-                "rock_golem_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 12000, "ramen_4star": 10 }
         },
         {
           "stage": 2,
           "map": "assets/maps/bg_170102_tenti.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "rock_golem_01",
-                "goblin_archer_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 15000, "ramen_4star": 15 }
         },
         {
           "stage": 3,
           "map": "assets/maps/bg_170103_tenti.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "rock_golem_01",
-                "rock_golem_01",
-                "rock_golem_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "gems": 20, "ryo": 25000, "ramen_4star": 20 }
         }
       ]
     }
@@ -1193,41 +578,64 @@
     "banner": "assets/missions/banners/m_008.png",
     "sortOrder": 8,
     "difficulties": {
-      "A": [
+      "B": [
         {
           "stage": 1,
           "map": "assets/maps/bg_030101_kaido.png",
-          "waves": [
-            {
-              "enemies": [
-                "goblin_archer_01",
-                "slime_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "goblin_archer_01", "slime_01" ] } ],
+          "rewards": { "ryo": 2000, "ramen_2star": 5 }
         },
         {
           "stage": 2,
           "map": "assets/maps/bg_030102_kaido.png",
-          "waves": [
-            {
-              "enemies": [
-                "goblin_archer_01",
-                "goblin_archer_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "goblin_archer_01", "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 2500, "scroll_basic": 5 }
         },
         {
           "stage": 3,
           "map": "assets/maps/bg_030103_kaido.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01" ] } ],
+          "rewards": { "ryo": 3000, "scroll_advanced": 2, "ramen_2star": 10 }
+        }
+      ],
+      "A": [
+        {
+          "stage": 1,
+          "map": "assets/maps/bg_030101_kaido.png",
+          "waves": [ { "enemies": [ "goblin_archer_01", "slime_01" ] } ],
+          "rewards": { "ryo": 5000, "ramen_3star": 5 }
+        },
+        {
+          "stage": 2,
+          "map": "assets/maps/bg_030102_kaido.png",
+          "waves": [ { "enemies": [ "goblin_archer_01", "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 6000, "scroll_advanced": 5 }
+        },
+        {
+          "stage": 3,
+          "map": "assets/maps/bg_030103_kaido.png",
+          "waves": [ { "enemies": [ "rock_golem_01" ] } ],
+          "rewards": { "gems": 15, "ryo": 10000, "scroll_advanced": 10, "ramen_3star": 10 }
+        }
+      ],
+      "S": [
+        {
+          "stage": 1,
+          "map": "assets/maps/bg_030101_kaido.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 12000, "ramen_4star": 5 }
+        },
+        {
+          "stage": 2,
+          "map": "assets/maps/bg_030102_kaido.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 15000, "scroll_advanced": 15 }
+        },
+        {
+          "stage": 3,
+          "map": "assets/maps/bg_030103_kaido.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "gems": 20, "ryo": 25000, "scroll_advanced": 20, "ramen_4star": 10 }
         }
       ]
     }
@@ -1243,37 +651,60 @@
         {
           "stage": 1,
           "map": "assets/maps/bg_020201_mori.png",
-          "waves": [
-            {
-              "enemies": [
-                "goblin_archer_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 2000, "ramen_2star": 5 }
         },
         {
           "stage": 2,
           "map": "assets/maps/bg_020202_mori.png",
-          "waves": [
-            {
-              "enemies": [
-                "goblin_archer_01",
-                "slime_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "goblin_archer_01", "slime_01" ] } ],
+          "rewards": { "ryo": 2500, "scroll_basic": 5 }
         },
         {
           "stage": 3,
           "map": "assets/maps/bg_020203_mori.png",
-          "waves": [
-            {
-              "enemies": [
-                "goblin_archer_01",
-                "goblin_archer_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "goblin_archer_01", "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 3000, "scroll_advanced": 2, "ramen_2star": 10 }
+        }
+      ],
+      "A": [
+        {
+          "stage": 1,
+          "map": "assets/maps/bg_020201_mori.png",
+          "waves": [ { "enemies": [ "goblin_archer_01", "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 5000, "ramen_3star": 5 }
+        },
+        {
+          "stage": 2,
+          "map": "assets/maps/bg_020202_mori.png",
+          "waves": [ { "enemies": [ "rock_golem_01" ] } ],
+          "rewards": { "ryo": 6000, "scroll_advanced": 5 }
+        },
+        {
+          "stage": 3,
+          "map": "assets/maps/bg_020203_mori.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "gems": 15, "ryo": 10000, "scroll_advanced": 10, "ramen_3star": 10 }
+        }
+      ],
+      "S": [
+        {
+          "stage": 1,
+          "map": "assets/maps/bg_020201_mori.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 12000, "ramen_4star": 5 }
+        },
+        {
+          "stage": 2,
+          "map": "assets/maps/bg_020202_mori.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 15000, "scroll_advanced": 15 }
+        },
+        {
+          "stage": 3,
+          "map": "assets/maps/bg_020203_mori.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "gems": 20, "ryo": 25000, "scroll_advanced": 20, "ramen_4star": 10 }
         }
       ]
     }
@@ -1289,35 +720,60 @@
         {
           "stage": 1,
           "map": "assets/maps/bg_020101_mori.png",
-          "waves": [
-            {
-              "enemies": [
-                "slime_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "slime_01" ] } ],
+          "rewards": { "ryo": 1000, "ramen_1star": 5 }
         },
         {
           "stage": 2,
           "map": "assets/maps/bg_020102_mori.png",
-          "waves": [
-            {
-              "enemies": [
-                "slime_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "slime_01" ] } ],
+          "rewards": { "ryo": 1200, "scroll_basic": 2 }
         },
         {
           "stage": 3,
           "map": "assets/maps/bg_020103_mori.png",
-          "waves": [
-            {
-              "enemies": [
-                "goblin_archer_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 1500, "scroll_basic": 3, "ramen_1star": 10 }
+        }
+      ],
+      "B": [
+        {
+          "stage": 1,
+          "map": "assets/maps/bg_020101_mori.png",
+          "waves": [ { "enemies": [ "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 2000, "ramen_2star": 5 }
+        },
+        {
+          "stage": 2,
+          "map": "assets/maps/bg_020102_mori.png",
+          "waves": [ { "enemies": [ "goblin_archer_01", "slime_01" ] } ],
+          "rewards": { "ryo": 2500, "scroll_basic": 5 }
+        },
+        {
+          "stage": 3,
+          "map": "assets/maps/bg_020103_mori.png",
+          "waves": [ { "enemies": [ "rock_golem_01" ] } ],
+          "rewards": { "ryo": 3000, "scroll_advanced": 2, "ramen_2star": 10 }
+        }
+      ],
+      "A": [
+        {
+          "stage": 1,
+          "map": "assets/maps/bg_020101_mori.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 5000, "ramen_3star": 5 }
+        },
+        {
+          "stage": 2,
+          "map": "assets/maps/bg_020102_mori.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 6000, "scroll_advanced": 5 }
+        },
+        {
+          "stage": 3,
+          "map": "assets/maps/bg_020103_mori.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "gems": 15, "ryo": 10000, "scroll_advanced": 10, "ramen_3star": 10 }
         }
       ]
     }
@@ -1333,36 +789,60 @@
         {
           "stage": 1,
           "map": "assets/maps/bg_020101_mori.png",
-          "waves": [
-            {
-              "enemies": [
-                "goblin_archer_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 2000, "ramen_2star": 5 }
         },
         {
           "stage": 2,
           "map": "assets/maps/bg_020102_mori.png",
-          "waves": [
-            {
-              "enemies": [
-                "goblin_archer_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 2500, "scroll_basic": 5 }
         },
         {
           "stage": 3,
           "map": "assets/maps/bg_020103_mori.png",
-          "waves": [
-            {
-              "enemies": [
-                "goblin_archer_01",
-                "slime_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "goblin_archer_01", "slime_01" ] } ],
+          "rewards": { "ryo": 3000, "scroll_advanced": 2, "ramen_2star": 10 }
+        }
+      ],
+      "A": [
+        {
+          "stage": 1,
+          "map": "assets/maps/bg_020101_mori.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 5000, "ramen_3star": 5 }
+        },
+        {
+          "stage": 2,
+          "map": "assets/maps/bg_020102_mori.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 6000, "scroll_advanced": 5 }
+        },
+        {
+          "stage": 3,
+          "map": "assets/maps/bg_020103_mori.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "gems": 15, "ryo": 10000, "scroll_advanced": 10, "ramen_3star": 10 }
+        }
+      ],
+      "S": [
+        {
+          "stage": 1,
+          "map": "assets/maps/bg_020101_mori.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 12000, "ramen_4star": 5 }
+        },
+        {
+          "stage": 2,
+          "map": "assets/maps/bg_020102_mori.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 15000, "scroll_advanced": 15 }
+        },
+        {
+          "stage": 3,
+          "map": "assets/maps/bg_020103_mori.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "gems": 20, "ryo": 25000, "scroll_advanced": 20, "ramen_4star": 10 }
         }
       ]
     }
@@ -1374,41 +854,64 @@
     "banner": "assets/missions/banners/m_012.png",
     "sortOrder": 12,
     "difficulties": {
-      "A": [
+      "B": [
         {
           "stage": 1,
           "map": "assets/maps/bg_040201_heigen.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 2000, "ramen_2star": 5 }
         },
         {
           "stage": 2,
           "map": "assets/maps/bg_040202_heigen.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "goblin_archer_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "goblin_archer_01", "slime_01" ] } ],
+          "rewards": { "ryo": 2500, "scroll_basic": 5 }
         },
         {
           "stage": 3,
           "map": "assets/maps/bg_040203_heigen.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "rock_golem_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01" ] } ],
+          "rewards": { "ryo": 3000, "scroll_advanced": 2, "ramen_2star": 10 }
+        }
+      ],
+      "A": [
+        {
+          "stage": 1,
+          "map": "assets/maps/bg_040201_heigen.png",
+          "waves": [ { "enemies": [ "rock_golem_01" ] } ],
+          "rewards": { "ryo": 5000, "ramen_3star": 5 }
+        },
+        {
+          "stage": 2,
+          "map": "assets/maps/bg_040202_heigen.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 6000, "scroll_advanced": 5 }
+        },
+        {
+          "stage": 3,
+          "map": "assets/maps/bg_040203_heigen.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "gems": 15, "ryo": 10000, "scroll_advanced": 10, "ramen_3star": 10 }
+        }
+      ],
+      "S": [
+        {
+          "stage": 1,
+          "map": "assets/maps/bg_040201_heigen.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 12000, "ramen_4star": 5 }
+        },
+        {
+          "stage": 2,
+          "map": "assets/maps/bg_040202_heigen.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 15000, "scroll_advanced": 15 }
+        },
+        {
+          "stage": 3,
+          "map": "assets/maps/bg_040203_heigen.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "gems": 20, "ryo": 25000, "scroll_advanced": 20, "ramen_4star": 10 }
         }
       ]
     }
@@ -1424,36 +927,60 @@
         {
           "stage": 1,
           "map": "assets/maps/bg_040201_heigen.png",
-          "waves": [
-            {
-              "enemies": [
-                "goblin_archer_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 2000, "ramen_2star": 5 }
         },
         {
           "stage": 2,
           "map": "assets/maps/bg_040202_heigen.png",
-          "waves": [
-            {
-              "enemies": [
-                "goblin_archer_01",
-                "goblin_archer_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "goblin_archer_01", "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 2500, "scroll_basic": 5 }
         },
         {
           "stage": 3,
           "map": "assets/maps/bg_040203_heigen.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01" ] } ],
+          "rewards": { "ryo": 3000, "scroll_advanced": 2, "ramen_2star": 10 }
+        }
+      ],
+      "A": [
+        {
+          "stage": 1,
+          "map": "assets/maps/bg_040201_heigen.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 5000, "ramen_3star": 5 }
+        },
+        {
+          "stage": 2,
+          "map": "assets/maps/bg_040202_heigen.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 6000, "scroll_advanced": 5 }
+        },
+        {
+          "stage": 3,
+          "map": "assets/maps/bg_040203_heigen.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "gems": 15, "ryo": 10000, "scroll_advanced": 10, "ramen_3star": 10 }
+        }
+      ],
+      "S": [
+        {
+          "stage": 1,
+          "map": "assets/maps/bg_040201_heigen.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 12000, "ramen_4star": 5 }
+        },
+        {
+          "stage": 2,
+          "map": "assets/maps/bg_040202_heigen.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 15000, "scroll_advanced": 15 }
+        },
+        {
+          "stage": 3,
+          "map": "assets/maps/bg_040203_heigen.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "gems": 20, "ryo": 25000, "scroll_advanced": 20, "ramen_4star": 10 }
         }
       ]
     }
@@ -1465,43 +992,64 @@
     "banner": "assets/missions/banners/m_014.png",
     "sortOrder": 14,
     "difficulties": {
-      "S": [
+      "B": [
         {
           "stage": 1,
           "map": "assets/maps/bg_060101_kouya.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "goblin_archer_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "goblin_archer_01", "slime_01" ] } ],
+          "rewards": { "ryo": 2000, "ramen_2star": 5 }
         },
         {
           "stage": 2,
           "map": "assets/maps/bg_060102_kouya.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "rock_golem_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "goblin_archer_01", "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 2500, "scroll_basic": 5 }
         },
         {
           "stage": 3,
           "map": "assets/maps/bg_060103_kouya.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "rock_golem_01",
-                "slime_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01" ] } ],
+          "rewards": { "ryo": 3000, "scroll_advanced": 2, "ramen_2star": 10 }
+        }
+      ],
+      "A": [
+        {
+          "stage": 1,
+          "map": "assets/maps/bg_060101_kouya.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 5000, "ramen_3star": 5 }
+        },
+        {
+          "stage": 2,
+          "map": "assets/maps/bg_060102_kouya.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 6000, "scroll_advanced": 5 }
+        },
+        {
+          "stage": 3,
+          "map": "assets/maps/bg_060103_kouya.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "slime_01" ] } ],
+          "rewards": { "gems": 15, "ryo": 10000, "scroll_advanced": 10, "ramen_3star": 10 }
+        }
+      ],
+      "S": [
+        {
+          "stage": 1,
+          "map": "assets/maps/bg_060101_kouya.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 12000, "ramen_4star": 5 }
+        },
+        {
+          "stage": 2,
+          "map": "assets/maps/bg_060102_kouya.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 15000, "scroll_advanced": 15 }
+        },
+        {
+          "stage": 3,
+          "map": "assets/maps/bg_060103_kouya.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "slime_01" ] } ],
+          "rewards": { "gems": 20, "ryo": 25000, "scroll_advanced": 20, "ramen_4star": 10 }
         }
       ]
     }
@@ -1513,41 +1061,64 @@
     "banner": "assets/missions/banners/m_015.png",
     "sortOrder": 15,
     "difficulties": {
-      "A": [
+      "B": [
         {
           "stage": 1,
           "map": "assets/maps/bg_060201_kouya.png",
-          "waves": [
-            {
-              "enemies": [
-                "goblin_archer_01",
-                "goblin_archer_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 2000, "ramen_2star": 5 }
         },
         {
           "stage": 2,
           "map": "assets/maps/bg_060202_kouya.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "goblin_archer_01", "slime_01" ] } ],
+          "rewards": { "ryo": 2500, "scroll_basic": 5 }
         },
         {
           "stage": 3,
           "map": "assets/maps/bg_060203_kouya.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "goblin_archer_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01" ] } ],
+          "rewards": { "ryo": 3000, "scroll_advanced": 2, "ramen_2star": 10 }
+        }
+      ],
+      "A": [
+        {
+          "stage": 1,
+          "map": "assets/maps/bg_060201_kouya.png",
+          "waves": [ { "enemies": [ "goblin_archer_01", "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 5000, "ramen_3star": 5 }
+        },
+        {
+          "stage": 2,
+          "map": "assets/maps/bg_060202_kouya.png",
+          "waves": [ { "enemies": [ "rock_golem_01" ] } ],
+          "rewards": { "ryo": 6000, "scroll_advanced": 5 }
+        },
+        {
+          "stage": 3,
+          "map": "assets/maps/bg_060203_kouya.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "gems": 15, "ryo": 10000, "scroll_advanced": 10, "ramen_3star": 10 }
+        }
+      ],
+      "S": [
+        {
+          "stage": 1,
+          "map": "assets/maps/bg_060201_kouya.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 12000, "ramen_4star": 5 }
+        },
+        {
+          "stage": 2,
+          "map": "assets/maps/bg_060202_kouya.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 15000, "scroll_advanced": 15 }
+        },
+        {
+          "stage": 3,
+          "map": "assets/maps/bg_060203_kouya.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "gems": 20, "ryo": 25000, "scroll_advanced": 20, "ramen_4star": 10 }
         }
       ]
     }
@@ -1563,77 +1134,60 @@
         {
           "stage": 1,
           "map": "assets/maps/bg_150101_suna.png",
-          "waves": [
-            {
-              "enemies": [
-                "goblin_archer_01",
-                "goblin_archer_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "goblin_archer_01", "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 2000, "ramen_2star": 5 }
         },
         {
           "stage": 2,
           "map": "assets/maps/bg_150102_suna.png",
-          "waves": [
-            {
-              "enemies": [
-                "goblin_archer_01",
-                "slime_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "goblin_archer_01", "slime_01" ] } ],
+          "rewards": { "ryo": 2500, "scroll_basic": 5 }
         },
         {
           "stage": 3,
           "map": "assets/maps/bg_150103_suna.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01" ] } ],
+          "rewards": { "ryo": 3000, "scroll_advanced": 2, "ramen_2star": 10 }
+        }
+      ],
+      "A": [
+        {
+          "stage": 1,
+          "map": "assets/maps/bg_150101_suna.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 5000, "ramen_3star": 5 }
+        },
+        {
+          "stage": 2,
+          "map": "assets/maps/bg_150102_suna.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 6000, "scroll_advanced": 5 }
+        },
+        {
+          "stage": 3,
+          "map": "assets/maps/bg_150103_suna.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "slime_01" ] } ],
+          "rewards": { "gems": 15, "ryo": 10000, "scroll_advanced": 10, "ramen_3star": 10 }
         }
       ],
       "S": [
         {
           "stage": 1,
           "map": "assets/maps/bg_150101_suna.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "rock_golem_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 12000, "ramen_4star": 5 }
         },
         {
           "stage": 2,
           "map": "assets/maps/bg_150102_suna.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "goblin_archer_01",
-                "rock_golem_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "goblin_archer_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 15000, "scroll_advanced": 15 }
         },
         {
           "stage": 3,
           "map": "assets/maps/bg_150103_suna.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "rock_golem_01",
-                "rock_golem_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "gems": 20, "ryo": 25000, "scroll_advanced": 20, "ramen_4star": 10 }
         }
       ]
     }
@@ -1645,41 +1199,64 @@
     "banner": "assets/missions/banners/m_017.png",
     "sortOrder": 2,
     "difficulties": {
-      "A": [
+      "B": [
         {
           "stage": 1,
           "map": "assets/maps/bg_150101_suna.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "goblin_archer_01", "slime_01" ] } ],
+          "rewards": { "ryo": 2000, "ramen_2star": 5 }
         },
         {
           "stage": 2,
           "map": "assets/maps/bg_150102_suna.png",
-          "waves": [
-            {
-              "enemies": [
-                "goblin_archer_01",
-                "rock_golem_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "goblin_archer_01", "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 2500, "scroll_basic": 5 }
         },
         {
           "stage": 3,
           "map": "assets/maps/bg_150103_suna.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "goblin_archer_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01" ] } ],
+          "rewards": { "ryo": 3000, "scroll_advanced": 2, "ramen_2star": 10 }
+        }
+      ],
+      "A": [
+        {
+          "stage": 1,
+          "map": "assets/maps/bg_150101_suna.png",
+          "waves": [ { "enemies": [ "rock_golem_01" ] } ],
+          "rewards": { "ryo": 5000, "ramen_3star": 5 }
+        },
+        {
+          "stage": 2,
+          "map": "assets/maps/bg_150102_suna.png",
+          "waves": [ { "enemies": [ "goblin_archer_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 6000, "scroll_advanced": 5 }
+        },
+        {
+          "stage": 3,
+          "map": "assets/maps/bg_150103_suna.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "gems": 15, "ryo": 10000, "scroll_advanced": 10, "ramen_3star": 10 }
+        }
+      ],
+      "S": [
+        {
+          "stage": 1,
+          "map": "assets/maps/bg_150101_suna.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 12000, "ramen_4star": 5 }
+        },
+        {
+          "stage": 2,
+          "map": "assets/maps/bg_150102_suna.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 15000, "scroll_advanced": 15 }
+        },
+        {
+          "stage": 3,
+          "map": "assets/maps/bg_150103_suna.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "gems": 20, "ryo": 25000, "scroll_advanced": 20, "ramen_4star": 10 }
         }
       ]
     }
@@ -1691,43 +1268,64 @@
     "banner": "assets/missions/banners/m_018.png",
     "sortOrder": 3,
     "difficulties": {
-      "S": [
+      "A": [
         {
           "stage": 1,
           "map": "assets/maps/bg_050101_iwaba.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "goblin_archer_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 5000, "ramen_3star": 5 }
         },
         {
           "stage": 2,
           "map": "assets/maps/bg_050102_iwaba.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "rock_golem_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 6000, "scroll_advanced": 5 }
         },
         {
           "stage": 3,
           "map": "assets/maps/bg_050103_iwaba.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "rock_golem_01",
-                "goblin_archer_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "gems": 15, "ryo": 10000, "ramen_3star": 10, "awakening_stone_4": 1 }
+        }
+      ],
+      "S": [
+        {
+          "stage": 1,
+          "map": "assets/maps/bg_050101_iwaba.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 12000, "ramen_4star": 5 }
+        },
+        {
+          "stage": 2,
+          "map": "assets/maps/bg_050102_iwaba.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 15000, "scroll_advanced": 15 }
+        },
+        {
+          "stage": 3,
+          "map": "assets/maps/bg_050103_iwaba.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "gems": 20, "ryo": 25000, "ramen_4star": 10, "awakening_stone_4": 3 }
+        }
+      ],
+      "SS": [
+        {
+          "stage": 1,
+          "map": "assets/maps/bg_050101_iwaba.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 30000, "ramen_5star": 5 }
+        },
+        {
+          "stage": 2,
+          "map": "assets/maps/bg_050102_iwaba.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 40000, "scroll_advanced": 20 }
+        },
+        {
+          "stage": 3,
+          "map": "assets/maps/bg_050103_iwaba.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "gems": 30, "ryo": 50000, "ramen_5star": 10, "awakening_stone_5": 1 }
         }
       ]
     }
@@ -1739,44 +1337,64 @@
     "banner": "assets/missions/banners/m_019.png",
     "sortOrder": 4,
     "difficulties": {
-      "S": [
+      "A": [
         {
           "stage": 1,
           "map": "assets/maps/bg_050201_iwaba.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "rock_golem_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 5000, "ramen_3star": 5 }
         },
         {
           "stage": 2,
           "map": "assets/maps/bg_050202_iwaba.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "goblin_archer_01",
-                "rock_golem_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 6000, "scroll_advanced": 5 }
         },
         {
           "stage": 3,
           "map": "assets/maps/bg_050203_iwaba.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "rock_golem_01",
-                "rock_golem_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "gems": 15, "ryo": 10000, "ramen_3star": 10, "awakening_stone_4": 1 }
+        }
+      ],
+      "S": [
+        {
+          "stage": 1,
+          "map": "assets/maps/bg_050201_iwaba.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 12000, "ramen_4star": 5 }
+        },
+        {
+          "stage": 2,
+          "map": "assets/maps/bg_050202_iwaba.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "goblin_archer_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 15000, "scroll_advanced": 15 }
+        },
+        {
+          "stage": 3,
+          "map": "assets/maps/bg_050203_iwaba.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "gems": 20, "ryo": 25000, "ramen_4star": 10, "awakening_stone_4": 3 }
+        }
+      ],
+      "SS": [
+        {
+          "stage": 1,
+          "map": "assets/maps/bg_050201_iwaba.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 30000, "ramen_5star": 5 }
+        },
+        {
+          "stage": 2,
+          "map": "assets/maps/bg_050202_iwaba.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 40000, "scroll_advanced": 20 }
+        },
+        {
+          "stage": 3,
+          "map": "assets/maps/bg_050203_iwaba.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "gems": 30, "ryo": 50000, "ramen_5star": 10, "awakening_stone_5": 1 }
         }
       ]
     }
@@ -1788,43 +1406,64 @@
     "banner": "assets/missions/banners/m_020.png",
     "sortOrder": 5,
     "difficulties": {
-      "S": [
+      "A": [
         {
           "stage": 1,
           "map": "assets/maps/bg_040101_heigen.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "goblin_archer_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 5000, "ramen_3star": 5 }
         },
         {
           "stage": 2,
           "map": "assets/maps/bg_040102_heigen.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "rock_golem_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 6000, "scroll_advanced": 5 }
         },
         {
           "stage": 3,
           "map": "assets/maps/bg_040103_heigen.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "rock_golem_01",
-                "goblin_archer_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "gems": 15, "ryo": 10000, "ramen_3star": 10, "awakening_stone_4": 1 }
+        }
+      ],
+      "S": [
+        {
+          "stage": 1,
+          "map": "assets/maps/bg_040101_heigen.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 12000, "ramen_4star": 5 }
+        },
+        {
+          "stage": 2,
+          "map": "assets/maps/bg_040102_heigen.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 15000, "scroll_advanced": 15 }
+        },
+        {
+          "stage": 3,
+          "map": "assets/maps/bg_040103_heigen.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "gems": 20, "ryo": 25000, "ramen_4star": 10, "awakening_stone_4": 3 }
+        }
+      ],
+      "SS": [
+        {
+          "stage": 1,
+          "map": "assets/maps/bg_040101_heigen.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 30000, "ramen_5star": 5 }
+        },
+        {
+          "stage": 2,
+          "map": "assets/maps/bg_040102_heigen.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 40000, "scroll_advanced": 20 }
+        },
+        {
+          "stage": 3,
+          "map": "assets/maps/bg_040103_heigen.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "gems": 30, "ryo": 50000, "ramen_5star": 10, "awakening_stone_5": 1 }
         }
       ]
     }
@@ -1836,43 +1475,64 @@
     "banner": "assets/missions/banners/m_021.png",
     "sortOrder": 6,
     "difficulties": {
-      "S": [
+      "A": [
         {
           "stage": 1,
           "map": "assets/maps/bg_150101_suna.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "rock_golem_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 5000, "ramen_3star": 5 }
         },
         {
           "stage": 2,
           "map": "assets/maps/bg_150102_suna.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "goblin_archer_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 6000, "scroll_advanced": 5 }
         },
         {
           "stage": 3,
           "map": "assets/maps/bg_150103_suna.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "rock_golem_01",
-                "rock_golem_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "gems": 15, "ryo": 10000, "ramen_3star": 10, "awakening_stone_4": 1 }
+        }
+      ],
+      "S": [
+        {
+          "stage": 1,
+          "map": "assets/maps/bg_150101_suna.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 12000, "ramen_4star": 5 }
+        },
+        {
+          "stage": 2,
+          "map": "assets/maps/bg_150102_suna.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 15000, "scroll_advanced": 15 }
+        },
+        {
+          "stage": 3,
+          "map": "assets/maps/bg_150103_suna.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "gems": 20, "ryo": 25000, "ramen_4star": 10, "awakening_stone_4": 3 }
+        }
+      ],
+      "SS": [
+        {
+          "stage": 1,
+          "map": "assets/maps/bg_150101_suna.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 30000, "ramen_5star": 5 }
+        },
+        {
+          "stage": 2,
+          "map": "assets/maps/bg_150102_suna.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 40000, "scroll_advanced": 20 }
+        },
+        {
+          "stage": 3,
+          "map": "assets/maps/bg_150103_suna.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "gems": 30, "ryo": 50000, "ramen_5star": 10, "awakening_stone_5": 1 }
         }
       ]
     }
@@ -1884,43 +1544,64 @@
     "banner": "assets/missions/banners/m_022.png",
     "sortOrder": 7,
     "difficulties": {
-      "S": [
+      "A": [
         {
           "stage": 1,
           "map": "assets/maps/bg_150101_suna.png",
-          "waves": [
-            {
-              "enemies": [
-                "goblin_archer_01",
-                "rock_golem_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 5000, "ramen_3star": 5 }
         },
         {
           "stage": 2,
           "map": "assets/maps/bg_150102_suna.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "rock_golem_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 6000, "scroll_advanced": 5 }
         },
         {
           "stage": 3,
           "map": "assets/maps/bg_150103_suna.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "rock_golem_01",
-                "goblin_archer_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "gems": 15, "ryo": 10000, "ramen_3star": 10, "awakening_stone_4": 1 }
+        }
+      ],
+      "S": [
+        {
+          "stage": 1,
+          "map": "assets/maps/bg_150101_suna.png",
+          "waves": [ { "enemies": [ "goblin_archer_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 12000, "ramen_4star": 5 }
+        },
+        {
+          "stage": 2,
+          "map": "assets/maps/bg_150102_suna.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 15000, "scroll_advanced": 15 }
+        },
+        {
+          "stage": 3,
+          "map": "assets/maps/bg_150103_suna.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "gems": 20, "ryo": 25000, "ramen_4star": 10, "awakening_stone_4": 3 }
+        }
+      ],
+      "SS": [
+        {
+          "stage": 1,
+          "map": "assets/maps/bg_150101_suna.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 30000, "ramen_5star": 5 }
+        },
+        {
+          "stage": 2,
+          "map": "assets/maps/bg_150102_suna.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 40000, "scroll_advanced": 20 }
+        },
+        {
+          "stage": 3,
+          "map": "assets/maps/bg_150103_suna.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "gems": 30, "ryo": 50000, "ramen_5star": 10, "awakening_stone_5": 1 }
         }
       ]
     }
@@ -1932,44 +1613,64 @@
     "banner": "assets/missions/banners/m_023.png",
     "sortOrder": 8,
     "difficulties": {
-      "S": [
+      "A": [
         {
           "stage": 1,
           "map": "assets/maps/bg_160101_akatuki.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "rock_golem_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 5000, "ramen_3star": 5 }
         },
         {
           "stage": 2,
           "map": "assets/maps/bg_160102_akatuki.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "goblin_archer_01",
-                "rock_golem_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 6000, "scroll_advanced": 5 }
         },
         {
           "stage": 3,
           "map": "assets/maps/bg_160103_akatuki.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "rock_golem_01",
-                "rock_golem_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "gems": 15, "ryo": 10000, "ramen_3star": 10, "awakening_stone_4": 1 }
+        }
+      ],
+      "S": [
+        {
+          "stage": 1,
+          "map": "assets/maps/bg_160101_akatuki.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 12000, "ramen_4star": 5 }
+        },
+        {
+          "stage": 2,
+          "map": "assets/maps/bg_160102_akatuki.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "goblin_archer_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 15000, "scroll_advanced": 15 }
+        },
+        {
+          "stage": 3,
+          "map": "assets/maps/bg_160103_akatuki.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "gems": 20, "ryo": 25000, "ramen_4star": 10, "awakening_stone_4": 3 }
+        }
+      ],
+      "SS": [
+        {
+          "stage": 1,
+          "map": "assets/maps/bg_160101_akatuki.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 30000, "ramen_5star": 5 }
+        },
+        {
+          "stage": 2,
+          "map": "assets/maps/bg_160102_akatuki.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 40000, "scroll_advanced": 20 }
+        },
+        {
+          "stage": 3,
+          "map": "assets/maps/bg_160103_akatuki.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "gems": 30, "ryo": 50000, "ramen_5star": 10, "awakening_stone_5": 1 }
         }
       ]
     }
@@ -1981,43 +1682,64 @@
     "banner": "assets/missions/banners/m_024.png",
     "sortOrder": 9,
     "difficulties": {
-      "S": [
+      "A": [
         {
           "stage": 1,
           "map": "assets/maps/bg_160101_akatuki.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "goblin_archer_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 5000, "ramen_3star": 5 }
         },
         {
           "stage": 2,
           "map": "assets/maps/bg_160102_akatuki.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "rock_golem_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 6000, "scroll_advanced": 5 }
         },
         {
           "stage": 3,
           "map": "assets/maps/bg_160103_akatuki.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "rock_golem_01",
-                "rock_golem_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "gems": 15, "ryo": 10000, "ramen_3star": 10, "awakening_stone_4": 1 }
+        }
+      ],
+      "S": [
+        {
+          "stage": 1,
+          "map": "assets/maps/bg_160101_akatuki.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 12000, "ramen_4star": 5 }
+        },
+        {
+          "stage": 2,
+          "map": "assets/maps/bg_160102_akatuki.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 15000, "scroll_advanced": 15 }
+        },
+        {
+          "stage": 3,
+          "map": "assets/maps/bg_160103_akatuki.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "gems": 20, "ryo": 25000, "ramen_4star": 10, "awakening_stone_4": 3 }
+        }
+      ],
+      "SS": [
+        {
+          "stage": 1,
+          "map": "assets/maps/bg_160101_akatuki.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 30000, "ramen_5star": 5 }
+        },
+        {
+          "stage": 2,
+          "map": "assets/maps/bg_160102_akatuki.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 40000, "scroll_advanced": 20 }
+        },
+        {
+          "stage": 3,
+          "map": "assets/maps/bg_160103_akatuki.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "gems": 30, "ryo": 50000, "ramen_5star": 10, "awakening_stone_5": 1 }
         }
       ]
     }
@@ -2029,43 +1751,64 @@
     "banner": "assets/missions/banners/m_025.png",
     "sortOrder": 10,
     "difficulties": {
-      "S": [
+      "A": [
         {
           "stage": 1,
           "map": "assets/maps/bg_160101_akatuki.png",
-          "waves": [
-            {
-              "enemies": [
-                "goblin_archer_01",
-                "goblin_archer_01",
-                "goblin_archer_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 5000, "ramen_3star": 5 }
         },
         {
           "stage": 2,
           "map": "assets/maps/bg_160102_akatuki.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "goblin_archer_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 6000, "scroll_advanced": 5 }
         },
         {
           "stage": 3,
           "map": "assets/maps/bg_160103_akatuki.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "rock_golem_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "gems": 15, "ryo": 10000, "ramen_3star": 10, "awakening_stone_4": 1 }
+        }
+      ],
+      "S": [
+        {
+          "stage": 1,
+          "map": "assets/maps/bg_160101_akatuki.png",
+          "waves": [ { "enemies": [ "goblin_archer_01", "goblin_archer_01", "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 12000, "ramen_4star": 5 }
+        },
+        {
+          "stage": 2,
+          "map": "assets/maps/bg_160102_akatuki.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 15000, "scroll_advanced": 15 }
+        },
+        {
+          "stage": 3,
+          "map": "assets/maps/bg_160103_akatuki.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "gems": 20, "ryo": 25000, "ramen_4star": 10, "awakening_stone_4": 3 }
+        }
+      ],
+      "SS": [
+        {
+          "stage": 1,
+          "map": "assets/maps/bg_160101_akatuki.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 30000, "ramen_5star": 5 }
+        },
+        {
+          "stage": 2,
+          "map": "assets/maps/bg_160102_akatuki.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 40000, "scroll_advanced": 20 }
+        },
+        {
+          "stage": 3,
+          "map": "assets/maps/bg_160103_akatuki.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "gems": 30, "ryo": 50000, "ramen_5star": 10, "awakening_stone_5": 1 }
         }
       ]
     }
@@ -2077,43 +1820,64 @@
     "banner": "assets/missions/banners/m_026.png",
     "sortOrder": 11,
     "difficulties": {
-      "S": [
+      "A": [
         {
           "stage": 1,
           "map": "assets/maps/bg_180101_oroti.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "rock_golem_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 5000, "ramen_3star": 5 }
         },
         {
           "stage": 2,
           "map": "assets/maps/bg_180102_oroti.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "goblin_archer_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 6000, "scroll_advanced": 5 }
         },
         {
           "stage": 3,
           "map": "assets/maps/bg_180103_oroti.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "rock_golem_01",
-                "rock_golem_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "gems": 15, "ryo": 10000, "ramen_3star": 10, "awakening_stone_4": 1 }
+        }
+      ],
+      "S": [
+        {
+          "stage": 1,
+          "map": "assets/maps/bg_180101_oroti.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 12000, "ramen_4star": 5 }
+        },
+        {
+          "stage": 2,
+          "map": "assets/maps/bg_180102_oroti.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 15000, "scroll_advanced": 15 }
+        },
+        {
+          "stage": 3,
+          "map": "assets/maps/bg_180103_oroti.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "gems": 20, "ryo": 25000, "ramen_4star": 10, "awakening_stone_4": 3 }
+        }
+      ],
+      "SS": [
+        {
+          "stage": 1,
+          "map": "assets/maps/bg_180101_oroti.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 30000, "ramen_5star": 5 }
+        },
+        {
+          "stage": 2,
+          "map": "assets/maps/bg_180102_oroti.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 40000, "scroll_advanced": 20 }
+        },
+        {
+          "stage": 3,
+          "map": "assets/maps/bg_180103_oroti.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "gems": 30, "ryo": 50000, "ramen_5star": 10, "awakening_stone_5": 1 }
         }
       ]
     }
@@ -2125,44 +1889,64 @@
     "banner": "assets/missions/banners/m_027.png",
     "sortOrder": 12,
     "difficulties": {
-      "S": [
+      "A": [
         {
           "stage": 1,
           "map": "assets/maps/bg_180101_oroti.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "rock_golem_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 5000, "ramen_3star": 5 }
         },
         {
           "stage": 2,
           "map": "assets/maps/bg_180102_oroti.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "goblin_archer_01",
-                "rock_golem_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 6000, "scroll_advanced": 5 }
         },
         {
           "stage": 3,
           "map": "assets/maps/bg_180103_oroti.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "rock_golem_01",
-                "rock_golem_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "gems": 15, "ryo": 10000, "ramen_3star": 10, "awakening_stone_4": 1 }
+        }
+      ],
+      "S": [
+        {
+          "stage": 1,
+          "map": "assets/maps/bg_180101_oroti.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 12000, "ramen_4star": 5 }
+        },
+        {
+          "stage": 2,
+          "map": "assets/maps/bg_180102_oroti.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "goblin_archer_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 15000, "scroll_advanced": 15 }
+        },
+        {
+          "stage": 3,
+          "map": "assets/maps/bg_180103_oroti.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "gems": 20, "ryo": 25000, "ramen_4star": 10, "awakening_stone_4": 3 }
+        }
+      ],
+      "SS": [
+        {
+          "stage": 1,
+          "map": "assets/maps/bg_180101_oroti.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 30000, "ramen_5star": 5 }
+        },
+        {
+          "stage": 2,
+          "map": "assets/maps/bg_180102_oroti.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 40000, "scroll_advanced": 20 }
+        },
+        {
+          "stage": 3,
+          "map": "assets/maps/bg_180103_oroti.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "gems": 30, "ryo": 50000, "ramen_5star": 10, "awakening_stone_5": 1 }
         }
       ]
     }
@@ -2174,43 +1958,64 @@
     "banner": "assets/missions/banners/m_028.png",
     "sortOrder": 13,
     "difficulties": {
-      "S": [
+      "A": [
         {
           "stage": 1,
           "map": "assets/maps/bg_060101_kouya.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "goblin_archer_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 5000, "ramen_3star": 5 }
         },
         {
           "stage": 2,
           "map": "assets/maps/bg_060102_kouya.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "rock_golem_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 6000, "scroll_advanced": 5 }
         },
         {
           "stage": 3,
           "map": "assets/maps/bg_060103_kouya.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "rock_golem_01",
-                "goblin_archer_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "gems": 15, "ryo": 10000, "ramen_3star": 10, "awakening_stone_4": 1 }
+        }
+      ],
+      "S": [
+        {
+          "stage": 1,
+          "map": "assets/maps/bg_060101_kouya.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 12000, "ramen_4star": 5 }
+        },
+        {
+          "stage": 2,
+          "map": "assets/maps/bg_060102_kouya.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 15000, "scroll_advanced": 15 }
+        },
+        {
+          "stage": 3,
+          "map": "assets/maps/bg_060103_kouya.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "gems": 20, "ryo": 25000, "ramen_4star": 10, "awakening_stone_4": 3 }
+        }
+      ],
+      "SS": [
+        {
+          "stage": 1,
+          "map": "assets/maps/bg_060101_kouya.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 30000, "ramen_5star": 5 }
+        },
+        {
+          "stage": 2,
+          "map": "assets/maps/bg_060102_kouya.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 40000, "scroll_advanced": 20 }
+        },
+        {
+          "stage": 3,
+          "map": "assets/maps/bg_060103_kouya.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "gems": 30, "ryo": 50000, "ramen_5star": 10, "awakening_stone_5": 1 }
         }
       ]
     }
@@ -2222,40 +2027,64 @@
     "banner": "assets/missions/banners/m_029.png",
     "sortOrder": 1,
     "difficulties": {
-      "B": [
+      "A": [
         {
           "stage": 1,
           "map": "assets/maps/bg_170101_tenti.png",
-          "waves": [
-            {
-              "enemies": [
-                "goblin_archer_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 5000, "ramen_3star": 5 }
         },
         {
           "stage": 2,
           "map": "assets/maps/bg_170102_tenti.png",
-          "waves": [
-            {
-              "enemies": [
-                "goblin_archer_01",
-                "slime_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "goblin_archer_01", "slime_01" ] } ],
+          "rewards": { "ryo": 6000, "scroll_advanced": 5 }
         },
         {
           "stage": 3,
           "map": "assets/maps/bg_170103_tenti.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01" ] } ],
+          "rewards": { "gems": 15, "ryo": 10000, "ramen_3star": 10, "awakening_stone_4": 1 }
+        }
+      ],
+      "S": [
+        {
+          "stage": 1,
+          "map": "assets/maps/bg_170101_tenti.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 12000, "ramen_4star": 5 }
+        },
+        {
+          "stage": 2,
+          "map": "assets/maps/bg_170102_tenti.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 15000, "scroll_advanced": 15 }
+        },
+        {
+          "stage": 3,
+          "map": "assets/maps/bg_170103_tenti.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "gems": 20, "ryo": 25000, "ramen_4star": 10, "awakening_stone_4": 3 }
+        }
+      ],
+      "SS": [
+        {
+          "stage": 1,
+          "map": "assets/maps/bg_170101_tenti.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 30000, "ramen_5star": 5 }
+        },
+        {
+          "stage": 2,
+          "map": "assets/maps/bg_170102_tenti.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 40000, "scroll_advanced": 20 }
+        },
+        {
+          "stage": 3,
+          "map": "assets/maps/bg_170103_tenti.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "gems": 30, "ryo": 50000, "ramen_5star": 10, "awakening_stone_5": 1 }
         }
       ]
     }
@@ -2267,44 +2096,64 @@
     "banner": "assets/missions/banners/m_030.png",
     "sortOrder": 2,
     "difficulties": {
-      "S": [
+      "A": [
         {
           "stage": 1,
           "map": "assets/maps/bg_140101_syumatu.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "rock_golem_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 5000, "ramen_3star": 5 }
         },
         {
           "stage": 2,
           "map": "assets/maps/bg_140102_syumatu.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "goblin_archer_01",
-                "rock_golem_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 6000, "scroll_advanced": 5 }
         },
         {
           "stage": 3,
           "map": "assets/maps/bg_140103_syumatu.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "rock_golem_01",
-                "rock_golem_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "gems": 15, "ryo": 10000, "ramen_3star": 10, "awakening_stone_4": 1 }
+        }
+      ],
+      "S": [
+        {
+          "stage": 1,
+          "map": "assets/maps/bg_140101_syumatu.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 12000, "ramen_4star": 5 }
+        },
+        {
+          "stage": 2,
+          "map": "assets/maps/bg_140102_syumatu.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "goblin_archer_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 15000, "scroll_advanced": 15 }
+        },
+        {
+          "stage": 3,
+          "map": "assets/maps/bg_140103_syumatu.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "gems": 20, "ryo": 25000, "ramen_4star": 10, "awakening_stone_4": 3 }
+        }
+      ],
+      "SS": [
+        {
+          "stage": 1,
+          "map": "assets/maps/bg_140101_syumatu.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 30000, "ramen_5star": 5 }
+        },
+        {
+          "stage": 2,
+          "map": "assets/maps/bg_140102_syumatu.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 40000, "scroll_advanced": 20 }
+        },
+        {
+          "stage": 3,
+          "map": "assets/maps/bg_140103_syumatu.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "gems": 30, "ryo": 50000, "ramen_5star": 10, "awakening_stone_5": 1 }
         }
       ]
     }
@@ -2316,43 +2165,64 @@
     "banner": "assets/missions/banners/m_031.png",
     "sortOrder": 3,
     "difficulties": {
-      "S": [
+      "A": [
         {
           "stage": 1,
           "map": "assets/maps/bg_140101_syumatu.png",
-          "waves": [
-            {
-              "enemies": [
-                "goblin_archer_01",
-                "rock_golem_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 5000, "ramen_3star": 5 }
         },
         {
           "stage": 2,
           "map": "assets/maps/bg_140102_syumatu.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "rock_golem_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 6000, "scroll_advanced": 5 }
         },
         {
           "stage": 3,
           "map": "assets/maps/bg_140103_syumatu.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "rock_golem_01",
-                "rock_golem_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "gems": 15, "ryo": 10000, "ramen_3star": 10, "awakening_stone_4": 1 }
+        }
+      ],
+      "S": [
+        {
+          "stage": 1,
+          "map": "assets/maps/bg_140101_syumatu.png",
+          "waves": [ { "enemies": [ "goblin_archer_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 12000, "ramen_4star": 5 }
+        },
+        {
+          "stage": 2,
+          "map": "assets/maps/bg_140102_syumatu.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 15000, "scroll_advanced": 15 }
+        },
+        {
+          "stage": 3,
+          "map": "assets/maps/bg_140103_syumatu.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "gems": 20, "ryo": 25000, "ramen_4star": 10, "awakening_stone_4": 3 }
+        }
+      ],
+      "SS": [
+        {
+          "stage": 1,
+          "map": "assets/maps/bg_140101_syumatu.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 30000, "ramen_5star": 5 }
+        },
+        {
+          "stage": 2,
+          "map": "assets/maps/bg_140102_syumatu.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 40000, "scroll_advanced": 20 }
+        },
+        {
+          "stage": 3,
+          "map": "assets/maps/bg_140103_syumatu.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "gems": 30, "ryo": 50000, "ramen_5star": 10, "awakening_stone_5": 1 }
         }
       ]
     }
@@ -2364,44 +2234,64 @@
     "banner": "assets/missions/banners/m_032.png",
     "sortOrder": 4,
     "difficulties": {
-      "S": [
+      "A": [
         {
           "stage": 1,
           "map": "assets/maps/bg_100101_shinomori.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "rock_golem_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 5000, "ramen_3star": 5 }
         },
         {
           "stage": 2,
           "map": "assets/maps/bg_100102_shinomori.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "goblin_archer_01",
-                "rock_golem_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 6000, "scroll_advanced": 5 }
         },
         {
           "stage": 3,
           "map": "assets/maps/bg_100103_shinomori.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "rock_golem_01",
-                "rock_golem_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "gems": 15, "ryo": 10000, "ramen_3star": 10, "awakening_stone_4": 1 }
+        }
+      ],
+      "S": [
+        {
+          "stage": 1,
+          "map": "assets/maps/bg_100101_shinomori.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 12000, "ramen_4star": 5 }
+        },
+        {
+          "stage": 2,
+          "map": "assets/maps/bg_100102_shinomori.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "goblin_archer_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 15000, "scroll_advanced": 15 }
+        },
+        {
+          "stage": 3,
+          "map": "assets/maps/bg_100103_shinomori.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "gems": 20, "ryo": 25000, "ramen_4star": 10, "awakening_stone_4": 3 }
+        }
+      ],
+      "SS": [
+        {
+          "stage": 1,
+          "map": "assets/maps/bg_100101_shinomori.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 30000, "ramen_5star": 5 }
+        },
+        {
+          "stage": 2,
+          "map": "assets/maps/bg_100102_shinomori.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 40000, "scroll_advanced": 20 }
+        },
+        {
+          "stage": 3,
+          "map": "assets/maps/bg_100103_shinomori.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "gems": 30, "ryo": 50000, "ramen_5star": 10, "awakening_stone_5": 1 }
         }
       ]
     }
@@ -2413,45 +2303,64 @@
     "banner": "assets/missions/banners/m_033.webp",
     "sortOrder": 5,
     "difficulties": {
-      "S": [
+      "A": [
         {
           "stage": 1,
           "map": "assets/maps/bg_100101_shinomori.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "rock_golem_01",
-                "goblin_archer_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 5000, "ramen_3star": 5 }
         },
         {
           "stage": 2,
           "map": "assets/maps/bg_100102_shinomori.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "rock_golem_01",
-                "goblin_archer_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 6000, "scroll_advanced": 5 }
         },
         {
           "stage": 3,
           "map": "assets/maps/bg_100103_shinomori.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "rock_golem_01",
-                "rock_golem_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "gems": 15, "ryo": 10000, "ramen_3star": 10, "awakening_stone_4": 1 }
+        }
+      ],
+      "S": [
+        {
+          "stage": 1,
+          "map": "assets/maps/bg_100101_shinomori.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 12000, "ramen_4star": 5 }
+        },
+        {
+          "stage": 2,
+          "map": "assets/maps/bg_100102_shinomori.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 15000, "scroll_advanced": 15 }
+        },
+        {
+          "stage": 3,
+          "map": "assets/maps/bg_100103_shinomori.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "gems": 20, "ryo": 25000, "ramen_4star": 10, "awakening_stone_4": 3 }
+        }
+      ],
+      "SS": [
+        {
+          "stage": 1,
+          "map": "assets/maps/bg_100101_shinomori.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 30000, "ramen_5star": 5 }
+        },
+        {
+          "stage": 2,
+          "map": "assets/maps/bg_100102_shinomori.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 40000, "scroll_advanced": 20 }
+        },
+        {
+          "stage": 3,
+          "map": "assets/maps/bg_100103_shinomori.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "gems": 30, "ryo": 50000, "ramen_5star": 10, "awakening_stone_5": 1 }
         }
       ]
     }
@@ -2463,43 +2372,64 @@
     "banner": "assets/missions/banners/m_034.png",
     "sortOrder": 6,
     "difficulties": {
-      "S": [
+      "A": [
         {
           "stage": 1,
           "map": "assets/maps/bg_120101_honsen.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "goblin_archer_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 5000, "ramen_3star": 5 }
         },
         {
           "stage": 2,
           "map": "assets/maps/bg_120102_honsen.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "rock_golem_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 6000, "scroll_advanced": 5 }
         },
         {
           "stage": 3,
           "map": "assets/maps/bg_120103_honsen.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "rock_golem_01",
-                "goblin_archer_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "gems": 15, "ryo": 10000, "ramen_3star": 10, "awakening_stone_4": 1 }
+        }
+      ],
+      "S": [
+        {
+          "stage": 1,
+          "map": "assets/maps/bg_120101_honsen.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 12000, "ramen_4star": 5 }
+        },
+        {
+          "stage": 2,
+          "map": "assets/maps/bg_120102_honsen.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 15000, "scroll_advanced": 15 }
+        },
+        {
+          "stage": 3,
+          "map": "assets/maps/bg_120103_honsen.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "gems": 20, "ryo": 25000, "ramen_4star": 10, "awakening_stone_4": 3 }
+        }
+      ],
+      "SS": [
+        {
+          "stage": 1,
+          "map": "assets/maps/bg_120101_honsen.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 30000, "ramen_5star": 5 }
+        },
+        {
+          "stage": 2,
+          "map": "assets/maps/bg_120102_honsen.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 40000, "scroll_advanced": 20 }
+        },
+        {
+          "stage": 3,
+          "map": "assets/maps/bg_120103_honsen.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "gems": 30, "ryo": 50000, "ramen_5star": 10, "awakening_stone_5": 1 }
         }
       ]
     }
@@ -2511,44 +2441,64 @@
     "banner": "assets/missions/banners/m_035.png",
     "sortOrder": 7,
     "difficulties": {
-      "S": [
+      "A": [
         {
           "stage": 1,
           "map": "assets/maps/bg_120101_honsen.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "rock_golem_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 5000, "ramen_3star": 5 }
         },
         {
           "stage": 2,
           "map": "assets/maps/bg_120102_honsen.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "goblin_archer_01",
-                "rock_golem_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 6000, "scroll_advanced": 5 }
         },
         {
           "stage": 3,
           "map": "assets/maps/bg_120103_honsen.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "rock_golem_01",
-                "rock_golem_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "gems": 15, "ryo": 10000, "ramen_3star": 10, "awakening_stone_4": 1 }
+        }
+      ],
+      "S": [
+        {
+          "stage": 1,
+          "map": "assets/maps/bg_120101_honsen.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 12000, "ramen_4star": 5 }
+        },
+        {
+          "stage": 2,
+          "map": "assets/maps/bg_120102_honsen.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "goblin_archer_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 15000, "scroll_advanced": 15 }
+        },
+        {
+          "stage": 3,
+          "map": "assets/maps/bg_120103_honsen.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "gems": 20, "ryo": 25000, "ramen_4star": 10, "awakening_stone_4": 3 }
+        }
+      ],
+      "SS": [
+        {
+          "stage": 1,
+          "map": "assets/maps/bg_120101_honsen.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 30000, "ramen_5star": 5 }
+        },
+        {
+          "stage": 2,
+          "map": "assets/maps/bg_120102_honsen.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 40000, "scroll_advanced": 20 }
+        },
+        {
+          "stage": 3,
+          "map": "assets/maps/bg_120103_honsen.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "gems": 30, "ryo": 50000, "ramen_5star": 10, "awakening_stone_5": 1 }
         }
       ]
     }
@@ -2560,43 +2510,64 @@
     "banner": "assets/missions/banners/m_036.png",
     "sortOrder": 8,
     "difficulties": {
-      "S": [
+      "A": [
         {
           "stage": 1,
           "map": "assets/maps/bg_060201_kouya.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "rock_golem_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 5000, "ramen_3star": 5 }
         },
         {
           "stage": 2,
           "map": "assets/maps/bg_060202_kouya.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "goblin_archer_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 6000, "scroll_advanced": 5 }
         },
         {
           "stage": 3,
           "map": "assets/maps/bg_060203_kouya.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "rock_golem_01",
-                "rock_golem_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "gems": 15, "ryo": 10000, "ramen_3star": 10, "awakening_stone_4": 1 }
+        }
+      ],
+      "S": [
+        {
+          "stage": 1,
+          "map": "assets/maps/bg_060201_kouya.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 12000, "ramen_4star": 5 }
+        },
+        {
+          "stage": 2,
+          "map": "assets/maps/bg_060202_kouya.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 15000, "scroll_advanced": 15 }
+        },
+        {
+          "stage": 3,
+          "map": "assets/maps/bg_060203_kouya.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "gems": 20, "ryo": 25000, "ramen_4star": 10, "awakening_stone_4": 3 }
+        }
+      ],
+      "SS": [
+        {
+          "stage": 1,
+          "map": "assets/maps/bg_060201_kouya.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 30000, "ramen_5star": 5 }
+        },
+        {
+          "stage": 2,
+          "map": "assets/maps/bg_060202_kouya.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 40000, "scroll_advanced": 20 }
+        },
+        {
+          "stage": 3,
+          "map": "assets/maps/bg_060203_kouya.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "gems": 30, "ryo": 50000, "ramen_5star": 10, "awakening_stone_5": 1 }
         }
       ]
     }
@@ -2608,43 +2579,64 @@
     "banner": "assets/missions/banners/m_037.png",
     "sortOrder": 9,
     "difficulties": {
-      "S": [
+      "A": [
         {
           "stage": 1,
           "map": "assets/maps/bg_130101_tanzaku.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "goblin_archer_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 5000, "ramen_3star": 5 }
         },
         {
           "stage": 2,
           "map": "assets/maps/bg_130102_tanzaku.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "rock_golem_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 6000, "scroll_advanced": 5 }
         },
         {
           "stage": 3,
           "map": "assets/maps/bg_130103_tanzaku.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "rock_golem_01",
-                "slime_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "gems": 15, "ryo": 10000, "ramen_3star": 10, "awakening_stone_4": 1 }
+        }
+      ],
+      "S": [
+        {
+          "stage": 1,
+          "map": "assets/maps/bg_130101_tanzaku.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 12000, "ramen_4star": 5 }
+        },
+        {
+          "stage": 2,
+          "map": "assets/maps/bg_130102_tanzaku.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 15000, "scroll_advanced": 15 }
+        },
+        {
+          "stage": 3,
+          "map": "assets/maps/bg_130103_tanzaku.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "slime_01" ] } ],
+          "rewards": { "gems": 20, "ryo": 25000, "ramen_4star": 10, "awakening_stone_4": 3 }
+        }
+      ],
+      "SS": [
+        {
+          "stage": 1,
+          "map": "assets/maps/bg_130101_tanzaku.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 30000, "ramen_5star": 5 }
+        },
+        {
+          "stage": 2,
+          "map": "assets/maps/bg_130102_tanzaku.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 40000, "scroll_advanced": 20 }
+        },
+        {
+          "stage": 3,
+          "map": "assets/maps/bg_130103_tanzaku.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "gems": 30, "ryo": 50000, "ramen_5star": 10, "awakening_stone_5": 1 }
         }
       ]
     }
@@ -2656,43 +2648,64 @@
     "banner": "assets/missions/banners/m_038.png",
     "sortOrder": 10,
     "difficulties": {
-      "S": [
+      "A": [
         {
           "stage": 1,
           "map": "assets/maps/bg_130101_tanzaku.png",
-          "waves": [
-            {
-              "enemies": [
-                "goblin_archer_01",
-                "rock_golem_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 5000, "ramen_3star": 5 }
         },
         {
           "stage": 2,
           "map": "assets/maps/bg_130102_tanzaku.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "rock_golem_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 6000, "scroll_advanced": 5 }
         },
         {
           "stage": 3,
           "map": "assets/maps/bg_130103_tanzaku.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "rock_golem_01",
-                "rock_golem_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "gems": 15, "ryo": 10000, "ramen_3star": 10, "awakening_stone_4": 1 }
+        }
+      ],
+      "S": [
+        {
+          "stage": 1,
+          "map": "assets/maps/bg_130101_tanzaku.png",
+          "waves": [ { "enemies": [ "goblin_archer_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 12000, "ramen_4star": 5 }
+        },
+        {
+          "stage": 2,
+          "map": "assets/maps/bg_130102_tanzaku.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 15000, "scroll_advanced": 15 }
+        },
+        {
+          "stage": 3,
+          "map": "assets/maps/bg_130103_tanzaku.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "gems": 20, "ryo": 25000, "ramen_4star": 10, "awakening_stone_4": 3 }
+        }
+      ],
+      "SS": [
+        {
+          "stage": 1,
+          "map": "assets/maps/bg_130101_tanzaku.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 30000, "ramen_5star": 5 }
+        },
+        {
+          "stage": 2,
+          "map": "assets/maps/bg_130102_tanzaku.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 40000, "scroll_advanced": 20 }
+        },
+        {
+          "stage": 3,
+          "map": "assets/maps/bg_130103_tanzaku.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "gems": 30, "ryo": 50000, "ramen_5star": 10, "awakening_stone_5": 1 }
         }
       ]
     }
@@ -2708,37 +2721,60 @@
         {
           "stage": 1,
           "map": "assets/maps/bg_190101_hinotera.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01" ] } ],
+          "rewards": { "ryo": 5000, "ramen_3star": 5 }
         },
         {
           "stage": 2,
           "map": "assets/maps/bg_190102_hinotera.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "goblin_archer_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 6000, "scroll_advanced": 5 }
         },
         {
           "stage": 3,
           "map": "assets/maps/bg_190103_hinotera.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "rock_golem_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "gems": 15, "ryo": 10000, "ramen_3star": 10, "awakening_stone_4": 1 }
+        }
+      ],
+      "S": [
+        {
+          "stage": 1,
+          "map": "assets/maps/bg_190101_hinotera.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 12000, "ramen_4star": 5 }
+        },
+        {
+          "stage": 2,
+          "map": "assets/maps/bg_190102_hinotera.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 15000, "scroll_advanced": 15 }
+        },
+        {
+          "stage": 3,
+          "map": "assets/maps/bg_190103_hinotera.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "gems": 20, "ryo": 25000, "ramen_4star": 10, "awakening_stone_4": 3 }
+        }
+      ],
+      "SS": [
+        {
+          "stage": 1,
+          "map": "assets/maps/bg_190101_hinotera.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 30000, "ramen_5star": 5 }
+        },
+        {
+          "stage": 2,
+          "map": "assets/maps/bg_190102_hinotera.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 40000, "scroll_advanced": 20 }
+        },
+        {
+          "stage": 3,
+          "map": "assets/maps/bg_190103_hinotera.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "gems": 30, "ryo": 50000, "ramen_5star": 10, "awakening_stone_5": 1 }
         }
       ]
     }
@@ -2750,44 +2786,64 @@
     "banner": "assets/missions/banners/m_040.png",
     "sortOrder": 12,
     "difficulties": {
-      "S": [
+      "A": [
         {
           "stage": 1,
           "map": "assets/maps/bg_190101_hinotera.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "rock_golem_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 5000, "ramen_3star": 5 }
         },
         {
           "stage": 2,
           "map": "assets/maps/bg_190102_hinotera.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "goblin_archer_01",
-                "rock_golem_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 6000, "scroll_advanced": 5 }
         },
         {
           "stage": 3,
           "map": "assets/maps/bg_190103_hinotera.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "rock_golem_01",
-                "rock_golem_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "gems": 15, "ryo": 10000, "ramen_3star": 10, "awakening_stone_4": 1 }
+        }
+      ],
+      "S": [
+        {
+          "stage": 1,
+          "map": "assets/maps/bg_190101_hinotera.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 12000, "ramen_4star": 5 }
+        },
+        {
+          "stage": 2,
+          "map": "assets/maps/bg_190102_hinotera.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "goblin_archer_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 15000, "scroll_advanced": 15 }
+        },
+        {
+          "stage": 3,
+          "map": "assets/maps/bg_190103_hinotera.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "gems": 20, "ryo": 25000, "ramen_4star": 10, "awakening_stone_4": 3 }
+        }
+      ],
+      "SS": [
+        {
+          "stage": 1,
+          "map": "assets/maps/bg_190101_hinotera.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 30000, "ramen_5star": 5 }
+        },
+        {
+          "stage": 2,
+          "map": "assets/maps/bg_190102_hinotera.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 40000, "scroll_advanced": 20 }
+        },
+        {
+          "stage": 3,
+          "map": "assets/maps/bg_190103_hinotera.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "gems": 30, "ryo": 50000, "ramen_5star": 10, "awakening_stone_5": 1 }
         }
       ]
     }
@@ -2799,44 +2855,64 @@
     "banner": "assets/missions/banners/m_041.png",
     "sortOrder": 13,
     "difficulties": {
-      "S": [
+      "A": [
         {
           "stage": 1,
           "map": "assets/maps/bg_130101_tanzaku.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "goblin_archer_01",
-                "rock_golem_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 5000, "ramen_3star": 5 }
         },
         {
           "stage": 2,
           "map": "assets/maps/bg_130102_tanzaku.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "rock_golem_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 6000, "scroll_advanced": 5 }
         },
         {
           "stage": 3,
           "map": "assets/maps/bg_130103_tanzaku.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "rock_golem_01",
-                "rock_golem_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "gems": 15, "ryo": 10000, "ramen_3star": 10, "awakening_stone_4": 1 }
+        }
+      ],
+      "S": [
+        {
+          "stage": 1,
+          "map": "assets/maps/bg_130101_tanzaku.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "goblin_archer_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 12000, "ramen_4star": 5 }
+        },
+        {
+          "stage": 2,
+          "map": "assets/maps/bg_130102_tanzaku.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 15000, "scroll_advanced": 15 }
+        },
+        {
+          "stage": 3,
+          "map": "assets/maps/bg_130103_tanzaku.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "gems": 20, "ryo": 25000, "ramen_4star": 10, "awakening_stone_4": 3 }
+        }
+      ],
+      "SS": [
+        {
+          "stage": 1,
+          "map": "assets/maps/bg_130101_tanzaku.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 30000, "ramen_5star": 5 }
+        },
+        {
+          "stage": 2,
+          "map": "assets/maps/bg_130102_tanzaku.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 40000, "scroll_advanced": 20 }
+        },
+        {
+          "stage": 3,
+          "map": "assets/maps/bg_130103_tanzaku.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "gems": 30, "ryo": 50000, "ramen_5star": 10, "awakening_stone_5": 1 }
         }
       ]
     }
@@ -2848,44 +2924,64 @@
     "banner": "assets/missions/banners/m_042.png",
     "sortOrder": 14,
     "difficulties": {
-      "S": [
+      "A": [
         {
           "stage": 1,
           "map": "assets/maps/bg_050201_iwaba.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "rock_golem_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 5000, "ramen_3star": 5 }
         },
         {
           "stage": 2,
           "map": "assets/maps/bg_050202_iwaba.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "goblin_archer_01",
-                "rock_golem_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 6000, "scroll_advanced": 5 }
         },
         {
           "stage": 3,
           "map": "assets/maps/bg_050203_iwaba.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "rock_golem_01",
-                "rock_golem_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "gems": 15, "ryo": 10000, "ramen_3star": 10, "awakening_stone_4": 1 }
+        }
+      ],
+      "S": [
+        {
+          "stage": 1,
+          "map": "assets/maps/bg_050201_iwaba.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 12000, "ramen_4star": 5 }
+        },
+        {
+          "stage": 2,
+          "map": "assets/maps/bg_050202_iwaba.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "goblin_archer_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 15000, "scroll_advanced": 15 }
+        },
+        {
+          "stage": 3,
+          "map": "assets/maps/bg_050203_iwaba.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "gems": 20, "ryo": 25000, "ramen_4star": 10, "awakening_stone_4": 3 }
+        }
+      ],
+      "SS": [
+        {
+          "stage": 1,
+          "map": "assets/maps/bg_050201_iwaba.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 30000, "ramen_5star": 5 }
+        },
+        {
+          "stage": 2,
+          "map": "assets/maps/bg_050202_iwaba.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 40000, "scroll_advanced": 20 }
+        },
+        {
+          "stage": 3,
+          "map": "assets/maps/bg_050203_iwaba.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "gems": 30, "ryo": 50000, "ramen_5star": 10, "awakening_stone_5": 1 }
         }
       ]
     }
@@ -2897,44 +2993,64 @@
     "banner": "assets/missions/banners/m_043.png",
     "sortOrder": 15,
     "difficulties": {
-      "S": [
+      "A": [
         {
           "stage": 1,
           "map": "assets/maps/bg_140101_syumatu.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "rock_golem_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 5000, "ramen_3star": 5 }
         },
         {
           "stage": 2,
           "map": "assets/maps/bg_140102_syumatu.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "goblin_archer_01",
-                "rock_golem_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 6000, "scroll_advanced": 5 }
         },
         {
           "stage": 3,
           "map": "assets/maps/bg_140103_syumatu.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "rock_golem_01",
-                "rock_golem_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "gems": 15, "ryo": 10000, "ramen_3star": 10, "awakening_stone_4": 1 }
+        }
+      ],
+      "S": [
+        {
+          "stage": 1,
+          "map": "assets/maps/bg_140101_syumatu.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 12000, "ramen_4star": 5 }
+        },
+        {
+          "stage": 2,
+          "map": "assets/maps/bg_140102_syumatu.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "goblin_archer_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 15000, "scroll_advanced": 15 }
+        },
+        {
+          "stage": 3,
+          "map": "assets/maps/bg_140103_syumatu.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "gems": 20, "ryo": 25000, "ramen_4star": 10, "awakening_stone_4": 3 }
+        }
+      ],
+      "SS": [
+        {
+          "stage": 1,
+          "map": "assets/maps/bg_140101_syumatu.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 30000, "ramen_5star": 5 }
+        },
+        {
+          "stage": 2,
+          "map": "assets/maps/bg_140102_syumatu.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 40000, "scroll_advanced": 20 }
+        },
+        {
+          "stage": 3,
+          "map": "assets/maps/bg_140103_syumatu.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "gems": 30, "ryo": 50000, "ramen_5star": 10, "awakening_stone_5": 1 }
         }
       ]
     }
@@ -2946,43 +3062,64 @@
     "banner": "assets/missions/banners/m_044.png",
     "sortOrder": 16,
     "difficulties": {
-      "S": [
+      "A": [
         {
           "stage": 1,
           "map": "assets/maps/bg_100101_shinomori.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "rock_golem_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 5000, "ramen_3star": 5 }
         },
         {
           "stage": 2,
           "map": "assets/maps/bg_100102_shinomori.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "goblin_archer_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 6000, "scroll_advanced": 5 }
         },
         {
           "stage": 3,
           "map": "assets/maps/bg_100103_shinomori.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "rock_golem_01",
-                "rock_golem_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "gems": 15, "ryo": 10000, "ramen_3star": 10, "awakening_stone_4": 1 }
+        }
+      ],
+      "S": [
+        {
+          "stage": 1,
+          "map": "assets/maps/bg_100101_shinomori.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 12000, "ramen_4star": 5 }
+        },
+        {
+          "stage": 2,
+          "map": "assets/maps/bg_100102_shinomori.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 15000, "scroll_advanced": 15 }
+        },
+        {
+          "stage": 3,
+          "map": "assets/maps/bg_100103_shinomori.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "gems": 20, "ryo": 25000, "ramen_4star": 10, "awakening_stone_4": 3 }
+        }
+      ],
+      "SS": [
+        {
+          "stage": 1,
+          "map": "assets/maps/bg_100101_shinomori.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 30000, "ramen_5star": 5 }
+        },
+        {
+          "stage": 2,
+          "map": "assets/maps/bg_100102_shinomori.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 40000, "scroll_advanced": 20 }
+        },
+        {
+          "stage": 3,
+          "map": "assets/maps/bg_100103_shinomori.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "gems": 30, "ryo": 50000, "ramen_5star": 10, "awakening_stone_5": 1 }
         }
       ]
     }
@@ -2994,44 +3131,64 @@
     "banner": "assets/missions/banners/m_045.png",
     "sortOrder": 17,
     "difficulties": {
-      "S": [
+      "A": [
         {
           "stage": 1,
           "map": "assets/maps/bg_150101_suna.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "rock_golem_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 5000, "ramen_3star": 5 }
         },
         {
           "stage": 2,
           "map": "assets/maps/bg_150102_suna.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "goblin_archer_01",
-                "rock_golem_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 6000, "scroll_advanced": 5 }
         },
         {
           "stage": 3,
           "map": "assets/maps/bg_150103_suna.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "rock_golem_01",
-                "rock_golem_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "gems": 15, "ryo": 10000, "ramen_3star": 10, "awakening_stone_4": 1 }
+        }
+      ],
+      "S": [
+        {
+          "stage": 1,
+          "map": "assets/maps/bg_150101_suna.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 12000, "ramen_4star": 5 }
+        },
+        {
+          "stage": 2,
+          "map": "assets/maps/bg_150102_suna.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "goblin_archer_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 15000, "scroll_advanced": 15 }
+        },
+        {
+          "stage": 3,
+          "map": "assets/maps/bg_150103_suna.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "gems": 20, "ryo": 25000, "ramen_4star": 10, "awakening_stone_4": 3 }
+        }
+      ],
+      "SS": [
+        {
+          "stage": 1,
+          "map": "assets/maps/bg_150101_suna.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 30000, "ramen_5star": 5 }
+        },
+        {
+          "stage": 2,
+          "map": "assets/maps/bg_150102_suna.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 40000, "scroll_advanced": 20 }
+        },
+        {
+          "stage": 3,
+          "map": "assets/maps/bg_150103_suna.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "gems": 30, "ryo": 50000, "ramen_5star": 10, "awakening_stone_5": 1 }
         }
       ]
     }
@@ -3047,37 +3204,60 @@
         {
           "stage": 1,
           "map": "assets/maps/bg_040101_heigen.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01" ] } ],
+          "rewards": { "ryo": 5000, "ramen_3star": 5 }
         },
         {
           "stage": 2,
           "map": "assets/maps/bg_040102_heigen.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "goblin_archer_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 6000, "scroll_advanced": 5 }
         },
         {
           "stage": 3,
           "map": "assets/maps/bg_040103_heigen.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "rock_golem_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "gems": 15, "ryo": 10000, "ramen_3star": 10, "awakening_stone_4": 1 }
+        }
+      ],
+      "S": [
+        {
+          "stage": 1,
+          "map": "assets/maps/bg_040101_heigen.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 12000, "ramen_4star": 5 }
+        },
+        {
+          "stage": 2,
+          "map": "assets/maps/bg_040102_heigen.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 15000, "scroll_advanced": 15 }
+        },
+        {
+          "stage": 3,
+          "map": "assets/maps/bg_040103_heigen.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "gems": 20, "ryo": 25000, "ramen_4star": 10, "awakening_stone_4": 3 }
+        }
+      ],
+      "SS": [
+        {
+          "stage": 1,
+          "map": "assets/maps/bg_040101_heigen.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 30000, "ramen_5star": 5 }
+        },
+        {
+          "stage": 2,
+          "map": "assets/maps/bg_040102_heigen.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 40000, "scroll_advanced": 20 }
+        },
+        {
+          "stage": 3,
+          "map": "assets/maps/bg_040103_heigen.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "gems": 30, "ryo": 50000, "ramen_5star": 10, "awakening_stone_5": 1 }
         }
       ]
     }
@@ -3089,44 +3269,64 @@
     "banner": "assets/missions/banners/m_047.png",
     "sortOrder": 19,
     "difficulties": {
-      "S": [
+      "A": [
         {
           "stage": 1,
           "map": "assets/maps/bg_160101_akatuki.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "rock_golem_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 5000, "ramen_3star": 5 }
         },
         {
           "stage": 2,
           "map": "assets/maps/bg_160102_akatuki.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "goblin_archer_01",
-                "rock_golem_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 6000, "scroll_advanced": 5 }
         },
         {
           "stage": 3,
           "map": "assets/maps/bg_160103_akatuki.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "rock_golem_01",
-                "rock_golem_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "gems": 15, "ryo": 10000, "ramen_3star": 10, "awakening_stone_4": 1 }
+        }
+      ],
+      "S": [
+        {
+          "stage": 1,
+          "map": "assets/maps/bg_160101_akatuki.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 12000, "ramen_4star": 5 }
+        },
+        {
+          "stage": 2,
+          "map": "assets/maps/bg_160102_akatuki.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "goblin_archer_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 15000, "scroll_advanced": 15 }
+        },
+        {
+          "stage": 3,
+          "map": "assets/maps/bg_160103_akatuki.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "gems": 20, "ryo": 25000, "ramen_4star": 10, "awakening_stone_4": 3 }
+        }
+      ],
+      "SS": [
+        {
+          "stage": 1,
+          "map": "assets/maps/bg_160101_akatuki.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 30000, "ramen_5star": 5 }
+        },
+        {
+          "stage": 2,
+          "map": "assets/maps/bg_160102_akatuki.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 40000, "scroll_advanced": 20 }
+        },
+        {
+          "stage": 3,
+          "map": "assets/maps/bg_160103_akatuki.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "gems": 30, "ryo": 50000, "ramen_5star": 10, "awakening_stone_5": 1 }
         }
       ]
     }
@@ -3138,44 +3338,64 @@
     "banner": "assets/missions/banners/m_048.png",
     "sortOrder": 20,
     "difficulties": {
-      "S": [
+      "A": [
         {
           "stage": 1,
           "map": "assets/maps/bg_140101_syumatu.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "rock_golem_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 5000, "ramen_3star": 5 }
         },
         {
           "stage": 2,
           "map": "assets/maps/bg_140102_syumatu.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "goblin_archer_01",
-                "rock_golem_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 6000, "scroll_advanced": 5 }
         },
         {
           "stage": 3,
           "map": "assets/maps/bg_140103_syumatu.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "rock_golem_01",
-                "rock_golem_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "gems": 15, "ryo": 10000, "ramen_3star": 10, "awakening_stone_4": 1 }
+        }
+      ],
+      "S": [
+        {
+          "stage": 1,
+          "map": "assets/maps/bg_140101_syumatu.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 12000, "ramen_4star": 5 }
+        },
+        {
+          "stage": 2,
+          "map": "assets/maps/bg_140102_syumatu.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "goblin_archer_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 15000, "scroll_advanced": 15 }
+        },
+        {
+          "stage": 3,
+          "map": "assets/maps/bg_140103_syumatu.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "gems": 20, "ryo": 25000, "ramen_4star": 10, "awakening_stone_4": 3 }
+        }
+      ],
+      "SS": [
+        {
+          "stage": 1,
+          "map": "assets/maps/bg_140101_syumatu.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 30000, "ramen_5star": 5 }
+        },
+        {
+          "stage": 2,
+          "map": "assets/maps/bg_140102_syumatu.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 40000, "scroll_advanced": 20 }
+        },
+        {
+          "stage": 3,
+          "map": "assets/maps/bg_140103_syumatu.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "gems": 30, "ryo": 50000, "ramen_5star": 10, "awakening_stone_5": 1 }
         }
       ]
     }
@@ -3187,44 +3407,64 @@
     "banner": "assets/missions/banners/m_049.png",
     "sortOrder": 21,
     "difficulties": {
-      "S": [
+      "A": [
         {
           "stage": 1,
           "map": "assets/maps/bg_160101_akatuki.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "rock_golem_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 5000, "ramen_3star": 5 }
         },
         {
           "stage": 2,
           "map": "assets/maps/bg_160102_akatuki.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "goblin_archer_01",
-                "rock_golem_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 6000, "scroll_advanced": 5 }
         },
         {
           "stage": 3,
           "map": "assets/maps/bg_160103_akatuki.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "rock_golem_01",
-                "rock_golem_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "gems": 15, "ryo": 10000, "ramen_3star": 10, "awakening_stone_4": 1 }
+        }
+      ],
+      "S": [
+        {
+          "stage": 1,
+          "map": "assets/maps/bg_160101_akatuki.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 12000, "ramen_4star": 5 }
+        },
+        {
+          "stage": 2,
+          "map": "assets/maps/bg_160102_akatuki.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "goblin_archer_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 15000, "scroll_advanced": 15 }
+        },
+        {
+          "stage": 3,
+          "map": "assets/maps/bg_160103_akatuki.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "gems": 20, "ryo": 25000, "ramen_4star": 10, "awakening_stone_4": 3 }
+        }
+      ],
+      "SS": [
+        {
+          "stage": 1,
+          "map": "assets/maps/bg_160101_akatuki.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 30000, "ramen_5star": 5 }
+        },
+        {
+          "stage": 2,
+          "map": "assets/maps/bg_160102_akatuki.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 40000, "scroll_advanced": 20 }
+        },
+        {
+          "stage": 3,
+          "map": "assets/maps/bg_160103_akatuki.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "gems": 30, "ryo": 50000, "ramen_5star": 10, "awakening_stone_5": 1 }
         }
       ]
     }
@@ -3240,79 +3480,60 @@
         {
           "stage": 1,
           "map": "assets/maps/bg_040201_heigen.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "goblin_archer_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "ryo": 5000, "ramen_3star": 5 }
         },
         {
           "stage": 2,
           "map": "assets/maps/bg_040202_heigen.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "rock_golem_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 6000, "scroll_advanced": 5 }
         },
         {
           "stage": 3,
           "map": "assets/maps/bg_040203_heigen.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "rock_golem_01",
-                "goblin_archer_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "goblin_archer_01" ] } ],
+          "rewards": { "gems": 15, "ryo": 10000, "ramen_3star": 10, "awakening_stone_4": 1 }
         }
       ],
       "S": [
         {
           "stage": 1,
           "map": "assets/maps/bg_040201_heigen.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "rock_golem_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 12000, "ramen_4star": 5 }
         },
         {
           "stage": 2,
           "map": "assets/maps/bg_040202_heigen.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "goblin_archer_01",
-                "rock_golem_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "goblin_archer_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 15000, "scroll_advanced": 15 }
         },
         {
           "stage": 3,
           "map": "assets/maps/bg_040203_heigen.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "rock_golem_01",
-                "rock_golem_01"
-              ]
-            }
-          ]
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "gems": 20, "ryo": 25000, "ramen_4star": 10, "awakening_stone_4": 3 }
+        }
+      ],
+      "SS": [
+        {
+          "stage": 1,
+          "map": "assets/maps/bg_040201_heigen.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 30000, "ramen_5star": 5 }
+        },
+        {
+          "stage": 2,
+          "map": "assets/maps/bg_040202_heigen.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "ryo": 40000, "scroll_advanced": 20 }
+        },
+        {
+          "stage": 3,
+          "map": "assets/maps/bg_040203_heigen.png",
+          "waves": [ { "enemies": [ "rock_golem_01", "rock_golem_01", "rock_golem_01", "rock_golem_01" ] } ],
+          "rewards": { "gems": 30, "ryo": 50000, "ramen_5star": 10, "awakening_stone_5": 1 }
         }
       ]
     }
