@@ -111,6 +111,118 @@
         },
         "stock": "unlimited"
       }
+    ],
+    "granny": [
+      {
+        "id": "acquisition_stone",
+        "name": "Acquisition Stone",
+        "description": "Exchange for specific characters in the shop.",
+        "icon": "assets/items/acq_stone.png",
+        "cost": {
+          "granny_coin": 200
+        },
+        "stock": "unlimited"
+      },
+      {
+        "id": "limit_break_crystal",
+        "name": "Limit Break Crystal",
+        "description": "Breaks level limits for max-tier characters.",
+        "icon": "assets/items/lb_crystal.png",
+        "cost": {
+          "granny_coin": 150
+        },
+        "stock": "unlimited"
+      },
+      {
+        "id": "awakening_stone_6",
+        "name": "6★ Awakening Stone",
+        "description": "Used to awaken 6★ characters.",
+        "icon": "assets/items/scroll_6star.png",
+        "cost": {
+          "granny_coin": 100
+        },
+        "stock": "unlimited"
+      },
+      {
+        "id": "awakening_stone_5",
+        "name": "5★ Awakening Stone",
+        "description": "Used to awaken 5★ characters.",
+        "icon": "assets/items/scroll_5star.png",
+        "cost": {
+          "granny_coin": 75
+        },
+        "stock": "unlimited"
+      },
+      {
+        "id": "awakening_stone_4",
+        "name": "4★ Awakening Stone",
+        "description": "Used to awaken 4★ characters.",
+        "icon": "assets/items/scroll_4star.png",
+        "cost": {
+          "granny_coin": 50
+        },
+        "stock": "unlimited"
+      },
+      {
+        "id": "awakening_stone_3",
+        "name": "3★ Awakening Stone",
+        "description": "Used to awaken 3★ characters.",
+        "icon": "assets/items/scroll_3star.png",
+        "cost": {
+          "granny_coin": 30
+        },
+        "stock": "unlimited"
+      },
+      {
+        "id": "character_stone",
+        "name": "Character Stone",
+        "description": "Character-specific awakening material.",
+        "icon": "assets/items/character_stone.png",
+        "cost": {
+          "granny_coin": 80
+        },
+        "stock": "unlimited"
+      },
+      {
+        "id": "book_victor_6",
+        "name": "★6 Book of Victor",
+        "description": "Ultra-rare awakening material for ★6 characters.",
+        "icon": "assets/items/book_victor_6.png",
+        "cost": {
+          "granny_coin": 250
+        },
+        "stock": "unlimited"
+      },
+      {
+        "id": "book_victor_5",
+        "name": "★5 Book of Victor",
+        "description": "Rare awakening material for ★5 characters.",
+        "icon": "assets/items/book_victor_5.png",
+        "cost": {
+          "granny_coin": 180
+        },
+        "stock": "unlimited"
+      },
+      {
+        "id": "awakening_charm",
+        "name": "Awakening Charm",
+        "description": "Legendary charm used for special awakenings.",
+        "icon": "assets/items/awakening_charm.png",
+        "cost": {
+          "granny_coin": 300
+        },
+        "stock": "unlimited"
+      },
+      {
+        "id": "dupe_crystal",
+        "name": "Dupe Crystal",
+        "description": "Obtained from duplicate characters.",
+        "icon": "assets/items/dupe_crystal.png",
+        "cost": {
+          "granny_coin": 120
+        },
+        "stock": "unlimited"
+      }
     ]
   },
   "shopConfig": {
