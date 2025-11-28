@@ -70706,7 +70706,7 @@
     "rarity": 1,
     "starMinCode": "1S",
     "starMaxCode": "6S",
-    "lbEligible": false,
+    "lbEligible": true,
     "portrait": "assets/characters/naruto_659/portrait_5S.png",
     "full": "assets/characters/naruto_659/full_5S.png",
     "ultimateAnimation": null,
