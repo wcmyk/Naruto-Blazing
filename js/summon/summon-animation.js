@@ -78,13 +78,13 @@ class SummonAnimationController {
           });
         }
 
-        // Set timeout as fallback
+        // Set timeout as fallback - increased for full animation
         setTimeout(() => {
           if (this.isPlaying) {
             this.onAnimationComplete();
             resolve();
           }
-        }, 5000); // Max 5 seconds for animation
+        }, 12000); // Max 12 seconds for full animation
       } else {
         // No video element, use CSS animation
         this.playFallbackAnimation(type).then(() => {
