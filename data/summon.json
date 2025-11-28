@@ -129,7 +129,7 @@
       "includeStandardPool": true
     },
 
-    /* ---------------- BLAZING BASH ---------------- */
+
 
     {
       "id": "bb_naruto_sage",
@@ -192,7 +192,6 @@
       "includeStandardPool": true
     },
 
-    /* ---------------- ANNIVERSARY ---------------- */
 
     {
       "id": "anniv1_naruto",
@@ -245,7 +244,6 @@
       "includeStandardPool": true
     },
 
-    /* ---------------- BIRTHDAYS ---------------- */
 
     {
       "id": "birthday_naruto",
