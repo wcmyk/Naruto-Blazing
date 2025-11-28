@@ -2,12 +2,14 @@
 document.addEventListener('DOMContentLoaded', () => {
   const tabsContainer = document.querySelector('.mission-tabs');
   const listContainer = document.querySelector('.mission-list');
+
   let allMissions = [];
 
   // ============================================================
   // Render missions for a category
   // ============================================================
   function renderMissionsForCategory(categoryName) {
+    // Sort missions cleanly
     const missionsToRender = allMissions
       .filter(m => m.category === categoryName)
       .sort((a, b) => (a.sortOrder ?? 0) - (b.sortOrder ?? 0));
@@ -26,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const banner = document.createElement('img');
       banner.className = 'mission-banner';
       banner.src = mission.banner;
-      banner.alt = mission.name;
+      banner.alt = mission.name || 'Mission Banner';
       card.appendChild(banner);
 
       // ======================================================
@@ -55,13 +57,13 @@ document.addEventListener('DOMContentLoaded', () => {
         icon.className = 'difficulty-icon-img';
 
         icon.onerror = () => {
-          // Fallback to text if icon not found
+          // fallback to text if missing icon
           icon.style.display = 'none';
           iconButton.textContent = rank;
           iconButton.classList.add('difficulty-fallback');
         };
 
-        iconButton.appendChild(icon);
+        btn.appendChild(icon);
 
         // Default selected difficulty
         if (rank === selectedDifficulty) {
@@ -78,7 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
           selectedDifficulty = rank;
         });
 
-        difficultyContainer.appendChild(iconButton);
+        difficultyContainer.appendChild(btn);
       });
 
       controls.appendChild(difficultyContainer);
@@ -103,7 +105,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         setTimeout(() => {
           window.location.href = 'teams.html?mode=prebattle';
-        }, 200);
+        }, 250);
       });
 
       controls.appendChild(startButton);
@@ -129,6 +131,13 @@ document.addEventListener('DOMContentLoaded', () => {
     })
     .then(missions => {
       allMissions = Array.isArray(missions) ? missions : [];
+
+      if (allMissions.length === 0) {
+        listContainer.innerHTML = '<p>No missions found.</p>';
+        return;
+      }
+
+      // build unique category list
       const categoryNames = [...new Set(allMissions.map(m => m.category))];
 
       // Render category tabs
@@ -148,8 +157,8 @@ document.addEventListener('DOMContentLoaded', () => {
         listContainer.innerHTML = '<p class="error-message">No missions found.</p>';
       }
     })
-    .catch(error => {
-      console.error('Failed to load missions:', error);
-      listContainer.innerHTML = '<p class="error-message">Could not load missions.</p>';
+    .catch(err => {
+      console.error('Mission load failed:', err);
+      listContainer.innerHTML = '<p class="error-message">Failed to load missions.</p>';
     });
 });
