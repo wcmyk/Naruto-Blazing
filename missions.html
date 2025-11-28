@@ -4,83 +4,98 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Select Mission</title>
+
+  <!-- CSS -->
   <link rel="stylesheet" href="css/missions.css">
   <link rel="stylesheet" href="css/background.css">
   <link rel="stylesheet" href="css/settings-modal.css" />
+
   <!-- Hide scrollbar but keep functionality -->
   <style>
-    /* Hide scrollbar for Chrome, Safari and Opera */
     body::-webkit-scrollbar,
     html::-webkit-scrollbar,
     *::-webkit-scrollbar {
       display: none;
     }
-
-    /* Hide scrollbar for IE, Edge and Firefox */
     body, html, * {
-      -ms-overflow-style: none;  /* IE and Edge */
-      scrollbar-width: none;  /* Firefox */
+      -ms-overflow-style: none;
+      scrollbar-width: none;
     }
   </style>
 </head>
+
 <body>
+  <!-- Background -->
   <div id="full-bg" aria-hidden="true"></div>
-  
+
+  <!-- Mission Container -->
   <div class="mission-page-container">
     <h1 class="page-title">Select Mission</h1>
+
+    <!-- Tab container (CSS tabs will work now) -->
     <div class="mission-tabs"></div>
+
+    <!-- Mission List -->
     <div class="mission-list-container">
       <div class="mission-list">
         <p>Loading missions...</p>
       </div>
     </div>
   </div>
-  
+
   <!-- HUD Bottom Bar -->
   <div class="bottom-bar">
     <div class="bottom-bar-content">
+
       <button class="hud-button" id="btn-village" aria-label="Village">
         <img src="assets/icons/village_icon.png" alt="Village">
       </button>
+
       <button class="hud-button" id="btn-characters" aria-label="Characters">
         <img src="assets/icons/characters_icon.png" alt="Characters">
       </button>
+
       <button class="hud-button" id="btn-fusion" aria-label="Fusion">
         <img src="assets/icons/fusion_icon.png" alt="Fusion">
       </button>
+
       <button class="hud-button" id="btn-teams" aria-label="Teams">
         <img src="assets/icons/teams_icon.png" alt="Teams">
       </button>
+
       <button class="hud-button" id="btn-summon" aria-label="Summon">
         <img src="assets/icons/summon_icon.png" alt="Summon">
       </button>
+
       <button class="hud-button active" id="btn-missions" aria-label="Missions">
         <img src="assets/icons/missions_icon.png" alt="Missions">
       </button>
+
       <button class="hud-button" id="btn-inventory" aria-label="Inventory">
         <img src="assets/icons/inventory_icon.png" alt="Inventory">
       </button>
+
       <button class="hud-button" id="btn-shop" aria-label="Shop">
         <img src="assets/icons/shop_icon.png" alt="Shop">
       </button>
+
     </div>
   </div>
 
+  <!-- Scripts -->
   <script src="js/audio-manager.js"></script>
   <script src="js/music-player.js"></script>
   <script src="js/resources.js"></script>
   <script src="js/mission-progress.js"></script>
+
+  <!-- IMPORTANT: This version of missions.js must generate tabs & buttons with correct classes -->
   <script src="js/missions.js"></script>
 
-  <!-- Settings Modal Script -->
   <script src="js/settings-modal.js?v=2"></script>
-
-  <!-- Navigation Script -->
   <script src="js/navigation.js"></script>
 
-  <!-- Music Initialization -->
+  <!-- Auto Music -->
   <script>
-    // Music initialization - start BGM on page load
     (function() {
       if (typeof window.AudioManager === 'undefined') {
         console.log('[Music] AudioManager not available on this page');
@@ -98,12 +113,10 @@
         }
       };
 
-      // Try immediate playback (may be blocked by browser)
       setTimeout(startMusic, 500);
-
-      // Also try on first click
       document.addEventListener('click', startMusic, { once: true });
     })();
   </script>
+
 </body>
 </html>
