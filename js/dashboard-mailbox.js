@@ -13,11 +13,31 @@ class DashboardMailbox {
   }
 
   loadMessages() {
-    const saved = localStorage.getItem('mailboxMessages');
-    if (saved) {
-      this.messages = JSON.parse(saved);
-    } else {
-      // Initialize with welcome message
+    try {
+      const saved = localStorage.getItem('mailboxMessages');
+      if (saved) {
+        this.messages = JSON.parse(saved);
+      } else {
+        // Initialize with welcome message
+        this.messages = [
+          {
+            id: 'welcome_001',
+            title: 'Welcome to Naruto Blazing!',
+            message: 'Thank you for playing! Here are some starter rewards to help you begin your ninja journey.',
+            date: new Date().toISOString(),
+            read: false,
+            rewards: {
+              'Ninja Pearls': 50,
+              'Ryo': 10000,
+              'Shinobites': 5
+            }
+          }
+        ];
+        this.saveMessages();
+      }
+    } catch (error) {
+      console.error('Failed to load mailbox messages:', error);
+      // Initialize with default welcome message on error
       this.messages = [
         {
           id: 'welcome_001',
@@ -32,7 +52,6 @@ class DashboardMailbox {
           }
         }
       ];
-      this.saveMessages();
     }
   }
 

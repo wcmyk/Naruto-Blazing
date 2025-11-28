@@ -14,12 +14,19 @@ class DashboardCalendar {
   }
 
   loadStreakData() {
-    const saved = localStorage.getItem('dailyStreak');
-    if (saved) {
-      const data = JSON.parse(saved);
-      this.streak = data.streak || 0;
-      this.lastLogin = data.lastLogin ? new Date(data.lastLogin) : null;
-      this.calendarData = data.calendarData || {};
+    try {
+      const saved = localStorage.getItem('dailyStreak');
+      if (saved) {
+        const data = JSON.parse(saved);
+        this.streak = data.streak || 0;
+        this.lastLogin = data.lastLogin ? new Date(data.lastLogin) : null;
+        this.calendarData = data.calendarData || {};
+      }
+    } catch (error) {
+      console.error('Failed to load streak data:', error);
+      this.streak = 0;
+      this.lastLogin = null;
+      this.calendarData = {};
     }
   }
 
