@@ -52,10 +52,12 @@
         const ninjaPearlsEl = document.getElementById('currency-ninja-pearls');
         const shinobitesEl = document.getElementById('currency-shinobites');
         const ryoEl = document.getElementById('currency-ryo');
+        const grannyCoinsEl = document.getElementById('currency-granny-coins');
 
         if (ninjaPearlsEl) ninjaPearlsEl.textContent = window.Resources.get('ninja_pearls').toLocaleString();
         if (shinobitesEl) shinobitesEl.textContent = window.Resources.get('shinobites').toLocaleString();
         if (ryoEl) ryoEl.textContent = window.Resources.get('ryo').toLocaleString();
+        if (grannyCoinsEl) grannyCoinsEl.textContent = window.Resources.get('granny_coin').toLocaleString();
       }
     },
 
@@ -182,6 +184,13 @@
               <span>${item.cost.shinobites.toLocaleString()}</span>
             </div>
           `;
+        } else if (item.cost.granny_coin) {
+          costHTML = `
+            <div class="item-cost">
+              <img src="assets/items/granny_coin.png" alt="Granny Coins" class="cost-icon" onerror="this.style.display='none'">
+              <span>${item.cost.granny_coin.toLocaleString()}</span>
+            </div>
+          `;
         }
       }
 
@@ -269,6 +278,12 @@
           <img src="assets/icons/currency/shinobite.png" alt="Shinobites" style="width: 20px; height: 20px;" onerror="this.style.display='none'">
           ${total.toLocaleString()}
         </span>`;
+      } else if (item.cost.granny_coin) {
+        const total = item.cost.granny_coin * quantity;
+        costHTML = `<span style="display: flex; align-items: center; gap: 8px;">
+          <img src="assets/items/granny_coin.png" alt="Granny Coins" style="width: 20px; height: 20px;" onerror="this.style.display='none'">
+          ${total.toLocaleString()}
+        </span>`;
       }
 
       costEl.innerHTML = costHTML;
@@ -303,6 +318,10 @@
         totalCost = item.cost.shinobites * quantity;
         costType = 'shinobites';
         costLabel = 'Shinobites';
+      } else if (item.cost.granny_coin) {
+        totalCost = item.cost.granny_coin * quantity;
+        costType = 'granny_coin';
+        costLabel = 'Granny Coins';
       }
 
       // Check if player has enough resources using Resources API

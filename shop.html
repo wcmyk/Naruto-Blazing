@@ -43,6 +43,11 @@
       <span class="resource-label">Ryo:</span>
       <span id="currency-ryo" class="resource-value">0</span>
     </div>
+    <div class="resource-item">
+      <img src="assets/items/granny_coin.png" alt="Granny Coins" class="resource-icon" onerror="this.style.display='none'">
+      <span class="resource-label">Granny Coins:</span>
+      <span id="currency-granny-coins" class="resource-value">0</span>
+    </div>
   </div>
 
   <main class="shop-content">
@@ -53,6 +58,7 @@
       <button class="shop-tab active" data-tab="ramen">Training Ramen</button>
       <button class="shop-tab" data-tab="materials">Materials</button>
       <button class="shop-tab" data-tab="resources">Resources</button>
+      <button class="shop-tab" data-tab="granny">Granny Cat Shop</button>
     </div>
 
     <!-- Ramen Tab -->
@@ -68,6 +74,11 @@
     <!-- Resources Tab -->
     <div class="shop-tab-content" id="tab-resources">
       <div class="shop-grid" id="resources-grid"></div>
+    </div>
+
+    <!-- Granny Cat Shop Tab -->
+    <div class="shop-tab-content" id="tab-granny">
+      <div class="shop-grid" id="granny-grid"></div>
     </div>
   </main>
 
