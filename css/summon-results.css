@@ -47,9 +47,9 @@
 }
 
 .summon-video {
-  width: 95%; /* Increased from max-width 100% */
-  height: 95%; /* Increased from max-height 100% */
-  object-fit: cover; /* Changed from contain to cover for fullscreen effect */
+  width: 70%; /* Reduced from 95% to zoom out */
+  height: 70%; /* Reduced from 95% to zoom out */
+  object-fit: contain; /* Changed back to contain for proper aspect ratio */
   border-radius: 12px;
 }
 
