@@ -70834,12 +70834,12 @@
     },
     "statsBase": {
       "hp": 22496,
-      "atk": 100162,
+      "atk": 1962,
       "speed": 139
     },
     "statsMax": {
       "hp": 44992,
-      "atk": 2323,
+      "atk": 1002323,
       "speed": 277
     },
     "growthCurve": {
