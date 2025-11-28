@@ -1,100 +1,143 @@
-// Main Summon System Initialization
+// =======================================================
+//  SUMMON SYSTEM - FULL FILE (FINAL VERSION)
+//  Supports:
+//  ✓ Standard Pool
+//  ✓ Featured Units
+//  ✓ Birthday "all versions"
+//  ✓ Blazing Festival, Bash, Anniversary
+//  ✓ Double Fibonacci Summon Engine
+// =======================================================
+
 (async function initSummoning() {
   console.log('🎴 Initializing Double Fibonacci Summon System...');
 
   let currentBannerIndex = 0;
   let allCharacters = [];
   let featuredCharacters = [];
+  let currentPool = [];
 
-  /**
-   * Initialize all summon systems
-   */
+  // =======================================================
+  //  Build the full pool for a banner
+  // =======================================================
+  function buildBannerPool(banner) {
+    let pool = [];
+
+    // 1. Standard Pool
+    if (banner.includeStandardPool && summonData.standardPool) {
+      for (let id of summonData.standardPool) {
+        const char = allCharacters.find(c => c.id === id);
+        if (char) pool.push(char);
+      }
+    }
+
+    // 2. Featured Units
+    if (banner.featured && banner.featured.length > 0) {
+      for (let id of banner.featured) {
+        const char = allCharacters.find(c => c.id === id);
+        if (char) pool.push(char);
+      }
+    }
+
+    // 3. Birthday Banners → Add ALL Versions of Name
+    if (banner.includes_all_versions && banner.character_name) {
+      const nameLower = banner.character_name.toLowerCase();
+
+      const versions = allCharacters.filter(c =>
+        c.name.toLowerCase().includes(nameLower)
+      );
+
+      pool.push(...versions);
+    }
+
+    // 4. Remove duplicates
+    const unique = [...new Map(pool.map(c => [c.id, c])).values()];
+
+    return unique;
+  }
+
+  // =======================================================
+  //  Initialize System
+  // =======================================================
   async function initialize() {
     try {
-      // Load summon data
+      // Load summon JSON structure
       await summonData.init();
 
-      // Load character pool
+      // Load all characters
       const charsResponse = await fetch('data/characters.json');
-      if (!charsResponse.ok) {
+      if (!charsResponse.ok)
         throw new Error(`HTTP ${charsResponse.status}: ${charsResponse.statusText}`);
-      }
+
       const charsData = await charsResponse.json();
       allCharacters = Object.values(charsData);
 
-      // Initialize character selector with pools
-      if (window.CharacterSelector) {
-        window.CharacterSelector.updatePools(allCharacters, featuredCharacters);
-      }
+      // Initialize UI systems
+      if (window.CharacterSelector)
+        window.CharacterSelector.updatePools(allCharacters, []);
 
-      // Initialize UI controllers
-      if (window.SummonUI) {
+      if (window.SummonUI)
         window.SummonUI.init();
-      }
 
-      if (window.SummonAnimator) {
+      if (window.SummonAnimator)
         window.SummonAnimator.init();
-      }
 
       // Load first banner
       loadBanner(0);
 
-      // Setup additional UI events
+      // Setup event listeners
       setupUIEvents();
 
       console.log('✅ Summon system initialized successfully');
-      console.log(`📊 Loaded ${allCharacters.length} characters`);
-      console.log(`🎯 Featured pool: ${featuredCharacters.length} characters`);
+      console.log(`📊 Total Characters Loaded: ${allCharacters.length}`);
 
     } catch (error) {
       console.error('❌ Failed to initialize summon system:', error);
     }
   }
 
-  /**
-   * Load a specific banner
-   */
+  // =======================================================
+  //  Load a specific banner
+  // =======================================================
   function loadBanner(index) {
     const banner = summonData.getBanner(index);
     if (!banner) {
-      console.warn('Banner not found:', index);
+      console.warn('⚠ Banner not found:', index);
       return;
     }
 
     currentBannerIndex = index;
 
-    // Update featured characters
-    featuredCharacters = [];
-    if (banner.featured && banner.featured.length > 0) {
-      featuredCharacters = banner.featured.map(id => {
-        return allCharacters.find(c => c.id === id);
-      }).filter(c => c !== undefined);
-    }
+    // Build the FULL summon pool for this banner
+    currentPool = buildBannerPool(banner);
 
-    // Update character selector
-    if (window.CharacterSelector) {
-      window.CharacterSelector.updatePools(allCharacters, featuredCharacters);
-    }
+    // Identify featured subset
+    featuredCharacters =
+      banner.featured?.map(id => allCharacters.find(c => c.id === id))
+        .filter(Boolean) || [];
 
-    // Update UI
-    if (window.SummonUI) {
+    // Update UI selector
+    if (window.CharacterSelector)
+      window.CharacterSelector.updatePools(currentPool, featuredCharacters);
+
+    // Update Banner Info UI
+    if (window.SummonUI)
       window.SummonUI.updateBannerInfo(banner);
-    }
 
-    // Reset summon engine if switching banners
+    // Reset summon engine session
     if (window.FibonacciSummonEngine) {
+      window.FibonacciSummonEngine.setPool(currentPool, featuredCharacters);
       window.FibonacciSummonEngine.resetSession();
     }
 
-    console.log(`📜 Loaded banner: ${banner.name}`);
+    console.log(`📜 Loaded Banner: ${banner.name}`);
+    console.log(`📦 Total Pool: ${currentPool.length} units`);
     console.log(`🎯 Featured: ${featuredCharacters.length} units`);
   }
 
-  /**
-   * Setup additional UI event handlers
-   */
+  // =======================================================
+  //  Setup UI Events
+  // =======================================================
   function setupUIEvents() {
-    // Back button
     const backBtn = document.getElementById('btn-back-to-home');
     if (backBtn) {
       backBtn.addEventListener('click', () => {
@@ -102,17 +145,13 @@
       });
     }
 
-    // Rates button
     const ratesBtn = document.getElementById('btn-rates');
     if (ratesBtn) {
       ratesBtn.addEventListener('click', () => {
-        if (window.SummonUI) {
-          window.SummonUI.showRatesInfo();
-        }
+        window.SummonUI?.showRatesInfo();
       });
     }
 
-    // Featured button
     const featuredBtn = document.getElementById('btn-featured');
     if (featuredBtn) {
       featuredBtn.addEventListener('click', () => {
@@ -120,7 +159,6 @@
       });
     }
 
-    // Contents button
     const contentsBtn = document.getElementById('btn-contents');
     if (contentsBtn) {
       contentsBtn.addEventListener('click', () => {
@@ -129,22 +167,25 @@
     }
   }
 
-  /**
-   * Show featured units modal
-   */
+  // =======================================================
+  //  Show Featured Units Modal
+  // =======================================================
   function showFeaturedUnits() {
     if (featuredCharacters.length === 0) {
       alert('No featured units in this banner.');
       return;
     }
 
-    const names = featuredCharacters.map(c => `• ${c.name} (${c.rarity}★)`).join('\n');
-    alert(`Featured Units:\n\n${names}`);
+    const text = featuredCharacters
+      .map(c => `• ${c.name} (${c.rarity}★)`)
+      .join('\n');
+
+    alert(`Featured Units:\n\n${text}`);
   }
 
-  /**
-   * Show summon contents
-   */
+  // =======================================================
+  //  Show Summon Contents & Rates
+  // =======================================================
   function showSummonContents() {
     const rates = window.FibonacciSummonEngine?.getRatesDisplay();
     if (!rates) return;
@@ -158,26 +199,29 @@ Current Rates:
 • Gold Chance: ${rates.goldChance}
 • Featured Chance: ${rates.featuredChance}
 
-Total Characters Available: ${allCharacters.length}
+Total Characters Available: ${currentPool.length}
 Featured Characters: ${featuredCharacters.length}
 
 Session Statistics:
 ${rates.totalGolds}
 ${rates.featuredGolds}
-    `;
+`;
 
     alert(message);
   }
 
-  // Start initialization
+  // =======================================================
+  //  Start Initialization
+  // =======================================================
   initialize();
 
-  // Export for debugging
+  // Expose control for debugging
   window.SummonSystem = {
     loadBanner,
     getCurrentBanner: () => summonData.getBanner(currentBannerIndex),
     getFeaturedUnits: () => featuredCharacters,
     getAllCharacters: () => allCharacters,
+    getCurrentPool: () => currentPool,
     getStats: () => window.FibonacciSummonEngine?.getStats(),
     resetEngine: () => window.FibonacciSummonEngine?.resetSession()
   };
