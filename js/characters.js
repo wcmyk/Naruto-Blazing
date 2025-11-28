@@ -391,7 +391,7 @@
     }
 
     // Limit break button
-    const canLB = hasLimitBreak && window.LimitBreak.canLimitBreak(inst, c);
+    const canLB = hasLimitBreak && await window.LimitBreak.canLimitBreak(inst, c);
     const canAffordLB = hasLimitBreak && await window.LimitBreak.canAffordLimitBreak(inst, c);
     if (BTN_LIMITBREAK) {
       BTN_LIMITBREAK.disabled = !canLB || !canAffordLB;
@@ -1159,9 +1159,9 @@
       BTN_LIMITBREAK.onclick = async () => {
         if (!c || !hasLimitBreak) return;
 
-        const canLB = window.LimitBreak.canLimitBreak(inst, c);
+        const canLB = await window.LimitBreak.canLimitBreak(inst, c);
         if (!canLB) {
-          if (window.ModalManager) { window.ModalManager.showInfo("This character cannot be limit broken yet. Must be at max tier and max level."); };
+          if (window.ModalManager) { window.ModalManager.showInfo("This character cannot be limit broken yet. Must be at max evolution (no awakening possible) and max level."); };
           return;
         }
 
