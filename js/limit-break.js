@@ -73,7 +73,7 @@
   }
 
   // Check if character can be limit broken
-  function canLimitBreak(inst, character) {
+  async function canLimitBreak(inst, character) {
     if (!inst || !character) return false;
     if (!global.Progression) return false;
 
@@ -92,9 +92,13 @@
     // Check if not already at max limit break
     if (currentLB >= maxLB) return false;
 
-    // Must be at max tier for this character
-    const maxCode = bounds.maxCode;
-    if (tier !== maxCode) return false;
+    // CRITICAL: Can only limit break if character CANNOT awaken
+    // If there's an awakening transformation available, must awaken first
+    const canAwaken = await checkCanAwaken(inst, character, tier);
+    if (canAwaken) {
+      console.log(`[LimitBreak] ${character.name} cannot limit break - must awaken first`);
+      return false;
+    }
 
     // Must be at max level for current limit break level
     // Use extended cap if there are existing limit breaks
@@ -109,9 +113,38 @@
     return true;
   }
 
+  // Helper: Check if character can awaken by checking awakening-transforms.json
+  async function checkCanAwaken(inst, character, tier) {
+    try {
+      // Load awakening transforms
+      const response = await fetch('data/awakening-transforms.json');
+      if (!response.ok) return false;
+
+      const transforms = await response.json();
+
+      // Check if there's a transform for this character at this tier
+      const hasTransform = transforms.some(t =>
+        t.fromId === character.id && t.tier === tier
+      );
+
+      // If there's a transform and character is at max level for tier, can awaken
+      if (hasTransform && global.Progression) {
+        const cap = global.Progression.levelCapForCode(tier);
+        const level = Number(inst.level) || 1;
+        return level >= cap;
+      }
+
+      return false;
+    } catch (err) {
+      console.warn('[LimitBreak] Could not check awakening transforms:', err);
+      return false;
+    }
+  }
+
   // Check if player has materials for limit break
   async function canAffordLimitBreak(inst, character) {
-    if (!canLimitBreak(inst, character)) return false;
+    const canLB = await canLimitBreak(inst, character);
+    if (!canLB) return false;
     if (!global.Resources) return false;
 
     // Bug #13 fix: Validate getTierBounds result before accessing properties
@@ -129,7 +162,8 @@
       return { ok: false, reason: "INVALID_INSTANCE_OR_CHARACTER" };
     }
 
-    if (!canLimitBreak(inst, character)) {
+    const canLB = await canLimitBreak(inst, character);
+    if (!canLB) {
       return { ok: false, reason: "CANNOT_LIMIT_BREAK" };
     }
 
