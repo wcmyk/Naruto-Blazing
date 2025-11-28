@@ -557,7 +557,7 @@
       "A": [
         {
           "stage": 1,
-          "map": "assets/maps/bg_020401.png",
+          "map": "assets/maps/bg_170101_tenti.png",
           "waves": [
             {
               "enemies": [
@@ -574,7 +574,7 @@
         },
         {
           "stage": 2,
-          "map": "assets/maps/bg_020402.png",
+          "map": "assets/maps/bg_170102_tenti.png",
           "waves": [
             {
               "enemies": [
@@ -590,7 +590,7 @@
         },
         {
           "stage": 3,
-          "map": "assets/maps/bg_020403.png",
+          "map": "assets/maps/bg_170103_tenti.png",
           "waves": [
             {
               "enemies": [
@@ -610,7 +610,7 @@
       "C": [
         {
           "stage": 1,
-          "map": "assets/maps/bg_020401.png",
+          "map": "assets/maps/bg_170101_tenti.png",
           "waves": [
             {
               "enemies": [
@@ -625,7 +625,7 @@
         },
         {
           "stage": 2,
-          "map": "assets/maps/bg_020402.png",
+          "map": "assets/maps/bg_170102_tenti.png",
           "waves": [
             {
               "enemies": [
@@ -640,7 +640,7 @@
         },
         {
           "stage": 3,
-          "map": "assets/maps/bg_020403.png",
+          "map": "assets/maps/bg_170103_tenti.png",
           "waves": [
             {
               "enemies": [
@@ -740,7 +740,7 @@
       "B": [
         {
           "stage": 1,
-          "map": "assets/maps/bg_020501.png",
+          "map": "assets/maps/bg_040101_heigen.png",
           "waves": [
             {
               "enemies": [
@@ -756,7 +756,7 @@
         },
         {
           "stage": 2,
-          "map": "assets/maps/bg_020502.png",
+          "map": "assets/maps/bg_040102_heigen.png",
           "waves": [
             {
               "enemies": [
@@ -771,7 +771,7 @@
         },
         {
           "stage": 3,
-          "map": "assets/maps/bg_020503.png",
+          "map": "assets/maps/bg_040103_heigen.png",
           "waves": [
             {
               "enemies": [
@@ -874,7 +874,7 @@
       "B": [
         {
           "stage": 1,
-          "map": "assets/maps/bg_020601.png",
+          "map": "assets/maps/bg_020201_mori.png",
           "waves": [
             {
               "enemies": [
@@ -890,7 +890,7 @@
         },
         {
           "stage": 2,
-          "map": "assets/maps/bg_020602.png",
+          "map": "assets/maps/bg_020202_mori.png",
           "waves": [
             {
               "enemies": [
@@ -905,7 +905,7 @@
         },
         {
           "stage": 3,
-          "map": "assets/maps/bg_020603.png",
+          "map": "assets/maps/bg_020203_mori.png",
           "waves": [
             {
               "enemies": [
@@ -923,7 +923,7 @@
       "C": [
         {
           "stage": 1,
-          "map": "assets/maps/bg_020601.png",
+          "map": "assets/maps/bg_020201_mori.png",
           "waves": [
             {
               "enemies": [
@@ -938,7 +938,7 @@
         },
         {
           "stage": 2,
-          "map": "assets/maps/bg_020602.png",
+          "map": "assets/maps/bg_020202_mori.png",
           "waves": [
             {
               "enemies": [
@@ -953,7 +953,7 @@
         },
         {
           "stage": 3,
-          "map": "assets/maps/bg_020603.png",
+          "map": "assets/maps/bg_020203_mori.png",
           "waves": [
             {
               "enemies": [
@@ -3313,169 +3313,6 @@
               ]
             }
           ]
-        }
-      ]
-    }
-  },
-  {
-    "id": "ow_dragon_blue",
-    "category": "Other Worlds",
-    "name": "Dragon Island - Blue",
-    "banner": "assets/missions/banners/ow_dragon_blue.png",
-    "sortOrder": 1,
-    "difficulties": {
-      "C": [
-        {
-          "stage": 1,
-          "map": "assets/maps/bg_dragon_blue_01.png",
-          "waves": [
-            {
-              "enemies": [
-                "slime_01",
-                "slime_01"
-              ]
-            }
-          ],
-          "rewards": {
-            "ryo": 500,
-            "scroll_3star": 2
-          }
-        },
-        {
-          "stage": 2,
-          "map": "assets/maps/bg_dragon_blue_02.png",
-          "waves": [
-            {
-              "enemies": [
-                "goblin_archer_01",
-                "slime_01"
-              ]
-            }
-          ],
-          "rewards": {
-            "ryo": 600,
-            "scroll_4star": 1
-          }
-        },
-        {
-          "stage": 3,
-          "map": "assets/maps/bg_dragon_blue_03.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01"
-              ]
-            }
-          ],
-          "rewards": {
-            "ryo": 800,
-            "ramen_2star": 2,
-            "scroll_body": 1
-          }
-        }
-      ],
-      "B": [
-        {
-          "stage": 1,
-          "map": "assets/maps/bg_dragon_blue_01.png",
-          "waves": [
-            {
-              "enemies": [
-                "goblin_archer_01",
-                "goblin_archer_01"
-              ]
-            }
-          ],
-          "rewards": {
-            "ryo": 800,
-            "scroll_4star": 2
-          }
-        },
-        {
-          "stage": 2,
-          "map": "assets/maps/bg_dragon_blue_02.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "goblin_archer_01"
-              ]
-            }
-          ],
-          "rewards": {
-            "ryo": 1000,
-            "scroll_body": 2
-          }
-        },
-        {
-          "stage": 3,
-          "map": "assets/maps/bg_dragon_blue_03.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "rock_golem_01"
-              ]
-            }
-          ],
-          "rewards": {
-            "ryo": 1200,
-            "ramen_3star": 1,
-            "awakening_stone_4": 1
-          }
-        }
-      ],
-      "A": [
-        {
-          "stage": 1,
-          "map": "assets/maps/bg_dragon_blue_01.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "rock_golem_01"
-              ]
-            }
-          ],
-          "rewards": {
-            "ryo": 1200,
-            "scroll_5star": 1
-          }
-        },
-        {
-          "stage": 2,
-          "map": "assets/maps/bg_dragon_blue_02.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "rock_golem_01",
-                "goblin_archer_01"
-              ]
-            }
-          ],
-          "rewards": {
-            "ryo": 1500,
-            "scroll_body": 3
-          }
-        },
-        {
-          "stage": 3,
-          "map": "assets/maps/bg_dragon_blue_03.png",
-          "waves": [
-            {
-              "enemies": [
-                "rock_golem_01",
-                "rock_golem_01",
-                "rock_golem_01"
-              ]
-            }
-          ],
-          "rewards": {
-            "ryo": 2000,
-            "awakening_stone_5": 2,
-            "limit_break_crystal": 1
-          }
         }
       ]
     }
