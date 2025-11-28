@@ -1,0 +1,21 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+# Pre-commit hook to validate content before allowing commit
+# This prevents broken data from being committed
+
+echo "🔍 Running content validation..."
+
+# Run validation script
+npm run validate
+
+# If validation fails, prevent commit
+if [ $? -ne 0 ]; then
+  echo ""
+  echo "❌ Commit blocked! Fix validation errors first."
+  echo "   Run 'npm run validate' to see details"
+  echo ""
+  exit 1
+fi
+
+echo "✅ Content validation passed!"

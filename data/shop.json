@@ -1,0 +1,121 @@
+{
+  "shop": {
+    "ramen": [
+      {
+        "id": "ramen_1star",
+        "name": "Ichiraku Ramen",
+        "tier": "1★",
+        "description": "Basic training ramen. Grants 100 EXP.",
+        "icon": "assets/icons/level/ramen_1star.png",
+        "exp": 100,
+        "cost": {
+          "ryo": 500
+        },
+        "stock": "unlimited"
+      },
+      {
+        "id": "ramen_2star",
+        "name": "Special Miso Ramen",
+        "tier": "2★",
+        "description": "Quality training ramen. Grants 500 EXP.",
+        "icon": "assets/icons/level/ramen_2star.png",
+        "exp": 500,
+        "cost": {
+          "ryo": 2000
+        },
+        "stock": "unlimited"
+      },
+      {
+        "id": "ramen_3star",
+        "name": "Premium Tonkotsu Ramen",
+        "tier": "3★",
+        "description": "Premium training ramen. Grants 2,000 EXP.",
+        "icon": "assets/icons/level/ramen_3star.png",
+        "exp": 2000,
+        "cost": {
+          "ryo": 8000
+        },
+        "stock": "unlimited"
+      },
+      {
+        "id": "ramen_4star",
+        "name": "Legendary Cup Ramen",
+        "tier": "4★",
+        "description": "Legendary training ramen. Grants 10,000 EXP.",
+        "icon": "assets/icons/level/ramen_4star.png",
+        "exp": 10000,
+        "cost": {
+          "ryo": 30000
+        },
+        "stock": "unlimited"
+      },
+      {
+        "id": "ramen_5star",
+        "name": "Sage's Secret Ramen",
+        "tier": "5★",
+        "description": "Ultimate training ramen. Grants 50,000 EXP.",
+        "icon": "assets/icons/level/ramen_5star.png",
+        "exp": 50000,
+        "cost": {
+          "pearls": 5
+        },
+        "stock": "unlimited"
+      }
+    ],
+    "materials": [
+      {
+        "id": "scroll_basic",
+        "name": "Basic Scroll",
+        "description": "Common awakening material.",
+        "icon": "assets/icons/materials/scroll_basic.png",
+        "cost": {
+          "ryo": 1000
+        },
+        "stock": "unlimited"
+      },
+      {
+        "id": "scroll_advanced",
+        "name": "Advanced Scroll",
+        "description": "Rare awakening material.",
+        "icon": "assets/icons/materials/scroll_advanced.png",
+        "cost": {
+          "ryo": 5000
+        },
+        "stock": "unlimited"
+      }
+    ],
+    "resources": [
+      {
+        "id": "ryo_small",
+        "name": "Ryo Pouch (Small)",
+        "description": "Contains 10,000 Ryo.",
+        "icon": "assets/icons/resources/ryo_small.png",
+        "value": {
+          "ryo": 10000
+        },
+        "cost": {
+          "pearls": 1
+        },
+        "stock": "unlimited"
+      },
+      {
+        "id": "ryo_large",
+        "name": "Ryo Pouch (Large)",
+        "description": "Contains 100,000 Ryo.",
+        "icon": "assets/icons/resources/ryo_large.png",
+        "value": {
+          "ryo": 100000
+        },
+        "cost": {
+          "pearls": 8
+        },
+        "stock": "unlimited"
+      }
+    ]
+  },
+  "shopConfig": {
+    "refreshDaily": false,
+    "featuredRotation": true,
+    "maxPurchasePerItem": 99
+  }
+}

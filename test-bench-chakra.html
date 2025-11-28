@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Bench Chakra Ring Test</title>
+  <link rel="stylesheet" href="css/battle-team-holder.css">
+  <link rel="stylesheet" href="css/battle-chakra-wheel.css">
+  <style>
+    body {
+      background: #1a1a1a;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      gap: 50px;
+      padding: 50px;
+    }
+    .test-container {
+      background: rgba(10, 10, 15, 0.95);
+      padding: 40px;
+      border-radius: 12px;
+      border: 2px solid rgba(139, 115, 85, 0.6);
+    }
+    h2 {
+      color: #d4af37;
+      font-family: "Cinzel", serif;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    .debug-info {
+      color: #f0e6d1;
+      font-family: monospace;
+      font-size: 12px;
+      margin-top: 20px;
+      padding: 10px;
+      background: rgba(0,0,0,0.5);
+      border-radius: 4px;
+    }
+  </style>
+  <!-- Hide scrollbar but keep functionality -->
+  <style>
+    /* Hide scrollbar for Chrome, Safari and Opera */
+    body::-webkit-scrollbar,
+    html::-webkit-scrollbar,
+    *::-webkit-scrollbar {
+      display: none;
+    }
+
+    /* Hide scrollbar for IE, Edge and Firefox */
+    body, html, * {
+      -ms-overflow-style: none;  /* IE and Edge */
+      scrollbar-width: none;  /* Firefox */
+    }
+  </style>
+</head>
+<body>
+  <div class="test-container">
+    <h2>Active + Bench Chakra Rings</h2>
+
+    <!-- Simulating the structure from battle-team-holder.js -->
+    <div class="unit-card" data-card-index="0">
+      <div class="active-portrait-container" data-unit-id="naruto-active" data-unit-type="active">
+
+        <!-- Active unit ring (will be created by JS) -->
+        <div class="unit-ring">
+          <img class="portrait" src="assets/characters/naruto/portrait.png"
+               onerror="this.src='assets/characters/common/silhouette.png';" alt="Naruto">
+          <div class="chakra-container">
+            <img class="chakra-segment" src="assets/ui/gauges/chakra.png" alt="Chakra" style="transform: rotate(180deg);">
+          </div>
+          <img class="chakra-frame" src="assets/ui/frames/chakraholder_icon.png" alt="Frame">
+        </div>
+
+        <!-- Bench unit ring (nested inside active, positioned lower-left) -->
+        <div class="bench-portrait-container" data-unit-id="sasuke-bench" data-unit-type="bench">
+          <div class="unit-ring">
+            <img class="portrait" src="assets/characters/sasuke/portrait.png"
+                 onerror="this.src='assets/characters/common/silhouette.png';" alt="Sasuke">
+            <div class="chakra-container">
+              <img class="chakra-segment" src="assets/ui/gauges/chakra.png" alt="Chakra" style="transform: rotate(108deg);">
+            </div>
+            <img class="chakra-frame" src="assets/ui/frames/chakraholder_icon.png" alt="Frame">
+          </div>
+        </div>
+
+      </div>
+
+      <div class="unit-info">
+        <div class="unit-name">Naruto Uzumaki</div>
+        <div class="unit-hp-bar">
+          <div class="unit-hp-fill" style="width: 75%"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="debug-info">
+      <strong>Expected Result:</strong><br>
+      - Large active chakra ring (100×100px)<br>
+      - Small bench chakra ring (60×60px) at lower left<br>
+      - Bench positioned at left: -25px, bottom: -15px<br>
+      <br>
+      <strong>Check Browser Console for errors</strong>
+    </div>
+  </div>
+
+  <div class="test-container">
+    <h2>Size Comparison</h2>
+    <div style="display: flex; gap: 30px; align-items: flex-end;">
+      <div>
+        <p style="color: #d4af37; font-size: 12px; margin-bottom: 10px;">Active (100×100px)</p>
+        <div class="unit-ring" style="position: relative;">
+          <img class="portrait" src="assets/characters/naruto/portrait.png"
+               onerror="this.src='assets/characters/common/silhouette.png';" alt="Naruto">
+          <div class="chakra-container">
+            <img class="chakra-segment" src="assets/ui/gauges/chakra.png" alt="Chakra">
+          </div>
+          <img class="chakra-frame" src="assets/ui/frames/chakraholder_icon.png" alt="Frame">
+        </div>
+      </div>
+
+      <div>
+        <p style="color: #64b4ff; font-size: 12px; margin-bottom: 10px;">Bench (60×60px)</p>
+        <div class="bench-portrait-container" style="position: relative;">
+          <div class="unit-ring">
+            <img class="portrait" src="assets/characters/sasuke/portrait.png"
+                 onerror="this.src='assets/characters/common/silhouette.png';" alt="Sasuke">
+            <div class="chakra-container">
+              <img class="chakra-segment" src="assets/ui/gauges/chakra.png" alt="Chakra">
+            </div>
+            <img class="chakra-frame" src="assets/ui/frames/chakraholder_icon.png" alt="Frame">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
