@@ -112,6 +112,11 @@
         window.BattleChakra.initUnit(unit);
       }
 
+      // Initialize passive abilities
+      if (window.BattleEffects) {
+        window.BattleEffects.initUnitPassives(unit);
+      }
+
       return unit;
     },
 

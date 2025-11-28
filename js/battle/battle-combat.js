@@ -120,6 +120,19 @@
         return { damage: 0, isCritical: false };
       }
 
+      // Check for dodge/immunity (unless attacker has Ignore Substitution)
+      if (window.BattleEffects?.hasDamageImmunity(defender)) {
+        if (!attacker.passives?.ignoreSubstitution) {
+          console.log(`[Combat] 👻 ${defender.name} DODGED the attack!`);
+          if (window.BattleEffects) {
+            window.BattleEffects.showEffectIndicator(defender, 'DODGE', '#aaffff', { dom: window.BattleManager?.dom || {} });
+          }
+          return { damage: 0, isCritical: false, dodged: true };
+        } else {
+          console.log(`[Combat] ⚠️ ${attacker.name} IGNORES ${defender.name}'s dodge with Ignore Substitution!`);
+        }
+      }
+
       // Validate and parse multiplier
       let mult = 1;
       if (typeof multiplier === 'string') {
@@ -133,6 +146,12 @@
       if (isNaN(mult) || mult <= 0) {
         console.warn("[Combat] Invalid multiplier, using 1.0", { multiplier });
         mult = 1;
+      }
+
+      // Apply element advantage multiplier (with passives)
+      if (window.BattleEffects?.getModifiedElementMultiplier) {
+        const elementMult = window.BattleEffects.getModifiedElementMultiplier(attacker, defender);
+        mult *= elementMult;
       }
 
       // Get buff modifiers from BattleBuffs
@@ -180,10 +199,30 @@
         damage *= 0.5;
       }
 
-      // Apply damage reduction from buffs and passives
-      const totalDamageReduction = defenderBuffs.damageReductionPercent + defenderPassives.damageReductionPercent;
+      // Apply damage reduction from buffs and passives (unless attacker has Nullifies Damage Reduction)
+      let totalDamageReduction = defenderBuffs.damageReductionPercent + defenderPassives.damageReductionPercent;
+
+      // Add defender's Reduce Damage by XX% passive
+      if (defender.passives?.damageReduction > 0) {
+        totalDamageReduction += defender.passives.damageReduction;
+        console.log(`[Combat] 🛡️ ${defender.name} reduces damage by ${defender.passives.damageReduction}%`);
+      }
+
+      // Add defender's Reduce Element Damage passive
+      const attackerElement = attacker._ref?.base?.element;
+      if (attackerElement && defender.passives?.reduceElementDamage?.[attackerElement]) {
+        const elementReduction = defender.passives.reduceElementDamage[attackerElement];
+        totalDamageReduction += elementReduction;
+        console.log(`[Combat] 🛡️ ${defender.name} reduces ${attackerElement} damage by ${elementReduction}%`);
+      }
+
+      // Apply total damage reduction (unless attacker nullifies it)
       if (totalDamageReduction > 0) {
-        damage *= (1 - totalDamageReduction / 100);
+        if (!attacker.passives?.nullifiesDamageReduction) {
+          damage *= (1 - totalDamageReduction / 100);
+        } else {
+          console.log(`[Combat] ⚠️ ${attacker.name} NULLIFIES damage reduction!`);
+        }
       }
 
       // Random variance (90% - 110%)
@@ -384,7 +423,14 @@
         return false;
       }
 
-      const cost = Number(j.data.chakraCost ?? 4);
+      let cost = Number(j.data.chakraCost ?? 4);
+
+      // Apply Chakra Gauge Reduction passive
+      if (attacker.passives?.chakraReduction > 0) {
+        const reduction = Math.floor(cost * (attacker.passives.chakraReduction / 100));
+        cost = Math.max(1, cost - reduction);
+        console.log(`[Combat] ⚡ ${attacker.name}'s jutsu cost reduced: ${j.data.chakraCost} → ${cost}`);
+      }
 
       // Check and spend chakra
       if (core.chakra) {
@@ -401,9 +447,9 @@
         window.BattleEquippedUltimate.onNinjutsuUse(attacker.id);
       }
 
-      // Get multiplier from skill data
+      // Get multiplier from skill data (extract from description like "2.2x attack...")
       let mult = 2.0;
-      const m = String(j.data.multiplier || "").match(/([\d.]+)x/i);
+      const m = String(j.data.description || "").match(/([\d.]+)x/i);
       // Bug #2: Check if match exists and has captured group
       if (m && m[1]) mult = Number(m[1]) || 2.0;
 
@@ -540,7 +586,14 @@
         return false;
       }
 
-      const cost = Number(u.data.chakraCost ?? 8);
+      let cost = Number(u.data.chakraCost ?? 8);
+
+      // Apply Chakra Gauge Reduction passive
+      if (attacker.passives?.chakraReduction > 0) {
+        const reduction = Math.floor(cost * (attacker.passives.chakraReduction / 100));
+        cost = Math.max(1, cost - reduction);
+        console.log(`[Combat] ⚡ ${attacker.name}'s ultimate cost reduced: ${u.data.chakraCost} → ${cost}`);
+      }
 
       // Check and spend chakra
       if (core.chakra) {
@@ -552,9 +605,9 @@
         attacker.chakra -= cost;
       }
 
-      // Get multiplier
+      // Get multiplier (extract from description like "1.5x attack...")
       let mult = 1.5;
-      const m = String(u.data.multiplier || "").match(/([\d.]+)x/i);
+      const m = String(u.data.description || "").match(/([\d.]+)x/i);
       // Bug #2: Check if match exists and has captured group
       if (m && m[1]) mult = Number(m[1]) || 1.5;
 
@@ -857,9 +910,9 @@
         window.BattleEquippedUltimate.onNinjutsuUse(attacker.id);
       }
 
-      // Get multiplier
+      // Get multiplier (extract from description like "2.0x attack...")
       let mult = 2.0;
-      const m = String(j.data.multiplier || "").match(/([\d.]+)x/i);
+      const m = String(j.data.description || "").match(/([\d.]+)x/i);
       // Bug #2: Check if match exists and has captured group
       if (m && m[1]) mult = Number(m[1]) || 2.0;
 
@@ -964,7 +1017,14 @@
         return false;
       }
 
-      const cost = Number(secret.data.chakraCost ?? 12);
+      let cost = Number(secret.data.chakraCost ?? 12);
+
+      // Apply Chakra Gauge Reduction passive
+      if (caster.passives?.chakraReduction > 0) {
+        const reduction = Math.floor(cost * (caster.passives.chakraReduction / 100));
+        cost = Math.max(1, cost - reduction);
+        console.log(`[Combat] ⚡ ${caster.name}'s secret cost reduced: ${secret.data.chakraCost} → ${cost}`);
+      }
 
       // Check and spend chakra
       if (core.chakra) {

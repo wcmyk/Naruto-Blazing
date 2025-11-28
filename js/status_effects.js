@@ -83,6 +83,18 @@ const STATUS_EFFECTS = {
     duration: 1,
     stackable: false
   },
+
+  DODGE: {
+    id: 'dodge',
+    name: 'Dodge',
+    type: 'buff',
+    icon: '👻',
+    color: '#aaffff',
+    description: 'Immune to all damage',
+    damage_immunity: true,
+    duration: 2,
+    stackable: false
+  },
   
   // DEBUFFS (Negative Effects)
   STUN: {
@@ -255,6 +267,20 @@ const STATUS_EFFECTS = {
     prevent_jutsu: true,
     duration: 2,
     stackable: false
+  },
+
+  SPEED_SICKNESS: {
+    id: 'speed_sickness',
+    name: 'Speed Sickness',
+    type: 'debuff',
+    icon: '🤢',
+    color: '#88ff00',
+    description: 'Moving too fast! Takes damage and loses attack',
+    damage_per_turn: 50,
+    stat_modifier: { attack: 0.8 },
+    duration: 999,
+    stackable: true,
+    special: 'speed_penalty'
   }
 };
 
@@ -442,6 +468,12 @@ class StatusEffectManager {
       return true;
     }
     return false;
+  }
+
+  // Check if has damage immunity
+  hasDamageImmunity(characterId) {
+    const effects = this.getEffects(characterId);
+    return effects.some(e => e.damage_immunity);
   }
   
   // Clear all effects
