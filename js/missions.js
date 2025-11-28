@@ -1,10 +1,17 @@
-// js/missions.js (Dropdown Version — routes to Teams page in pre-battle mode)
+// js/missions.js — FINAL VERSION (Fully Restored Functionality + Modern UI)
+// Loads mission categories, banners, difficulty icons, and routes to teams.html pre-battle mode
+
 document.addEventListener('DOMContentLoaded', () => {
   const tabsContainer = document.querySelector('.mission-tabs');
   const listContainer = document.querySelector('.mission-list');
+
   let allMissions = [];
 
+  /**
+   * RENDER ALL MISSIONS FOR SELECTED CATEGORY
+   */
   function renderMissionsForCategory(categoryName) {
+    // Sort missions cleanly
     const missionsToRender = allMissions
       .filter(m => m.category === categoryName)
       .sort((a, b) => (a.sortOrder ?? 0) - (b.sortOrder ?? 0));
@@ -15,145 +22,116 @@ document.addEventListener('DOMContentLoaded', () => {
       const card = document.createElement('div');
       card.className = 'mission-card';
 
+      // ----- Banner -----
       const banner = document.createElement('img');
       banner.className = 'mission-banner';
       banner.src = mission.banner;
-      banner.alt = mission.name;
+      banner.alt = mission.name || 'Mission Banner';
       card.appendChild(banner);
 
+      // ----- Mission Controls Container -----
       const controls = document.createElement('div');
       controls.className = 'mission-controls';
 
-      // Difficulty icons instead of dropdown
+      // ----- Difficulty Icon Row -----
       const difficultyContainer = document.createElement('div');
       difficultyContainer.className = 'difficulty-icons-container';
-      difficultyContainer.style.cssText = `
-        display: flex;
-        gap: 0.5rem;
-        align-items: center;
-        margin-bottom: 1rem;
-      `;
 
       const availableDifficulties = Object.keys(mission.difficulties || {});
       let selectedDifficulty = availableDifficulties[0] || 'S';
 
       availableDifficulties.forEach(rank => {
-        const iconButton = document.createElement('button');
-        iconButton.className = 'difficulty-icon-btn';
-        iconButton.dataset.difficulty = rank;
-        iconButton.style.cssText = `
-          background: none;
-          border: 3px solid transparent;
-          border-radius: 8px;
-          padding: 0.3rem;
-          cursor: pointer;
-          transition: all 0.2s;
-          opacity: 0.5;
-        `;
+        const btn = document.createElement('button');
+        btn.className = 'difficulty-icon-btn';
+        btn.dataset.difficulty = rank;
 
         const icon = document.createElement('img');
-        icon.src = `assets/icons/${rank.toLowerCase()}_icons.png`;
-        icon.alt = `Rank ${rank}`;
-        icon.style.cssText = `
-          width: 50px;
-          height: 50px;
-          display: block;
-        `;
+        icon.src = `assets/icons/rank_${rank.toLowerCase()}.png`;
+        icon.alt = `${rank} Rank`;
         icon.onerror = () => {
-          // Fallback to text if icon not found
+          // fallback to text if missing icon
           icon.style.display = 'none';
-          iconButton.textContent = rank;
-          iconButton.style.fontSize = '1.5rem';
-          iconButton.style.fontWeight = 'bold';
-          iconButton.style.color = '#FFD700';
+          btn.textContent = rank;
+          btn.style.color = '#FFD700';
+          btn.style.fontSize = '22px';
+          btn.style.fontWeight = 'bold';
         };
 
-        iconButton.appendChild(icon);
+        btn.appendChild(icon);
 
-        // Selection logic
+        // initial selection highlight
         if (rank === selectedDifficulty) {
-          iconButton.style.opacity = '1';
-          iconButton.style.borderColor = '#FFD700';
-          iconButton.style.boxShadow = '0 0 15px rgba(255, 215, 0, 0.8)';
+          btn.classList.add('active');
         }
 
-        iconButton.addEventListener('click', () => {
-          // Deselect all
-          difficultyContainer.querySelectorAll('.difficulty-icon-btn').forEach(btn => {
-            btn.style.opacity = '0.5';
-            btn.style.borderColor = 'transparent';
-            btn.style.boxShadow = 'none';
-          });
+        btn.addEventListener('click', () => {
+          // toggle active class for ALL buttons
+          difficultyContainer.querySelectorAll('.difficulty-icon-btn')
+            .forEach(b => b.classList.remove('active'));
 
-          // Select clicked
-          iconButton.style.opacity = '1';
-          iconButton.style.borderColor = '#FFD700';
-          iconButton.style.boxShadow = '0 0 15px rgba(255, 215, 0, 0.8)';
+          btn.classList.add('active');
           selectedDifficulty = rank;
         });
 
-        iconButton.addEventListener('mouseenter', () => {
-          if (rank !== selectedDifficulty) {
-            iconButton.style.opacity = '0.8';
-            iconButton.style.transform = 'scale(1.1)';
-          }
-        });
-
-        iconButton.addEventListener('mouseleave', () => {
-          if (rank !== selectedDifficulty) {
-            iconButton.style.opacity = '0.5';
-            iconButton.style.transform = 'scale(1)';
-          }
-        });
-
-        difficultyContainer.appendChild(iconButton);
+        difficultyContainer.appendChild(btn);
       });
 
       controls.appendChild(difficultyContainer);
 
-      // Start button -> go to Teams page in pre-battle mode
+      // ----- Start Mission Button -----
       const startButton = document.createElement('button');
       startButton.className = 'start-btn';
       startButton.textContent = 'Start Mission';
-      startButton.addEventListener('click', () => {
 
-        // Save context for the next pages
+      startButton.addEventListener('click', () => {
+        // Save mission context for the battle page
         localStorage.setItem('currentMissionId', String(mission.id));
         localStorage.setItem('currentDifficulty', selectedDifficulty);
         localStorage.setItem('currentMissionName', mission.name || '');
         localStorage.setItem('currentMissionBanner', mission.banner || '');
 
-        // Transition to teams.html in pre-battle mode
-        document.body.style.transition = 'opacity 0.2s linear';
+        // small fade-out transition
+        document.body.style.transition = 'opacity 0.25s linear';
         document.body.style.opacity = '0';
+
         setTimeout(() => {
           window.location.href = 'teams.html?mode=prebattle';
-        }, 200);
+        }, 250);
       });
+
       controls.appendChild(startButton);
 
+      // Attach controls under banner
       card.appendChild(controls);
       listContainer.appendChild(card);
     });
 
-    // Tab active state
-    document.querySelectorAll('.tab-btn').forEach(tab => {
-      tab.classList.toggle('active', tab.textContent === categoryName);
+    // highlight active tab
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.textContent === categoryName);
     });
   }
 
-  // Load missions
+  /**
+   * LOAD MISSION JSON
+   */
   fetch('data/missions.json')
-    .then(response => {
-      if (!response.ok) {
-        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-      }
-      return response.json();
+    .then(res => {
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      return res.json();
     })
     .then(missions => {
       allMissions = Array.isArray(missions) ? missions : [];
+
+      if (allMissions.length === 0) {
+        listContainer.innerHTML = '<p>No missions found.</p>';
+        return;
+      }
+
+      // build unique category list
       const categoryNames = [...new Set(allMissions.map(m => m.category))];
 
+      // render tabs
       tabsContainer.innerHTML = '';
       categoryNames.forEach(name => {
         const tab = document.createElement('button');
@@ -163,14 +141,11 @@ document.addEventListener('DOMContentLoaded', () => {
         tabsContainer.appendChild(tab);
       });
 
-      if (categoryNames.length > 0) {
-        renderMissionsForCategory(categoryNames[0]);
-      } else {
-        listContainer.innerHTML = '<p class="error-message">No missions found.</p>';
-      }
+      // load first category automatically
+      renderMissionsForCategory(categoryNames[0]);
     })
-    .catch(error => {
-      console.error('Failed to load missions:', error);
-      listContainer.innerHTML = '<p class="error-message">Could not load missions.</p>';
+    .catch(err => {
+      console.error('Mission load failed:', err);
+      listContainer.innerHTML = '<p class="error-message">Failed to load missions.</p>';
     });
 });
