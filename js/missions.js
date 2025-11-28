@@ -24,24 +24,98 @@ document.addEventListener('DOMContentLoaded', () => {
       const controls = document.createElement('div');
       controls.className = 'mission-controls';
 
-      // Difficulty dropdown
-      const select = document.createElement('select');
-      select.className = 'difficulty-select';
+      // Difficulty icons instead of dropdown
+      const difficultyContainer = document.createElement('div');
+      difficultyContainer.className = 'difficulty-icons-container';
+      difficultyContainer.style.cssText = `
+        display: flex;
+        gap: 0.5rem;
+        align-items: center;
+        margin-bottom: 1rem;
+      `;
+
       const availableDifficulties = Object.keys(mission.difficulties || {});
+      let selectedDifficulty = availableDifficulties[0] || 'S';
+
       availableDifficulties.forEach(rank => {
-        const option = document.createElement('option');
-        option.value = rank;
-        option.textContent = `Rank ${rank}`;
-        select.appendChild(option);
+        const iconButton = document.createElement('button');
+        iconButton.className = 'difficulty-icon-btn';
+        iconButton.dataset.difficulty = rank;
+        iconButton.style.cssText = `
+          background: none;
+          border: 3px solid transparent;
+          border-radius: 8px;
+          padding: 0.3rem;
+          cursor: pointer;
+          transition: all 0.2s;
+          opacity: 0.5;
+        `;
+
+        const icon = document.createElement('img');
+        icon.src = `assets/icons/${rank.toLowerCase()}_icons.png`;
+        icon.alt = `Rank ${rank}`;
+        icon.style.cssText = `
+          width: 50px;
+          height: 50px;
+          display: block;
+        `;
+        icon.onerror = () => {
+          // Fallback to text if icon not found
+          icon.style.display = 'none';
+          iconButton.textContent = rank;
+          iconButton.style.fontSize = '1.5rem';
+          iconButton.style.fontWeight = 'bold';
+          iconButton.style.color = '#FFD700';
+        };
+
+        iconButton.appendChild(icon);
+
+        // Selection logic
+        if (rank === selectedDifficulty) {
+          iconButton.style.opacity = '1';
+          iconButton.style.borderColor = '#FFD700';
+          iconButton.style.boxShadow = '0 0 15px rgba(255, 215, 0, 0.8)';
+        }
+
+        iconButton.addEventListener('click', () => {
+          // Deselect all
+          difficultyContainer.querySelectorAll('.difficulty-icon-btn').forEach(btn => {
+            btn.style.opacity = '0.5';
+            btn.style.borderColor = 'transparent';
+            btn.style.boxShadow = 'none';
+          });
+
+          // Select clicked
+          iconButton.style.opacity = '1';
+          iconButton.style.borderColor = '#FFD700';
+          iconButton.style.boxShadow = '0 0 15px rgba(255, 215, 0, 0.8)';
+          selectedDifficulty = rank;
+        });
+
+        iconButton.addEventListener('mouseenter', () => {
+          if (rank !== selectedDifficulty) {
+            iconButton.style.opacity = '0.8';
+            iconButton.style.transform = 'scale(1.1)';
+          }
+        });
+
+        iconButton.addEventListener('mouseleave', () => {
+          if (rank !== selectedDifficulty) {
+            iconButton.style.opacity = '0.5';
+            iconButton.style.transform = 'scale(1)';
+          }
+        });
+
+        difficultyContainer.appendChild(iconButton);
       });
-      controls.appendChild(select);
+
+      controls.appendChild(difficultyContainer);
 
       // Start button -> go to Teams page in pre-battle mode
       const startButton = document.createElement('button');
       startButton.className = 'start-btn';
       startButton.textContent = 'Start Mission';
       startButton.addEventListener('click', () => {
-        const selectedDifficulty = select.value || availableDifficulties[0] || 'S';
 
         // Save context for the next pages
         localStorage.setItem('currentMissionId', String(mission.id));
