@@ -149,7 +149,7 @@
      * Handle wave completion - check if there are more waves or stages
      * @param {Object} bm - BattleManager reference
      */
-    handleWaveComplete(bm) {
+    async handleWaveComplete(bm) {
       console.log("[Missions] Wave complete!");
 
       const stages = bm.missionData.difficulties[bm.difficulty];
@@ -171,17 +171,39 @@
       else if (bm.currentStageIndex < stages.length - 1) {
         console.log(`[Missions] Stage complete! Loading next stage: ${bm.currentStageIndex + 2}/${stages.length}`);
 
+        // Award chest for completed stage
+        if (window.BattleRewards) {
+          await window.BattleRewards.awardStageChest(currentStage, bm.currentStageIndex, bm);
+        }
+
         // Show stage transition message
         this.showStageTransition(bm, bm.currentStageIndex + 2, stages.length);
 
-        setTimeout(() => {
+        setTimeout(async () => {
+          // Collect chest before next stage
+          if (window.BattleRewards) {
+            await window.BattleRewards.collectStageChest(bm);
+          }
           this.loadStage(bm, bm.currentStageIndex + 1);
         }, 2500);
       }
       // Mission complete!
       else {
         console.log("[Missions] All stages and waves complete!");
-        setTimeout(() => this.declareVictory(bm), 1000);
+
+        // Award final stage chest
+        if (window.BattleRewards) {
+          await window.BattleRewards.awardStageChest(currentStage, bm.currentStageIndex, bm);
+        }
+
+        setTimeout(async () => {
+          // Show results screen with all collected chests
+          if (window.BattleRewards && window.BattleRewards.collectedChests.length > 0) {
+            await window.BattleRewards.showResultsScreen(bm);
+          } else {
+            this.declareVictory(bm);
+          }
+        }, 1000);
       }
     },
 

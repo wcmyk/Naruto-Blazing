@@ -114,6 +114,11 @@
         window.BattleMissions.init(this);
       }
 
+      // Initialize rewards system if available
+      if (window.BattleRewards) {
+        window.BattleRewards.init(this);
+      }
+
       // Initialize modifiers if available
       if (window.BattleModifiers) {
         window.BattleModifiers.init(this);
