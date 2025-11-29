@@ -1,4 +1,4 @@
-// js/missions.js — CLEAN & FINAL VERSION (100% working, zero errors)
+// js/missions.js — CLEAN & FINAL VERSION (supports C, B, A, S, SS)
 
 document.addEventListener('DOMContentLoaded', () => {
   const tabsContainer = document.querySelector('.mission-tabs');
@@ -52,10 +52,14 @@ document.addEventListener('DOMContentLoaded', () => {
         button.dataset.difficulty = rank;
 
         const icon = document.createElement('img');
-        icon.src = `assets/icons/rank_${rank.toLowerCase()}.png`;
+
+        // ✔ Each rank uses its own icon file
+        // difficulty_c.png, difficulty_b.png, difficulty_a.png, difficulty_s.png, difficulty_ss.png
+        const safeRank = rank.toLowerCase(); // handles "SS", "Ex", etc.
+        icon.src = `assets/icons/difficulty_${safeRank}.png`;
         icon.alt = rank + ' Rank';
 
-        // Fallback to text if icon missing
+        // If icon missing → fallback to text
         icon.onerror = () => {
           icon.remove();
           button.textContent = rank;
@@ -64,12 +68,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
         button.appendChild(icon);
 
-        // Highlight default selected
+        // Default active difficulty
         if (rank === selectedDifficulty) {
           button.classList.add('active');
         }
 
-        // Click = set active difficulty
+        // Switch difficulty
         button.addEventListener('click', () => {
           difficultyContainer.querySelectorAll('.difficulty-icon-btn')
             .forEach(b => b.classList.remove('active'));
@@ -91,7 +95,6 @@ document.addEventListener('DOMContentLoaded', () => {
       startButton.textContent = 'Start Mission';
 
       startButton.addEventListener('click', () => {
-        // Store selected mission data
         localStorage.setItem('currentMissionId', String(mission.id));
         localStorage.setItem('currentDifficulty', selectedDifficulty);
         localStorage.setItem('currentMissionName', mission.name || '');
@@ -108,7 +111,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       controls.appendChild(startButton);
 
-      // Attach everything to card
+      // Attach to card
       card.appendChild(controls);
       listContainer.appendChild(card);
     });
@@ -135,10 +138,10 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-      // Collect category names
+      // Extract categories
       const categoryNames = [...new Set(allMissions.map(m => m.category || 'Other'))];
 
-      // Build tab buttons
+      // Build tabs
       tabsContainer.innerHTML = '';
       categoryNames.forEach(name => {
         const tab = document.createElement('button');
@@ -148,7 +151,7 @@ document.addEventListener('DOMContentLoaded', () => {
         tabsContainer.appendChild(tab);
       });
 
-      // Load first category by default
+      // Load first category
       renderMissionsForCategory(categoryNames[0]);
     })
     .catch(err => {
