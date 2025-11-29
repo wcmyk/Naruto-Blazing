@@ -54,9 +54,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const icon = document.createElement('img');
 
         // ✔ Each rank uses its own icon file
-        // difficulty_c.png, difficulty_b.png, difficulty_a.png, difficulty_s.png, difficulty_ss.png
+        // c_icons.png, b_icons.png, a_icons.png, s_icons.png, ss_icons.png
         const safeRank = rank.toLowerCase(); // handles "SS", "Ex", etc.
-        icon.src = `assets/icons/difficulty_${safeRank}.png`;
+        icon.src = `assets/icons/${safeRank}_icons.png`;
         icon.alt = rank + ' Rank';
 
         // If icon missing → fallback to text
