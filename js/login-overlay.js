@@ -6,7 +6,6 @@
   const form = formWrapper?.querySelector('form');
   const usernameInput = overlay?.querySelector('[data-login-username]');
   const guestButton = overlay?.querySelector('[data-login-guest]');
-  const fastEnterButton = overlay?.querySelector('[data-login-fast]');
   const loadingBridge = document.getElementById('login-loading');
   const redirectUrl = overlay?.dataset.redirect;
   const usernameDisplay = document.getElementById('username-display');
