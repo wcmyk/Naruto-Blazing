@@ -3,29 +3,19 @@
   const USERNAME_KEY = 'blazing-login-username';
   const redirectUrl = 'index.html';
 
-  const fromCookie = (key) => {
-    const cookies = document.cookie?.split(';') || [];
-    const prefix = `${encodeURIComponent(key)}=`;
-    const found = cookies.find((c) => c.trim().startsWith(prefix));
-    return found ? decodeURIComponent(found.trim().slice(prefix.length)) : null;
-  };
-
   const safeGet = (key) => {
     try {
       const value = localStorage.getItem(key);
       if (value !== null) return value;
     } catch (error) {
-      // Fall back to sessionStorage or cookies when localStorage is blocked.
+      // Fall back to sessionStorage when localStorage is blocked.
     }
 
     try {
-      const value = sessionStorage.getItem(key);
-      if (value !== null) return value;
+      return sessionStorage.getItem(key);
     } catch (error) {
-      // Continue to cookie fallback when storage is blocked.
+      return null;
     }
-
-    return fromCookie(key);
   };
 
   const hasLogin = () => safeGet(LOGIN_KEY) === 'true';

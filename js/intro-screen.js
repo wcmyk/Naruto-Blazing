@@ -1,32 +1,8 @@
 (function () {
   const introScreen = document.getElementById('intro-screen');
   const tapTarget = introScreen?.querySelector('[data-tap-start]');
-  const INTRO_SEEN_KEY = 'intro-screen-seen';
 
   if (!introScreen) return;
-
-  const markIntroSeen = () => {
-    try {
-      localStorage.setItem(INTRO_SEEN_KEY, 'true');
-    } catch (error) {
-      // Ignore storage errors so the intro can still be dismissed.
-    }
-  };
-
-  const hasSeenIntro = () => {
-    try {
-      return localStorage.getItem(INTRO_SEEN_KEY) === 'true';
-    } catch (error) {
-      // If storage is unavailable, always show the intro for safety.
-      return false;
-    }
-  };
-
-  if (hasSeenIntro()) {
-    introScreen.remove();
-    document.body.classList.remove('intro-active');
-    return;
-  }
 
   const hideIntro = () => {
     if (introScreen.classList.contains('is-hidden')) return;
@@ -34,7 +10,6 @@
     setTimeout(() => {
       introScreen.remove();
       document.body.classList.remove('intro-active');
-      markIntroSeen();
     }, 650);
   };
 
