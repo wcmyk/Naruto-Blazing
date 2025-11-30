@@ -6,6 +6,7 @@
   const form = formWrapper?.querySelector('form');
   const usernameInput = overlay?.querySelector('[data-login-username]');
   const guestButton = overlay?.querySelector('[data-login-guest]');
+  const fastEnterButton = overlay?.querySelector('[data-login-fast]');
   const loadingBridge = document.getElementById('login-loading');
   const redirectUrl = overlay?.dataset.redirect;
   const usernameDisplay = document.getElementById('username-display');
@@ -64,6 +65,23 @@
   if (hasLoggedIn()) {
     const storedName = safeGet(USERNAME_KEY);
     if (storedName) setUsername(storedName);
+
+    if (loadingBridge && redirectUrl) {
+      overlay.classList.add('is-hidden');
+      document.body.classList.remove('login-active');
+      loadingBridge.classList.remove('is-hidden');
+
+      const loaderText = loadingBridge.querySelector('[data-loading-message]');
+      if (loaderText) {
+        loaderText.textContent = 'Resuming your village session…';
+      }
+
+      setTimeout(() => {
+        window.location.href = redirectUrl;
+      }, 450);
+      return;
+    }
+
     overlay.remove();
     document.body.classList.remove('login-active');
     return;
