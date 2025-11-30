@@ -86,4 +86,9 @@
     event.preventDefault();
     finalizeLogin(usernameInput?.value || storedName || '');
   });
+
+  fastEnterButton?.addEventListener('click', (event) => {
+    event.preventDefault();
+    finalizeLogin(usernameInput?.value || storedName || '');
+  });
 })();
