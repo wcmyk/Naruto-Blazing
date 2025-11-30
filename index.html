@@ -53,12 +53,14 @@
           <input id="login-username" data-login-username type="text" name="username" maxlength="20" placeholder="Enter your ninja name" autocomplete="username" required />
 
           <label class="login-label" for="login-password">Password</label>
-          <input id="login-password" type="password" name="password" maxlength="32" placeholder="••••••••" autocomplete="current-password" required />
+          <input id="login-password" data-login-password type="password" name="password" maxlength="32" placeholder="••••••••" autocomplete="current-password" required />
 
           <button type="submit" class="login-primary">Log In</button>
+          <button type="button" class="login-create" data-login-create>Create Account</button>
           <button type="button" class="login-secondary" data-login-guest>Continue as guest</button>
 
-          <p class="login-note">Your session is remembered locally so returning to the Village HUD won't prompt you again.</p>
+          <div class="login-feedback" data-login-feedback aria-live="polite"></div>
+          <p class="login-note">Your session and new accounts are remembered locally so returning to the Village HUD won't prompt you again.</p>
         </form>
       </div>
     </div>
