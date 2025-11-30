@@ -6,6 +6,8 @@
   const form = formWrapper?.querySelector('form');
   const usernameInput = overlay?.querySelector('[data-login-username]');
   const guestButton = overlay?.querySelector('[data-login-guest]');
+  const loadingBridge = document.getElementById('login-loading');
+  const redirectUrl = overlay?.dataset.redirect;
   const usernameDisplay = document.getElementById('username-display');
 
   if (!overlay) return;
@@ -45,6 +47,18 @@
     const removeOverlay = () => overlay.remove();
     overlay.addEventListener('transitionend', removeOverlay, { once: true });
     setTimeout(removeOverlay, 650);
+
+    if (loadingBridge && redirectUrl) {
+      loadingBridge.classList.remove('is-hidden');
+      const loaderText = loadingBridge.querySelector('[data-loading-message]');
+      if (loaderText) {
+        loaderText.textContent = 'Entering the village plaza…';
+      }
+
+      setTimeout(() => {
+        window.location.href = redirectUrl;
+      }, 550);
+    }
   };
 
   if (hasLoggedIn()) {
