@@ -10,7 +10,7 @@
 .login-overlay {
   position: fixed;
   inset: 0;
-  z-index: 190; /* Below intro (200) but above game canvas */
+  z-index: 190; /* Above game canvas (z-index: 1) */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -20,24 +20,12 @@
     url('../assets/Main Background/login background.png') center/cover no-repeat;
   backdrop-filter: blur(var(--login-overlay-blur));
   transition: opacity 0.5s ease, transform 0.5s ease;
+  opacity: 1;
+  pointer-events: auto;
 }
 
 body.login-active {
   overflow: hidden;
-}
-
-/* Hide behind the intro when it's active */
-.intro-active .login-overlay {
-  opacity: 0;
-  pointer-events: none;
-  transform: translateY(8px);
-}
-
-/* CRITICAL FIX: Ensure login is visible when intro is gone */
-body:not(.intro-active) .login-overlay:not(.is-hidden) {
-  opacity: 1 !important;
-  pointer-events: auto !important;
-  transform: translateY(0) !important;
 }
 
 .login-overlay.is-hidden {
