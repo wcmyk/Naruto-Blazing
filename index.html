@@ -15,7 +15,8 @@
   <link rel="stylesheet" href="css/ui-layout.css?v=2" />
   <link rel="stylesheet" href="css/settings-modal.css?v=2" />
   <link rel="stylesheet" href="css/modal-system.css?v=1" />
-  <link rel="stylesheet" href="css/intro-screen.css" />
+  <link rel="stylesheet" href="css/login-overlay.css" />
+  <link rel="stylesheet" href="css/loading-bridge.css" />
   <!-- Hide scrollbar but keep functionality -->
   <style>
     body,
@@ -27,99 +28,10 @@
       color: #e9edf5;
       overflow-x: hidden;
     }
-
-    .login-landing {
-      position: relative;
-      z-index: 1;
-      padding: clamp(20px, 4vw, 40px);
-      max-width: 1100px;
-      margin: 0 auto;
-      display: grid;
-      gap: 12px;
-      text-align: center;
-    }
   </style>
 </head>
 
 <body>
-  <!-- Intro Screen (Tap to Start) -->
-  <div id="intro-screen" class="intro-screen" role="button" aria-label="Tap to start the game">
-    <div class="intro-content">
-      <h1 class="intro-title">Blazing Awakening</h1>
-      <p class="intro-subtitle">Tap to begin your ninja journey and enter the village plaza.</p>
-      <div class="tap-to-start" data-tap-start>
-        <img src="assets/ui/tap%20to%20start%20asset.png" alt="Tap to start" />
-      </div>
-    </div>
-  </div>
-
-  <!-- 16:9 Game Canvas Wrapper -->
-  <div class="game-canvas-wrapper">
-    <div class="game-canvas">
-      <div class="game-content">
-        <!-- Default background -->
-        <div id="full-bg" class="bg-1"></div>
-
-        <!-- Character Vignette Display -->
-        <div class="character-vignette-container"></div>
-
-        <!-- Vignette Edge Fading Effect -->
-        <div class="vignette-overlay"></div>
-
-        <!-- Wind Animation Particles -->
-        <div class="wind-container"></div>
-
-    .login-landing__badge {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      padding: 10px 16px;
-      margin: 48px auto 8px;
-      background: linear-gradient(135deg, rgba(255, 210, 138, 0.14), rgba(92, 138, 255, 0.16));
-      border: 1px solid rgba(255, 210, 138, 0.28);
-      border-radius: 999px;
-      color: #ffe5b5;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
-      font-size: 13px;
-    }
-
-    .login-landing__headline {
-      font-size: clamp(28px, 4vw, 42px);
-      font-weight: 700;
-      margin: 0 auto;
-      color: #f7f9ff;
-      text-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
-    }
-
-    .login-landing__subhead {
-      max-width: 720px;
-      margin: 10px auto 0;
-      font-size: 17px;
-      line-height: 1.6;
-      color: #cdd7f5;
-    }
-  </style>
-</head>
-<body>
-  <!-- Intro Screen (Tap to Start) -->
-  <div id="intro-screen" class="intro-screen" role="button" aria-label="Tap to start the game">
-    <div class="intro-content">
-      <h1 class="intro-title">Blazing Awakening</h1>
-      <p class="intro-subtitle">Tap to begin your ninja journey and enter the village plaza.</p>
-      <div class="tap-to-start" data-tap-start>
-        <img src="assets/ui/tap%20to%20start%20asset.png" alt="Tap to start" />
-      </div>
-    </div>
-  </div>
-
-  <section class="login-landing" aria-hidden="true">
-    <div class="login-landing__badge">Village Gate</div>
-    <h1 class="login-landing__headline">Sign in to enter the Village HUD</h1>
-    <p class="login-landing__subhead">Your session stays remembered on this device so you won’t be asked again when returning from missions or other screens.</p>
-  </section>
-
   <!-- Loading bridge shown after login -->
   <div id="login-loading" class="loading-bridge is-hidden" role="status" aria-live="polite">
     <div class="loading-bridge__spinner" aria-hidden="true"></div>
@@ -135,6 +47,10 @@
           <p class="login-eyebrow">Village Access Gate</p>
           <h2 id="login-title" class="login-heading">Sign in to enter the plaza</h2>
           <p class="login-copy">Log in once to unlock the HUD. You will stay signed in when you return from other screens.</p>
+          <div class="login-actions">
+            <button type="button" class="login-primary" data-login-fast>Enter the Village</button>
+            <p class="login-hint">Already signed in? Tap the button above to dismiss this screen immediately.</p>
+          </div>
           <ul class="login-perks">
             <li>Sync ninja rank and currencies</li>
             <li>Keep your username visible on the HUD</li>
@@ -160,8 +76,20 @@
     </div>
   </div>
 
+  <!-- 16:9 Game Canvas Wrapper (background + effects) -->
+  <div class="game-canvas-wrapper">
+    <div class="game-canvas">
+      <div class="game-content">
+        <div id="full-bg" class="bg-1"></div>
+        <div class="character-vignette-container"></div>
+        <div class="vignette-overlay"></div>
+        <div class="wind-container"></div>
+      </div>
+    </div>
+  </div>
+
   <!-- Scripts -->
-  <script src="js/intro-screen.js"></script>
+  <script src="js/login-overlay.js"></script>
   <!-- Core Libraries -->
   <script src="https://cdn.jsdelivr.net/npm/howler@2.2.4/dist/howler.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/hammerjs@2.0.8/hammer.min.js"></script>
@@ -358,7 +286,6 @@
       }
 
       // ===== RIGHT BANNER PANEL NAVIGATION =====
-
       const bannerButtons = document.querySelectorAll('.right-banner-panel .banner-button');
       bannerButtons.forEach(button => {
         button.addEventListener('click', () => {
@@ -557,9 +484,11 @@
           alert(muted ? "🔇 SFX MUTED" : "🔊 SFX UNMUTED");
           showAudioSettings();
         } else if (choice === "7") {
-          if (window.ModalManager) { window.ModalManager.showConfirm("Reset all audio settings to defaults?", () => {
-            window.AudioManager.reset();
-            if (window.ModalManager) { window.ModalManager.showInfo("✅ Audio settings reset to defaults"); }
+          if (window.ModalManager) {
+            window.ModalManager.showConfirm("Reset all audio settings to defaults?", () => {
+              window.AudioManager.reset();
+              if (window.ModalManager) { window.ModalManager.showInfo("✅ Audio settings reset to defaults"); }
+            });
           }
           showAudioSettings();
         } else if (choice === "8") {
@@ -602,9 +531,5 @@
       console.log("✅ All systems initialized!");
     });
   </script>
-
-      </div><!-- .game-content -->
-    </div><!-- .game-canvas -->
-  </div><!-- .game-canvas-wrapper -->
 </body>
 </html>

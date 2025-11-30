@@ -22,6 +22,11 @@
   transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
+/* Hard-disable any legacy intro overlay that might still be cached */
+#intro-screen {
+  display: none !important;
+}
+
 body.login-active {
   overflow: hidden;
 }
@@ -97,6 +102,18 @@ body.login-active {
   margin: 0 0 16px;
   line-height: 1.5;
   opacity: 0.92;
+}
+
+.login-actions {
+  display: grid;
+  gap: 8px;
+  margin: 0 0 12px;
+}
+
+.login-hint {
+  margin: 0;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.8);
 }
 
 .login-perks {
