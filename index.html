@@ -16,6 +16,7 @@
   <link rel="stylesheet" href="css/settings-modal.css?v=2" />
   <link rel="stylesheet" href="css/modal-system.css?v=1" />
   <link rel="stylesheet" href="css/intro-screen.css" />
+  <link rel="stylesheet" href="css/login-overlay.css" />
   <!-- Hide scrollbar but keep functionality -->
   <style>
     /* Hide scrollbar for Chrome, Safari and Opera */
@@ -41,6 +42,40 @@
       <p class="intro-subtitle">Tap to begin your ninja journey and enter the village plaza.</p>
       <div class="tap-to-start" data-tap-start>
         <img src="assets/ui/tap%20to%20start%20asset.png" alt="Tap to start" />
+      </div>
+    </div>
+  </div>
+
+  <!-- Login Overlay (Blocks hub until authenticated) -->
+  <div id="login-overlay" class="login-overlay" role="dialog" aria-modal="true" aria-labelledby="login-title">
+    <div class="login-panel">
+      <div class="login-hero">
+        <div class="login-hero__glow"></div>
+        <div class="login-hero__content">
+          <p class="login-eyebrow">Village Access Gate</p>
+          <h2 id="login-title" class="login-heading">Sign in to enter the plaza</h2>
+          <p class="login-copy">Log in once to unlock the HUD. You will stay signed in when you return from other screens.</p>
+          <ul class="login-perks">
+            <li>Sync ninja rank and currencies</li>
+            <li>Keep your username visible on the HUD</li>
+            <li>Skip this step next time on this device</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="login-form" data-login-form>
+        <form>
+          <label class="login-label" for="login-username">Username</label>
+          <input id="login-username" data-login-username type="text" name="username" maxlength="20" placeholder="Enter your ninja name" autocomplete="username" required />
+
+          <label class="login-label" for="login-password">Password</label>
+          <input id="login-password" type="password" name="password" maxlength="32" placeholder="••••••••" autocomplete="current-password" required />
+
+          <button type="submit" class="login-primary">Log In</button>
+          <button type="button" class="login-secondary" data-login-guest>Continue as guest</button>
+
+          <p class="login-note">Your session is remembered locally so returning to the Village HUD won’t prompt you again.</p>
+        </form>
       </div>
     </div>
   </div>
@@ -203,6 +238,7 @@
 
   <!-- Scripts -->
   <script src="js/intro-screen.js"></script>
+  <script src="js/login-overlay.js"></script>
   <!-- Core Libraries -->
   <script src="https://cdn.jsdelivr.net/npm/howler@2.2.4/dist/howler.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/hammerjs@2.0.8/hammer.min.js"></script>
