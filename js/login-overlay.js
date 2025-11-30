@@ -3,6 +3,7 @@
   const USERNAME_KEY = 'blazing-login-username';
   const PLAYER_ID_KEY = 'blazing-player-id';
   const ACCOUNT_STORE_KEY = 'blazing-account-store';
+  const RESOURCES_STORAGE_KEY = 'blazing_resources_v1';
   const ACCOUNT_SOURCE_PATH = 'data/user-accounts.json';
 
   const overlay = document.getElementById('login-overlay');
@@ -12,6 +13,8 @@
   const passwordInput = overlay?.querySelector('[data-login-password]');
   const guestButton = overlay?.querySelector('[data-login-guest]');
   const fastEnterButton = overlay?.querySelector('[data-login-fast]');
+  const createAccountButton = overlay?.querySelector('[data-login-create]');
+  const feedback = overlay?.querySelector('[data-login-feedback]');
   const loadingBridge = document.getElementById('login-loading');
   const redirectUrl = overlay?.dataset.redirect;
   const usernameDisplay = document.getElementById('username-display');
@@ -36,17 +39,42 @@
 
   let accountStore = { nextId: 1001, accounts: [] };
 
+  const sanitizeResources = (resources = {}) => {
+    const base = { ryo: 0, ninja_pearls: 0, shinobites: 0, granny_coin: 0 };
+    if (resources && typeof resources === 'object') {
+      for (const [key, value] of Object.entries(resources)) {
+        base[key] = Math.max(0, Number(value) || 0);
+      }
+    }
+    return base;
+  };
+
+  const applyAccountResources = (account) => {
+    if (!account?.resources) return;
+    const resources = sanitizeResources(account.resources);
+    try {
+      localStorage.setItem(RESOURCES_STORAGE_KEY, JSON.stringify(resources));
+    } catch (error) {
+      // Ignore storage issues; resources will be initialized on the next page load if needed.
+    }
+  };
+
   const normalizeNinjas = (ninjas = []) => {
     if (!Array.isArray(ninjas)) return [];
     return ninjas
-      .filter((ninja) => ninja?.name)
-      .map((ninja, index) => ({
-        id: Number(ninja.id) || index + 1,
-        name: String(ninja.name),
-        level: Number(ninja.level) || 1,
-        rank: String(ninja.rank || 'Genin'),
-        element: String(ninja.element || 'Neutral'),
-      }));
+      .filter((ninja) => ninja?.id || ninja?.characterId)
+      .map((ninja, index) => {
+        const characterId = String(ninja.id || ninja.characterId || '').trim();
+        return {
+          id: characterId || String(index + 1),
+          characterId: characterId || String(index + 1),
+          name: ninja.name ? String(ninja.name) : undefined,
+          version: ninja.version ? String(ninja.version) : undefined,
+          level: Number(ninja.level) || 1,
+          rank: String(ninja.rank || 'Genin'),
+          element: String(ninja.element || 'Neutral'),
+        };
+      });
   };
 
   const normalizeAccountStore = (store) => {
@@ -60,6 +88,7 @@
               username: String(account.username),
               password: String(account.password),
               ninjas: normalizeNinjas(account.ninjas),
+              resources: sanitizeResources(account.resources),
             }))
         : [],
     };
@@ -172,6 +201,7 @@
     if (account?.id) {
       setPlayerId(account.id);
     }
+    applyAccountResources(account);
     safeSet(LOGIN_KEY, 'true');
     overlay.classList.add('is-hidden');
     document.body.classList.remove('login-active');
@@ -226,19 +256,20 @@
 
   const starterNinjas = (playerId) => {
     const starters = [
-      { name: 'Naruto Uzumaki', element: 'Wind' },
-      { name: 'Sasuke Uchiha', element: 'Lightning' },
-      { name: 'Sakura Haruno', element: 'Earth' },
-      { name: 'Rock Lee', element: 'Taijutsu' },
-      { name: 'Shikamaru Nara', element: 'Shadow' },
-      { name: 'Hinata Hyuga', element: 'Water' },
+      { id: 'naruto_001', name: 'Naruto Uzumaki', element: 'Wind' },
+      { id: 'sasuke_004', name: 'Sasuke Uchiha', element: 'Lightning' },
+      { id: 'sakura_006', name: 'Sakura Haruno', element: 'Earth' },
+      { id: 'rock_148', name: 'Rock Lee', element: 'Taijutsu' },
+      { id: 'shikamaru_010', name: 'Shikamaru Nara', element: 'Shadow' },
+      { id: 'hinata_016', name: 'Hinata Hyuga', element: 'Water' },
     ];
 
     const offset = Number(playerId) % starters.length;
     const picks = [starters[offset], starters[(offset + 2) % starters.length]];
 
-    return picks.map((ninja, index) => ({
-      id: index + 1,
+    return picks.map((ninja) => ({
+      id: ninja.id,
+      characterId: ninja.id,
       name: ninja.name,
       level: 1,
       rank: 'Genin',
@@ -307,6 +338,7 @@
       username,
       password,
       ninjas: starterNinjas(playerId),
+      resources: sanitizeResources(),
     };
     accountStore.accounts.push(newAccount);
     persistAccountStore();
