@@ -7,22 +7,12 @@
   const usernameInput = overlay?.querySelector('[data-login-username]');
   const guestButton = overlay?.querySelector('[data-login-guest]');
   const usernameDisplay = document.getElementById('username-display');
-  const redirectUrl = overlay?.dataset.redirect;
-  const loadingOverlay = document.getElementById('login-loading');
-  const loadingMessage = loadingOverlay?.querySelector('[data-loading-message]');
 
   if (!overlay) return;
 
   const safeGet = (key) => {
     try {
-      const value = localStorage.getItem(key);
-      if (value !== null) return value;
-    } catch (error) {
-      // Continue to sessionStorage fallback when localStorage is unavailable.
-    }
-
-    try {
-      return sessionStorage.getItem(key);
+      return localStorage.getItem(key);
     } catch (error) {
       return null;
     }
@@ -33,12 +23,6 @@
       localStorage.setItem(key, value);
     } catch (error) {
       // Ignore storage errors so we never block login flow.
-    }
-
-    try {
-      sessionStorage.setItem(key, value);
-    } catch (error) {
-      // Ignore sessionStorage errors as well.
     }
   };
 
@@ -52,21 +36,6 @@
     }
   };
 
-  const showLoadingAndRedirect = () => {
-    if (loadingOverlay) {
-      loadingOverlay.classList.remove('is-hidden');
-      if (loadingMessage) {
-        loadingMessage.textContent = 'Loading Village HUD…';
-      }
-    }
-
-    if (redirectUrl) {
-      setTimeout(() => {
-        window.location.href = redirectUrl;
-      }, 900);
-    }
-  };
-
   const finalizeLogin = (name) => {
     const resolvedName = name?.trim() || safeGet(USERNAME_KEY) || 'Ninja';
     setUsername(resolvedName);
@@ -76,18 +45,13 @@
     const removeOverlay = () => overlay.remove();
     overlay.addEventListener('transitionend', removeOverlay, { once: true });
     setTimeout(removeOverlay, 650);
-    showLoadingAndRedirect();
   };
 
   if (hasLoggedIn()) {
     const storedName = safeGet(USERNAME_KEY);
     if (storedName) setUsername(storedName);
-    if (redirectUrl) {
-      showLoadingAndRedirect();
-    } else {
-      overlay.remove();
-      document.body.classList.remove('login-active');
-    }
+    overlay.remove();
+    document.body.classList.remove('login-active');
     return;
   }
 
