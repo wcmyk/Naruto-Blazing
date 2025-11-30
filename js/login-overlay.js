@@ -12,8 +12,6 @@
   const passwordInput = overlay?.querySelector('[data-login-password]');
   const guestButton = overlay?.querySelector('[data-login-guest]');
   const fastEnterButton = overlay?.querySelector('[data-login-fast]');
-  const createAccountButton = overlay?.querySelector('[data-login-create]');
-  const feedback = overlay?.querySelector('[data-login-feedback]');
   const loadingBridge = document.getElementById('login-loading');
   const redirectUrl = overlay?.dataset.redirect;
   const usernameDisplay = document.getElementById('username-display');
