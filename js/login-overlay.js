@@ -12,14 +12,7 @@
 
   const safeGet = (key) => {
     try {
-      const value = localStorage.getItem(key);
-      if (value !== null) return value;
-    } catch (error) {
-      // Continue to sessionStorage fallback when localStorage is unavailable.
-    }
-
-    try {
-      return sessionStorage.getItem(key);
+      return localStorage.getItem(key);
     } catch (error) {
       return null;
     }
@@ -30,12 +23,6 @@
       localStorage.setItem(key, value);
     } catch (error) {
       // Ignore storage errors so we never block login flow.
-    }
-
-    try {
-      sessionStorage.setItem(key, value);
-    } catch (error) {
-      // Ignore sessionStorage errors as well.
     }
   };
 
