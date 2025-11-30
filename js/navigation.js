@@ -5,6 +5,138 @@
 (function (global) {
   "use strict";
 
+  const ACCOUNT_STORE_KEY = 'blazing-account-store';
+  const PLAYER_ID_KEY = 'blazing-player-id';
+  const LOGIN_KEY = 'blazing-login-complete';
+  const RESOURCES_KEY = 'blazing_resources_v1';
+  const INVENTORY_KEY = 'blazing_inventory_v2';
+  const TEAM_KEY = 'blazing_teams_v1';
+
+  const AccountSync = {
+    initialized: false,
+    timer: null,
+
+    loadStore() {
+      try {
+        const raw = localStorage.getItem(ACCOUNT_STORE_KEY);
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          if (parsed && typeof parsed === 'object') {
+            return parsed;
+          }
+        }
+      } catch (error) {
+        console.warn('[AccountSync] Failed to read account store:', error);
+      }
+      return { nextId: 1001, accounts: [] };
+    },
+
+    persistStore(store) {
+      try {
+        localStorage.setItem(ACCOUNT_STORE_KEY, JSON.stringify(store));
+      } catch (error) {
+        console.warn('[AccountSync] Unable to persist account store:', error);
+      }
+    },
+
+    isLoggedIn() {
+      try {
+        return localStorage.getItem(LOGIN_KEY) === 'true';
+      } catch (error) {
+        return false;
+      }
+    },
+
+    getActiveAccount(store) {
+      if (!this.isLoggedIn()) return null;
+      const playerId = localStorage.getItem(PLAYER_ID_KEY);
+      if (!playerId || !Array.isArray(store?.accounts)) return null;
+      return store.accounts.find((acct) => String(acct.id) === String(playerId)) || null;
+    },
+
+    readInventory(accountId) {
+      try {
+        const raw = localStorage.getItem(INVENTORY_KEY);
+        const list = raw ? JSON.parse(raw) : [];
+        if (!Array.isArray(list)) return [];
+        return list.map((inst, index) => {
+          const characterId = String(inst.charId || inst.characterId || '').trim();
+          return {
+            uid: inst.uid || `acct-${accountId || 'local'}-${index}-${characterId || 'ninja'}`,
+            characterId,
+            level: Number(inst.level) || 1,
+            tierCode: inst.tierCode || null,
+            dupeUnlocks: Number.isFinite(Number(inst.dupeUnlocks))
+              ? Number(inst.dupeUnlocks)
+              : 0,
+          };
+        });
+      } catch (error) {
+        console.warn('[AccountSync] Failed to parse inventory:', error);
+        return [];
+      }
+    },
+
+    readTeams() {
+      try {
+        const raw = localStorage.getItem(TEAM_KEY);
+        if (!raw) return { 1: {}, 2: {}, 3: {} };
+        const parsed = JSON.parse(raw);
+        return {
+          1: parsed[1] || parsed['1'] || {},
+          2: parsed[2] || parsed['2'] || {},
+          3: parsed[3] || parsed['3'] || {},
+        };
+      } catch (error) {
+        console.warn('[AccountSync] Failed to parse teams:', error);
+        return { 1: {}, 2: {}, 3: {} };
+      }
+    },
+
+    readResources(current = {}) {
+      try {
+        const raw = localStorage.getItem(RESOURCES_KEY);
+        const parsed = raw ? JSON.parse(raw) : null;
+        if (parsed && typeof parsed === 'object') return parsed;
+      } catch (error) {
+        console.warn('[AccountSync] Failed to parse resources:', error);
+      }
+      return current || {};
+    },
+
+    syncNow() {
+      const store = this.loadStore();
+      const account = this.getActiveAccount(store);
+      if (!account) return;
+
+      account.ninjas = this.readInventory(account.id);
+      account.teams = this.readTeams();
+      account.resources = this.readResources(account.resources);
+
+      this.persistStore(store);
+    },
+
+    init() {
+      if (this.initialized) return;
+      this.initialized = true;
+      this.syncNow();
+
+      document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'hidden') {
+          this.syncNow();
+        }
+      });
+
+      window.addEventListener('beforeunload', () => this.syncNow());
+      this.timer = window.setInterval(() => this.syncNow(), 12000);
+
+      console.log('[AccountSync] Session syncing enabled');
+    },
+  };
+
+  AccountSync.init();
+  global.AccountSync = AccountSync;
+
   // ---------- Navigation Function ----------
   function navigateTo(url, params = {}) {
     console.log(`[Navigation] Navigating to: ${url}`, params);
