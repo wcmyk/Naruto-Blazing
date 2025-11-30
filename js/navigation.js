@@ -82,7 +82,7 @@
     if (btnVillage) {
       btnVillage.addEventListener('click', () => {
         console.log("[Navigation] Village button clicked");
-        navigateTo('index.html');
+        navigateTo('village.html');
       });
     }
 
@@ -154,7 +154,7 @@
     if (btnHome) {
       btnHome.addEventListener('click', () => {
         console.log("[Navigation] Home button clicked");
-        navigateTo('index.html');
+        navigateTo('village.html');
       });
     }
 
