@@ -22,6 +22,11 @@
   transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
+/* Hard-disable any legacy intro overlay that might still be cached */
+#intro-screen {
+  display: none !important;
+}
+
 body.login-active {
   overflow: hidden;
 }
