@@ -104,6 +104,18 @@ body.login-active {
   opacity: 0.92;
 }
 
+.login-actions {
+  display: grid;
+  gap: 8px;
+  margin: 0 0 12px;
+}
+
+.login-hint {
+  margin: 0;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
 .login-perks {
   margin: 0;
   padding-left: 18px;
