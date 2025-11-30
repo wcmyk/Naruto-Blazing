@@ -20,6 +20,18 @@ html, body {
   background: #000;
 }
 
+/* Center the canvas vertically and horizontally */
+.game-canvas-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: #000;
+  overflow: hidden;
+  z-index: 1; /* CRITICAL: Must be below login (190) and intro (200) */
+}
+
 /* Main game container - enforces 16:9 aspect ratio */
 /* Uses absolute positioning with centering transform for perfect mobile + desktop alignment */
 .game-canvas {
@@ -36,17 +48,7 @@ html, body {
 
   overflow: visible; /* Changed to visible to allow backgrounds */
   background: #000;
-}
-
-/* Center the canvas vertically and horizontally */
-.game-canvas-wrapper {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100vh;
-  background: #000;
-  overflow: hidden;
+  z-index: 1; /* Keep at base level */
 }
 
 /* All game content must be inside this container */
