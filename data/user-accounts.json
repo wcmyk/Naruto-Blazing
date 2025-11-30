@@ -1,0 +1,23 @@
+{
+  "nextId": 1010,
+  "accounts": [
+    {
+      "id": 1001,
+      "username": "naruto",
+      "password": "shadowclone",
+      "ninjas": [
+        { "id": 1, "name": "Naruto Uzumaki", "rank": "Genin", "level": 5, "element": "Wind" },
+        { "id": 2, "name": "Jiraiya", "rank": "Sannin", "level": 12, "element": "Toad" }
+      ]
+    },
+    {
+      "id": 1002,
+      "username": "sakura",
+      "password": "medical",
+      "ninjas": [
+        { "id": 1, "name": "Sakura Haruno", "rank": "Genin", "level": 6, "element": "Earth" },
+        { "id": 2, "name": "Tsunade", "rank": "Sannin", "level": 15, "element": "Earth" }
+      ]
+    }
+  ]
+}

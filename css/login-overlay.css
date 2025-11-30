@@ -235,11 +235,49 @@ body.login-active {
   transform: translateY(-1px);
 }
 
+.login-create {
+  background: linear-gradient(135deg, rgba(118, 183, 255, 0.22), rgba(255, 210, 138, 0.2));
+  color: #e8f1ff;
+  border: 1px solid rgba(118, 183, 255, 0.35);
+}
+
+.login-create:hover {
+  background: linear-gradient(135deg, rgba(118, 183, 255, 0.3), rgba(255, 210, 138, 0.26));
+  transform: translateY(-1px);
+}
+
 .login-note {
   margin: 6px 0 0;
   font-size: 0.85rem;
   color: #d8d8d8;
   line-height: 1.4;
+}
+
+.login-feedback {
+  margin: 6px 0 0;
+  padding: 10px 12px;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  border: 1px solid transparent;
+  background: rgba(255, 255, 255, 0.05);
+  display: none;
+}
+
+.login-feedback.is-visible {
+  display: block;
+}
+
+.login-feedback.is-error {
+  border-color: rgba(255, 115, 115, 0.6);
+  background: linear-gradient(135deg, rgba(255, 115, 115, 0.14), rgba(255, 71, 71, 0.08));
+  color: #ffecec;
+}
+
+.login-feedback.is-success {
+  border-color: rgba(118, 183, 255, 0.55);
+  background: linear-gradient(135deg, rgba(118, 183, 255, 0.15), rgba(255, 210, 138, 0.08));
+  color: #eaf3ff;
 }
 
 
