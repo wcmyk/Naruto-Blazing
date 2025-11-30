@@ -243,6 +243,13 @@
           <button class="toggle-button" id="change-username-button">Edit</button>
         </div>
       </div>
+
+      <div class="setting-row">
+        <div class="setting-label">Session</div>
+        <div class="setting-control">
+          <button class="toggle-button" id="logout-button" style="background: linear-gradient(135deg, #8b1f1f 0%, #a52a2a 100%); border-color: #c66;">Log Out</button>
+        </div>
+      </div>
     </div>
 
     <!-- Gift Code -->
@@ -358,6 +365,7 @@
   <script src="js/dashboard-mailbox.js"></script>
   <script src="js/player-save-system.js"></script>
   <script src="js/batch-add-characters.js"></script>
+  <script src="js/navigation.js"></script>
 
   <script>
     // Initialize Mailbox System
@@ -423,6 +431,38 @@
         alert('Username system not loaded. Please return to home page.');
       }
     });
+
+    const logoutButton = document.getElementById('logout-button');
+    if (logoutButton) {
+      logoutButton.addEventListener('click', () => {
+        if (window.AccountSync?.syncNow) {
+          window.AccountSync.syncNow();
+        }
+
+        const keysToClear = [
+          'blazing-login-complete',
+          'blazing-login-username',
+          'blazing-player-id',
+          'blazing_inventory_v2',
+          'blazing_teams_v1',
+          'blazing_resources_v1',
+          'blazing_equipped_ultimates',
+          'blazing_username',
+          'blazing_user_profile'
+        ];
+
+        keysToClear.forEach((key) => {
+          try {
+            localStorage.removeItem(key);
+          } catch (error) {
+            // ignore cleanup failures
+          }
+        });
+
+        sessionStorage.clear();
+        window.location.href = 'index.html';
+      });
+    }
 
     // Background Change
     document.getElementById('background-select').addEventListener('change', (e) => {

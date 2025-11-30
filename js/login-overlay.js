@@ -21,6 +21,32 @@
 
   if (!overlay) return;
 
+  const setupLoginMusic = () => {
+    const track = new Audio('assets/music/general.mp3');
+    track.loop = true;
+    track.volume = 0.35;
+    track.preload = 'auto';
+
+    const tryPlay = () => {
+      track.play().catch(() => {});
+    };
+
+    tryPlay();
+    ['click', 'touchstart', 'keydown'].forEach((evt) => {
+      overlay.addEventListener(
+        evt,
+        () => {
+          tryPlay();
+        },
+        { once: true },
+      );
+    });
+
+    return track;
+  };
+
+  setupLoginMusic();
+
   const safeGet = (key) => {
     try {
       return localStorage.getItem(key);
@@ -59,22 +85,76 @@
     }
   };
 
-  const normalizeNinjas = (ninjas = []) => {
+  const mapToInventoryEntry = (ninja, index, ownerId = 'local') => {
+    const characterId = String(ninja.characterId || ninja.id || '').trim();
+    const uid = ninja.uid || `acct-${ownerId}-${index}-${characterId || 'ninja'}`;
+    return {
+      uid,
+      charId: characterId,
+      level: Number(ninja.level) || 1,
+      tierCode: ninja.tierCode || null,
+      dupeUnlocks: Number.isFinite(Number(ninja.dupeUnlocks))
+        ? Number(ninja.dupeUnlocks)
+        : 0,
+    };
+  };
+
+  const applyAccountInventory = (account) => {
+    if (!account?.ninjas) return;
+    const inventory = normalizeNinjas(account.ninjas, account.id).map((ninja, idx) =>
+      mapToInventoryEntry(ninja, idx, account.id),
+    );
+    try {
+      localStorage.setItem(INVENTORY_KEY, JSON.stringify(inventory));
+    } catch (error) {
+      // Ignore failures; downstream pages will rely on in-memory inventory if present.
+    }
+  };
+
+  const applyAccountTeams = (account) => {
+    const teams = normalizeTeams(account?.teams);
+    try {
+      localStorage.setItem(TEAM_KEY, JSON.stringify(teams));
+    } catch (error) {
+      // Non-blocking: team data is a convenience for skipping setup.
+    }
+  };
+
+  const normalizeNinjas = (ninjas = [], accountId = 'local') => {
     if (!Array.isArray(ninjas)) return [];
     return ninjas
       .filter((ninja) => ninja?.id || ninja?.characterId)
       .map((ninja, index) => {
         const characterId = String(ninja.id || ninja.characterId || '').trim();
+        const stableUid = ninja.uid || `acct-${accountId}-${index}-${characterId || 'ninja'}`;
         return {
+          uid: stableUid,
           id: characterId || String(index + 1),
           characterId: characterId || String(index + 1),
           name: ninja.name ? String(ninja.name) : undefined,
           version: ninja.version ? String(ninja.version) : undefined,
           level: Number(ninja.level) || 1,
           rank: String(ninja.rank || 'Genin'),
+          tierCode: ninja.tierCode ? String(ninja.tierCode) : null,
           element: String(ninja.element || 'Neutral'),
+          dupeUnlocks: Number.isFinite(Number(ninja.dupeUnlocks))
+            ? Number(ninja.dupeUnlocks)
+            : 0,
+          unlockedPassives: Array.isArray(ninja.unlockedPassives)
+            ? ninja.unlockedPassives
+            : undefined,
         };
       });
+  };
+
+  const normalizeTeams = (teams = null) => {
+    const base = { 1: {}, 2: {}, 3: {} };
+    if (!teams || typeof teams !== 'object') return base;
+    return {
+      1: teams[1] || teams['1'] || {},
+      2: teams[2] || teams['2'] || {},
+      3: teams[3] || teams['3'] || {},
+    };
   };
 
   const normalizeAccountStore = (store) => {
@@ -87,8 +167,9 @@
               id: Number(account.id) || null,
               username: String(account.username),
               password: String(account.password),
-              ninjas: normalizeNinjas(account.ninjas),
+              ninjas: normalizeNinjas(account.ninjas, account.id),
               resources: sanitizeResources(account.resources),
+              teams: normalizeTeams(account.teams),
             }))
         : [],
     };
@@ -151,6 +232,10 @@
       account.ninjas = fallback;
       persistAccountStore();
     }
+    if (!account.teams) {
+      account.teams = normalizeTeams();
+      persistAccountStore();
+    }
     return account;
   };
 
@@ -202,6 +287,8 @@
       setPlayerId(account.id);
     }
     applyAccountResources(account);
+    applyAccountInventory(account);
+    applyAccountTeams(account);
     safeSet(LOGIN_KEY, 'true');
     overlay.classList.add('is-hidden');
     document.body.classList.remove('login-active');
@@ -338,6 +425,7 @@
       username,
       password,
       ninjas: starterNinjas(playerId),
+      teams: normalizeTeams(),
       resources: sanitizeResources(),
     };
     accountStore.accounts.push(newAccount);
