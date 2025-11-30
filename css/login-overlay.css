@@ -1,0 +1,220 @@
+/* ==========================================
+   Login Overlay
+   Locks hub until user signs in once per device
+   ========================================== */
+
+:root {
+  --login-overlay-blur: 4px;
+}
+
+.login-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 190;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(16px, 4vw, 32px);
+  background:
+    linear-gradient(160deg, rgba(10, 12, 18, 0.85), rgba(10, 12, 18, 0.65)),
+    url('../assets/Main Background/login background.png') center/cover no-repeat;
+  backdrop-filter: blur(var(--login-overlay-blur));
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+body.login-active {
+  overflow: hidden;
+}
+
+/* Hide behind the intro when it's active */
+.intro-active .login-overlay {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(8px);
+}
+
+.login-overlay.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(10px);
+}
+
+.login-panel {
+  width: min(960px, 100%);
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: clamp(24px, 3vw, 36px);
+  padding: clamp(20px, 2.5vw, 32px);
+  border-radius: 18px;
+  border: 1px solid rgba(255, 210, 138, 0.25);
+  background: linear-gradient(135deg, rgba(20, 24, 33, 0.92), rgba(14, 16, 24, 0.92));
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.5), 0 0 22px rgba(255, 210, 138, 0.28);
+  overflow: hidden;
+}
+
+.login-hero {
+  position: relative;
+  background:
+    radial-gradient(circle at 25% 20%, rgba(255, 210, 138, 0.12), transparent 42%),
+    radial-gradient(circle at 70% 70%, rgba(120, 190, 255, 0.1), transparent 48%),
+    linear-gradient(180deg, rgba(14, 18, 26, 0.9), rgba(14, 18, 26, 0.92));
+  border-radius: 12px;
+  padding: clamp(18px, 2vw, 26px);
+  overflow: hidden;
+  min-height: 320px;
+}
+
+.login-hero__glow {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(145deg, rgba(255, 210, 138, 0.14), rgba(92, 138, 255, 0.12));
+  filter: blur(18px);
+  opacity: 0.9;
+}
+
+.login-hero__content {
+  position: relative;
+  z-index: 1;
+  color: #f8f8f8;
+  text-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+}
+
+.login-eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 0.72rem;
+  color: #ffd28a;
+  margin: 0 0 10px;
+}
+
+.login-heading {
+  font-family: "Cinzel", serif;
+  font-size: clamp(1.6rem, 2.6vw, 2.4rem);
+  margin: 0 0 12px;
+}
+
+.login-copy {
+  margin: 0 0 16px;
+  line-height: 1.5;
+  opacity: 0.92;
+}
+
+.login-perks {
+  margin: 0;
+  padding-left: 18px;
+  display: grid;
+  gap: 8px;
+  color: #e7e7e7;
+}
+
+.login-perks li {
+  position: relative;
+}
+
+.login-perks li::marker {
+  color: #ffd28a;
+}
+
+.login-form {
+  background: rgba(14, 16, 24, 0.9);
+  border: 1px solid rgba(255, 210, 138, 0.2);
+  border-radius: 12px;
+  padding: clamp(16px, 2vw, 24px);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.login-form form {
+  display: grid;
+  gap: 12px;
+}
+
+.login-label {
+  display: block;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #f2f2f2;
+}
+
+.login-form input {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
+  outline: none;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.login-form input:focus {
+  border-color: rgba(255, 210, 138, 0.8);
+  box-shadow: 0 0 0 3px rgba(255, 210, 138, 0.2);
+}
+
+.login-form button {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  border: none;
+  transition: transform 0.2s ease, box-shadow 0.25s ease, background 0.25s ease;
+}
+
+.login-primary {
+  background: linear-gradient(135deg, #ffce85, #ffb347);
+  color: #0f121b;
+  box-shadow: 0 12px 28px rgba(255, 184, 71, 0.35);
+}
+
+.login-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 14px 32px rgba(255, 184, 71, 0.45);
+}
+
+.login-secondary {
+  background: rgba(255, 255, 255, 0.08);
+  color: #f1f1f1;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.login-secondary:hover {
+  background: rgba(255, 255, 255, 0.12);
+  transform: translateY(-1px);
+}
+
+.login-note {
+  margin: 6px 0 0;
+  font-size: 0.85rem;
+  color: #d8d8d8;
+  line-height: 1.4;
+}
+
+@media (max-width: 900px) {
+  .login-panel {
+    grid-template-columns: 1fr;
+  }
+
+  .login-hero {
+    min-height: auto;
+  }
+}
+
+@media (max-width: 600px) {
+  .login-overlay {
+    padding: 12px;
+  }
+
+  .login-panel {
+    border-radius: 14px;
+  }
+
+  .login-heading {
+    font-size: 1.5rem;
+  }
+
+  .login-copy {
+    font-size: 0.95rem;
+  }
+}
