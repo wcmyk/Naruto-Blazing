@@ -87,12 +87,7 @@
     </div>
   </div>
 
-<body>
-  <section class="login-landing" aria-hidden="true">
-    <div class="login-landing__badge">Village Gate</div>
-    <h1 class="login-landing__headline">Sign in to enter the Village HUD</h1>
-    <p class="login-landing__subhead">Your session stays remembered on this device so you won’t be asked again when returning from missions or other screens.</p>
-  </section>
+  <!-- (Removed the blocking .login-landing hero section) -->
 
   <!-- Loading bridge shown after login -->
   <div id="login-loading" class="loading-bridge is-hidden" role="status" aria-live="polite">
@@ -355,7 +350,7 @@
           const action = button.classList[1]; // missions, characters, summon, fusion, shop
           console.log(`🎯 Banner clicked: ${action}`);
 
-          switch(action) {
+          switch (action) {
             case 'missions':
               navigateTo('missions.html');
               break;
@@ -383,7 +378,7 @@
           const action = icon.dataset.action;
           console.log(`🔷 Bottom icon clicked: ${action}`);
 
-          switch(action) {
+          switch (action) {
             case 'notice':
               if (window.ModalManager) { window.ModalManager.showInfo('📢 Notice Board\n\nNo new notices at this time.'); }
               break;
