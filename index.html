@@ -15,6 +15,7 @@
   <link rel="stylesheet" href="css/ui-layout.css?v=2" />
   <link rel="stylesheet" href="css/settings-modal.css?v=2" />
   <link rel="stylesheet" href="css/modal-system.css?v=1" />
+  <link rel="stylesheet" href="css/intro-screen.css" />
   <link rel="stylesheet" href="css/login-overlay.css" />
   <link rel="stylesheet" href="css/loading-bridge.css" />
   <!-- Hide scrollbar but keep functionality -->
@@ -73,6 +74,18 @@
     }
   </style>
 </head>
+
+<body>
+  <!-- Intro Screen (Tap to Start) -->
+  <div id="intro-screen" class="intro-screen" role="button" aria-label="Tap to start the game">
+    <div class="intro-content">
+      <h1 class="intro-title">Blazing Awakening</h1>
+      <p class="intro-subtitle">Tap to begin your ninja journey and enter the village plaza.</p>
+      <div class="tap-to-start" data-tap-start>
+        <img src="assets/ui/tap%20to%20start%20asset.png" alt="Tap to start" />
+      </div>
+    </div>
+  </div>
 
 <body>
   <section class="login-landing" aria-hidden="true">
@@ -134,6 +147,7 @@
   </div>
 
   <!-- Scripts -->
+  <script src="js/intro-screen.js"></script>
   <script src="js/login-overlay.js"></script>
   <!-- Core Libraries -->
   <script src="https://cdn.jsdelivr.net/npm/howler@2.2.4/dist/howler.min.js"></script>
