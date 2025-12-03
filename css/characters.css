@@ -1372,7 +1372,7 @@ body.page-characters::-webkit-scrollbar {
 .tools-equipment-slot {
   position: relative;
   width: 100%;
-  height: 100px;
+  aspect-ratio: 1;
   background: rgba(10, 10, 15, 0.8);
   border: 2px solid rgba(217, 179, 98, 0.2);
   border-radius: 8px;

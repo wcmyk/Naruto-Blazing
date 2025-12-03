@@ -64,54 +64,7 @@
 
         <div class="tab-panels">
           <section class="tab-panel is-active" id="tab-status">
-            <!-- Character Level and Name Header -->
-            <div class="char-profile-header">
-              <div class="char-level-display">
-                <span class="level-label">Lv</span>
-                <span class="level-value" id="profile-level">1</span>
-              </div>
-              <div class="char-name-display" id="profile-char-name">Character Name</div>
-            </div>
-
-            <!-- Equipment and Character Display -->
-            <div class="equipment-character-layout">
-              <!-- Left Equipment Slots -->
-              <div class="equipment-column equipment-left">
-                <div class="equipment-slot" data-slot="1">
-                  <div class="equipment-slot-empty">Slot 1</div>
-                </div>
-                <div class="equipment-slot" data-slot="2">
-                  <div class="equipment-slot-empty">Slot 2</div>
-                </div>
-              </div>
-
-              <!-- Center Character Image -->
-              <div class="character-center">
-                <img id="profile-char-img" src="" alt="Character" class="profile-char-image" />
-              </div>
-
-              <!-- Right Equipment Slots -->
-              <div class="equipment-column equipment-right">
-                <div class="equipment-slot" data-slot="3">
-                  <div class="equipment-slot-empty">Slot 3</div>
-                </div>
-                <div class="equipment-slot" data-slot="4">
-                  <div class="equipment-slot-empty">Slot 4</div>
-                </div>
-                <div class="equipment-slot" data-slot="5">
-                  <div class="equipment-slot-empty">Slot 5</div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Personal Power Display -->
-            <div class="personal-power-display">
-              <div class="power-label">Personal Power:</div>
-              <div class="power-value" id="profile-personal-power">0</div>
-            </div>
-
-            <!-- Original Stats Grid (hidden by default, can be toggled) -->
-            <div class="stats-grid" id="char-stats" style="display:none;"></div>
+            <div class="stats-grid" id="char-stats"></div>
           </section>
 
           <section class="tab-panel" id="tab-awakening">
@@ -235,22 +188,6 @@
                       <div class="tools-slot-label">Slot 5</div>
                     </div>
                   </div>
-                </div>
-              </div>
-
-              <!-- Stats Display -->
-              <div class="tools-stats-display" id="tools-stats-display">
-                <div class="tools-stat-item">
-                  <span class="tools-stat-label">Health:</span>
-                  <span class="tools-stat-value" id="tools-stat-health">0</span>
-                </div>
-                <div class="tools-stat-item">
-                  <span class="tools-stat-label">Attack:</span>
-                  <span class="tools-stat-value" id="tools-stat-attack">0</span>
-                </div>
-                <div class="tools-stat-item">
-                  <span class="tools-stat-label">Speed:</span>
-                  <span class="tools-stat-value" id="tools-stat-speed">0</span>
                 </div>
               </div>
             </div>
