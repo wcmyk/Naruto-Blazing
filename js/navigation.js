@@ -245,6 +245,15 @@
       });
     }
 
+    // Tools
+    const btnTools = document.getElementById('btn-tools');
+    if (btnTools) {
+      btnTools.addEventListener('click', () => {
+        console.log("[Navigation] Tools button clicked");
+        navigateTo('tools.html');
+      });
+    }
+
     // Summon
     const btnSummon = document.getElementById('btn-summon');
     if (btnSummon) {
@@ -380,6 +389,15 @@
       iconGuilds.addEventListener('click', () => {
         console.log("[Navigation] Guilds clicked");
         alert("Guilds System\n\nComing soon!");
+      });
+    }
+
+    // Tools
+    const iconTools = document.querySelector('.bottom-icon[data-action="tools"]');
+    if (iconTools) {
+      iconTools.addEventListener('click', () => {
+        console.log("[Navigation] Tools clicked");
+        navigateTo('tools.html');
       });
     }
 
