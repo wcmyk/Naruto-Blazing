@@ -2,7 +2,7 @@
   "fusions": [
     {
       "id": "narutosasuke_001",
-      "name": "Example Fusion",
+      "name": "Clashing Resolve",
       "description": "Combine two units to create a powerful fusion",
       "requirements": {
         "unit1": "assets/characters/naruto_003/portrait_5S.png",
