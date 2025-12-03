@@ -177,10 +177,10 @@
       <span class="bottom-icon-label">Resources</span>
     </div>
 
-    <!-- Guilds -->
-    <div class="bottom-icon" data-action="guilds">
-      <img src="assets/icons/guilds_icon.png" alt="Guilds" class="bottom-icon-image" onerror="this.style.display='none';">
-      <span class="bottom-icon-label">Guilds</span>
+    <!-- Tools -->
+    <div class="bottom-icon" data-action="tools">
+      <img src="assets/icons/guilds_icon.png" alt="Tools" class="bottom-icon-image" onerror="this.style.display='none';">
+      <span class="bottom-icon-label">Tools</span>
     </div>
 
     <!-- Settings -->
@@ -455,8 +455,8 @@
             case 'resources':
               navigateTo('resources.html');
               break;
-            case 'guilds':
-              if (window.ModalManager) { window.ModalManager.showInfo('⚔️ Guilds\n\nGuild system coming soon!'); }
+            case 'tools':
+              navigateTo('tools.html');
               break;
             case 'settings':
               showSettingsMenu();

@@ -1,12 +1,12 @@
 {
   "fusions": [
     {
-      "id": "fusion_001",
+      "id": "narutosasuke_001",
       "name": "Example Fusion",
       "description": "Combine two units to create a powerful fusion",
       "requirements": {
-        "unit1": "naruto_01",
-        "unit2": "sasuke_01",
+        "unit1": "assets/characters/naruto_003/portrait_5S.png",
+        "unit2": "assets/characters/sasuke_005/portrait",
         "minLevel": 50,
         "materials": {
           "ryo": 100000,
@@ -14,7 +14,7 @@
         }
       },
       "result": {
-        "characterId": "naruto_sasuke_fusion",
+        "characterId": "assets/characters/narutosasuke_001.png",
         "tier": "6S",
         "level": 1,
         "bonusStats": {

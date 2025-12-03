@@ -345,6 +345,25 @@ body.page-characters::-webkit-scrollbar {
 .stat-label { color: #d5caa6; }
 .stat-value { color: #fff; }
 
+/* Power stat styling */
+.stat-row-power {
+  background: rgba(217, 179, 98, 0.1);
+  border: 2px solid rgba(217, 179, 98, 0.3);
+  margin-top: 8px;
+  padding: 8px 10px;
+}
+.stat-row-power .stat-label {
+  color: #d9b362;
+  font-weight: 600;
+  font-size: 14px;
+}
+.stat-row-power .stat-power {
+  color: #ffd700;
+  font-weight: 700;
+  font-size: 16px;
+  text-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
+}
+
 /* ---------- Level / Growth Section ---------- */
 .growth-ops {
   max-height: 320px;  /* Prevent overflow in status tab */
@@ -1273,4 +1292,173 @@ body.page-characters::-webkit-scrollbar {
 .ramen-card[data-element="wisdom"]:hover {
   border-color: rgba(150, 255, 150, 0.8);
   box-shadow: 0 8px 20px rgba(150, 255, 150, 0.3);
+}
+
+/* ---------- Tools Tab ---------- */
+.tools-wrap {
+  padding: 16px;
+  max-height: 450px;
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.tools-wrap::-webkit-scrollbar {
+  display: none;
+}
+
+.tools-header {
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.tools-title {
+  font-family: "Cinzel", serif;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--gold);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.tools-desc {
+  font-size: 0.8rem;
+  color: rgba(238, 230, 209, 0.6);
+  margin: 0;
+}
+
+/* Power Display */
+.tools-power-display {
+  text-align: center;
+  padding: 12px 24px;
+  background: rgba(10, 10, 15, 0.8);
+  border: 2px solid var(--gold);
+  border-radius: 8px;
+  box-shadow: 0 0 20px rgba(217, 179, 98, 0.2);
+  margin-bottom: 16px;
+}
+
+.tools-power-label {
+  font-size: 0.85rem;
+  color: rgba(238, 230, 209, 0.7);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.tools-power-value {
+  font-family: "Cinzel", serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #ffd700;
+  text-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+}
+
+/* Equipment Container */
+.tools-equipment-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.tools-equipment-column {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.tools-equipment-slot {
+  position: relative;
+  width: 100%;
+  height: 100px;
+  background: rgba(10, 10, 15, 0.8);
+  border: 2px solid rgba(217, 179, 98, 0.2);
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+.tools-equipment-slot:hover {
+  transform: translateY(-2px);
+  border-color: rgba(217, 179, 98, 0.4);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6), 0 0 15px rgba(217, 179, 98, 0.2);
+}
+
+.tools-slot-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.tools-slot-label {
+  font-size: 0.85rem;
+  color: rgba(217, 179, 98, 0.5);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.tools-equipment-slot.filled {
+  border-color: rgba(217, 179, 98, 0.5);
+  background: rgba(217, 179, 98, 0.05);
+}
+
+/* Stats Display */
+.tools-stats-display {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  padding: 12px;
+  background: rgba(10, 10, 15, 0.6);
+  border: 1px solid rgba(217, 179, 98, 0.15);
+  border-radius: 8px;
+}
+
+.tools-stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 6px;
+}
+
+.tools-stat-label {
+  font-size: 0.75rem;
+  color: #d5caa6;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.tools-stat-value {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+/* Responsive adjustments for Tools tab */
+@media (max-width: 768px) {
+  .tools-equipment-container {
+    grid-template-columns: 1fr;
+  }
+
+  .tools-equipment-column {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .tools-equipment-slot {
+    min-width: 100px;
+  }
+
+  .tools-stats-display {
+    grid-template-columns: 1fr;
+  }
 }

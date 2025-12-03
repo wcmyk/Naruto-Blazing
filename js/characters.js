@@ -269,6 +269,7 @@
     renderSkillsTab(c, inst, tier);
     renderSupportTab(c, inst, tier);
     renderAbilitiesTab(c, inst);
+    renderToolsTab(c, inst, tier);
     setActiveTab("status");
 
     showModal();
@@ -320,18 +321,53 @@
         stats = window.LimitBreak.applyLimitBreakToStats(stats, inst.limitBreakLevel);
       }
 
+      // Calculate power: Health + Attack + Speed
+      const power = (stats.hp || 0) + (stats.atk || 0) + (stats.speed || 0);
+
+      // Save power data for sync with Tools page
+      if (inst.uid) {
+        const powerData = {
+          uid: inst.uid,
+          power: power,
+          health: stats.hp || 0,
+          attack: stats.atk || 0,
+          speed: stats.speed || 0,
+          lastUpdated: Date.now()
+        };
+        localStorage.setItem(`character_power_${inst.uid}`, JSON.stringify(powerData));
+      }
+
       STATS_WRAP.innerHTML = `
         <div class="stat-row"><span class="stat-label">Health</span><span class="stat-value">${stats.hp ?? "-"}</span></div>
         <div class="stat-row"><span class="stat-label">Attack</span><span class="stat-value">${stats.atk ?? "-"}</span></div>
         <div class="stat-row"><span class="stat-label">Defense</span><span class="stat-value">${stats.def ?? "-"}</span></div>
-        <div class="stat-row"><span class="stat-label">Speed</span><span class="stat-value">${stats.speed ?? "-"}</span></div>`;
+        <div class="stat-row"><span class="stat-label">Speed</span><span class="stat-value">${stats.speed ?? "-"}</span></div>
+        <div class="stat-row stat-row-power"><span class="stat-label">Power</span><span class="stat-value stat-power">${power.toLocaleString()}</span></div>`;
     } else {
       const s = c.statsBase || {};
+
+      // Calculate power: Health + Attack + Speed
+      const power = (s.hp || 0) + (s.atk || 0) + (s.speed || 0);
+
+      // Save power data for sync with Tools page
+      if (inst.uid) {
+        const powerData = {
+          uid: inst.uid,
+          power: power,
+          health: s.hp || 0,
+          attack: s.atk || 0,
+          speed: s.speed || 0,
+          lastUpdated: Date.now()
+        };
+        localStorage.setItem(`character_power_${inst.uid}`, JSON.stringify(powerData));
+      }
+
       STATS_WRAP.innerHTML = `
         <div class="stat-row"><span class="stat-label">Health</span><span class="stat-value">${s.hp ?? "-"}</span></div>
         <div class="stat-row"><span class="stat-label">Attack</span><span class="stat-value">${s.atk ?? "-"}</span></div>
         <div class="stat-row"><span class="stat-label">Defense</span><span class="stat-value">${s.def ?? "-"}</span></div>
-        <div class="stat-row"><span class="stat-label">Speed</span><span class="stat-value">${s.speed ?? "-"}</span></div>`;
+        <div class="stat-row"><span class="stat-label">Speed</span><span class="stat-value">${s.speed ?? "-"}</span></div>
+        <div class="stat-row stat-row-power"><span class="stat-label">Power</span><span class="stat-value stat-power">${power.toLocaleString()}</span></div>`;
     }
 
     // Get base tier cap (without limit breaks) for awakening checks
@@ -1443,6 +1479,53 @@
     });
 
     ABILITIES_WRAP.innerHTML = html;
+  }
+
+  /* ---------- TOOLS tab ---------- */
+  function renderToolsTab(c, inst, tier) {
+    // Get stats for power calculation
+    let stats = {};
+    if (hasProg && window.Progression.computeEffectiveStatsLoreTier) {
+      // Calculate extended cap if limit breaks are present
+      let extendedCap = null;
+      if (hasLimitBreak && inst.limitBreakLevel && inst.limitBreakLevel > 0) {
+        extendedCap = window.LimitBreak.getExtendedLevelCap(tier, inst.limitBreakLevel);
+      }
+
+      const comp = window.Progression.computeEffectiveStatsLoreTier(c, safeNum(inst.level,1), tier, {
+        normalize: true,
+        extendedCap: extendedCap
+      });
+      stats = comp?.stats || {};
+
+      // Apply limit break bonuses if present
+      if (hasLimitBreak && inst.limitBreakLevel && inst.limitBreakLevel > 0) {
+        stats = window.LimitBreak.applyLimitBreakToStats(stats, inst.limitBreakLevel);
+      }
+    } else {
+      stats = c.statsBase || {};
+    }
+
+    // Calculate power: Health + Attack + Speed
+    const power = (stats.hp || 0) + (stats.atk || 0) + (stats.speed || 0);
+
+    // Update power display
+    const powerValueEl = document.getElementById('tools-power-value');
+    if (powerValueEl) {
+      powerValueEl.textContent = power.toLocaleString();
+    }
+
+    // Update stats display
+    const healthEl = document.getElementById('tools-stat-health');
+    const attackEl = document.getElementById('tools-stat-attack');
+    const speedEl = document.getElementById('tools-stat-speed');
+
+    if (healthEl) healthEl.textContent = (stats.hp || 0).toLocaleString();
+    if (attackEl) attackEl.textContent = (stats.atk || 0).toLocaleString();
+    if (speedEl) speedEl.textContent = (stats.speed || 0).toLocaleString();
+
+    // TODO: Load and display equipment when equipment system is implemented
+    console.log('[Tools] Tools tab rendered for character:', c.name, 'Power:', power);
   }
 
   /* ---------- Grid clicks ---------- */

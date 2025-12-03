@@ -58,6 +58,7 @@
           <button class="tab-btn" data-tab="support">F/B Skills</button>
           <button class="tab-btn" data-tab="abilities">Abilities</button>
           <button class="tab-btn" data-tab="equip">Equip</button>
+          <button class="tab-btn" data-tab="tools">Tools</button>
         </div>
 
         <div class="tab-panels">
@@ -136,6 +137,73 @@
                   <circle cx="12" cy="12" r="10" stroke="white" stroke-width="2"/>
                   <text x="12" y="17" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white" text-anchor="middle">?</text>
                 </svg>
+              </div>
+            </div>
+          </section>
+
+          <section class="tab-panel" id="tab-tools">
+            <div class="tools-wrap">
+              <div class="tools-header">
+                <h3 class="tools-title">Character Equipment</h3>
+                <p class="tools-desc">Equip items to boost your character's stats</p>
+              </div>
+
+              <!-- Power Display -->
+              <div class="tools-power-display">
+                <div class="tools-power-label">Personal Power</div>
+                <div class="tools-power-value" id="tools-power-value">0</div>
+              </div>
+
+              <!-- Equipment Slots Layout -->
+              <div class="tools-equipment-container">
+                <!-- Left Column -->
+                <div class="tools-equipment-column">
+                  <div class="tools-equipment-slot" data-slot="1">
+                    <div class="tools-slot-empty">
+                      <div class="tools-slot-label">Slot 1</div>
+                    </div>
+                  </div>
+                  <div class="tools-equipment-slot" data-slot="2">
+                    <div class="tools-slot-empty">
+                      <div class="tools-slot-label">Slot 2</div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Right Column -->
+                <div class="tools-equipment-column">
+                  <div class="tools-equipment-slot" data-slot="3">
+                    <div class="tools-slot-empty">
+                      <div class="tools-slot-label">Slot 3</div>
+                    </div>
+                  </div>
+                  <div class="tools-equipment-slot" data-slot="4">
+                    <div class="tools-slot-empty">
+                      <div class="tools-slot-label">Slot 4</div>
+                    </div>
+                  </div>
+                  <div class="tools-equipment-slot" data-slot="5">
+                    <div class="tools-slot-empty">
+                      <div class="tools-slot-label">Slot 5</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Stats Display -->
+              <div class="tools-stats-display" id="tools-stats-display">
+                <div class="tools-stat-item">
+                  <span class="tools-stat-label">Health:</span>
+                  <span class="tools-stat-value" id="tools-stat-health">0</span>
+                </div>
+                <div class="tools-stat-item">
+                  <span class="tools-stat-label">Attack:</span>
+                  <span class="tools-stat-value" id="tools-stat-attack">0</span>
+                </div>
+                <div class="tools-stat-item">
+                  <span class="tools-stat-label">Speed:</span>
+                  <span class="tools-stat-value" id="tools-stat-speed">0</span>
+                </div>
               </div>
             </div>
           </section>
