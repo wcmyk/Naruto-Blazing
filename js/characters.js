@@ -334,6 +334,39 @@
         <div class="stat-row"><span class="stat-label">Speed</span><span class="stat-value">${s.speed ?? "-"}</span></div>`;
     }
 
+    // Populate character profile fields
+    const profileLevelEl = document.getElementById("profile-level");
+    const profileCharNameEl = document.getElementById("profile-char-name");
+    const profileCharImgEl = document.getElementById("profile-char-img");
+    const profilePersonalPowerEl = document.getElementById("profile-personal-power");
+
+    if (profileLevelEl) {
+      const level = Math.max(1, safeNum(inst.level, 1));
+      profileLevelEl.textContent = String(level);
+    }
+
+    if (profileCharNameEl) {
+      const charName = safeStr(c.name, "Unknown");
+      const charVersion = safeStr(c.version, "");
+      profileCharNameEl.textContent = charVersion ? `${charName} [${charVersion}]` : charName;
+    }
+
+    if (profileCharImgEl) {
+      const tier = inst.tierCode || minTier(c);
+      const art = resolveTierArt(c, tier);
+      profileCharImgEl.src = safeStr(art.full || art.portrait, "assets/characters/_common/silhouette.png");
+      profileCharImgEl.alt = safeStr(c.name, "Character");
+    }
+
+    if (profilePersonalPowerEl) {
+      // Calculate personal power: Health + Attack + Speed
+      const hp = safeNum(stats.hp, 0);
+      const atk = safeNum(stats.atk, 0);
+      const speed = safeNum(stats.speed, 0);
+      const personalPower = hp + atk + speed;
+      profilePersonalPowerEl.textContent = personalPower.toLocaleString();
+    }
+
     // Get base tier cap (without limit breaks) for awakening checks
     const baseCap = tierCap(c, tier);
 

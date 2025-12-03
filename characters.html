@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="css/characters_abilities.css" />
   <link rel="stylesheet" href="css/character_dupe_abilities.css" />
   <link rel="stylesheet" href="css/character-equip.css" />
+  <link rel="stylesheet" href="css/character-profile-equipment.css" />
   <link rel="stylesheet" href="css/settings-modal.css" />
   <link rel="stylesheet" href="css/awakening-animation.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -62,7 +63,54 @@
 
         <div class="tab-panels">
           <section class="tab-panel is-active" id="tab-status">
-            <div class="stats-grid" id="char-stats"></div>
+            <!-- Character Level and Name Header -->
+            <div class="char-profile-header">
+              <div class="char-level-display">
+                <span class="level-label">Lv</span>
+                <span class="level-value" id="profile-level">1</span>
+              </div>
+              <div class="char-name-display" id="profile-char-name">Character Name</div>
+            </div>
+
+            <!-- Equipment and Character Display -->
+            <div class="equipment-character-layout">
+              <!-- Left Equipment Slots -->
+              <div class="equipment-column equipment-left">
+                <div class="equipment-slot" data-slot="1">
+                  <div class="equipment-slot-empty">Slot 1</div>
+                </div>
+                <div class="equipment-slot" data-slot="2">
+                  <div class="equipment-slot-empty">Slot 2</div>
+                </div>
+              </div>
+
+              <!-- Center Character Image -->
+              <div class="character-center">
+                <img id="profile-char-img" src="" alt="Character" class="profile-char-image" />
+              </div>
+
+              <!-- Right Equipment Slots -->
+              <div class="equipment-column equipment-right">
+                <div class="equipment-slot" data-slot="3">
+                  <div class="equipment-slot-empty">Slot 3</div>
+                </div>
+                <div class="equipment-slot" data-slot="4">
+                  <div class="equipment-slot-empty">Slot 4</div>
+                </div>
+                <div class="equipment-slot" data-slot="5">
+                  <div class="equipment-slot-empty">Slot 5</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Personal Power Display -->
+            <div class="personal-power-display">
+              <div class="power-label">Personal Power:</div>
+              <div class="power-value" id="profile-personal-power">0</div>
+            </div>
+
+            <!-- Original Stats Grid (hidden by default, can be toggled) -->
+            <div class="stats-grid" id="char-stats" style="display:none;"></div>
           </section>
 
           <section class="tab-panel" id="tab-awakening">
