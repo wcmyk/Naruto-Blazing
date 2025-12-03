@@ -350,18 +350,17 @@ body.page-characters::-webkit-scrollbar {
   background: rgba(217, 179, 98, 0.1);
   border: 2px solid rgba(217, 179, 98, 0.3);
   margin-top: 8px;
-  padding: 8px 10px;
+  padding: 4px 10px;
 }
 .stat-row-power .stat-label {
   color: #d9b362;
   font-weight: 600;
-  font-size: 14px;
+  font-size: 13px;
 }
 .stat-row-power .stat-power {
-  color: #ffd700;
-  font-weight: 700;
-  font-size: 16px;
-  text-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
+  color: #fff;
+  font-weight: 600;
+  font-size: 13px;
 }
 
 /* ---------- Level / Growth Section ---------- */
@@ -668,14 +667,16 @@ body.page-characters::-webkit-scrollbar {
 }
 #char-modal-img{
   max-width: 100%;
-  max-height: 78vh;                     /* never pushes controls off screen */
+  max-height: 60vh;                     /* never pushes controls off screen */
   object-fit: contain;
+  padding: 8px;
 }
 
 .char-modal-info{
   display: flex;
   flex-direction: column;
   min-height: 0;                        /* allow child to scroll */
+  padding-bottom: 16px;                 /* ensure close button has space */
 }
 .tab-panels{
   flex: 1 1 auto;
@@ -691,8 +692,11 @@ body.page-characters::-webkit-scrollbar {
   display: none;
 }
 .char-modal-actions{
-  margin-top: 8px;
-  display: flex; justify-content: flex-end;
+  margin-top: 12px;
+  padding: 0 8px;
+  display: flex;
+  justify-content: center;
+  flex-shrink: 0;
 }
 
 /* Responsive: stack on narrow screens */
@@ -701,7 +705,7 @@ body.page-characters::-webkit-scrollbar {
     grid-template-columns: 1fr;
     max-height: 90vh;
   }
-  #char-modal-img{ max-height: 42vh; }
+  #char-modal-img{ max-height: 35vh; }
   .tab-panels{
     min-height: 350px;
     max-height: 350px;
@@ -713,7 +717,7 @@ body.page-characters::-webkit-scrollbar {
 
 /* Slightly reduce global art size so tabs sit higher */
 @media (min-width: 901px){
-  #char-modal-img{ max-height: 64vh; }
+  #char-modal-img{ max-height: 55vh; }
 }
 
 /* ---------- Limit Break Styling ---------- */
@@ -1357,22 +1361,24 @@ body.page-characters::-webkit-scrollbar {
 
 /* Equipment Container */
 .tools-equipment-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 8px;
   margin-bottom: 16px;
+  flex-wrap: wrap;
 }
 
 .tools-equipment-column {
   display: flex;
-  flex-direction: column;
-  gap: 10px;
+  flex-direction: row;
+  gap: 8px;
 }
 
 .tools-equipment-slot {
   position: relative;
-  width: 100%;
-  aspect-ratio: 1;
+  width: 60px;
+  height: 60px;
   background: rgba(10, 10, 15, 0.8);
   border: 2px solid rgba(217, 179, 98, 0.2);
   border-radius: 8px;
@@ -1397,9 +1403,9 @@ body.page-characters::-webkit-scrollbar {
 }
 
 .tools-slot-label {
-  font-size: 0.85rem;
+  font-size: 0.6rem;
   color: rgba(217, 179, 98, 0.5);
-  letter-spacing: 0.05em;
+  letter-spacing: 0.02em;
   text-transform: uppercase;
 }
 
