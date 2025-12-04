@@ -15,6 +15,10 @@
   const BattleRewards = {
     collectedChests: [],     // All chests collected this mission
     currentStageChest: null, // Chest for current stage (if any)
+    chestSprites: {
+      closed: 'assets/icons/filename/chestunopened.png',
+      open: 'assets/icons/filename/chestopened.png'
+    },
 
     /**
      * Initialize rewards system
@@ -382,13 +386,15 @@
      * Build chest background with sprite and gradient fallback
      */
     getChestBackground(state = 'closed') {
-      // Use a pure CSS gradient so no binary assets are required. The open state is brighter
-      // to visually indicate the chest has been unlocked during the reveal animation.
-      if (state === 'open') {
-        return 'linear-gradient(135deg, #FFD700 0%, #FFF2AE 45%, #D4AF37 100%)';
-      }
+      const spritePath = this.chestSprites[state];
 
-      return 'linear-gradient(135deg, #8B4513 0%, #D4AF37 50%, #8B4513 100%)';
+      // Prefer the provided PNG sprites but keep the old gradient as a fallback so the
+      // chest visuals still render if the asset is missing or fails to load.
+      const fallbackGradient = state === 'open'
+        ? 'linear-gradient(135deg, #FFD700 0%, #FFF2AE 45%, #D4AF37 100%)'
+        : 'linear-gradient(135deg, #8B4513 0%, #D4AF37 50%, #8B4513 100%)';
+
+      return `center/contain no-repeat url('${spritePath}'), ${fallbackGradient}`;
     },
 
     /**
