@@ -70947,7 +70947,7 @@
       },
       "6S": {
         "portrait": "assets/characters/sasuke_662/portrait_6S.png",
-        "full": "assets/characters/sasuke_662/full_6S.png"
+        "full": "assets/characters/sasuke_662/full_6S.gif"
       }
     },
     "statsBase": {
@@ -71051,13 +71051,13 @@
     "starMaxCode": "6S",
     "lbEligible": false,
     "portrait": "assets/characters/sasuke_662/portrait_6S.png",
-    "full": "assets/characters/sasuke_662/full_6S.png",
+    "full": "assets/characters/sasuke_662/full_6S.gif",
     "ultimateAnimation": null,
     "secretAnimation": null,
     "artByTier": {
       "6S": {
         "portrait": "assets/characters/sasuke_662/portrait_6S.png",
-        "full": "assets/characters/sasuke_662/full_6S.png"
+        "full": "assets/characters/sasuke_662/full_6S.gif"
       }
     },
     "statsBase": {
@@ -71391,7 +71391,7 @@
     "artByTier": {
       "6S": {
         "portrait": "assets/characters/naruto_666/portrait_6S.png",
-        "full": "assets/characters/naruto_666/full_6S.png"
+        "full": "assets/characters/naruto_666/full_6S.gif"
       }
     },
     "statsBase": {
@@ -71495,13 +71495,13 @@
     "starMaxCode": "6S",
     "lbEligible": false,
     "portrait": "assets/characters/naruto_666/portrait_6S.png",
-    "full": "assets/characters/naruto_666/full_6S.png",
+    "full": "assets/characters/naruto_666/full_6S.gif",
     "ultimateAnimation": null,
     "secretAnimation": null,
     "artByTier": {
       "6S": {
         "portrait": "assets/characters/naruto_666/portrait_6S.png",
-        "full": "assets/characters/naruto_666/full_6S.png"
+        "full": "assets/characters/naruto_666/full_6S.gif"
       }
     },
     "statsBase": {
