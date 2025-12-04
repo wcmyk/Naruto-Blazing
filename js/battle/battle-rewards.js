@@ -15,6 +15,10 @@
   const BattleRewards = {
     collectedChests: [],     // All chests collected this mission
     currentStageChest: null, // Chest for current stage (if any)
+    chestSprites: {
+      closed: 'assets/icons/filename/chestunopened.png',
+      open: 'assets/icons/filename/chestopened.png'
+    },
 
     /**
      * Initialize rewards system
@@ -77,7 +81,7 @@
         transform: translate(-50%, -50%);
         width: 80px;
         height: 80px;
-        background: linear-gradient(135deg, #8B4513 0%, #D4AF37 50%, #8B4513 100%);
+        background: ${this.getChestBackground('closed')};
         border: 4px solid #FFD700;
         border-radius: 8px;
         box-shadow:
@@ -307,7 +311,7 @@
         width: 60px;
         height: 60px;
         margin: 0 auto 1rem;
-        background: linear-gradient(135deg, #8B4513, #D4AF37);
+        background: ${this.getChestBackground('closed')};
         border: 3px solid #FFD700;
         border-radius: 6px;
         box-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
@@ -341,6 +345,7 @@
       chestIcon.style.animation = 'chestFlash 0.5s ease-in-out 3';
 
       await this.delay(1500);
+      chestIcon.style.background = this.getChestBackground('open');
       chestIcon.style.opacity = '0.3';
       rewardsList.style.opacity = '1';
 
@@ -375,6 +380,21 @@
       };
 
       return names[itemKey] || itemKey;
+    },
+
+    /**
+     * Build chest background with sprite and gradient fallback
+     */
+    getChestBackground(state = 'closed') {
+      const spritePath = this.chestSprites[state];
+
+      // Prefer the provided PNG sprites but keep the old gradient as a fallback so the
+      // chest visuals still render if the asset is missing or fails to load.
+      const fallbackGradient = state === 'open'
+        ? 'linear-gradient(135deg, #FFD700 0%, #FFF2AE 45%, #D4AF37 100%)'
+        : 'linear-gradient(135deg, #8B4513 0%, #D4AF37 50%, #8B4513 100%)';
+
+      return `center/contain no-repeat url('${spritePath}'), ${fallbackGradient}`;
     },
 
     /**
