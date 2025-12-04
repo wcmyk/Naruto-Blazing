@@ -191,9 +191,9 @@ async function onStageComplete(core) {
 - **Animation**: Appears with spin, floats continuously
 
 ### Chest Visuals:
-- Closed chest uses a deep gold gradient fill.
-- Opened chest shifts to a brighter gold gradient during the reveal animation.
-- Gradients are pure CSS, so no external images are required.
+- Closed chest loads `assets/icons/filename/chestunopened.png`.
+- Opened chest swaps to `assets/icons/filename/chestopened.png` during the reveal animation.
+- If the PNGs are missing, the previous gold gradients automatically take over as a visual fallback.
 
 ### Results Screen:
 - **Background**: Near-black with subtle transparency
