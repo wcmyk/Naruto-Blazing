@@ -15,6 +15,14 @@
   const BattleRewards = {
     collectedChests: [],     // All chests collected this mission
     currentStageChest: null, // Chest for current stage (if any)
+    chestSprites: {
+      closed: 'assets/icons/filename/chestunopened.png',
+      open: 'assets/icons/filename/chestopened.png'
+    },
+    spriteAvailability: {
+      closed: null,
+      open: null
+    },
 
     /**
      * Initialize rewards system
@@ -22,6 +30,7 @@
     init(core) {
       this.collectedChests = [];
       this.currentStageChest = null;
+      this.preloadChestSprites();
       console.log("[BattleRewards] Rewards system initialized");
     },
 
@@ -70,6 +79,7 @@
       // Create chest element
       const chestEl = document.createElement('div');
       chestEl.className = 'reward-chest';
+      const usingSprite = this.isChestSpriteAvailable('closed');
       chestEl.style.cssText = `
         position: absolute;
         left: 50%;
@@ -77,7 +87,7 @@
         transform: translate(-50%, -50%);
         width: 80px;
         height: 80px;
-        background: linear-gradient(135deg, #8B4513 0%, #D4AF37 50%, #8B4513 100%);
+        background: ${this.getChestBackground('closed')};
         border: 4px solid #FFD700;
         border-radius: 8px;
         box-shadow:
@@ -90,7 +100,7 @@
       `;
 
       // Add chest lid detail
-      chestEl.innerHTML = `
+      chestEl.innerHTML = usingSprite ? '' : `
         <div style="
           position: absolute;
           top: 25%;
@@ -307,7 +317,7 @@
         width: 60px;
         height: 60px;
         margin: 0 auto 1rem;
-        background: linear-gradient(135deg, #8B4513, #D4AF37);
+        background: ${this.getChestBackground('closed')};
         border: 3px solid #FFD700;
         border-radius: 6px;
         box-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
@@ -341,6 +351,7 @@
       chestIcon.style.animation = 'chestFlash 0.5s ease-in-out 3';
 
       await this.delay(1500);
+      chestIcon.style.background = this.getChestBackground('open');
       chestIcon.style.opacity = '0.3';
       rewardsList.style.opacity = '1';
 
@@ -375,6 +386,49 @@
       };
 
       return names[itemKey] || itemKey;
+    },
+
+    /**
+     * Build chest background with sprite and gradient fallback
+     */
+    getChestBackground(state = 'closed') {
+      const spritePath = this.chestSprites[state];
+      const spriteAvailable = this.isChestSpriteAvailable(state);
+
+      // When the PNG is present, render only the sprite. If it fails to load, fall back
+      // to the original gradients so the UI still has a visible chest.
+      if (spriteAvailable !== false) {
+        return `center/contain no-repeat url('${spritePath}')`;
+      }
+
+      return state === 'open'
+        ? 'linear-gradient(135deg, #FFD700 0%, #FFF2AE 45%, #D4AF37 100%)'
+        : 'linear-gradient(135deg, #8B4513 0%, #D4AF37 50%, #8B4513 100%)';
+    },
+
+    /**
+     * Preload chest sprites to detect availability for fallback handling.
+     */
+    preloadChestSprites() {
+      Object.entries(this.chestSprites).forEach(([state, path]) => {
+        const img = new Image();
+        img.onload = () => {
+          this.spriteAvailability[state] = true;
+          console.log(`[BattleRewards] Chest sprite loaded: ${path}`);
+        };
+        img.onerror = () => {
+          this.spriteAvailability[state] = false;
+          console.warn(`[BattleRewards] Chest sprite missing, using gradient: ${path}`);
+        };
+        img.src = path;
+      });
+    },
+
+    /**
+     * Check if a given sprite is confirmed to be available.
+     */
+    isChestSpriteAvailable(state = 'closed') {
+      return this.spriteAvailability[state] !== false;
     },
 
     /**

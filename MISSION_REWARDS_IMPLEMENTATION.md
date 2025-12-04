@@ -190,6 +190,11 @@ async function onStageComplete(core) {
 - **Position**: Center of battlefield (50%, 40%)
 - **Animation**: Appears with spin, floats continuously
 
+### Chest Visuals:
+- Closed chest loads `assets/icons/filename/chestunopened.png`.
+- Opened chest swaps to `assets/icons/filename/chestopened.png` during the reveal animation.
+- If the PNGs are missing, the previous gold gradients automatically take over as a visual fallback.
+
 ### Results Screen:
 - **Background**: Near-black with subtle transparency
 - **Title**: Large gold text with glow
