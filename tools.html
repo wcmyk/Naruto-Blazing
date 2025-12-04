@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Blazing — Tools</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="css/tools.css" />
+  <link rel="stylesheet" href="css/background.css" />
+  <link rel="stylesheet" href="css/bottombar.css" />
+  <link rel="stylesheet" href="css/settings-modal.css" />
+  <!-- Hide scrollbar but keep functionality -->
+  <style>
+    /* Hide scrollbar for Chrome, Safari and Opera */
+    body::-webkit-scrollbar,
+    html::-webkit-scrollbar,
+    *::-webkit-scrollbar {
+      display: none;
+    }
+
+    /* Hide scrollbar for IE, Edge and Firefox */
+    body, html, * {
+      -ms-overflow-style: none;  /* IE and Edge */
+      scrollbar-width: none;  /* Firefox */
+    }
+  </style>
+</head>
+<body class="page-tools">
+  <div id="tools-bg"></div>
+
+  <main class="tools-content">
+    <h1 class="page-title">CHARACTER TOOLS</h1>
+
+    <!-- Character Selection -->
+    <div class="character-selector">
+      <button class="btn-select-character" id="btn-select-character">
+        <span>Select Character</span>
+      </button>
+      <div class="selected-character-info" id="selected-character-info" style="display: none;">
+        <div class="character-name" id="character-name"></div>
+        <div class="character-version" id="character-version"></div>
+      </div>
+    </div>
+
+    <!-- Equipment Layout -->
+    <div class="equipment-container" id="equipment-container" style="display: none;">
+      <!-- Left Equipment Slots -->
+      <div class="equipment-column left-column">
+        <div class="equipment-slot" data-slot="1">
+          <div class="slot-empty">
+            <div class="slot-label">Slot 1</div>
+          </div>
+        </div>
+        <div class="equipment-slot" data-slot="2">
+          <div class="slot-empty">
+            <div class="slot-label">Slot 2</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Character Display -->
+      <div class="character-display">
+        <img id="character-full-image" src="" alt="Character" />
+        <div class="power-display">
+          <div class="power-label">Personal Power</div>
+          <div class="power-value" id="power-value">0</div>
+        </div>
+      </div>
+
+      <!-- Right Equipment Slots -->
+      <div class="equipment-column right-column">
+        <div class="equipment-slot" data-slot="3">
+          <div class="slot-empty">
+            <div class="slot-label">Slot 3</div>
+          </div>
+        </div>
+        <div class="equipment-slot" data-slot="4">
+          <div class="slot-empty">
+            <div class="slot-label">Slot 4</div>
+          </div>
+        </div>
+        <div class="equipment-slot" data-slot="5">
+          <div class="slot-empty">
+            <div class="slot-label">Slot 5</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stats Display -->
+    <div class="stats-display" id="stats-display" style="display: none;">
+      <div class="stat-item">
+        <span class="stat-label">Health:</span>
+        <span class="stat-value" id="stat-health">0</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-label">Attack:</span>
+        <span class="stat-value" id="stat-attack">0</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-label">Speed:</span>
+        <span class="stat-value" id="stat-speed">0</span>
+      </div>
+    </div>
+  </main>
+
+  <!-- Character Selection Modal -->
+  <div id="character-selector-modal" class="modal" aria-hidden="true">
+    <div class="modal-panel">
+      <h2 class="modal-title">Select Character</h2>
+      <div class="modal-filters">
+        <input type="text" class="search-input" id="character-search" placeholder="Search by name...">
+      </div>
+      <div class="characters-grid" id="characters-grid"></div>
+      <div class="modal-actions">
+        <button class="btn-dark" id="modal-cancel">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- HUD Bottom Bar -->
+  <div class="bottom-bar">
+    <div class="bottom-bar-content">
+      <button class="hud-button" id="btn-village" aria-label="Village">
+        <img src="assets/icons/village_icon.png" alt="Village">
+      </button>
+      <button class="hud-button" id="btn-characters" aria-label="Characters">
+        <img src="assets/icons/characters_icon.png" alt="Characters">
+      </button>
+      <button class="hud-button" id="btn-fusion" aria-label="Fusion">
+        <img src="assets/icons/fusion_icon.png" alt="Fusion">
+      </button>
+      <button class="hud-button" id="btn-teams" aria-label="Teams">
+        <img src="assets/icons/teams_icon.png" alt="Teams">
+      </button>
+      <button class="hud-button active" id="btn-tools" aria-label="Tools">
+        <img src="assets/icons/guilds_icon.png" alt="Tools">
+      </button>
+      <button class="hud-button" id="btn-summon" aria-label="Summon">
+        <img src="assets/icons/summon_icon.png" alt="Summon">
+      </button>
+      <button class="hud-button" id="btn-missions" aria-label="Missions">
+        <img src="assets/icons/missions_icon.png" alt="Missions">
+      </button>
+      <button class="hud-button" id="btn-inventory" aria-label="Inventory">
+        <img src="assets/icons/inventory_icon.png" alt="Inventory">
+      </button>
+      <button class="hud-button" id="btn-shop" aria-label="Shop">
+        <img src="assets/icons/shop_icon.png" alt="Shop">
+      </button>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/audio-manager.js"></script>
+  <script src="js/music-player.js"></script>
+  <script src="js/character_inv.js"></script>
+  <script src="js/resources.js"></script>
+  <script src="js/tools.js"></script>
+
+  <!-- Settings Modal Script -->
+  <script src="js/settings-modal.js?v=2"></script>
+
+  <!-- Navigation Script -->
+  <script src="js/navigation.js"></script>
+
+  <!-- Music Initialization -->
+  <script>
+    // Music initialization - start BGM on page load
+    (function() {
+      if (typeof window.AudioManager === 'undefined') {
+        console.log('[Music] AudioManager not available on this page');
+        return;
+      }
+
+      console.log('[Music] Initializing background music...');
+
+      const startMusic = () => {
+        if (!window.AudioManager.currentBGM) {
+          const bgm = window.AudioManager.playBGM('assets/music/general.mp3');
+          if (bgm) {
+            console.log('[Music] Background music started');
+          }
+        }
+      };
+
+      // Try immediate playback (may be blocked by browser)
+      setTimeout(startMusic, 500);
+
+      // Also try on first click
+      document.addEventListener('click', startMusic, { once: true });
+    })();
+  </script>
+</body>
+</html>
