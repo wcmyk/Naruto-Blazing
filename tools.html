@@ -4,120 +4,144 @@
   <meta charset="UTF-8" />
   <title>Blazing — Tools</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="css/tools.css" />
-  <link rel="stylesheet" href="css/background.css" />
   <link rel="stylesheet" href="css/bottombar.css" />
   <link rel="stylesheet" href="css/settings-modal.css" />
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&display=swap");
+
+    :root {
+      --gold: #d9b362;
+      --ink: #0b0b0f;
+      --card: rgba(20, 20, 24, 0.65);
+      --border: rgba(255, 215, 120, 0.2);
+    }
+
+    body {
+      margin: 0;
+      padding: 20px;
+      padding-bottom: 120px;
+      min-height: 100vh;
+      font-family: "Cinzel", "Times New Roman", serif;
+      background: linear-gradient(180deg, #0f0e14 0%, #181822 100%);
+      color: #eee6d1;
+    }
+
+    .page-title {
+      text-align: center;
+      font-size: 36px;
+      font-weight: 600;
+      color: var(--gold);
+      margin: 10px 0 8px;
+      letter-spacing: 1px;
+    }
+
+    .page-subtitle {
+      text-align: center;
+      margin: 0 0 28px;
+      color: #b8b3a3;
+      font-size: 14px;
+      letter-spacing: 0.5px;
+    }
+
+    .tools-grid {
+      max-width: 960px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+    }
+
+    .tool-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+    }
+
+    .tool-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--gold);
+      margin: 0 0 8px;
+    }
+
+    .tool-desc {
+      margin: 0;
+      font-size: 13px;
+      color: #c7c1ae;
+      line-height: 1.4;
+    }
+
+    .coming-soon {
+      text-align: center;
+      margin: 32px 0 12px;
+      color: #b362d9;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+
+    .back-button {
+      padding: 12px 24px;
+      font-family: "Cinzel", serif;
+      font-size: 16px;
+      font-weight: 600;
+      color: #fff;
+      background: linear-gradient(180deg, #d9b362 0%, #a7822c 100%);
+      border: 1px solid rgba(217, 179, 98, 0.4);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all .2s ease;
+      display: block;
+      margin: 30px auto 0;
+      text-decoration: none;
+      text-align: center;
+      width: fit-content;
+    }
+
+    .back-button:hover {
+      background: linear-gradient(180deg, #e6c47e 0%, #b89642 100%);
+      transform: translateY(-1px);
+    }
+  </style>
   <!-- Hide scrollbar but keep functionality -->
   <style>
-    /* Hide scrollbar for Chrome, Safari and Opera */
     body::-webkit-scrollbar,
     html::-webkit-scrollbar,
     *::-webkit-scrollbar {
       display: none;
     }
 
-    /* Hide scrollbar for IE, Edge and Firefox */
     body, html, * {
-      -ms-overflow-style: none;  /* IE and Edge */
-      scrollbar-width: none;  /* Firefox */
+      -ms-overflow-style: none;
+      scrollbar-width: none;
     }
   </style>
 </head>
 <body class="page-tools">
-  <div id="tools-bg"></div>
-
   <main class="tools-content">
-    <h1 class="page-title">CHARACTER TOOLS</h1>
+    <h1 class="page-title">Tools & Utilities</h1>
+    <p class="page-subtitle">Quick access to debugging helpers and upcoming management utilities.</p>
 
-    <!-- Character Selection -->
-    <div class="character-selector">
-      <button class="btn-select-character" id="btn-select-character">
-        <span>Select Character</span>
-      </button>
-      <div class="selected-character-info" id="selected-character-info" style="display: none;">
-        <div class="character-name" id="character-name"></div>
-        <div class="character-version" id="character-version"></div>
+    <div class="tools-grid">
+      <div class="tool-card">
+        <div class="tool-title">Benchmarks & Debug</div>
+        <p class="tool-desc">Access the chakra benchmark and other performance helpers to validate battle systems while iterating.</p>
+      </div>
+      <div class="tool-card">
+        <div class="tool-title">Data Maintenance</div>
+        <p class="tool-desc">Centralize scripts and migration helpers for character data, asset cleanups, and other routine upkeep tasks.</p>
+      </div>
+      <div class="tool-card">
+        <div class="tool-title">Coming Soon</div>
+        <p class="tool-desc">This hub will collect developer shortcuts and QA tools. For now, use the navigation below to return to other areas.</p>
       </div>
     </div>
 
-    <!-- Equipment Layout -->
-    <div class="equipment-container" id="equipment-container" style="display: none;">
-      <!-- Left Equipment Slots -->
-      <div class="equipment-column left-column">
-        <div class="equipment-slot" data-slot="1">
-          <div class="slot-empty">
-            <div class="slot-label">Slot 1</div>
-          </div>
-        </div>
-        <div class="equipment-slot" data-slot="2">
-          <div class="slot-empty">
-            <div class="slot-label">Slot 2</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Character Display -->
-      <div class="character-display">
-        <img id="character-full-image" src="" alt="Character" />
-        <div class="power-display">
-          <div class="power-label">Personal Power</div>
-          <div class="power-value" id="power-value">0</div>
-        </div>
-      </div>
-
-      <!-- Right Equipment Slots -->
-      <div class="equipment-column right-column">
-        <div class="equipment-slot" data-slot="3">
-          <div class="slot-empty">
-            <div class="slot-label">Slot 3</div>
-          </div>
-        </div>
-        <div class="equipment-slot" data-slot="4">
-          <div class="slot-empty">
-            <div class="slot-label">Slot 4</div>
-          </div>
-        </div>
-        <div class="equipment-slot" data-slot="5">
-          <div class="slot-empty">
-            <div class="slot-label">Slot 5</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Stats Display -->
-    <div class="stats-display" id="stats-display" style="display: none;">
-      <div class="stat-item">
-        <span class="stat-label">Health:</span>
-        <span class="stat-value" id="stat-health">0</span>
-      </div>
-      <div class="stat-item">
-        <span class="stat-label">Attack:</span>
-        <span class="stat-value" id="stat-attack">0</span>
-      </div>
-      <div class="stat-item">
-        <span class="stat-label">Speed:</span>
-        <span class="stat-value" id="stat-speed">0</span>
-      </div>
-    </div>
+    <p class="coming-soon">More utilities will be added here soon.</p>
+    <a href="village.html" class="back-button">Back to Main Menu</a>
   </main>
 
-  <!-- Character Selection Modal -->
-  <div id="character-selector-modal" class="modal" aria-hidden="true">
-    <div class="modal-panel">
-      <h2 class="modal-title">Select Character</h2>
-      <div class="modal-filters">
-        <input type="text" class="search-input" id="character-search" placeholder="Search by name...">
-      </div>
-      <div class="characters-grid" id="characters-grid"></div>
-      <div class="modal-actions">
-        <button class="btn-dark" id="modal-cancel">Cancel</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- HUD Bottom Bar -->
   <div class="bottom-bar">
     <div class="bottom-bar-content">
       <button class="hud-button" id="btn-village" aria-label="Village">
@@ -132,7 +156,7 @@
       <button class="hud-button" id="btn-teams" aria-label="Teams">
         <img src="assets/icons/teams_icon.png" alt="Teams">
       </button>
-      <button class="hud-button active" id="btn-tools" aria-label="Tools">
+      <button class="hud-button" id="btn-tools" aria-label="Tools">
         <img src="assets/icons/guilds_icon.png" alt="Tools">
       </button>
       <button class="hud-button" id="btn-summon" aria-label="Summon">
@@ -150,45 +174,9 @@
     </div>
   </div>
 
-  <!-- Scripts -->
   <script src="js/audio-manager.js"></script>
   <script src="js/music-player.js"></script>
-  <script src="js/character_inv.js"></script>
-  <script src="js/resources.js"></script>
-  <script src="js/tools.js"></script>
-
-  <!-- Settings Modal Script -->
-  <script src="js/settings-modal.js?v=2"></script>
-
-  <!-- Navigation Script -->
   <script src="js/navigation.js"></script>
-
-  <!-- Music Initialization -->
-  <script>
-    // Music initialization - start BGM on page load
-    (function() {
-      if (typeof window.AudioManager === 'undefined') {
-        console.log('[Music] AudioManager not available on this page');
-        return;
-      }
-
-      console.log('[Music] Initializing background music...');
-
-      const startMusic = () => {
-        if (!window.AudioManager.currentBGM) {
-          const bgm = window.AudioManager.playBGM('assets/music/general.mp3');
-          if (bgm) {
-            console.log('[Music] Background music started');
-          }
-        }
-      };
-
-      // Try immediate playback (may be blocked by browser)
-      setTimeout(startMusic, 500);
-
-      // Also try on first click
-      document.addEventListener('click', startMusic, { once: true });
-    })();
-  </script>
+  <script src="js/settings-modal.js?v=2"></script>
 </body>
 </html>
