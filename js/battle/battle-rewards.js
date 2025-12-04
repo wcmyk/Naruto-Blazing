@@ -26,6 +26,7 @@
     init(core) {
       this.collectedChests = [];
       this.currentStageChest = null;
+      this.preloadChestSprites();
       console.log("[BattleRewards] Rewards system initialized");
     },
 
@@ -74,6 +75,7 @@
       // Create chest element
       const chestEl = document.createElement('div');
       chestEl.className = 'reward-chest';
+      const usingSprite = this.isChestSpriteAvailable('closed');
       chestEl.style.cssText = `
         position: absolute;
         left: 50%;
@@ -94,7 +96,7 @@
       `;
 
       // Add chest lid detail
-      chestEl.innerHTML = `
+      chestEl.innerHTML = usingSprite ? '' : `
         <div style="
           position: absolute;
           top: 25%;
@@ -387,14 +389,42 @@
      */
     getChestBackground(state = 'closed') {
       const spritePath = this.chestSprites[state];
+      const spriteAvailable = this.isChestSpriteAvailable(state);
 
-      // Prefer the provided PNG sprites but keep the old gradient as a fallback so the
-      // chest visuals still render if the asset is missing or fails to load.
-      const fallbackGradient = state === 'open'
+      // When the PNG is present, render only the sprite. If it fails to load, fall back
+      // to the original gradients so the UI still has a visible chest.
+      if (spriteAvailable !== false) {
+        return `center/contain no-repeat url('${spritePath}')`;
+      }
+
+      return state === 'open'
         ? 'linear-gradient(135deg, #FFD700 0%, #FFF2AE 45%, #D4AF37 100%)'
         : 'linear-gradient(135deg, #8B4513 0%, #D4AF37 50%, #8B4513 100%)';
+    },
 
-      return `center/contain no-repeat url('${spritePath}'), ${fallbackGradient}`;
+    /**
+     * Preload chest sprites to detect availability for fallback handling.
+     */
+    preloadChestSprites() {
+      Object.entries(this.chestSprites).forEach(([state, path]) => {
+        const img = new Image();
+        img.onload = () => {
+          this.spriteAvailability[state] = true;
+          console.log(`[BattleRewards] Chest sprite loaded: ${path}`);
+        };
+        img.onerror = () => {
+          this.spriteAvailability[state] = false;
+          console.warn(`[BattleRewards] Chest sprite missing, using gradient: ${path}`);
+        };
+        img.src = path;
+      });
+    },
+
+    /**
+     * Check if a given sprite is confirmed to be available.
+     */
+    isChestSpriteAvailable(state = 'closed') {
+      return this.spriteAvailability[state] !== false;
     },
 
     /**
