@@ -19,10 +19,6 @@
       closed: 'assets/icons/filename/chestunopened.png',
       open: 'assets/icons/filename/chestopened.png'
     },
-    spriteAvailability: {
-      closed: null,
-      open: null
-    },
 
     /**
      * Initialize rewards system
