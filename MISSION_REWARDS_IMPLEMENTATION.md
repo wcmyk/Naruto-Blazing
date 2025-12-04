@@ -190,6 +190,11 @@ async function onStageComplete(core) {
 - **Position**: Center of battlefield (50%, 40%)
 - **Animation**: Appears with spin, floats continuously
 
+### Chest Visuals:
+- Closed chest uses a deep gold gradient fill.
+- Opened chest shifts to a brighter gold gradient during the reveal animation.
+- Gradients are pure CSS, so no external images are required.
+
 ### Results Screen:
 - **Background**: Near-black with subtle transparency
 - **Title**: Large gold text with glow
