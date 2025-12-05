@@ -243,23 +243,24 @@ class CharacterSelectionEngine {
     const { rarity, isFeatured } = summonResult;
 
     // Filter pool by rarity
+    // Map summon rarities to character.json rarity values
     const rarityMap = {
-      'bronze': 4,
-      'silver': 5,
-      'gold': 6
+      'bronze': 1,  // Common characters (1-4 star base)
+      'silver': 3,  // Uncommon characters (3-5 star base)
+      'gold': 6     // Rare characters (6 star base)
     };
 
     const targetRarity = rarityMap[rarity];
     const pool = this.characterPool.filter(c => c.rarity === targetRarity);
 
     if (pool.length === 0) {
-      console.warn(`No characters found for rarity ${rarity}`);
+      console.warn(`No characters found for rarity ${rarity} (mapped to ${targetRarity})`);
       return null;
     }
 
     // If gold and featured, use featured pool
     if (rarity === 'gold' && isFeatured && this.featuredPool.length > 0) {
-      const featuredGolds = this.featuredPool.filter(c => c.rarity === targetRarity);
+      const featuredGolds = this.featuredPool.filter(c => c.rarity === 6);
       if (featuredGolds.length > 0) {
         return featuredGolds[Math.floor(Math.random() * featuredGolds.length)];
       }

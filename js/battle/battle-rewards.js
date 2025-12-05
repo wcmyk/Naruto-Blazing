@@ -16,8 +16,8 @@
     collectedChests: [],     // All chests collected this mission
     currentStageChest: null, // Chest for current stage (if any)
     chestSprites: {
-      closed: 'assets/icons/filename/chestunopened.png',
-      open: 'assets/icons/filename/chestopened.png'
+      closed: 'assets/icons/chestunopened.png',
+      open: 'assets/icons/chestopened.png'
     },
 
     /**

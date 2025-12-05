@@ -12,7 +12,7 @@
         "objectives": [
           {
             "description": "Clear without any ally falling",
-            "reward": { "pearls": 1 }
+            "reward": { "pearls": 5 }
           },
           {
             "description": "Clear in 5 turns or less",
