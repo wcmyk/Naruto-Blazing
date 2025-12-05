@@ -55,9 +55,10 @@
     top: 11px;
     left: 30px;
     width: 90px;
-    height: 100px;
+    height: 90px;
     border-radius: 50%;
     clip-path: circle(50%);
+    overflow: hidden;
     z-index: 11;
     pointer-events: none;
 }
