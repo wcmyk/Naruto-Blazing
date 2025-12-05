@@ -90,7 +90,7 @@
           0 10px 30px rgba(0, 0, 0, 0.5),
           0 0 20px rgba(255, 215, 0, 0.6),
           inset 0 -5px 15px rgba(0, 0, 0, 0.3);
-        z-index: 150;
+        z-index: 1000;
         cursor: pointer;
         animation: chestAppear 0.5s ease-out, chestFloat 2s ease-in-out infinite;
       `;
