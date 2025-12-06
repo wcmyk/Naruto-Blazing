@@ -23,7 +23,8 @@
       'BattleEquippedUltimate',
       'CharacterEquip',
       'BattleMissions',
-      'BattleRewards'
+      'BattleRewards',
+      'BattleFieldBuddy'
     ];
 
     const allLoaded = requiredModules.every(mod => window[mod]);

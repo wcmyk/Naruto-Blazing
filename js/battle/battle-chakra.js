@@ -319,25 +319,25 @@
         NONE: {
           name: "Normal",
           color: "#888",
-          icon: "⚪",
+          icon: "",
           available: true
         },
         JUTSU: {
           name: "Jutsu",
           color: "#00BFFF",
-          icon: "🔵",
+          icon: "",
           available: unit.chakra >= 4
         },
         ULTIMATE: {
           name: "Ultimate",
           color: "#FF4D4D",
-          icon: "🔴",
+          icon: "",
           available: unit.chakra >= 8
         },
         SECRET: {
           name: "Secret Jutsu",
           color: "#C000FF",
-          icon: "🟣",
+          icon: "",
           available: unit.chakra >= 10
         }
       };
@@ -433,7 +433,7 @@
 
       const chakraText = document.createElement("div");
       chakraText.className = "damage-number chakra-gain";
-      chakraText.textContent = `+${amount} ⚡`;
+      chakraText.textContent = `+${amount}`;
       chakraText.style.left = `${x}px`;
       chakraText.style.top = `${y}px`;
       chakraText.style.color = "#00D4FF";

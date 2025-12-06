@@ -124,6 +124,11 @@
         window.BattleModifiers.init(this);
       }
 
+      // Initialize field/buddy skills if available
+      if (window.BattleFieldBuddy) {
+        window.BattleFieldBuddy.init(this);
+      }
+
       // Play entrance animations if available
       if (window.BattleEntrance) {
         await window.BattleEntrance.playEntranceSequence(this);
