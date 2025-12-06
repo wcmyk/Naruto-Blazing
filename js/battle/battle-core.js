@@ -124,10 +124,7 @@
         window.BattleModifiers.init(this);
       }
 
-      // Initialize field/buddy skills if available
-      if (window.BattleFieldBuddy) {
-        window.BattleFieldBuddy.init(this);
-      }
+      // NOTE: BattleFieldBuddy.init() is called AFTER first wave loads in battle-missions.js
 
       // Play entrance animations if available
       if (window.BattleEntrance) {
@@ -228,6 +225,8 @@
       const teamSlots = teamsData[currentTeamNum] || {};
 
       console.log("[BattleCore] Loading team slots:", teamSlots);
+      console.log("[BattleCore] window.InventoryChar available?", !!window.InventoryChar);
+      console.log("[BattleCore] charactersData loaded?", this.charactersData?.length);
 
       // FIXED: Use 4 active slots (front-1 through front-4)
       const frontSlots = ["front-1", "front-2", "front-3", "front-4"];

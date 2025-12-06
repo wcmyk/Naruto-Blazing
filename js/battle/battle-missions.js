@@ -127,6 +127,17 @@
 
       bm.updateCombatants();
       bm.renderAllUnits();
+
+      // Initialize field/buddy skills after first wave loads (only once)
+      if (!this._fieldBuddyInitialized && window.BattleFieldBuddy) {
+        try {
+          window.BattleFieldBuddy.init(bm);
+          this._fieldBuddyInitialized = true;
+        } catch (err) {
+          console.error("[Missions] Field/Buddy init error:", err);
+        }
+      }
+
       bm.isPaused = false;
 
       console.log(`[Missions] Wave loaded with ${bm.enemyTeam.length} enemies`);
