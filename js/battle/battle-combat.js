@@ -316,7 +316,9 @@
             window.BattleNarrator.narrateAttack(attacker, target, core);
           }
 
+          console.log(`[Combat] 🎯 BEFORE DAMAGE: ${target.name} HP = ${target.stats.hp}`);
           target.stats.hp = Math.max(0, target.stats.hp - damage);
+          console.log(`[Combat] 💥 AFTER DAMAGE: ${target.name} HP = ${target.stats.hp} (took ${damage} damage)`);
 
           // Apply knockback
           if (window.BattlePhysics) {

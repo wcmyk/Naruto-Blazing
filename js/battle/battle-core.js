@@ -736,6 +736,9 @@
       const playersAlive = this.activeTeam.filter(u => u.stats.hp > 0).length;
       const enemiesAlive = this.enemyTeam.filter(u => u.stats.hp > 0).length;
 
+      console.log(`[BattleEnd] 🏥 Check: Players alive = ${playersAlive}, Enemies alive = ${enemiesAlive}`);
+      this.enemyTeam.forEach(e => console.log(`[BattleEnd]   Enemy ${e.name}: HP = ${e.stats.hp}`));
+
       if (playersAlive === 0) {
         setTimeout(() => {
           if (window.BattleMissions) {
