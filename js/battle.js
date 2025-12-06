@@ -23,8 +23,8 @@
       'BattleEquippedUltimate',
       'CharacterEquip',
       'BattleMissions',
-      'BattleRewards',
-      'BattleFieldBuddy'
+      'BattleRewards'
+      // 'BattleFieldBuddy' // Temporarily disabled until we debug the loading issue
     ];
 
     const allLoaded = requiredModules.every(mod => window[mod]);
