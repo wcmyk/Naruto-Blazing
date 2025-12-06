@@ -446,12 +446,12 @@
 
       // Set icon appearance based on status type
       const statusStyles = {
-        burn: { bg: '#ff6b6b', icon: '🔥', text: 'Burn' },
-        poison: { bg: '#a855f7', icon: '☠️', text: 'Poison' },
-        stun: { bg: '#ffd93d', icon: '⚡', text: 'Stun' },
-        freeze: { bg: '#6bcbff', icon: '❄️', text: 'Freeze' },
-        buff: { bg: '#2ecc71', icon: '↑', text: 'Buff' },
-        debuff: { bg: '#e74c3c', icon: '↓', text: 'Debuff' }
+        burn: { bg: '#ff6b6b', icon: '', text: 'Burn' },
+        poison: { bg: '#a855f7', icon: '', text: 'Poison' },
+        stun: { bg: '#ffd93d', icon: '', text: 'Stun' },
+        freeze: { bg: '#6bcbff', icon: '', text: 'Freeze' },
+        buff: { bg: '#2ecc71', icon: '', text: 'Buff' },
+        debuff: { bg: '#e74c3c', icon: '', text: 'Debuff' }
       };
 
       const style = statusStyles[statusType] || statusStyles.debuff;

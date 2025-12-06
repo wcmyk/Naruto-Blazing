@@ -393,7 +393,7 @@
         if (!skills.jutsu) {
           core.dom.actionSkillName.textContent = "—";
         } else if (!jutsuUnlocked) {
-          core.dom.actionSkillName.textContent = `🔒 LOCKED (Lv ${unitLevel}/20)`;
+          core.dom.actionSkillName.textContent = `LOCKED (Lv ${unitLevel}/20)`;
         } else {
           core.dom.actionSkillName.textContent = `${skills.jutsu.meta.name} (${jCost})`;
         }
@@ -402,7 +402,7 @@
         if (!skills.ultimate) {
           core.dom.actionUltName.textContent = "—";
         } else if (!ultUnlocked) {
-          core.dom.actionUltName.textContent = `🔒 LOCKED (Lv ${unitLevel}/50)`;
+          core.dom.actionUltName.textContent = `LOCKED (Lv ${unitLevel}/50)`;
         } else {
           core.dom.actionUltName.textContent = `${skills.ultimate.meta.name} (${uCost})`;
         }
@@ -411,7 +411,7 @@
         if (!skills.secret) {
           core.dom.actionSecretName.textContent = "—";
         } else if (!secretUnlocked) {
-          core.dom.actionSecretName.textContent = `🔒 LOCKED (${unitTier}, needs 6S+)`;
+          core.dom.actionSecretName.textContent = `LOCKED (${unitTier}, needs 6S+)`;
         } else {
           core.dom.actionSecretName.textContent = `${skills.secret.meta.name} (${sCost})`;
         }

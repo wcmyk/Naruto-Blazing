@@ -80,6 +80,11 @@
       // Update combatants list
       core.updateCombatants();
 
+      // Update field/buddy skills for the swapped units
+      if (window.BattleFieldBuddy) {
+        window.BattleFieldBuddy.onSwap(activeUnit, benchUnit, core);
+      }
+
       // Re-render
       requestAnimationFrame(() => {
         if (core.units) {
