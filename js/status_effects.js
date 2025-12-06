@@ -259,13 +259,27 @@ const STATUS_EFFECTS = {
   
   SEALED: {
     id: 'sealed',
-    name: 'Sealed',
+    name: 'Jutsu Sealed',
     type: 'debuff',
     icon: '🔒',
     color: '#666666',
-    description: 'Cannot use jutsu',
+    description: 'Cannot use jutsu, ultimate, or secret techniques',
     prevent_jutsu: true,
-    duration: 2,
+    prevent_ultimate: true,
+    prevent_secret: true,
+    duration: 3,
+    stackable: false
+  },
+
+  IMMOBILIZED: {
+    id: 'immobilized',
+    name: 'Immobilized',
+    type: 'debuff',
+    icon: '⛓️',
+    color: '#888888',
+    description: 'Cannot act for multiple turns',
+    prevent_action: true,
+    duration: 3,
     stackable: false
   },
 

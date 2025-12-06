@@ -12,7 +12,7 @@
   // Tags & helpers for identifying negative status effects/ailments
   const NEGATIVE_TAGS = new Set([
     "poison","slip","bleed","burn","shock","freeze",
-    "stun","paralysis","immobilize","seal","silence","mute",
+    "stun","paralysis","immobilize","immobilized","seal","sealed","silence","mute",
     "slow","atkDown","defDown","spdDown","resDown","accDown",
     "blind","confusion","fear","taunt","healBlock","curse",
     "defenseBreak","vulnerability","doom"

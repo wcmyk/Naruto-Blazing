@@ -237,6 +237,21 @@
         window.BattlePassives.onTurnStart(core, unit);
       }
 
+      // Check if unit cannot act (stunned, immobilized, paralyzed)
+      const cannotAct = unit.statusEffects?.some(e =>
+        e.prevent_action && e.turnsRemaining > 0
+      );
+      if (cannotAct) {
+        const effect = unit.statusEffects.find(e => e.prevent_action && e.turnsRemaining > 0);
+        console.log(`[Turns] ⛓️ ${unit.name} cannot act (${effect.name})!`);
+        if (window.BattleEffects) {
+          window.BattleEffects.showEffectIndicator(unit, effect.name.toUpperCase(), effect.color || '#888888', core);
+        }
+        // Skip turn - end immediately
+        setTimeout(() => this.endTurn(core), 800);
+        return;
+      }
+
       // Reset unit state
       unit.isGuarding = false;
 
