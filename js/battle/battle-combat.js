@@ -415,6 +415,21 @@
         return false;
       }
 
+      // Check if unit is sealed (cannot use jutsu)
+      const isSealed = attacker.statusEffects?.some(e =>
+        e.prevent_jutsu && e.turnsRemaining > 0
+      );
+      if (isSealed) {
+        console.warn(`[Combat] 🔒 ${attacker.name}'s jutsu is sealed!`);
+        if (window.BattleNarrator) {
+          window.BattleNarrator.narrate(`${attacker.name}'s jutsu is sealed!`, core);
+        }
+        if (window.BattleEffects) {
+          window.BattleEffects.showEffectIndicator(attacker, 'SEALED', '#666666', core);
+        }
+        return false;
+      }
+
       // Check if jutsu is unlocked
       if (!this.isJutsuUnlocked(attacker)) {
         const level = this.getUnitLevel(attacker);
@@ -575,6 +590,21 @@
 
       if (!u) {
         console.warn(`[Combat] ${attacker.name} has no ultimate skill`);
+        return false;
+      }
+
+      // Check if unit is sealed (cannot use ultimate)
+      const isSealed = attacker.statusEffects?.some(e =>
+        e.prevent_ultimate && e.turnsRemaining > 0
+      );
+      if (isSealed) {
+        console.warn(`[Combat] 🔒 ${attacker.name}'s ultimate is sealed!`);
+        if (window.BattleNarrator) {
+          window.BattleNarrator.narrate(`${attacker.name}'s ultimate is sealed!`, core);
+        }
+        if (window.BattleEffects) {
+          window.BattleEffects.showEffectIndicator(attacker, 'SEALED', '#666666', core);
+        }
         return false;
       }
 
@@ -1006,6 +1036,21 @@
 
       if (!secret) {
         console.warn(`[Combat] ${caster.name} has no secret technique`);
+        return false;
+      }
+
+      // Check if unit is sealed (cannot use secret)
+      const isSealed = caster.statusEffects?.some(e =>
+        e.prevent_secret && e.turnsRemaining > 0
+      );
+      if (isSealed) {
+        console.warn(`[Combat] 🔒 ${caster.name}'s secret technique is sealed!`);
+        if (window.BattleNarrator) {
+          window.BattleNarrator.narrate(`${caster.name}'s secret technique is sealed!`, core);
+        }
+        if (window.BattleEffects) {
+          window.BattleEffects.showEffectIndicator(caster, 'SEALED', '#666666', core);
+        }
         return false;
       }
 
