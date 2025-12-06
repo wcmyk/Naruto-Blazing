@@ -26,6 +26,7 @@
     init(core) {
       this.collectedChests = [];
       this.currentStageChest = null;
+      this.spriteAvailability = {}; // Initialize sprite availability tracker
       this.preloadChestSprites();
       console.log("[BattleRewards] Rewards system initialized");
     },
