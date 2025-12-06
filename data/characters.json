@@ -70718,7 +70718,7 @@
       },
       "6S": {
         "portrait": "assets/characters/naruto_660/portrait_6S.png",
-        "full": "assets/characters/naruto_660/full_6S.png"
+        "full": "assets/characters/naruto_660/full_6S.gif"
       }
     },
     "statsBase": {
@@ -70822,14 +70822,14 @@
     "starMaxCode": "6S",
     "lbEligible": true,
     "portrait": "assets/characters/naruto_660/portrait_6S.png",
-    "full": "assets/characters/naruto_660/full_6S.png",
+    "full": "assets/characters/naruto_660/full_6S.gif",
     "jutsuAnimation": null,
     "ultimateAnimation": null,
     "secretAnimation": null,
     "artByTier": {
       "6S": {
         "portrait": "assets/characters/naruto_660/portrait_6S.png",
-        "full": "assets/characters/naruto_660/full_6S.png"
+        "full": "assets/characters/naruto_660/full_6S.gif"
       }
     },
     "statsBase": {
