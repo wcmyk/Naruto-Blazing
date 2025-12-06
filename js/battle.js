@@ -21,7 +21,9 @@
       'BattleInputManager',
       'BattleAttackNames',
       'BattleEquippedUltimate',
-      'CharacterEquip'
+      'CharacterEquip',
+      'BattleMissions',
+      'BattleRewards'
     ];
 
     const allLoaded = requiredModules.every(mod => window[mod]);
