@@ -70927,6 +70927,7 @@
       "hitCount": 0
     }
   },
+
   {
     "id": "sasuke_661",
     "name": "Sasuke Uchiha",
@@ -117342,6 +117343,253 @@
       "hitCount": 0
     }
   },
+
+{
+  "id": "itachi_2199",
+  "name": "Itachi Uchiha",
+  "version": "Talent and Burden",
+  "element": "Heart",
+  "rarity": 1,
+  "starMinCode": "1S",
+  "starMaxCode": "7S",
+  "lbEligible": true,
+  "portrait": "assets/characters/itachi_2199/portrait_6S.png",
+  "full": "assets/characters/itachi_2199/full_6S.png",
+  "ultimateAnimation": null,
+  "secretAnimation": null,
+  "artByTier": {
+    "6S": {
+      "portrait": "assets/characters/itachi_2199/portrait_6S.png",
+      "full": "assets/characters/itachi_2199/full_6S.png"
+    },
+    "7S": {
+      "portrait": "assets/characters/itachi_2200/portrait_7S.png",
+      "full": "assets/characters/itachi_2200/full_7S.mp4"
+    }
+  },
+  "statsBase": {
+    "hp": 41850,
+    "atk": 3472,
+    "speed": 360
+  },
+  "statsMax": {
+    "hp": 83700,
+    "atk": 6942,
+    "speed": 720
+  },
+  "growthCurve": {
+    "hp": 1,
+    "atk": 1,
+    "def": 1,
+    "speed": 1,
+    "chakra": 1
+  },
+  "powerRank": 16000,
+  "powerWeights": {
+    "hp": 0.3,
+    "atk": 0.4,
+    "def": 0.1,
+    "speed": 0.15,
+    "chakra": 0.05
+  },
+  "range": "Short",
+  "luck": {
+    "base": 0,
+    "max": 0
+  },
+  "cost": {
+    "base": 0,
+    "max": 0
+  },
+  "affiliation": [
+    "Hidden Leaf",
+    "Uchiha Clan",
+    "Akatsuki"
+  ],
+  "passiveIcons": {},
+  "skills": {
+    "fieldSkill": {
+      "name": "Field Skill",
+      "type": "Field",
+      "description": "Boosts Heart attacks by 15-750."
+    },
+    "buddySkill": {
+      "name": "Buddy Skill",
+      "type": "Buddy",
+      "description": "Reduces the chance of receiving immobilization by 50% (Not Field Skills)."
+    },
+    "jutsu": {
+      "name": "Susano'o: Destruction",
+      "type": "Jutsu",
+      "byTier": {
+        "6S": {
+          "chakraCost": 4,
+          "hits": 6,
+          "shape": "Circle",
+          "range": "Vast",
+          "position": "Center",
+          "description": "Removes Perfect Dodge and Barrier for all enemies in range and ignores Substitution with 3.5x attack toward them.",
+          "nwusDescription": "Removes Perfect Dodge and Barrier for all enemies in range and ignores Substitution, changing their element to Skill for 3 turn(s) with 4x attack toward them. 50% chance of immobilization for 1 second(s)."
+        },
+        "7S": {
+          "chakraCost": 4,
+          "hits": 6,
+          "shape": "Circle",
+          "range": "Vast",
+          "position": "Center",
+          "description": "Removes Perfect Dodge and Barrier for all enemies in range and ignores Substitution with 3.5x attack toward them.",
+          "nwusDescription": "Removes Perfect Dodge and Barrier for all enemies in range and ignores Substitution, changing their element to Skill for 3 turn(s) with 4x attack toward them. 50% chance of immobilization for 1 second(s)."
+        }
+      }
+    }
+  },
+  "abilities": [
+    {
+      "name": "0 Chakra Required for Ninjutsu",
+      "description": "35% chance to reduce chakra consumed by Ninjutsu to 0."
+    },
+    {
+      "name": "Speed Boost",
+      "description": "Boosts speed by 40."
+    },
+    {
+      "name": "0 Chakra Required for Ninjutsu",
+      "description": "Another 35% chance to reduce chakra consumed by Ninjutsu to 0."
+    },
+    {
+      "name": "Reduce Damage/Substitution Jutsu",
+      "description": "Reduces damage taken by 30% and gives a 30% chance to dodge a physical attack (not slip damage)."
+    },
+    {
+      "name": "Speed Boost When Health Drops",
+      "description": "Boosts speed by 1.5x when health reaches 50% or less."
+    }
+  ],
+  "metadata": {
+    "cardNumber": 2199,
+    "maxLevel": null,
+    "hitCount": 0
+  }
+}
+
+
+{
+  "id": "itachi_2200",
+  "name": "Itachi Uchiha",
+  "version": "Talent and Burden",
+  "element": "heart",
+  "rarity": 7,
+  "starMinCode": "1S",
+  "starMaxCode": "7S",
+  "lbEligible": true,
+  "portrait": "assets/characters/itachi_2200/portrait_7S.png",
+  "full": "assets/characters/itachi_2200/full_7S.png",
+  "ultimateAnimation": null,
+  "secretAnimation": null,
+  "artByTier": {
+    "7S": {
+      "portrait": "assets/characters/itachi_2200/portrait_7S.png",
+      "full": "assets/characters/itachi_2200/full_7S.png"
+    }
+  },
+  "statsBase": {
+    "hp": 40925,
+    "atk": 4736,
+    "speed": 180
+  },
+  "statsMax": {
+    "hp": 83700,
+    "atk": 6942,
+    "speed": 320
+  },
+  "growthCurve": {
+    "hp": 1,
+    "atk": 1,
+    "def": 1,
+    "speed": 1,
+    "chakra": 1
+  },
+  "powerRank": 16000,
+  "powerWeights": {
+    "hp": 0.3,
+    "atk": 0.4,
+    "def": 0.1,
+    "speed": 0.15,
+    "chakra": 0.05
+  },
+  "range": "Short",
+  "luck": {
+    "base": 0,
+    "max": 0
+  },
+  "cost": {
+    "base": 0,
+    "max": 0
+  },
+  "affiliation": [
+    "Hidden Leaf",
+    "Uchiha Clan",
+    "Akatsuki"
+  ],
+  "passiveIcons": {},
+  "skills": {
+    "fieldSkill": {
+      "name": "Field Skill",
+      "type": "Field",
+      "description": "Boosts Heart attacks by 15-750."
+    },
+    "buddySkill": {
+      "name": "Buddy Skill",
+      "type": "Buddy",
+      "description": "Reduces the chance of receiving immobilization by 50% (Not Field Skills)."
+    },
+    "jutsu": {
+      "name": "Susano'o: Destruction",
+      "type": "Jutsu",
+      "byTier": {
+        "7S": {
+          "chakraCost": 4,
+          "hits": 6,
+          "shape": "Circle",
+          "range": "Vast",
+          "position": "Center",
+          "description": "Removes Perfect Dodge and Barrier for all enemies in range and ignores Substitution with 3.5x attack toward them.",
+          "nwusDescription": "Removes Perfect Dodge and Barrier for all enemies in range and ignores Substitution, changing their element to Skill for 3 turn(s) with 4x attack toward them. 50% chance of immobilization for 1 second(s)."
+        }
+      }
+    }
+  },
+  "abilities": [
+    {
+      "name": "0 Chakra Required for Ninjutsu",
+      "description": "35% chance to reduce chakra consumed by Ninjutsu to 0."
+    },
+    {
+      "name": "Speed Boost",
+      "description": "Boosts speed by 40."
+    },
+    {
+      "name": "0 Chakra Required for Ninjutsu",
+      "description": "Another 35% chance to reduce chakra consumed by Ninjutsu to 0."
+    },
+    {
+      "name": "Reduce Damage/Substitution Jutsu",
+      "description": "Reduces damage taken by 30% and gives a 30% chance to dodge a physical attack (not slip damage)."
+    },
+    {
+      "name": "Speed Boost When Health Drops",
+      "description": "Boosts speed by 1.5x when health reaches 50% or less."
+    }
+  ],
+  "metadata": {
+    "cardNumber": 2200,
+    "maxLevel": null,
+    "hitCount": 0
+  }
+}
+
+
+
   {
     "id": "sasuke_2141",
     "name": "Sasuke Uchiha",
