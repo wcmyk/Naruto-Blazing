@@ -238,29 +238,40 @@ body.page-characters::-webkit-scrollbar {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
-/* ---------- Nameplate (Tube) ---------- */
+/* ---------- Nameplate (with Nametag Image) ---------- */
 .nameplate {
-  background: linear-gradient(180deg,#252020 0%,#0f0f0f 100%);
+  background-image: url('../assets/ui/char-nametag.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   border-bottom: 1px solid rgba(255,215,120,.15);
-  padding: 10px 18px;
+  padding: 20px 18px;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
+  min-height: 80px;
+  position: relative;
 }
 .nameplate-main {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  text-align: center;
+  z-index: 1;
 }
 .nameplate-name {
-  font-size: 22px;
-  font-weight: 600;
-  color: #f6e7b5;
-  text-shadow: 0 1px 2px #000;
+  font-size: 24px;
+  font-weight: 700;
+  color: #ffffff;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.9), 0 0 8px rgba(0,0,0,0.5);
+  letter-spacing: 0.5px;
 }
 .nameplate-version {
   font-size: 13px;
-  color: #b8b1a0;
-  margin-top: 1px;
+  color: #d9b362;
+  margin-top: 2px;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+  font-weight: 500;
 }
 
 /* ---------- Stars (below tube) ---------- */
