@@ -13,28 +13,24 @@ body {
   min-height: 100vh;
 }
 
-/* Dark Blue Gradient Background */
+/* Missions Background with GIF */
 #full-bg {
   position: fixed;
   inset: 0;
   z-index: -1;
-  background: linear-gradient(
-    180deg,
-    #0a0e1a 0%,
-    #0d1428 20%,
-    #101c36 40%,
-    #0d1428 60%,
-    #0a0e1a 100%
-  );
+  background-image: url('../assets/missions-bg.gif');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
-/* Mission Container */
+/* Mission Container - Positioned on the Right */
 .mission-page-container {
   position: fixed;
   top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 90%;
+  right: 5%;
+  transform: translateY(-50%);
+  width: 45%;
   max-width: 700px;
   max-height: 72vh;
   padding: 30px;
