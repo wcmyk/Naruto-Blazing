@@ -117470,9 +117470,7 @@
     "maxLevel": null,
     "hitCount": 0
   }
-}
-
-
+},
 {
   "id": "itachi_2200",
   "name": "Itachi Uchiha",
@@ -117586,12 +117584,9 @@
     "maxLevel": null,
     "hitCount": 0
   }
-}
-
-
-
-  {
-    "id": "sasuke_2141",
+},
+{
+  "id": "sasuke_2141",
     "name": "Sasuke Uchiha",
     "version": "Desired Future",
     "element": null,
