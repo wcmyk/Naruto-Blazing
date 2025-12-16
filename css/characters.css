@@ -240,7 +240,7 @@ body.page-characters::-webkit-scrollbar {
 
 /* ---------- Nameplate (with Nametag Image) ---------- */
 .nameplate {
-  background-image: url('../assets/ui/char-nametag.jpg');
+  background-image: url('../assets/ui/char-nametag.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
