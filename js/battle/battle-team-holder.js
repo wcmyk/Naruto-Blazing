@@ -20,6 +20,9 @@
     activeUnitsRow: null,
     benchUnitsRow: null,
 
+    // Switch lock to prevent concurrent switches
+    isSwitching: false,
+
     /* ===== Initialization ===== */
 
     /**
@@ -219,6 +222,12 @@
      * @param {Object} core - Battle core reference
      */
     switchUnits(cardIndex, core) {
+      // Prevent concurrent switches
+      if (this.isSwitching) {
+        console.warn(`[TeamHolder] Already switching, ignoring request`);
+        return;
+      }
+
       const activeUnit = core.activeTeam[cardIndex];
       const benchUnit = core.benchTeam[cardIndex];
 
@@ -229,6 +238,9 @@
 
       console.log(`[TeamHolder] Switching ${activeUnit.name} ↔ ${benchUnit.name}`);
 
+      // Lock switching
+      this.isSwitching = true;
+
       // Notify input manager (for tracking only, doesn't affect attack state)
       if (window.BattleInputManager) {
         window.BattleInputManager.handleUnitSwitch(cardIndex);
@@ -236,12 +248,18 @@
 
       // Get the card element
       const card = this.teamHolder.querySelector(`[data-card-index="${cardIndex}"]`);
-      if (!card) return;
+      if (!card) {
+        this.isSwitching = false; // Unlock if card not found
+        return;
+      }
 
       const activeContainer = card.querySelector('.active-portrait-container');
       const benchContainer = card.querySelector('.bench-portrait-container');
 
-      if (!activeContainer || !benchContainer) return;
+      if (!activeContainer || !benchContainer) {
+        this.isSwitching = false; // Unlock if containers not found
+        return;
+      }
 
       // Add switching animation classes
       activeContainer.classList.add('switching');
@@ -319,10 +337,13 @@
 
       }, 200); // Half-way through the animation
 
-      // Remove animation classes after animation completes
+      // Remove animation classes after animation completes and unlock switching
       setTimeout(() => {
         activeContainer.classList.remove('switching');
         benchContainer.classList.remove('switching');
+
+        // Unlock switching after animation completes
+        this.isSwitching = false;
       }, 400);
     },
 
