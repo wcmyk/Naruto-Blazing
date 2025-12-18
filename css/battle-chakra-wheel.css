@@ -29,10 +29,10 @@
    ========================================= */
 .portrait {
     position: absolute;
-    top: 30px;
-    left: 25px;
-    width: 100px;
-    height: 98px;
+    top: 5px;
+    left: 5px;
+    width: 90px;
+    height: 90px;
     object-fit: cover;
     border-radius: 50%;
     clip-path: circle(50%);
@@ -52,8 +52,8 @@
    ========================================= */
 .chakra-container {
     position: absolute;
-    top: 11px;
-    left: 30px;
+    top: 5px;
+    left: 5px;
     width: 90px;
     height: 90px;
     border-radius: 50%;
@@ -103,8 +103,8 @@
    ========================================= */
 .chakra-frame {
     position: absolute;
-    top: -70px;
-    left: -68px;
+    top: -100px;
+    left: -100px;
     width: 300px !important;
     height: 300px !important;
     pointer-events: none;
