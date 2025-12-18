@@ -236,6 +236,15 @@
         return;
       }
 
+      // CRITICAL: Only allow switching during the active unit's turn (prevents speed abuse)
+      if (core.turns && core.turns.getCurrentUnit() !== activeUnit) {
+        console.warn(`[TeamHolder] Cannot switch - not ${activeUnit.name}'s turn (currently ${core.turns.getCurrentUnit()?.name || 'none'})`);
+        if (window.BattleNarrator) {
+          window.BattleNarrator.narrate(`Can only switch during ${activeUnit.name}'s turn!`, core);
+        }
+        return;
+      }
+
       console.log(`[TeamHolder] Switching ${activeUnit.name} ↔ ${benchUnit.name}`);
 
       // Lock switching
@@ -327,8 +336,19 @@
             core.units.renderAllUnits(core);
           }
 
-          // Update speed gauge display
+          // CRITICAL: Update turn system's currentUnit to the new active unit
+          // This ensures abilities, speed, and all turn logic use the new unit
           if (core.turns) {
+            const wasCurrentUnit = core.turns.currentUnit === oldActiveUnit;
+            if (wasCurrentUnit) {
+              console.log(`[TeamHolder] Updating turn system: ${oldActiveUnit.name} → ${oldBenchUnit.name}`);
+              core.turns.currentUnit = oldBenchUnit;
+
+              // Refresh action panel to show new active unit's abilities
+              core.turns.showActionPanel(oldBenchUnit, core);
+            }
+
+            // Update speed gauge display
             core.turns.updateSpeedGaugeDisplay(core);
           }
 
