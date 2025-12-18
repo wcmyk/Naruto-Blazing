@@ -53,6 +53,11 @@
   /* Hover effect handled by unit-ring in battle-chakra-wheel.css */
 }
 
+.active-portrait-container.drag-over {
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.9);
+  transform: scale(1.05);
+}
+
 /* Portrait styling is handled by .portrait class in battle-chakra-wheel.css */
 
 /* === Bench Portrait Container (Small, staggered nested below active) === */
@@ -68,6 +73,11 @@
     left: 0;
     bottom: -1px;
     z-index: 10;
+    cursor: grab;
+}
+
+.bench-portrait-container:active {
+    cursor: grabbing;
 }
 
 /* Portrait styling is handled by .portrait class in battle-chakra-wheel.css */

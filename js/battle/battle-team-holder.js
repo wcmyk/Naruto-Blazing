@@ -85,8 +85,8 @@
       let benchHTML = '';
       if (benchUnit) {
         benchHTML = `
-          <div class="bench-portrait-container" data-unit-id="${benchUnit.id}" data-unit-type="bench">
-            <img src="${benchUnit.portrait}" alt="${benchUnit.name}"
+          <div class="bench-portrait-container" data-unit-id="${benchUnit.id}" data-unit-type="bench" draggable="true">
+            <img src="${benchUnit.portrait}" alt="${benchUnit.name}" draggable="false"
                  onerror="this.src='assets/characters/common/silhouette.png';">
           </div>
         `;
@@ -94,8 +94,8 @@
 
       return `
         <div class="unit-card ${isDead ? 'is-dead' : ''}" data-card-index="${index}">
-          <div class="active-portrait-container" data-unit-id="${activeUnit.id}" data-unit-type="active">
-            <img src="${activeUnit.portrait}" alt="${activeUnit.name}"
+          <div class="active-portrait-container" data-unit-id="${activeUnit.id}" data-unit-type="active" data-drop-zone="true">
+            <img src="${activeUnit.portrait}" alt="${activeUnit.name}" draggable="false"
                  onerror="this.src='assets/characters/common/silhouette.png';">
             ${benchHTML}
           </div>
@@ -124,9 +124,35 @@
           }
           window.BattleChakraWheel.updateChakraWheel(unit, core);
         }
+
+        // Add drag over and drop listeners to active containers
+        container.addEventListener('dragover', (e) => {
+          e.preventDefault();
+          e.dataTransfer.dropEffect = 'move';
+          container.classList.add('drag-over');
+        });
+
+        container.addEventListener('dragleave', (e) => {
+          container.classList.remove('drag-over');
+        });
+
+        container.addEventListener('drop', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          container.classList.remove('drag-over');
+
+          const benchUnitId = e.dataTransfer.getData('text/plain');
+          const benchUnit = core.benchTeam.find(u => u.id === benchUnitId);
+          const activeUnit = core.activeTeam.find(u => u.id === unitId);
+
+          if (benchUnit && activeUnit) {
+            const cardIndex = container.closest('.unit-card').dataset.cardIndex;
+            this.switchUnits(parseInt(cardIndex), core);
+          }
+        });
       });
 
-      // Attach to bench portraits and add click listeners for switching
+      // Attach to bench portraits and add click listeners + drag listeners for switching
       this.teamHolder.querySelectorAll('[data-unit-type="bench"]').forEach(container => {
         const unitId = container.dataset.unitId;
         const unit = core.benchTeam.find(u => u.id === unitId);
@@ -143,6 +169,18 @@
           e.stopPropagation();
           const cardIndex = container.closest('.unit-card').dataset.cardIndex;
           this.switchUnits(parseInt(cardIndex), core);
+        });
+
+        // Add drag start listener for drag-and-drop switching
+        container.addEventListener('dragstart', (e) => {
+          e.dataTransfer.effectAllowed = 'move';
+          e.dataTransfer.setData('text/plain', unitId);
+          container.style.opacity = '0.5';
+          console.log(`[TeamHolder] Dragging bench unit: ${unit.name}`);
+        });
+
+        container.addEventListener('dragend', (e) => {
+          container.style.opacity = '1';
         });
       });
     },
@@ -218,10 +256,18 @@
         const oldActiveUnit = core.activeTeam[cardIndex];
         const oldBenchUnit = core.benchTeam[cardIndex];
 
+        // Store the battlefield position from the active unit
+        const savedPos = oldActiveUnit.pos ? { ...oldActiveUnit.pos } : { x: 50, y: 50 };
+
+        // Update unit flags
         oldActiveUnit.isActive = false;
         oldActiveUnit.isBench = true;
         oldBenchUnit.isActive = true;
         oldBenchUnit.isBench = false;
+
+        // Transfer battlefield position to incoming unit (CRITICAL: prevents unit from disappearing)
+        oldBenchUnit.pos = savedPos;
+        oldActiveUnit.pos = { x: 0, y: 0 }; // Clear position for bench unit
 
         // Reset speed gauge for incoming unit
         oldBenchUnit.speedGauge = 0;
@@ -233,6 +279,11 @@
         // Update combatants list to reflect the swap on battlefield
         if (core.updateCombatants) {
           core.updateCombatants();
+        }
+
+        // Update field/buddy skills for the swapped units
+        if (window.BattleFieldBuddy) {
+          window.BattleFieldBuddy.onSwap(oldActiveUnit, oldBenchUnit, core);
         }
 
         // Remove old chakra wheels (they'll be recreated with proper context)
