@@ -208,13 +208,6 @@ body.page-characters::-webkit-scrollbar {
   overflow: hidden;
   box-shadow: 0 0 40px rgba(0,0,0,0.6);
 }
-#char-modal-img {
-  width: 100%;
-  object-fit: cover;
-  max-height: 380px;
-  display: block;
-  background: #0e0e0e;
-}
 
 /* ---------- Close Button ---------- */
 .char-close-btn {
