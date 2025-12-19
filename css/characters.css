@@ -245,7 +245,7 @@ body.page-characters::-webkit-scrollbar {
   min-height: 80px;
   position: relative;
   max-width: 80%;
-  right: 105px;
+  right: -105px;
 }
 .nameplate-main {
   display: flex;
