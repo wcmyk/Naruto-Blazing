@@ -244,6 +244,8 @@ body.page-characters::-webkit-scrollbar {
   align-items: center;
   min-height: 80px;
   position: relative;
+  max-width: 60%;
+  margin: 0 auto;
 }
 .nameplate-main {
   display: flex;
@@ -357,9 +359,11 @@ body.page-characters::-webkit-scrollbar {
 /* ---------- Stats Grid ---------- */
 .stats-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit,minmax(160px,1fr));
+  grid-template-columns: repeat(auto-fit,minmax(96px,1fr));
   gap: 8px;
   padding: 8px 0 12px;
+  max-width: 60%;
+  margin: 0 auto;
 }
 .stat-row {
   display: flex;
