@@ -250,8 +250,8 @@ body.page-characters::-webkit-scrollbar {
 .nameplate-main {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  text-align: center;
+  align-items: flex-start;
+  text-align: left;
   z-index: 1;
 }
 .nameplate-name {
@@ -358,41 +358,78 @@ body.page-characters::-webkit-scrollbar {
 
 /* ---------- Stats Grid ---------- */
 .stats-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit,minmax(96px,1fr));
-  gap: 8px;
-  padding: 8px 0 12px;
-  max-width: 60%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px 0 20px;
+  max-width: 80%;
   margin: 0 auto;
 }
 .stat-row {
   display: flex;
-  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
   background: rgba(255,255,255,0.05);
   border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 6px;
-  padding: 4px 10px;
-  font-size: 13px;
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-size: 16px;
 }
-.stat-label { color: #d5caa6; }
-.stat-value { color: #fff; }
-
-/* Power stat styling */
-.stat-row-power {
-  background: rgba(217, 179, 98, 0.1);
-  border: 2px solid rgba(217, 179, 98, 0.3);
-  margin-top: 8px;
-  padding: 4px 10px;
+.stat-row img {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
 }
-.stat-row-power .stat-label {
-  color: #d9b362;
+.stat-label {
+  color: #d5caa6;
+  flex: 1;
+  font-size: 16px;
   font-weight: 600;
-  font-size: 13px;
 }
-.stat-row-power .stat-power {
+.stat-value {
   color: #fff;
-  font-weight: 600;
-  font-size: 13px;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+/* Power stat styling - REMOVED (replaced by power holder) */
+
+/* Power Holder Display */
+.power-holder-container {
+  position: relative;
+  width: 280px;
+  height: 80px;
+  margin: 20px auto 0;
+  background-image: url('../assets/icons/powerholder.png');
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 20px;
+}
+.power-holder-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 30px;
+}
+.power-grade {
+  font-family: "Cinzel", serif;
+  font-size: 32px;
+  font-weight: 900;
+  color: #ffd700;
+  text-shadow: 0 0 10px rgba(255, 215, 0, 0.8), 0 2px 4px rgba(0,0,0,0.9);
+  letter-spacing: 2px;
+}
+.power-value {
+  font-family: "Cinzel", serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: #ffffff;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.9);
 }
 
 /* ---------- Level / Growth Section ---------- */
