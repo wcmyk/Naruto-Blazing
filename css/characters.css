@@ -242,9 +242,9 @@ body.page-characters::-webkit-scrollbar {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 80px;
+  min-height: 100px;
   position: relative;
-  max-width: 80%;
+  max-width: 200%;
   margin: 0 auto;
 }
 .nameplate-main {
