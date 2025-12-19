@@ -82,6 +82,26 @@
     return Number.isFinite(n) ? n : d;
   };
 
+  /* ---------- Power Grade Calculation ---------- */
+  function calculatePowerGrade(power, unlockedAbilities = 0) {
+    // Each ability adds 30,000 POW
+    const abilityBonus = unlockedAbilities * 30000;
+    const totalPower = power + abilityBonus;
+
+    // Grade thresholds
+    if (totalPower >= 400000) return 'LR';
+    if (totalPower >= 300000) return 'UR';
+    if (totalPower >= 250000) return 'SSS';
+    if (totalPower >= 200000) return 'SS';
+    if (totalPower >= 150000) return 'S';
+    if (totalPower >= 100000) return 'A';
+    if (totalPower >= 90000) return 'B';
+    if (totalPower >= 70000) return 'C';
+    if (totalPower >= 50000) return 'D';
+    return 'D';
+  }
+  window.calculatePowerGrade = calculatePowerGrade;
+
   /* ---------- Tier helpers ---------- */
   const STAR_COUNT_BY_TIER = { "3S":3,"4S":4,"5S":5,"6S":6,"6SB":6,"7S":7,"7SL":7,"8S":8,"8SM":8,"9S":9,"9ST":9,"10SO":10 };
   const TIER_CAP_FALLBACK  = { "3S":50,"4S":70,"5S":100,"6S":100,"6SB":100,"7S":120,"7SL":150,"8S":150,"8SM":150,"9S":150,"9ST":200,"10SO":250 };
@@ -337,12 +357,33 @@
         localStorage.setItem(`character_power_${inst.uid}`, JSON.stringify(powerData));
       }
 
+      // Calculate power grade
+      const unlockedAbilities = (inst.unlockedAbilities || []).length;
+      const powerGrade = calculatePowerGrade(power, unlockedAbilities);
+      const totalPower = power + (unlockedAbilities * 30000);
+
       STATS_WRAP.innerHTML = `
-        <div class="stat-row"><span class="stat-label">Health</span><span class="stat-value">${stats.hp ?? "-"}</span></div>
-        <div class="stat-row"><span class="stat-label">Attack</span><span class="stat-value">${stats.atk ?? "-"}</span></div>
-        <div class="stat-row"><span class="stat-label">Defense</span><span class="stat-value">${stats.def ?? "-"}</span></div>
-        <div class="stat-row"><span class="stat-label">Speed</span><span class="stat-value">${stats.speed ?? "-"}</span></div>
-        <div class="stat-row stat-row-power"><span class="stat-label">Power</span><span class="stat-value stat-power">${power.toLocaleString()}</span></div>`;
+        <div class="stat-row">
+          <img src="assets/ui/healthstat.png" alt="Health" />
+          <span class="stat-label">Health</span>
+          <span class="stat-value">${stats.hp ?? "-"}</span>
+        </div>
+        <div class="stat-row">
+          <img src="assets/ui/strengthstat.png" alt="Attack" />
+          <span class="stat-label">Attack</span>
+          <span class="stat-value">${stats.atk ?? "-"}</span>
+        </div>
+        <div class="stat-row">
+          <img src="assets/ui/speedstat.png" alt="Speed" />
+          <span class="stat-label">Speed</span>
+          <span class="stat-value">${stats.speed ?? "-"}</span>
+        </div>
+        <div class="power-holder-container">
+          <div class="power-holder-content">
+            <div class="power-grade">${powerGrade}</div>
+            <div class="power-value">${totalPower.toLocaleString()}</div>
+          </div>
+        </div>`;
     } else {
       const s = c.statsBase || {};
 
@@ -362,12 +403,33 @@
         localStorage.setItem(`character_power_${inst.uid}`, JSON.stringify(powerData));
       }
 
+      // Calculate power grade
+      const unlockedAbilities = (inst.unlockedAbilities || []).length;
+      const powerGrade = calculatePowerGrade(power, unlockedAbilities);
+      const totalPower = power + (unlockedAbilities * 30000);
+
       STATS_WRAP.innerHTML = `
-        <div class="stat-row"><span class="stat-label">Health</span><span class="stat-value">${s.hp ?? "-"}</span></div>
-        <div class="stat-row"><span class="stat-label">Attack</span><span class="stat-value">${s.atk ?? "-"}</span></div>
-        <div class="stat-row"><span class="stat-label">Defense</span><span class="stat-value">${s.def ?? "-"}</span></div>
-        <div class="stat-row"><span class="stat-label">Speed</span><span class="stat-value">${s.speed ?? "-"}</span></div>
-        <div class="stat-row stat-row-power"><span class="stat-label">Power</span><span class="stat-value stat-power">${power.toLocaleString()}</span></div>`;
+        <div class="stat-row">
+          <img src="assets/ui/healthstat.png" alt="Health" />
+          <span class="stat-label">Health</span>
+          <span class="stat-value">${s.hp ?? "-"}</span>
+        </div>
+        <div class="stat-row">
+          <img src="assets/ui/strengthstat.png" alt="Attack" />
+          <span class="stat-label">Attack</span>
+          <span class="stat-value">${s.atk ?? "-"}</span>
+        </div>
+        <div class="stat-row">
+          <img src="assets/ui/speedstat.png" alt="Speed" />
+          <span class="stat-label">Speed</span>
+          <span class="stat-value">${s.speed ?? "-"}</span>
+        </div>
+        <div class="power-holder-container">
+          <div class="power-holder-content">
+            <div class="power-grade">${powerGrade}</div>
+            <div class="power-value">${totalPower.toLocaleString()}</div>
+          </div>
+        </div>`;
     }
 
     // Get base tier cap (without limit breaks) for awakening checks
@@ -1537,5 +1599,61 @@
       GRID.innerHTML = `<div class="empty-msg">Failed to load characters.</div>`;
     }
   })();
+
+  /* ---------- Dev Function: Adjust Power for Testing ---------- */
+  window.devAdjustPower = function(uid, newPower) {
+    const inst = window.InventoryChar.getByUid(uid);
+    if (!inst) {
+      console.error(`Character with UID ${uid} not found!`);
+      return;
+    }
+
+    const c = BYID[inst.charId];
+    if (!c) {
+      console.error(`Character base data not found for ${inst.charId}!`);
+      return;
+    }
+
+    // Calculate the stats needed to reach target power
+    // Power = HP + ATK + Speed
+    // We'll distribute it evenly across all three stats
+    const statPerStat = Math.floor(newPower / 3);
+
+    console.log(`[DEV] Adjusting character ${c.name} (${uid}) to power: ${newPower}`);
+    console.log(`[DEV] Setting HP: ${statPerStat}, ATK: ${statPerStat}, Speed: ${statPerStat}`);
+
+    // Update the character's base stats (this is for dev testing only)
+    c.statsBase = {
+      hp: statPerStat,
+      atk: statPerStat,
+      def: c.statsBase?.def || 100,
+      speed: statPerStat
+    };
+
+    // Reopen the modal if it's currently open for this character
+    const currentUid = MODAL.dataset.currentUid;
+    if (currentUid === uid && MODAL.classList.contains('open')) {
+      closeModal();
+      setTimeout(() => openModalByUid(uid), 100);
+    }
+
+    console.log(`[DEV] Power adjusted! New total power: ${statPerStat * 3}`);
+    console.log(`[DEV] To see power grade, open the character modal.`);
+  };
+
+  // Export helper for console access
+  window.devGetCurrentCharacterUid = function() {
+    const uid = MODAL.dataset.currentUid;
+    if (!uid) {
+      console.log('[DEV] No character modal is currently open.');
+      return null;
+    }
+    console.log(`[DEV] Current character UID: ${uid}`);
+    return uid;
+  };
+
+  console.log('[DEV] Power adjustment functions loaded!');
+  console.log('[DEV] Usage: devAdjustPower(uid, newPower) - e.g., devAdjustPower("char_123", 50000)');
+  console.log('[DEV] Get current UID: devGetCurrentCharacterUid()');
 
 })();
