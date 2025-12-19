@@ -88,19 +88,36 @@
     const abilityBonus = unlockedAbilities * 30000;
     const totalPower = power + abilityBonus;
 
-    // Grade thresholds
+    // Grade thresholds (checking from highest to lowest)
     if (totalPower >= 400000) return 'LR';
     if (totalPower >= 300000) return 'UR';
     if (totalPower >= 250000) return 'SSS';
     if (totalPower >= 200000) return 'SS';
     if (totalPower >= 150000) return 'S';
-    if (totalPower >= 100000) return 'A';
-    if (totalPower >= 90000) return 'B';
-    if (totalPower >= 70000) return 'C';
-    if (totalPower >= 50000) return 'D';
-    return 'D';
+    if (totalPower >= 90000) return 'A';
+    if (totalPower >= 70000) return 'B';
+    if (totalPower >= 50000) return 'C';
+    return 'D'; // < 50,000
   }
   window.calculatePowerGrade = calculatePowerGrade;
+
+  /* ---------- Power Grade Display Element ---------- */
+  function getPowerGradeElement(grade) {
+    const gradeLower = grade.toLowerCase();
+
+    // Use video for LR and UR (if available)
+    if (grade === 'LR' || grade === 'UR') {
+      return `
+        <video class="power-grade-video" autoplay loop muted playsinline>
+          <source src="assets/icons/pow_${gradeLower}.mp4" type="video/mp4">
+          <img src="assets/icons/pow_${gradeLower}.png" alt="${grade}" onerror="this.style.display='none';" />
+        </video>`;
+    }
+
+    // Use PNG for other grades
+    return `<img class="power-grade-img" src="assets/icons/pow_${gradeLower}.png" alt="${grade}" onerror="this.innerHTML='${grade}';" />`;
+  }
+  window.getPowerGradeElement = getPowerGradeElement;
 
   /* ---------- Tier helpers ---------- */
   const STAR_COUNT_BY_TIER = { "3S":3,"4S":4,"5S":5,"6S":6,"6SB":6,"7S":7,"7SL":7,"8S":8,"8SM":8,"9S":9,"9ST":9,"10SO":10 };
@@ -380,7 +397,7 @@
         </div>
         <div class="power-holder-container">
           <div class="power-holder-content">
-            <div class="power-grade">${powerGrade}</div>
+            <div class="power-grade">${getPowerGradeElement(powerGrade)}</div>
             <div class="power-value">${totalPower.toLocaleString()}</div>
           </div>
         </div>`;
@@ -426,7 +443,7 @@
         </div>
         <div class="power-holder-container">
           <div class="power-holder-content">
-            <div class="power-grade">${powerGrade}</div>
+            <div class="power-grade">${getPowerGradeElement(powerGrade)}</div>
             <div class="power-value">${totalPower.toLocaleString()}</div>
           </div>
         </div>`;
