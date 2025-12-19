@@ -379,6 +379,7 @@
       const powerGrade = calculatePowerGrade(power, unlockedAbilities);
       const totalPower = power + (unlockedAbilities * 30000);
 
+      // Render stats
       STATS_WRAP.innerHTML = `
         <div class="stat-row">
           <img src="assets/ui/healthstat.png" alt="Health" />
@@ -394,13 +395,19 @@
           <img src="assets/ui/speedstat.png" alt="Speed" />
           <span class="stat-label">Speed</span>
           <span class="stat-value">${stats.speed ?? "-"}</span>
-        </div>
-        <div class="power-holder-container">
-          <div class="power-holder-content">
-            <div class="power-grade">${getPowerGradeElement(powerGrade)}</div>
-            <div class="power-value">${totalPower.toLocaleString()}</div>
-          </div>
         </div>`;
+
+      // Render power holder under character art
+      const powerHolderContainer = document.getElementById('char-power-holder-container');
+      if (powerHolderContainer) {
+        powerHolderContainer.innerHTML = `
+          <div class="power-holder-container">
+            <div class="power-holder-content">
+              <div class="power-grade">${getPowerGradeElement(powerGrade)}</div>
+              <div class="power-value">${totalPower.toLocaleString()}</div>
+            </div>
+          </div>`;
+      }
     } else {
       const s = c.statsBase || {};
 
@@ -425,6 +432,7 @@
       const powerGrade = calculatePowerGrade(power, unlockedAbilities);
       const totalPower = power + (unlockedAbilities * 30000);
 
+      // Render stats
       STATS_WRAP.innerHTML = `
         <div class="stat-row">
           <img src="assets/ui/healthstat.png" alt="Health" />
@@ -440,13 +448,19 @@
           <img src="assets/ui/speedstat.png" alt="Speed" />
           <span class="stat-label">Speed</span>
           <span class="stat-value">${s.speed ?? "-"}</span>
-        </div>
-        <div class="power-holder-container">
-          <div class="power-holder-content">
-            <div class="power-grade">${getPowerGradeElement(powerGrade)}</div>
-            <div class="power-value">${totalPower.toLocaleString()}</div>
-          </div>
         </div>`;
+
+      // Render power holder under character art
+      const powerHolderContainer = document.getElementById('char-power-holder-container');
+      if (powerHolderContainer) {
+        powerHolderContainer.innerHTML = `
+          <div class="power-holder-container">
+            <div class="power-holder-content">
+              <div class="power-grade">${getPowerGradeElement(powerGrade)}</div>
+              <div class="power-value">${totalPower.toLocaleString()}</div>
+            </div>
+          </div>`;
+      }
     }
 
     // Get base tier cap (without limit breaks) for awakening checks
