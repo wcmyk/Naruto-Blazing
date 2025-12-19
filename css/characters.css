@@ -360,39 +360,53 @@ body.page-characters::-webkit-scrollbar {
 .stats-grid {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 20px;
   padding: 16px 0 20px;
-  max-width: 70%;
+  max-width: 80%;
   margin: 0 auto;
 }
 .stat-row {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   background: transparent;
   border: none;
   padding: 0;
+  gap: 8px;
 }
 .stat-row img {
   width: auto;
-  height: 60px;
+  height: 100px;
   object-fit: contain;
 }
 .stat-label {
   display: none;
 }
 .stat-value {
-  display: none;
+  color: #fff;
+  font-size: 24px;
+  font-weight: 700;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.9);
 }
 
 /* Power stat styling - REMOVED (replaced by power holder) */
 
-/* Power Holder Display */
+/* Power Holder Display - Positioned under character art */
+#char-power-holder-container {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  z-index: 10;
+}
 .power-holder-container {
   position: relative;
   width: 550px;
   height: 160px;
-  margin: 20px auto 0;
   background-image: url('../assets/icons/powerholder.png');
   background-size: contain;
   background-position: center;
@@ -429,6 +443,11 @@ body.page-characters::-webkit-scrollbar {
   text-shadow: 0 2px 4px rgba(0,0,0,0.9);
   letter-spacing: 1px;
   flex-shrink: 0;
+}
+
+/* Make sure char-modal-art has position relative for absolute positioning */
+.char-modal-art {
+  position: relative;
 }
 
 /* ---------- Level / Growth Section ---------- */
