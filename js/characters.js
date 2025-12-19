@@ -108,7 +108,7 @@
   window.resolveTierArt = resolveTierArt;
 
   /* ---------- Stars HTML ---------- */
-  const renderStars = (n) => new Array(Math.max(0, Math.min(10, n))).fill(0).map(() => "<span class='star'>★</span>").join("");
+  const renderStars = (n) => new Array(Math.max(0, Math.min(10, n))).fill(0).map(() => "<img src='assets/ui/NormalStar.png' class='star' alt='star'>").join("");
   window.renderStars = renderStars;
   window.starsFromTier = starsFromTier;
 
