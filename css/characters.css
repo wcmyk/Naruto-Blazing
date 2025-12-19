@@ -307,8 +307,9 @@ body.page-characters::-webkit-scrollbar {
   color: #cfc2a0;
   padding: 8px 18px;
   border: none;
+  background-color: transparent;
   background-image: url('../assets/ui/inactivetab.png');
-  background-size: 100% 100%;
+  background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
   cursor: pointer;
@@ -319,8 +320,9 @@ body.page-characters::-webkit-scrollbar {
   filter: brightness(1.1);
 }
 .tab-btn.is-active {
+  background-color: transparent;
   background-image: url('../assets/ui/activetab.png');
-  background-size: 100% 100%;
+  background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
   color: #fff;
