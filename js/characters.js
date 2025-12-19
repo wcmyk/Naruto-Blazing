@@ -107,15 +107,15 @@
 
     // Use video for LR and UR (if available)
     if (grade === 'LR' || grade === 'UR') {
-      return `
-        <video class="power-grade-video" autoplay loop muted playsinline>
+      // Check if video file exists by trying to load it
+      return `<video class="power-grade-video" autoplay loop muted playsinline onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
           <source src="assets/icons/pow_${gradeLower}.mp4" type="video/mp4">
-          <img src="assets/icons/pow_${gradeLower}.png" alt="${grade}" onerror="this.style.display='none';" />
-        </video>`;
+        </video>
+        <img class="power-grade-img" src="assets/icons/pow_${gradeLower}.png" alt="${grade}" style="display:none;" onerror="this.innerHTML='${grade}'; this.style.display='flex'; this.style.alignItems='center'; this.style.justifyContent='center';" />`;
     }
 
     // Use PNG for other grades
-    return `<img class="power-grade-img" src="assets/icons/pow_${gradeLower}.png" alt="${grade}" onerror="this.innerHTML='${grade}';" />`;
+    return `<img class="power-grade-img" src="assets/icons/pow_${gradeLower}.png" alt="${grade}" onerror="this.innerHTML='${grade}'; this.style.display='flex'; this.style.alignItems='center'; this.style.justifyContent='center'; this.style.fontSize='48px'; this.style.fontWeight='900'; this.style.color='#ffd700';" />`;
   }
   window.getPowerGradeElement = getPowerGradeElement;
 
