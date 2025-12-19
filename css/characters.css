@@ -397,8 +397,8 @@ body.page-characters::-webkit-scrollbar {
 /* Power Holder Display */
 .power-holder-container {
   position: relative;
-  width: 280px;
-  height: 80px;
+  width: 400px;
+  height: 120px;
   margin: 20px auto 0;
   background-image: url('../assets/icons/powerholder.png');
   background-size: contain;
@@ -407,29 +407,40 @@ body.page-characters::-webkit-scrollbar {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 10px 20px;
+  padding: 15px 30px;
 }
 .power-holder-content {
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  padding: 0 30px;
+  padding: 0 40px;
 }
 .power-grade {
-  font-family: "Cinzel", serif;
-  font-size: 32px;
-  font-weight: 900;
-  color: #ffd700;
-  text-shadow: 0 0 10px rgba(255, 215, 0, 0.8), 0 2px 4px rgba(0,0,0,0.9);
-  letter-spacing: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 80px;
+}
+.power-grade-img {
+  height: 70px;
+  width: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.6));
+}
+.power-grade-video {
+  height: 70px;
+  width: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 0 12px rgba(255, 215, 0, 0.8));
 }
 .power-value {
   font-family: "Cinzel", serif;
-  font-size: 20px;
+  font-size: 26px;
   font-weight: 700;
   color: #ffffff;
   text-shadow: 0 2px 4px rgba(0,0,0,0.9);
+  letter-spacing: 1px;
 }
 
 /* ---------- Level / Growth Section ---------- */
