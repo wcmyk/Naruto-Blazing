@@ -381,6 +381,9 @@
 
       // Render stats
       STATS_WRAP.innerHTML = `
+        <div class="stats-divider">
+          <img src="assets/Stats/statsdiv.png" alt="" onerror="this.style.display='none';" />
+        </div>
         <div class="stat-row">
           <img src="assets/ui/healthstat.png" alt="Health" />
           <span class="stat-label">Health</span>
@@ -396,14 +399,11 @@
           <span class="stat-label">Speed</span>
           <span class="stat-value">${stats.speed ?? "-"}</span>
         </div>
-        <div class="stats-divider">
-          <img src="assets/Stats/statsdiv.png" alt="" onerror="this.style.display='none';" />
-        </div>
         <div class="equip-divider">
           <img src="assets/Stats/equipdiv.png" alt="" onerror="this.style.display='none';" />
         </div>
         <div class="equipment-grid">
-          ${Array(14).fill(0).map((_, i) => `<div class="equipment-slot"><img src="assets/Stats/emptyslot.png" alt="Empty Slot" onerror="this.style.display='none';" /></div>`).join('')}
+          ${Array(10).fill(0).map((_, i) => `<div class="equipment-slot"><img src="assets/Stats/emptyslot.png" alt="Empty Slot" onerror="this.style.display='none';" /></div>`).join('')}
         </div>`;
 
       // Render power holder under character art
@@ -443,6 +443,9 @@
 
       // Render stats
       STATS_WRAP.innerHTML = `
+        <div class="stats-divider">
+          <img src="assets/Stats/statsdiv.png" alt="" onerror="this.style.display='none';" />
+        </div>
         <div class="stat-row">
           <img src="assets/ui/healthstat.png" alt="Health" />
           <span class="stat-label">Health</span>
@@ -458,14 +461,11 @@
           <span class="stat-label">Speed</span>
           <span class="stat-value">${s.speed ?? "-"}</span>
         </div>
-        <div class="stats-divider">
-          <img src="assets/Stats/statsdiv.png" alt="" onerror="this.style.display='none';" />
-        </div>
         <div class="equip-divider">
           <img src="assets/Stats/equipdiv.png" alt="" onerror="this.style.display='none';" />
         </div>
         <div class="equipment-grid">
-          ${Array(14).fill(0).map((_, i) => `<div class="equipment-slot"><img src="assets/Stats/emptyslot.png" alt="Empty Slot" onerror="this.style.display='none';" /></div>`).join('')}
+          ${Array(10).fill(0).map((_, i) => `<div class="equipment-slot"><img src="assets/Stats/emptyslot.png" alt="Empty Slot" onerror="this.style.display='none';" /></div>`).join('')}
         </div>`;
 
       // Render power holder under character art
