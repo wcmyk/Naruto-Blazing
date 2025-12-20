@@ -360,8 +360,8 @@ body.page-characters::-webkit-scrollbar {
 .stats-grid {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  padding: 16px 0 20px;
+  gap: 4px;
+  padding: 8px 0 10px;
   max-width: 90%;
   margin: 0 auto;
 }
@@ -372,7 +372,7 @@ body.page-characters::-webkit-scrollbar {
   justify-content: space-between;
   background: transparent;
   border: none;
-  padding: 8px 20px;
+  padding: 4px 20px;
   gap: 20px;
 }
 .stat-row img {
@@ -459,9 +459,11 @@ body.page-characters::-webkit-scrollbar {
 .stats-divider,
 .equip-divider {
   width: 100%;
-  margin: 20px 0;
+  margin: 0 0 -30px 0;  /* Negative bottom margin creates overlap */
   display: flex;
   justify-content: center;
+  position: relative;
+  z-index: 2;  /* Ensure divider appears above content below */
 }
 .stats-divider img,
 .equip-divider img {
@@ -477,7 +479,7 @@ body.page-characters::-webkit-scrollbar {
   grid-template-columns: repeat(5, 1fr);
   grid-template-rows: repeat(2, 1fr);
   gap: 8px;
-  padding: 10px 0;
+  padding: 0;
   max-width: 90%;
   margin: 0 auto;
 }
