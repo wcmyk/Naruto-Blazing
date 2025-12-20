@@ -395,6 +395,15 @@
           <img src="assets/ui/speedstat.png" alt="Speed" />
           <span class="stat-label">Speed</span>
           <span class="stat-value">${stats.speed ?? "-"}</span>
+        </div>
+        <div class="stats-divider">
+          <img src="assets/stats/statsdiv.png" alt="" onerror="this.style.display='none';" />
+        </div>
+        <div class="equip-divider">
+          <img src="assets/stats/equipdiv.png" alt="" onerror="this.style.display='none';" />
+        </div>
+        <div class="equipment-grid">
+          ${Array(14).fill(0).map((_, i) => `<div class="equipment-slot"><img src="assets/stats/emptyslot.png" alt="Empty Slot" onerror="this.style.display='none';" /></div>`).join('')}
         </div>`;
 
       // Render power holder under character art
@@ -448,6 +457,15 @@
           <img src="assets/ui/speedstat.png" alt="Speed" />
           <span class="stat-label">Speed</span>
           <span class="stat-value">${s.speed ?? "-"}</span>
+        </div>
+        <div class="stats-divider">
+          <img src="assets/stats/statsdiv.png" alt="" onerror="this.style.display='none';" />
+        </div>
+        <div class="equip-divider">
+          <img src="assets/stats/equipdiv.png" alt="" onerror="this.style.display='none';" />
+        </div>
+        <div class="equipment-grid">
+          ${Array(14).fill(0).map((_, i) => `<div class="equipment-slot"><img src="assets/stats/emptyslot.png" alt="Empty Slot" onerror="this.style.display='none';" /></div>`).join('')}
         </div>`;
 
       // Render power holder under character art
@@ -1425,7 +1443,7 @@
       const e = pickTierSkillEntry(jutsu, tier, minT);
       if (e) {
         // Check if jutsu is unlocked by level
-        const lockOverlay = jutsuUnlocked ? '' : `<div class="lock-overlay"><img src="assets/ui/locked.png" alt="Locked" onerror="this.style.display='none';" /></div>`;
+        const lockOverlay = jutsuUnlocked ? '' : `<div class="lock-overlay"><img src="assets/icons/locked.png" alt="Locked" onerror="this.style.display='none';" /></div>`;
         const lockStatus = jutsuUnlocked ? '' : ` <span style="color:#d8b86a">(Requires Lv 20)</span>`;
         const cardClass = jutsuUnlocked ? '' : ' locked';
         const multiplier = extractMultiplier(e);
@@ -1450,7 +1468,7 @@
       const e = pickTierSkillEntry(ultimate, tier, null);
       if (e) {
         // Check if ultimate is unlocked by level
-        const lockOverlay = ultimateUnlocked ? '' : `<div class="lock-overlay"><img src="assets/ui/locked.png" alt="Locked" onerror="this.style.display='none';" /></div>`;
+        const lockOverlay = ultimateUnlocked ? '' : `<div class="lock-overlay"><img src="assets/icons/locked.png" alt="Locked" onerror="this.style.display='none';" /></div>`;
         const lockStatus = ultimateUnlocked ? '' : ` <span style="color:#d8b86a">(Requires Lv 50)</span>`;
         const cardClass = ultimateUnlocked ? '' : ' locked';
         const multiplier = extractMultiplier(e);
@@ -1471,7 +1489,7 @@
       } else {
         cards.push(`
           <div class="skill-card ultimate locked">
-            <div class="lock-overlay"><img src="assets/ui/locked.png" alt="Locked" onerror="this.style.display='none';" /></div>
+            <div class="lock-overlay"><img src="assets/icons/locked.png" alt="Locked" onerror="this.style.display='none';" /></div>
             <div class="skill-header"><span class="skill-type">Ultimate</span><span class="skill-name">${safeStr(ultimate.name,"Ultimate")} <span style="color:#d8b86a">(Tier Locked)</span></span></div>
             <div class="skill-desc">Unlocks upon awakening to a higher star tier.</div>
           </div>
@@ -1562,7 +1580,7 @@
     c.abilities.forEach((ability, index) => {
       const isUnlocked = unlockedAbilities.includes(index);
       const lockClass = isUnlocked ? '' : 'locked';
-      const lockOverlay = isUnlocked ? '' : '<div class="lock-overlay"><img src="assets/ui/locked.png" alt="Locked" onerror="this.style.display=\'none\';" /></div>';
+      const lockOverlay = isUnlocked ? '' : '<div class="lock-overlay"><img src="assets/icons/locked.png" alt="Locked" onerror="this.style.display=\'none\';" /></div>';
       const statusText = isUnlocked ? 'UNLOCKED' : 'LOCKED';
       const statusClass = isUnlocked ? '' : 'locked';
 
