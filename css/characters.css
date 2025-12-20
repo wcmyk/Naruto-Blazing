@@ -459,7 +459,8 @@ body.page-characters::-webkit-scrollbar {
 .stats-divider,
 .equip-divider {
   width: 100%;
-  margin: 0 0 -80px 0;  /* Negative bottom margin creates overlap - content sits in gradient */
+  top: 125px;
+  margin: 0 0 -370px 0;  /* Negative bottom margin creates overlap - content sits in gradient */
   display: flex;
   justify-content: center;
   position: relative;
