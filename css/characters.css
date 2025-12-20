@@ -471,10 +471,10 @@ body.page-characters::-webkit-scrollbar {
   object-fit: contain;
 }
 
-/* Equipment Grid - 2 rows of 7 slots */
+/* Equipment Grid - 2 rows of 5 slots */
 .equipment-grid {
   display: grid;
-  grid-template-columns: repeat(7, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   grid-template-rows: repeat(2, 1fr);
   gap: 8px;
   padding: 10px 0;
