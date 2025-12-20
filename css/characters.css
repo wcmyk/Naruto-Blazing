@@ -360,34 +360,38 @@ body.page-characters::-webkit-scrollbar {
 .stats-grid {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 12px;
   padding: 16px 0 20px;
-  max-width: 80%;
+  max-width: 90%;
   margin: 0 auto;
 }
 .stat-row {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   background: transparent;
   border: none;
-  padding: 0;
-  gap: 8px;
+  padding: 8px 20px;
+  gap: 20px;
 }
 .stat-row img {
-  width: auto;
-  height: 100px;
-  object-fit: contain;
+  display: none;
 }
 .stat-label {
-  display: none;
+  display: block;
+  color: #d9b362;
+  font-size: 18px;
+  font-weight: 600;
+  text-align: left;
+  flex: 1;
 }
 .stat-value {
   color: #fff;
-  font-size: 24px;
+  font-size: 20px;
   font-weight: 700;
   text-shadow: 0 2px 4px rgba(0,0,0,0.9);
+  text-align: right;
 }
 
 /* Power stat styling - REMOVED (replaced by power holder) */
@@ -395,12 +399,12 @@ body.page-characters::-webkit-scrollbar {
 /* Power Holder Display - Positioned under character art */
 #char-power-holder-container {
   position: absolute;
-  bottom: 20px;
-  left: 50%;
+  bottom: 5px;
+  left: 35%;
   transform: translateX(-50%);
   width: 100%;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   z-index: 10;
 }
 .power-holder-container {
@@ -413,8 +417,9 @@ body.page-characters::-webkit-scrollbar {
   background-repeat: no-repeat;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 0 60px 0 50px;
+  justify-content: flex-start;
+  padding: 0 30px 0 50px;
+  gap: 15px;
 }
 .power-holder-content {
   display: contents;
@@ -448,6 +453,34 @@ body.page-characters::-webkit-scrollbar {
 /* Make sure char-modal-art has position relative for absolute positioning */
 .char-modal-art {
   position: relative;
+}
+
+/* Lock Icon Styling */
+.lock-icon {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.8));
+}
+.skill-card.locked,
+.ability-card.locked {
+  position: relative;
+}
+.skill-card.locked .lock-overlay,
+.ability-card.locked .lock-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+  pointer-events: none;
+}
+.skill-card.locked .lock-overlay img,
+.ability-card.locked .lock-overlay img {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.9));
 }
 
 /* ---------- Level / Growth Section ---------- */
@@ -1028,12 +1061,8 @@ body.page-characters::-webkit-scrollbar {
 }
 
 .ability-card.locked::before {
-  content: "🔒";
-  position: absolute;
-  top: 8px;
-  right: 12px;
-  font-size: 16px;
-  opacity: 0.6;
+  content: "";
+  display: none;
 }
 
 .ability-header {

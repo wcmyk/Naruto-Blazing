@@ -1425,11 +1425,13 @@
       const e = pickTierSkillEntry(jutsu, tier, minT);
       if (e) {
         // Check if jutsu is unlocked by level
-        const lockStatus = jutsuUnlocked ? '' : ` <span style="color:#d8b86a">🔒 (Requires Lv 20)</span>`;
+        const lockOverlay = jutsuUnlocked ? '' : `<div class="lock-overlay"><img src="assets/ui/locked.png" alt="Locked" onerror="this.style.display='none';" /></div>`;
+        const lockStatus = jutsuUnlocked ? '' : ` <span style="color:#d8b86a">(Requires Lv 20)</span>`;
         const cardClass = jutsuUnlocked ? '' : ' locked';
         const multiplier = extractMultiplier(e);
         cards.push(`
           <div class="skill-card${cardClass}">
+            ${lockOverlay}
             <div class="skill-header"><span class="skill-type">Ninjutsu</span><span class="skill-name">${safeStr(jutsu.name,"Ninjutsu")}${lockStatus}</span></div>
             <div class="skill-meta">
               <span>Chakra: <strong>${safeNum(e.chakraCost,"-")}</strong></span>
@@ -1448,11 +1450,13 @@
       const e = pickTierSkillEntry(ultimate, tier, null);
       if (e) {
         // Check if ultimate is unlocked by level
-        const lockStatus = ultimateUnlocked ? '' : ` <span style="color:#d8b86a">🔒 (Requires Lv 50)</span>`;
+        const lockOverlay = ultimateUnlocked ? '' : `<div class="lock-overlay"><img src="assets/ui/locked.png" alt="Locked" onerror="this.style.display='none';" /></div>`;
+        const lockStatus = ultimateUnlocked ? '' : ` <span style="color:#d8b86a">(Requires Lv 50)</span>`;
         const cardClass = ultimateUnlocked ? '' : ' locked';
         const multiplier = extractMultiplier(e);
         cards.push(`
           <div class="skill-card ultimate${cardClass}">
+            ${lockOverlay}
             <div class="skill-header"><span class="skill-type">Ultimate</span><span class="skill-name">${safeStr(ultimate.name,"Ultimate")}${lockStatus}</span></div>
             <div class="skill-meta">
               <span>Chakra: <strong>${safeNum(e.chakraCost,"-")}</strong></span>
@@ -1467,7 +1471,8 @@
       } else {
         cards.push(`
           <div class="skill-card ultimate locked">
-            <div class="skill-header"><span class="skill-type">Ultimate</span><span class="skill-name">${safeStr(ultimate.name,"Ultimate")} <span style="color:#d8b86a">🔒 (Tier Locked)</span></span></div>
+            <div class="lock-overlay"><img src="assets/ui/locked.png" alt="Locked" onerror="this.style.display='none';" /></div>
+            <div class="skill-header"><span class="skill-type">Ultimate</span><span class="skill-name">${safeStr(ultimate.name,"Ultimate")} <span style="color:#d8b86a">(Tier Locked)</span></span></div>
             <div class="skill-desc">Unlocks upon awakening to a higher star tier.</div>
           </div>
         `);
@@ -1557,11 +1562,13 @@
     c.abilities.forEach((ability, index) => {
       const isUnlocked = unlockedAbilities.includes(index);
       const lockClass = isUnlocked ? '' : 'locked';
+      const lockOverlay = isUnlocked ? '' : '<div class="lock-overlay"><img src="assets/ui/locked.png" alt="Locked" onerror="this.style.display=\'none\';" /></div>';
       const statusText = isUnlocked ? 'UNLOCKED' : 'LOCKED';
       const statusClass = isUnlocked ? '' : 'locked';
 
       html += `
         <div class="ability-card ${lockClass}">
+          ${lockOverlay}
           <div class="ability-header">
             <div class="ability-name">${ability.name || `Ability ${index + 1}`}</div>
             <div class="ability-unlock-status ${statusClass}">${statusText}</div>
