@@ -455,6 +455,47 @@ body.page-characters::-webkit-scrollbar {
   position: relative;
 }
 
+/* Stats and Equipment Dividers */
+.stats-divider,
+.equip-divider {
+  width: 100%;
+  margin: 20px 0;
+  display: flex;
+  justify-content: center;
+}
+.stats-divider img,
+.equip-divider img {
+  width: 100%;
+  max-width: 600px;
+  height: auto;
+  object-fit: contain;
+}
+
+/* Equipment Grid - 2 rows of 7 slots */
+.equipment-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 8px;
+  padding: 10px 0;
+  max-width: 90%;
+  margin: 0 auto;
+}
+.equipment-slot {
+  position: relative;
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.equipment-slot img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
 /* Lock Icon Styling */
 .lock-icon {
   width: 40px;
