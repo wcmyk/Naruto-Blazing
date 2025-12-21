@@ -105,13 +105,11 @@
   function getPowerGradeElement(grade) {
     const gradeLower = grade.toLowerCase();
 
-    // Use video for LR and UR (if available)
+    // Use video for LR and UR (if available), with PNG fallback
     if (grade === 'LR' || grade === 'UR') {
-      // Check if video file exists by trying to load it
-      return `<video class="power-grade-video" autoplay loop muted playsinline onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+      return `<video class="power-grade-video" autoplay loop muted playsinline>
           <source src="assets/icons/pow_${gradeLower}.mp4" type="video/mp4">
-        </video>
-        <img class="power-grade-img" src="assets/icons/pow_${gradeLower}.png" alt="${grade}" style="display:none;" onerror="this.innerHTML='${grade}'; this.style.display='flex'; this.style.alignItems='center'; this.style.justifyContent='center';" />`;
+        </video>`;
     }
 
     // Use PNG for other grades

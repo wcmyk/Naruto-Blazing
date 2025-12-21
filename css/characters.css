@@ -119,7 +119,7 @@ body.page-characters::-webkit-scrollbar {
   pointer-events: none;
 }
 
-/* ---------- Level Bar (Restored aesthetic) ---------- */
+/* ---------- Level Bar (Using levelholder.png) ---------- */
 .char-card-level {
   position: absolute;
   left: 6px;
@@ -129,10 +129,10 @@ body.page-characters::-webkit-scrollbar {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(5,5,8,.92);
-  border: 1px solid rgba(255,255,255,.12);
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,.35), inset 0 0 0 1px rgba(255,215,130,.08);
+  background-image: url('../assets/ui/levelholder.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: center;
   font-family: "Cinzel", "Times New Roman", serif;
   font-size: 14px;
   color: #eee6d1;
@@ -209,26 +209,24 @@ body.page-characters::-webkit-scrollbar {
   box-shadow: 0 0 40px rgba(0,0,0,0.6);
 }
 
-/* ---------- Close Button ---------- */
+/* ---------- Close Button (Using backbtn.png) ---------- */
 .char-close-btn {
-  font-family: "Cinzel", serif;
-  padding: 8px 20px;
-  background: rgba(40, 40, 40, 0.9);
-  border: 1px solid rgba(255, 215, 120, 0.2);
-  border-radius: 8px;
-  color: #fff;
-  font-size: 14px;
-  font-weight: 600;
+  width: 120px;
+  height: 50px;
+  background-image: url('../assets/ui/backbtn.png');
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: transparent;
+  border: none;
+  color: transparent;
+  font-size: 0;
   cursor: pointer;
   transition: all 0.2s ease;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
 }
 .char-close-btn:hover {
-  background: rgba(60, 60, 60, 0.9);
-  border-color: rgba(255, 215, 120, 0.4);
-  transform: translateY(-1px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  transform: scale(1.05);
+  filter: brightness(1.1);
 }
 
 /* ---------- Nameplate (with Nametag Image) ---------- */
@@ -409,8 +407,8 @@ body.page-characters::-webkit-scrollbar {
 }
 .power-holder-container {
   position: relative;
-  width: 550px;
-  height: 160px;
+  width: 700px;
+  height: 200px;
   background-image: url('../assets/icons/powerholder.png');
   background-size: contain;
   background-position: center;
@@ -520,8 +518,8 @@ body.page-characters::-webkit-scrollbar {
 }
 .skill-card.locked .lock-overlay img,
 .ability-card.locked .lock-overlay img {
-  width: 60px;
-  height: 60px;
+  width: 78px;
+  height: 78px;
   object-fit: contain;
   filter: drop-shadow(0 4px 8px rgba(0,0,0,0.9));
 }
