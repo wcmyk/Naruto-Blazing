@@ -1711,3 +1711,55 @@
   console.log('[DEV] Get current UID: devGetCurrentCharacterUid()');
 
 })();
+
+/* ========== Radial Pie Menu / Ability Wheel ========== */
+(function initRadialMenu() {
+  const radialMenu = document.getElementById('radial-menu');
+  const radialAnchor = document.getElementById('radial-anchor');
+  const radialSatellites = document.querySelectorAll('.radial-satellite-btn');
+
+  if (!radialMenu || !radialAnchor) {
+    console.warn('[Radial Menu] Elements not found');
+    return;
+  }
+
+  // Show the radial menu
+  radialMenu.style.display = 'block';
+
+  let isExpanded = false;
+
+  // Toggle menu on anchor click
+  radialAnchor.addEventListener('click', (e) => {
+    e.stopPropagation();
+    isExpanded = !isExpanded;
+    radialMenu.classList.toggle('expanded', isExpanded);
+    console.log(`[Radial Menu] ${isExpanded ? 'Expanded' : 'Collapsed'}`);
+  });
+
+  // Close menu when clicking outside
+  document.addEventListener('click', (e) => {
+    if (isExpanded && !radialMenu.contains(e.target)) {
+      isExpanded = false;
+      radialMenu.classList.remove('expanded');
+      console.log('[Radial Menu] Collapsed (clicked outside)');
+    }
+  });
+
+  // Handle satellite button clicks
+  radialSatellites.forEach(satellite => {
+    satellite.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const action = satellite.getAttribute('data-action');
+      console.log(`[Radial Menu] Action triggered: ${action}`);
+
+      // Close menu after action
+      isExpanded = false;
+      radialMenu.classList.remove('expanded');
+
+      // TODO: Implement action handlers
+      alert(`Action: ${action}\n\nThis will trigger the ${action} ability!`);
+    });
+  });
+
+  console.log('[Radial Menu] Initialized successfully');
+})();
