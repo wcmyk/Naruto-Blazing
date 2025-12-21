@@ -1,0 +1,67 @@
+{
+  "cards": [
+    {
+      "id": "water_fang_typhoon",
+      "name": "Water Style: Super Water Fang Typhoon Jutsu",
+      "type": "jutsu",
+      "element": "water",
+      "fullArt": "assets/jutsu/cards/water_fang_full.png",
+      "icon": "assets/jutsu/icons/water_fang_icon.png",
+      "description": "Massive water technique that creates a typhoon"
+    },
+    {
+      "id": "fire_dragon_flame",
+      "name": "Fire Style: Fire Dragon Flame Jutsu",
+      "type": "jutsu",
+      "element": "fire",
+      "fullArt": "assets/jutsu/cards/fire_dragon_full.png",
+      "icon": "assets/jutsu/icons/fire_dragon_icon.png",
+      "description": "Unleashes a dragon-shaped flame"
+    },
+    {
+      "id": "rasengan",
+      "name": "Rasengan",
+      "type": "jutsu",
+      "element": "neutral",
+      "fullArt": "assets/jutsu/cards/rasengan_full.png",
+      "icon": "assets/jutsu/icons/rasengan_icon.png",
+      "description": "A spinning ball of chakra"
+    },
+    {
+      "id": "chidori",
+      "name": "Chidori",
+      "type": "jutsu",
+      "element": "lightning",
+      "fullArt": "assets/jutsu/cards/chidori_full.png",
+      "icon": "assets/jutsu/icons/chidori_icon.png",
+      "description": "Lightning blade piercing technique"
+    },
+    {
+      "id": "rasen_shuriken",
+      "name": "Wind Style: Rasenshuriken",
+      "type": "ultimate",
+      "element": "wind",
+      "fullArt": "assets/jutsu/cards/rasenshuriken_full.png",
+      "icon": "assets/jutsu/icons/rasenshuriken_icon.png",
+      "description": "Ultimate wind release technique"
+    },
+    {
+      "id": "kirin",
+      "name": "Kirin",
+      "type": "ultimate",
+      "element": "lightning",
+      "fullArt": "assets/jutsu/cards/kirin_full.png",
+      "icon": "assets/jutsu/icons/kirin_icon.png",
+      "description": "Lightning beast ultimate technique"
+    },
+    {
+      "id": "amaterasu",
+      "name": "Amaterasu",
+      "type": "ultimate",
+      "element": "fire",
+      "fullArt": "assets/jutsu/cards/amaterasu_full.png",
+      "icon": "assets/jutsu/icons/amaterasu_icon.png",
+      "description": "Black flames that never extinguish"
+    }
+  ]
+}
