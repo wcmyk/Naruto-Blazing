@@ -1763,3 +1763,101 @@
 
   console.log('[Radial Menu] Initialized successfully');
 })();
+
+/* ========== Card Inventory Modal (Equipment Slots) ========== */
+(function initCardInventory() {
+  const CARD_MODAL = document.getElementById('card-inventory-modal');
+  const CARD_GRID = document.getElementById('card-inventory-grid');
+  const CARD_CANCEL = document.getElementById('card-inventory-cancel');
+
+  if (!CARD_MODAL || !CARD_GRID || !CARD_CANCEL) {
+    console.warn('[Card Inventory] Elements not found');
+    return;
+  }
+
+  let currentSlotElement = null;
+
+  // Function to open card inventory modal
+  function openCardInventory(slotElement) {
+    currentSlotElement = slotElement;
+
+    // Get all character instances from inventory
+    const instances = window.InventoryChar ? window.InventoryChar.allInstances() : [];
+
+    if (instances.length === 0) {
+      alert('No characters available in your inventory!');
+      return;
+    }
+
+    // Render character cards
+    CARD_GRID.innerHTML = instances.map(inst => {
+      const c = window.CharacterInventory ? window.CharacterInventory.getCharacterById(inst.charId) : null;
+      if (!c) return '';
+
+      const tier = inst.tierCode || (c.starMinCode || '3S');
+      const art = window.resolveTierArt ? window.resolveTierArt(c, tier) : { portrait: c.portrait };
+
+      return `
+        <div class="card-inventory-item" data-uid="${inst.uid}">
+          <img src="${art.portrait || 'assets/characters/_common/silhouette.png'}"
+               alt="${c.name}"
+               onerror="this.src='assets/characters/_common/silhouette.png';">
+          <div style="position:absolute;bottom:4px;left:4px;right:4px;background:rgba(0,0,0,0.8);padding:4px;font-size:10px;text-align:center;border-radius:4px;">
+            ${c.name}
+          </div>
+        </div>
+      `;
+    }).join('');
+
+    // Add click handlers to card items
+    CARD_GRID.querySelectorAll('.card-inventory-item').forEach(item => {
+      item.addEventListener('click', () => {
+        const uid = item.getAttribute('data-uid');
+        handleCardSelection(uid);
+      });
+    });
+
+    // Show modal
+    CARD_MODAL.setAttribute('aria-hidden', 'false');
+    console.log('[Card Inventory] Modal opened');
+  }
+
+  // Function to close card inventory modal
+  function closeCardInventory() {
+    CARD_MODAL.setAttribute('aria-hidden', 'true');
+    currentSlotElement = null;
+    console.log('[Card Inventory] Modal closed');
+  }
+
+  // Function to handle card selection
+  function handleCardSelection(uid) {
+    console.log(`[Card Inventory] Selected character UID: ${uid}`);
+
+    // TODO: Implement actual equipment logic here
+    // For now, just show confirmation
+    alert(`Character ${uid} equipped!\n\nThis is a placeholder. Equipment system not yet implemented.`);
+
+    closeCardInventory();
+  }
+
+  // Wire up cancel button
+  CARD_CANCEL.addEventListener('click', closeCardInventory);
+
+  // Close modal when clicking outside
+  CARD_MODAL.addEventListener('click', (e) => {
+    if (e.target === CARD_MODAL) {
+      closeCardInventory();
+    }
+  });
+
+  // Delegate click handler for equipment slots
+  document.addEventListener('click', (e) => {
+    const equipmentSlot = e.target.closest('.equipment-slot');
+    if (equipmentSlot) {
+      e.preventDefault();
+      openCardInventory(equipmentSlot);
+    }
+  });
+
+  console.log('[Card Inventory] Initialized successfully');
+})();
