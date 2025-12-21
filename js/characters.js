@@ -1958,6 +1958,7 @@
   }
 
   function refreshSlotBindings() {
+    const slots = document.querySelectorAll('.equipment-slot, .tools-equipment-slot, .jutsu-slot, .ultimate-slot');
     const slots = document.querySelectorAll('.equipment-slot, .jutsu-slot, .ultimate-slot');
     slots.forEach(slot => {
       if (slot.dataset.jutsuSlotBound === 'true') return;
@@ -2082,7 +2083,7 @@
 
   // Delegate click handler for equipment slots AND jutsu/ultimate slots
   document.addEventListener('click', (e) => {
-    const equipmentSlot = e.target.closest('.equipment-slot');
+    const equipmentSlot = e.target.closest('.equipment-slot, .tools-equipment-slot');
     const jutsuSlot = e.target.closest('.jutsu-slot');
     const ultimateSlot = e.target.closest('.ultimate-slot');
 
