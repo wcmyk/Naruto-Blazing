@@ -1821,7 +1821,6 @@ body.page-characters::-webkit-scrollbar {
 }
 
 /* ========== Jutsu/Ultimate Slots (Inside Character Modal) ========== */
-/* ========== Jutsu/Ultimate Slots (Inside Character Modal) ========== */
 .jutsu-slots-container {
   position: absolute;
   bottom: 50px;
@@ -1829,11 +1828,6 @@ body.page-characters::-webkit-scrollbar {
   width: 200px;
   height: 200px;
   z-index: 15;
-}
-
-.jutsu-row,
-.ultimate-row {
-  display: none; /* Hide flex containers, use absolute positioning */
 }
 
 .jutsu-slot,
