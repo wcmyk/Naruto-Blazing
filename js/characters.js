@@ -311,6 +311,9 @@
     if (typeof window.renderJutsuSlots === 'function') {
       window.renderJutsuSlots(uid);
     }
+    if (typeof window.refreshJutsuEquipmentBindings === 'function') {
+      window.refreshJutsuEquipmentBindings();
+    }
 
     showModal();
   }
@@ -1940,6 +1943,40 @@
     pendingCardToEquip = null;
   }
 
+  function handleSlotClick(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    openCardInventory(event.currentTarget);
+  }
+
+  function handleSlotKeydown(event) {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      event.stopPropagation();
+      openCardInventory(event.currentTarget);
+    }
+  }
+
+  function refreshSlotBindings() {
+    const slotElements = document.querySelectorAll('.equipment-slot, .tools-equipment-slot, .jutsu-slot, .ultimate-slot');
+    slotElements.forEach(slot => {
+      if (slot.dataset.jutsuSlotBound === 'true') return;
+
+      slot.dataset.jutsuSlotBound = 'true';
+      slot.addEventListener('click', handleSlotClick);
+      slot.addEventListener('keydown', handleSlotKeydown);
+
+      const isNativeButton = slot.tagName.toLowerCase() === 'button';
+
+      if (!slot.hasAttribute('role') && !isNativeButton) {
+        slot.setAttribute('role', 'button');
+      }
+      if (!slot.hasAttribute('tabindex') && !isNativeButton) {
+        slot.setAttribute('tabindex', '0');
+      }
+    });
+  }
+
   // Open card inventory modal
   function openCardInventory(equipmentSlot) {
     const charModal = document.getElementById('char-modal');
@@ -2045,7 +2082,7 @@
 
   // Delegate click handler for equipment slots AND jutsu/ultimate slots
   document.addEventListener('click', (e) => {
-    const equipmentSlot = e.target.closest('.equipment-slot');
+    const equipmentSlot = e.target.closest('.equipment-slot, .tools-equipment-slot');
     const jutsuSlot = e.target.closest('.jutsu-slot');
     const ultimateSlot = e.target.closest('.ultimate-slot');
 
@@ -2069,9 +2106,11 @@
 
   // Expose function to render jutsu slots when character modal opens
   window.renderJutsuSlots = renderJutsuSlots;
+  window.refreshJutsuEquipmentBindings = refreshSlotBindings;
 
   // Load jutsu cards on init
   loadJutsuCards();
+  refreshSlotBindings();
 
   console.log('[Jutsu Equipment] Initialized successfully');
 })();
