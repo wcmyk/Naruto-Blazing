@@ -2038,12 +2038,15 @@
     });
   }
 
-  // Delegate click handler for equipment slots
+  // Delegate click handler for equipment slots AND jutsu/ultimate slots
   document.addEventListener('click', (e) => {
     const equipmentSlot = e.target.closest('.equipment-slot');
-    if (equipmentSlot) {
+    const jutsuSlot = e.target.closest('.jutsu-slot');
+    const ultimateSlot = e.target.closest('.ultimate-slot');
+
+    if (equipmentSlot || jutsuSlot || ultimateSlot) {
       e.preventDefault();
-      openCardInventory(equipmentSlot);
+      openCardInventory(equipmentSlot || jutsuSlot || ultimateSlot);
     }
   });
 
