@@ -1822,29 +1822,24 @@ body.page-characters::-webkit-scrollbar {
 }
 
 /* ========== Jutsu/Ultimate Slots (Inside Character Modal) ========== */
+/* ========== Jutsu/Ultimate Slots (Inside Character Modal) ========== */
 .jutsu-slots-container {
   position: absolute;
-  bottom: 80px;
-  right: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+  bottom: 50px;
+  right: 30px;
+  width: 200px;
+  height: 200px;
   z-index: 15;
 }
 
-.jutsu-row {
-  display: flex;
-  gap: 8px;
-}
-
+.jutsu-row,
 .ultimate-row {
-  display: flex;
-  justify-content: center;
+  display: none; /* Hide flex containers, use absolute positioning */
 }
 
 .jutsu-slot,
 .ultimate-slot {
-  position: relative;
+  position: absolute;
   width: 70px;
   height: 70px;
   background: transparent;
@@ -1854,12 +1849,15 @@ body.page-characters::-webkit-scrollbar {
   padding: 0;
 }
 
+/* Remove white backgrounds from slot images */
 .jutsu-slot-bg,
 .ultimate-slot-bg {
   width: 100%;
   height: 100%;
   object-fit: contain;
   pointer-events: none;
+  mix-blend-mode: multiply;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
 }
 
 .jutsu-slot-icon,
@@ -1868,26 +1866,69 @@ body.page-characters::-webkit-scrollbar {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 80%;
-  height: 80%;
+  width: 60%;
+  height: 60%;
   object-fit: contain;
   pointer-events: none;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+}
+
+/* Circular arrangement - 4 slots around a circle */
+/* Top slot (jutsu1) */
+.jutsu-slot[data-slot="jutsu1"] {
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* Right slot (jutsu2) */
+.jutsu-slot[data-slot="jutsu2"] {
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+}
+
+/* Bottom slot (jutsu3) */
+.jutsu-slot[data-slot="jutsu3"] {
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* Left/Center slot (ultimate) - larger */
+.ultimate-slot[data-slot="ultimate"] {
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  width: 90px;
+  height: 90px;
 }
 
 .jutsu-slot:hover,
 .ultimate-slot:hover {
-  transform: scale(1.1);
-  filter: brightness(1.2);
+  transform: scale(1.15);
+  filter: brightness(1.2) drop-shadow(0 4px 8px rgba(217, 179, 98, 0.4));
+}
+
+.jutsu-slot[data-slot="jutsu1"]:hover {
+  transform: translateX(-50%) scale(1.15);
+}
+
+.jutsu-slot[data-slot="jutsu2"]:hover {
+  transform: translateY(-50%) scale(1.15);
+}
+
+.jutsu-slot[data-slot="jutsu3"]:hover {
+  transform: translateX(-50%) scale(1.15);
+}
+
+.ultimate-slot[data-slot="ultimate"]:hover {
+  transform: translateY(-50%) scale(1.15);
 }
 
 .jutsu-slot:active,
 .ultimate-slot:active {
   transform: scale(0.95);
-}
-
-.ultimate-slot {
-  width: 90px;
-  height: 90px;
 }
 
 /* ========== Jutsu Replacement Popup (infoframe.png background) ========== */
