@@ -307,6 +307,11 @@
     renderToolsTab(c, inst, tier);
     setActiveTab("status");
 
+    // Render jutsu/ultimate slots
+    if (typeof window.renderJutsuSlots === 'function') {
+      window.renderJutsuSlots(uid);
+    }
+
     showModal();
   }
 
@@ -1764,46 +1769,193 @@
   console.log('[Radial Menu] Initialized successfully');
 })();
 
-/* ========== Card Inventory Modal (Equipment Slots) ========== */
-(function initCardInventory() {
+
+/* ========== Jutsu Equipment System ========== */
+(function initJutsuEquipment() {
   const CARD_MODAL = document.getElementById('card-inventory-modal');
   const CARD_GRID = document.getElementById('card-inventory-grid');
   const CARD_CANCEL = document.getElementById('card-inventory-cancel');
+  const REPLACEMENT_MODAL = document.getElementById('jutsu-replacement-modal');
+  const REPLACEMENT_OPTIONS = document.getElementById('replacement-options');
+  const REPLACEMENT_CANCEL = document.getElementById('replacement-cancel');
 
   if (!CARD_MODAL || !CARD_GRID || !CARD_CANCEL) {
-    console.warn('[Card Inventory] Elements not found');
+    console.warn('[Jutsu Equipment] Elements not found');
     return;
   }
 
-  let currentSlotElement = null;
+  let jutsuCardsData = [];
+  let currentCharacterUid = null;
+  let pendingCardToEquip = null;
 
-  // Function to open card inventory modal
-  function openCardInventory(slotElement) {
-    currentSlotElement = slotElement;
-
-    // Get all character instances from inventory
-    const instances = window.InventoryChar ? window.InventoryChar.allInstances() : [];
-
-    if (instances.length === 0) {
-      alert('No characters available in your inventory!');
-      return;
+  // Load jutsu cards JSON
+  async function loadJutsuCards() {
+    try {
+      const response = await fetch('data/jutsu_cards.json');
+      const data = await response.json();
+      jutsuCardsData = data.cards || [];
+      console.log('[Jutsu Equipment] Loaded', jutsuCardsData.length, 'jutsu cards');
+    } catch (error) {
+      console.error('[Jutsu Equipment] Failed to load jutsu cards:', error);
     }
+  }
 
-    // Render character cards
-    CARD_GRID.innerHTML = instances.map(inst => {
-      const c = window.CharacterInventory ? window.CharacterInventory.getCharacterById(inst.charId) : null;
-      if (!c) return '';
+  // Initialize equipped jutsu data structure on character instances
+  function getEquippedJutsu(uid) {
+    const inst = window.InventoryChar?.getByUid(uid);
+    if (!inst) return null;
 
-      const tier = inst.tierCode || (c.starMinCode || '3S');
-      const art = window.resolveTierArt ? window.resolveTierArt(c, tier) : { portrait: c.portrait };
+    if (!inst.equippedJutsu) {
+      inst.equippedJutsu = {
+        jutsu1: null,
+        jutsu2: null,
+        jutsu3: null,
+        ultimate: null
+      };
+    }
+    return inst.equippedJutsu;
+  }
 
+  // Save equipped jutsu to character instance
+  function saveEquippedJutsu(uid, equipped) {
+    const inst = window.InventoryChar?.getByUid(uid);
+    if (inst) {
+      inst.equippedJutsu = equipped;
+      window.InventoryChar.updateInstance(uid, inst);
+    }
+  }
+
+  // Render jutsu/ultimate slots for current character
+  function renderJutsuSlots(uid) {
+    const equipped = getEquippedJutsu(uid);
+    if (!equipped) return;
+
+    // Render jutsu slots
+    ['jutsu1', 'jutsu2', 'jutsu3'].forEach(slotName => {
+      const slotBtn = document.querySelector(`.jutsu-slot[data-slot="${slotName}"]`);
+      if (!slotBtn) return;
+
+      const icon = slotBtn.querySelector('.jutsu-slot-icon');
+      const cardId = equipped[slotName];
+
+      if (cardId) {
+        const card = jutsuCardsData.find(c => c.id === cardId);
+        if (card && icon) {
+          icon.src = card.icon;
+          icon.style.display = 'block';
+        }
+      } else if (icon) {
+        icon.src = '';
+        icon.style.display = 'none';
+      }
+    });
+
+    // Render ultimate slot
+    const ultimateSlot = document.querySelector('.ultimate-slot[data-slot="ultimate"]');
+    if (ultimateSlot) {
+      const icon = ultimateSlot.querySelector('.ultimate-slot-icon');
+      const cardId = equipped.ultimate;
+
+      if (cardId) {
+        const card = jutsuCardsData.find(c => c.id === cardId);
+        if (card && icon) {
+          icon.src = card.icon;
+          icon.style.display = 'block';
+        }
+      } else if (icon) {
+        icon.src = '';
+        icon.style.display = 'none';
+      }
+    }
+  }
+
+  // Check if card is already equipped
+  function isCardEquipped(uid, cardId) {
+    const equipped = getEquippedJutsu(uid);
+    if (!equipped) return false;
+
+    return Object.values(equipped).includes(cardId);
+  }
+
+  // Find first empty jutsu slot
+  function findEmptyJutsuSlot(uid) {
+    const equipped = getEquippedJutsu(uid);
+    if (!equipped) return null;
+
+    if (!equipped.jutsu1) return 'jutsu1';
+    if (!equipped.jutsu2) return 'jutsu2';
+    if (!equipped.jutsu3) return 'jutsu3';
+    return null;
+  }
+
+  // Equip card to slot
+  function equipCard(uid, cardId, slotName) {
+    const equipped = getEquippedJutsu(uid);
+    if (!equipped) return;
+
+    equipped[slotName] = cardId;
+    saveEquippedJutsu(uid, equipped);
+    renderJutsuSlots(uid);
+    console.log(`[Jutsu Equipment] Equipped ${cardId} to ${slotName}`);
+  }
+
+  // Show replacement popup when all jutsu slots full
+  function showReplacementPopup(uid, cardToEquip) {
+    const equipped = getEquippedJutsu(uid);
+    if (!equipped) return;
+
+    pendingCardToEquip = cardToEquip;
+
+    // Build replacement options
+    REPLACEMENT_OPTIONS.innerHTML = '';
+    ['jutsu1', 'jutsu2', 'jutsu3'].forEach(slotName => {
+      const cardId = equipped[slotName];
+      if (!cardId) return;
+
+      const card = jutsuCardsData.find(c => c.id === cardId);
+      if (!card) return;
+
+      const option = document.createElement('div');
+      option.className = 'replacement-option';
+      option.dataset.slot = slotName;
+      option.innerHTML = `
+        <img src="${card.icon}" alt="${card.name}">
+        <span class="replacement-option-name">${card.name}</span>
+      `;
+
+      option.addEventListener('click', () => {
+        equipCard(uid, cardToEquip.id, slotName);
+        closeReplacementPopup();
+      });
+
+      REPLACEMENT_OPTIONS.appendChild(option);
+    });
+
+    REPLACEMENT_MODAL.setAttribute('aria-hidden', 'false');
+  }
+
+  // Close replacement popup
+  function closeReplacementPopup() {
+    REPLACEMENT_MODAL.setAttribute('aria-hidden', 'true');
+    pendingCardToEquip = null;
+  }
+
+  // Open card inventory modal
+  function openCardInventory(equipmentSlot) {
+    const uid = MODAL.dataset.currentUid;
+    if (!uid) return;
+
+    currentCharacterUid = uid;
+
+    // Render jutsu cards
+    CARD_GRID.innerHTML = jutsuCardsData.map(card => {
       return `
-        <div class="card-inventory-item" data-uid="${inst.uid}">
-          <img src="${art.portrait || 'assets/characters/_common/silhouette.png'}"
-               alt="${c.name}"
-               onerror="this.src='assets/characters/_common/silhouette.png';">
+        <div class="card-inventory-item" data-card-id="${card.id}">
+          <img src="${card.fullArt || card.icon}"
+               alt="${card.name}"
+               onerror="this.src='${card.icon}';">
           <div style="position:absolute;bottom:4px;left:4px;right:4px;background:rgba(0,0,0,0.8);padding:4px;font-size:10px;text-align:center;border-radius:4px;">
-            ${c.name}
+            ${card.name}
           </div>
         </div>
       `;
@@ -1812,43 +1964,79 @@
     // Add click handlers to card items
     CARD_GRID.querySelectorAll('.card-inventory-item').forEach(item => {
       item.addEventListener('click', () => {
-        const uid = item.getAttribute('data-uid');
-        handleCardSelection(uid);
+        const cardId = item.getAttribute('data-card-id');
+        handleCardSelection(cardId);
       });
     });
 
     // Show modal
     CARD_MODAL.setAttribute('aria-hidden', 'false');
-    console.log('[Card Inventory] Modal opened');
+    console.log('[Jutsu Equipment] Card inventory opened');
   }
 
-  // Function to close card inventory modal
+  // Close card inventory modal
   function closeCardInventory() {
     CARD_MODAL.setAttribute('aria-hidden', 'true');
-    currentSlotElement = null;
-    console.log('[Card Inventory] Modal closed');
+    currentCharacterUid = null;
+    console.log('[Jutsu Equipment] Card inventory closed');
   }
 
-  // Function to handle card selection
-  function handleCardSelection(uid) {
-    console.log(`[Card Inventory] Selected character UID: ${uid}`);
+  // Handle card selection
+  function handleCardSelection(cardId) {
+    const uid = currentCharacterUid;
+    if (!uid) return;
 
-    // TODO: Implement actual equipment logic here
-    // For now, just show confirmation
-    alert(`Character ${uid} equipped!\n\nThis is a placeholder. Equipment system not yet implemented.`);
+    const card = jutsuCardsData.find(c => c.id === cardId);
+    if (!card) return;
 
-    closeCardInventory();
+    // Check if card is already equipped
+    if (isCardEquipped(uid, cardId)) {
+      alert(`This card is already equipped!`);
+      return;
+    }
+
+    const equipped = getEquippedJutsu(uid);
+
+    if (card.type === 'ultimate') {
+      // Equip to ultimate slot
+      equipCard(uid, cardId, 'ultimate');
+      closeCardInventory();
+    } else if (card.type === 'jutsu') {
+      // Find empty jutsu slot
+      const emptySlot = findEmptyJutsuSlot(uid);
+
+      if (emptySlot) {
+        // Equip to empty slot
+        equipCard(uid, cardId, emptySlot);
+        closeCardInventory();
+      } else {
+        // All slots full - show replacement popup
+        closeCardInventory();
+        showReplacementPopup(uid, card);
+      }
+    }
   }
 
-  // Wire up cancel button
+  // Wire up cancel buttons
   CARD_CANCEL.addEventListener('click', closeCardInventory);
+  if (REPLACEMENT_CANCEL) {
+    REPLACEMENT_CANCEL.addEventListener('click', closeReplacementPopup);
+  }
 
-  // Close modal when clicking outside
+  // Close modals when clicking outside
   CARD_MODAL.addEventListener('click', (e) => {
     if (e.target === CARD_MODAL) {
       closeCardInventory();
     }
   });
+
+  if (REPLACEMENT_MODAL) {
+    REPLACEMENT_MODAL.addEventListener('click', (e) => {
+      if (e.target === REPLACEMENT_MODAL) {
+        closeReplacementPopup();
+      }
+    });
+  }
 
   // Delegate click handler for equipment slots
   document.addEventListener('click', (e) => {
@@ -1859,5 +2047,11 @@
     }
   });
 
-  console.log('[Card Inventory] Initialized successfully');
+  // Expose function to render jutsu slots when character modal opens
+  window.renderJutsuSlots = renderJutsuSlots;
+
+  // Load jutsu cards on init
+  loadJutsuCards();
+
+  console.log('[Jutsu Equipment] Initialized successfully');
 })();

@@ -43,6 +43,30 @@
       <div class="char-modal-art">
         <img id="char-modal-img" src="" alt="Character full art" />
         <div id="char-power-holder-container"></div>
+
+        <!-- Jutsu/Ultimate Slots -->
+        <div class="jutsu-slots-container" id="jutsu-slots-container">
+          <div class="jutsu-row">
+            <button class="jutsu-slot" data-slot="jutsu1">
+              <img src="assets/ui/jutuslotempty.png" alt="Jutsu Slot 1" class="jutsu-slot-bg">
+              <img src="" alt="" class="jutsu-slot-icon" style="display:none;">
+            </button>
+            <button class="jutsu-slot" data-slot="jutsu2">
+              <img src="assets/ui/jutuslotempty.png" alt="Jutsu Slot 2" class="jutsu-slot-bg">
+              <img src="" alt="" class="jutsu-slot-icon" style="display:none;">
+            </button>
+            <button class="jutsu-slot" data-slot="jutsu3">
+              <img src="assets/ui/jutuslotempty.png" alt="Jutsu Slot 3" class="jutsu-slot-bg">
+              <img src="" alt="" class="jutsu-slot-icon" style="display:none;">
+            </button>
+          </div>
+          <div class="ultimate-row">
+            <button class="ultimate-slot" data-slot="ultimate">
+              <img src="assets/ui/ultimateslotempty.png" alt="Ultimate Slot" class="ultimate-slot-bg">
+              <img src="" alt="" class="ultimate-slot-icon" style="display:none;">
+            </button>
+          </div>
+        </div>
       </div>
       <div class="char-modal-info">
         <div class="nameplate">
@@ -232,7 +256,7 @@
   <!-- Card Inventory Modal (for Equipment Slots) -->
   <div id="card-inventory-modal" class="card-inventory-modal" aria-hidden="true">
     <div class="card-inventory-panel">
-      <h2 class="card-inventory-title">Select Character Card</h2>
+      <h2 class="card-inventory-title">Select Jutsu Card</h2>
       <div class="card-inventory-grid" id="card-inventory-grid"></div>
       <div class="card-inventory-actions">
         <button class="btn-dark" id="card-inventory-cancel">Cancel</button>
@@ -240,8 +264,18 @@
     </div>
   </div>
 
-  <!-- Radial Pie Menu / Ability Wheel -->
-  <div class="radial-menu-container" id="radial-menu" style="display: none;">
+  <!-- Jutsu Replacement Popup -->
+  <div id="jutsu-replacement-modal" class="jutsu-replacement-modal" aria-hidden="true">
+    <div class="jutsu-replacement-popup">
+      <h3 class="replacement-title">All Jutsu Slots Full!</h3>
+      <p class="replacement-message">Select which jutsu to replace:</p>
+      <div class="replacement-options" id="replacement-options"></div>
+      <button class="btn-dark" id="replacement-cancel">Cancel</button>
+    </div>
+  </div>
+
+  <!-- Radial Pie Menu / Ability Wheel (DEPRECATED - Now using in-modal jutsu slots) -->
+  <div class="radial-menu-container" id="radial-menu" style="display: none !important;">
     <button class="radial-anchor-btn" id="radial-anchor" aria-label="Open Actions Menu">
       +
     </button>
