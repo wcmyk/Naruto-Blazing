@@ -1958,9 +1958,8 @@
   }
 
   function refreshSlotBindings() {
-    const slots = document.querySelectorAll('.equipment-slot, .tools-equipment-slot, .jutsu-slot, .ultimate-slot');
-    const slots = document.querySelectorAll('.equipment-slot, .jutsu-slot, .ultimate-slot');
-    slots.forEach(slot => {
+    const slotElements = document.querySelectorAll('.equipment-slot, .tools-equipment-slot, .jutsu-slot, .ultimate-slot');
+    slotElements.forEach(slot => {
       if (slot.dataset.jutsuSlotBound === 'true') return;
 
       slot.dataset.jutsuSlotBound = 'true';
