@@ -1942,10 +1942,15 @@
 
   // Open card inventory modal
   function openCardInventory(equipmentSlot) {
-    const uid = MODAL.dataset.currentUid;
-    if (!uid) return;
+    const charModal = document.getElementById('char-modal');
+    const uid = charModal?.dataset?.currentUid;
+    if (!uid) {
+      console.warn('[Jutsu Equipment] No character UID found');
+      return;
+    }
 
     currentCharacterUid = uid;
+    console.log('[Jutsu Equipment] Opening inventory for character:', uid);
 
     // Render jutsu cards
     CARD_GRID.innerHTML = jutsuCardsData.map(card => {
@@ -1971,7 +1976,7 @@
 
     // Show modal
     CARD_MODAL.setAttribute('aria-hidden', 'false');
-    console.log('[Jutsu Equipment] Card inventory opened');
+    console.log('[Jutsu Equipment] Card inventory opened with', jutsuCardsData.length, 'cards');
   }
 
   // Close card inventory modal
@@ -2044,9 +2049,21 @@
     const jutsuSlot = e.target.closest('.jutsu-slot');
     const ultimateSlot = e.target.closest('.ultimate-slot');
 
-    if (equipmentSlot || jutsuSlot || ultimateSlot) {
+    if (equipmentSlot) {
+      console.log('[Jutsu Equipment] Equipment slot clicked');
       e.preventDefault();
-      openCardInventory(equipmentSlot || jutsuSlot || ultimateSlot);
+      e.stopPropagation();
+      openCardInventory(equipmentSlot);
+    } else if (jutsuSlot) {
+      console.log('[Jutsu Equipment] Jutsu slot clicked');
+      e.preventDefault();
+      e.stopPropagation();
+      openCardInventory(jutsuSlot);
+    } else if (ultimateSlot) {
+      console.log('[Jutsu Equipment] Ultimate slot clicked');
+      e.preventDefault();
+      e.stopPropagation();
+      openCardInventory(ultimateSlot);
     }
   });
 
