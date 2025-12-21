@@ -490,6 +490,7 @@ body.page-characters::-webkit-scrollbar {
   justify-content: center;
   border-radius: 8px;
   overflow: hidden;
+  cursor: pointer;
 }
 .equipment-slot img {
   width: 100%;
@@ -1827,7 +1828,7 @@ body.page-characters::-webkit-scrollbar {
 /* ========== Jutsu/Ultimate Slots (Inside Character Modal) ========== */
 .jutsu-slots-container {
   position: absolute;
-  bottom: 50px;
+  bottom: 125px;
   right: 30px;
   display: flex;
   flex-direction: row;
