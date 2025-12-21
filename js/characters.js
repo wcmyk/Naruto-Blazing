@@ -105,13 +105,11 @@
   function getPowerGradeElement(grade) {
     const gradeLower = grade.toLowerCase();
 
-    // Use video for LR and UR (if available)
+    // Use video for LR and UR (if available), with PNG fallback
     if (grade === 'LR' || grade === 'UR') {
-      // Check if video file exists by trying to load it
-      return `<video class="power-grade-video" autoplay loop muted playsinline onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+      return `<video class="power-grade-video" autoplay loop muted playsinline>
           <source src="assets/icons/pow_${gradeLower}.mp4" type="video/mp4">
-        </video>
-        <img class="power-grade-img" src="assets/icons/pow_${gradeLower}.png" alt="${grade}" style="display:none;" onerror="this.innerHTML='${grade}'; this.style.display='flex'; this.style.alignItems='center'; this.style.justifyContent='center';" />`;
+        </video>`;
     }
 
     // Use PNG for other grades
@@ -1712,4 +1710,154 @@
   console.log('[DEV] Usage: devAdjustPower(uid, newPower) - e.g., devAdjustPower("char_123", 50000)');
   console.log('[DEV] Get current UID: devGetCurrentCharacterUid()');
 
+})();
+
+/* ========== Radial Pie Menu / Ability Wheel ========== */
+(function initRadialMenu() {
+  const radialMenu = document.getElementById('radial-menu');
+  const radialAnchor = document.getElementById('radial-anchor');
+  const radialSatellites = document.querySelectorAll('.radial-satellite-btn');
+
+  if (!radialMenu || !radialAnchor) {
+    console.warn('[Radial Menu] Elements not found');
+    return;
+  }
+
+  // Show the radial menu
+  radialMenu.style.display = 'block';
+
+  let isExpanded = false;
+
+  // Toggle menu on anchor click
+  radialAnchor.addEventListener('click', (e) => {
+    e.stopPropagation();
+    isExpanded = !isExpanded;
+    radialMenu.classList.toggle('expanded', isExpanded);
+    console.log(`[Radial Menu] ${isExpanded ? 'Expanded' : 'Collapsed'}`);
+  });
+
+  // Close menu when clicking outside
+  document.addEventListener('click', (e) => {
+    if (isExpanded && !radialMenu.contains(e.target)) {
+      isExpanded = false;
+      radialMenu.classList.remove('expanded');
+      console.log('[Radial Menu] Collapsed (clicked outside)');
+    }
+  });
+
+  // Handle satellite button clicks
+  radialSatellites.forEach(satellite => {
+    satellite.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const action = satellite.getAttribute('data-action');
+      console.log(`[Radial Menu] Action triggered: ${action}`);
+
+      // Close menu after action
+      isExpanded = false;
+      radialMenu.classList.remove('expanded');
+
+      // TODO: Implement action handlers
+      alert(`Action: ${action}\n\nThis will trigger the ${action} ability!`);
+    });
+  });
+
+  console.log('[Radial Menu] Initialized successfully');
+})();
+
+/* ========== Card Inventory Modal (Equipment Slots) ========== */
+(function initCardInventory() {
+  const CARD_MODAL = document.getElementById('card-inventory-modal');
+  const CARD_GRID = document.getElementById('card-inventory-grid');
+  const CARD_CANCEL = document.getElementById('card-inventory-cancel');
+
+  if (!CARD_MODAL || !CARD_GRID || !CARD_CANCEL) {
+    console.warn('[Card Inventory] Elements not found');
+    return;
+  }
+
+  let currentSlotElement = null;
+
+  // Function to open card inventory modal
+  function openCardInventory(slotElement) {
+    currentSlotElement = slotElement;
+
+    // Get all character instances from inventory
+    const instances = window.InventoryChar ? window.InventoryChar.allInstances() : [];
+
+    if (instances.length === 0) {
+      alert('No characters available in your inventory!');
+      return;
+    }
+
+    // Render character cards
+    CARD_GRID.innerHTML = instances.map(inst => {
+      const c = window.CharacterInventory ? window.CharacterInventory.getCharacterById(inst.charId) : null;
+      if (!c) return '';
+
+      const tier = inst.tierCode || (c.starMinCode || '3S');
+      const art = window.resolveTierArt ? window.resolveTierArt(c, tier) : { portrait: c.portrait };
+
+      return `
+        <div class="card-inventory-item" data-uid="${inst.uid}">
+          <img src="${art.portrait || 'assets/characters/_common/silhouette.png'}"
+               alt="${c.name}"
+               onerror="this.src='assets/characters/_common/silhouette.png';">
+          <div style="position:absolute;bottom:4px;left:4px;right:4px;background:rgba(0,0,0,0.8);padding:4px;font-size:10px;text-align:center;border-radius:4px;">
+            ${c.name}
+          </div>
+        </div>
+      `;
+    }).join('');
+
+    // Add click handlers to card items
+    CARD_GRID.querySelectorAll('.card-inventory-item').forEach(item => {
+      item.addEventListener('click', () => {
+        const uid = item.getAttribute('data-uid');
+        handleCardSelection(uid);
+      });
+    });
+
+    // Show modal
+    CARD_MODAL.setAttribute('aria-hidden', 'false');
+    console.log('[Card Inventory] Modal opened');
+  }
+
+  // Function to close card inventory modal
+  function closeCardInventory() {
+    CARD_MODAL.setAttribute('aria-hidden', 'true');
+    currentSlotElement = null;
+    console.log('[Card Inventory] Modal closed');
+  }
+
+  // Function to handle card selection
+  function handleCardSelection(uid) {
+    console.log(`[Card Inventory] Selected character UID: ${uid}`);
+
+    // TODO: Implement actual equipment logic here
+    // For now, just show confirmation
+    alert(`Character ${uid} equipped!\n\nThis is a placeholder. Equipment system not yet implemented.`);
+
+    closeCardInventory();
+  }
+
+  // Wire up cancel button
+  CARD_CANCEL.addEventListener('click', closeCardInventory);
+
+  // Close modal when clicking outside
+  CARD_MODAL.addEventListener('click', (e) => {
+    if (e.target === CARD_MODAL) {
+      closeCardInventory();
+    }
+  });
+
+  // Delegate click handler for equipment slots
+  document.addEventListener('click', (e) => {
+    const equipmentSlot = e.target.closest('.equipment-slot');
+    if (equipmentSlot) {
+      e.preventDefault();
+      openCardInventory(equipmentSlot);
+    }
+  });
+
+  console.log('[Card Inventory] Initialized successfully');
 })();
