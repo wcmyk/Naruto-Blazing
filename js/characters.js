@@ -1989,8 +1989,29 @@
     currentCharacterUid = uid;
     console.log('[Jutsu Equipment] Opening inventory for character:', uid);
 
-    // Render jutsu cards
-    CARD_GRID.innerHTML = jutsuCardsData.map(card => {
+    // Get character's base ID to check eligibility
+    const charInstance = window.InventoryChar?.getByUid(uid);
+    const characterId = charInstance?.charId;
+
+    if (!characterId) {
+      console.warn('[Jutsu Equipment] Could not get character ID from UID:', uid);
+      return;
+    }
+
+    // Filter cards based on eligibility
+    const eligibleCards = jutsuCardsData.filter(card => {
+      // If no eligibleCharacters array, or it's empty, card is available to all
+      if (!card.eligibleCharacters || card.eligibleCharacters.length === 0) {
+        return true;
+      }
+      // Check if this character is in the eligible list
+      return card.eligibleCharacters.includes(characterId);
+    });
+
+    console.log(`[Jutsu Equipment] Showing ${eligibleCards.length} eligible cards for ${characterId}`);
+
+    // Render jutsu cards (only eligible ones)
+    CARD_GRID.innerHTML = eligibleCards.map(card => {
       return `
         <div class="card-inventory-item" data-card-id="${card.id}">
           <img src="${card.fullArt || card.icon}"
@@ -2013,7 +2034,6 @@
 
     // Show modal
     CARD_MODAL.setAttribute('aria-hidden', 'false');
-    console.log('[Jutsu Equipment] Card inventory opened with', jutsuCardsData.length, 'cards');
   }
 
   // Close card inventory modal
@@ -2035,6 +2055,18 @@
     if (isCardEquipped(uid, cardId)) {
       alert(`This card is already equipped!`);
       return;
+    }
+
+    // Validate character eligibility
+    const charInstance = window.InventoryChar?.getByUid(uid);
+    const characterId = charInstance?.charId;
+
+    if (card.eligibleCharacters && card.eligibleCharacters.length > 0) {
+      if (!card.eligibleCharacters.includes(characterId)) {
+        alert(`${card.name} cannot be equipped by this character!\n\nThis jutsu is restricted to specific characters.`);
+        console.warn(`[Jutsu Equipment] ${characterId} cannot equip ${card.name}`);
+        return;
+      }
     }
 
     const equipped = getEquippedJutsu(uid);
