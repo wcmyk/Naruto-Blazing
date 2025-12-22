@@ -1790,6 +1790,8 @@
   let jutsuCardsData = [];
   let currentCharacterUid = null;
   let pendingCardToEquip = null;
+  let currentSlotType = null; // Track which type of slot was clicked ('jutsu', 'ultimate', or 'equipment')
+  let currentSlotNumber = null; // Track equipment slot number (1-5)
 
   // Load jutsu cards JSON
   async function loadJutsuCards() {
@@ -1813,7 +1815,12 @@
         jutsu1: null,
         jutsu2: null,
         jutsu3: null,
-        ultimate: null
+        ultimate: null,
+        equipment1: null,
+        equipment2: null,
+        equipment3: null,
+        equipment4: null,
+        equipment5: null
       };
     }
     return inst.equippedJutsu;
@@ -1868,6 +1875,43 @@
       } else if (icon) {
         icon.src = '';
         icon.style.display = 'none';
+      }
+    }
+
+    // Render equipment slots (1-5)
+    for (let i = 1; i <= 5; i++) {
+      const slotName = `equipment${i}`;
+      const equipSlot = document.querySelector(`.tools-equipment-slot[data-slot="${i}"]`);
+      if (!equipSlot) continue;
+
+      const cardId = equipped[slotName];
+
+      if (cardId) {
+        const card = jutsuCardsData.find(c => c.id === cardId);
+        if (card) {
+          // Clear slot content
+          equipSlot.innerHTML = '';
+
+          // Create and add card image
+          const cardImg = document.createElement('img');
+          cardImg.src = card.fullArt || card.icon;
+          cardImg.alt = card.name;
+          cardImg.style.width = '100%';
+          cardImg.style.height = '100%';
+          cardImg.style.objectFit = 'cover';
+          cardImg.onerror = () => { cardImg.src = card.icon; };
+
+          equipSlot.appendChild(cardImg);
+          equipSlot.classList.add('filled');
+        }
+      } else {
+        // Restore empty slot
+        equipSlot.innerHTML = `
+          <div class="tools-slot-empty">
+            <div class="tools-slot-label">Slot ${i}</div>
+          </div>
+        `;
+        equipSlot.classList.remove('filled');
       }
     }
   }
@@ -1987,7 +2031,25 @@
     }
 
     currentCharacterUid = uid;
-    console.log('[Jutsu Equipment] Opening inventory for character:', uid);
+
+    // Determine slot type
+    if (equipmentSlot.classList.contains('tools-equipment-slot')) {
+      currentSlotType = 'equipment';
+      currentSlotNumber = equipmentSlot.dataset.slot;
+      console.log(`[Jutsu Equipment] Opening inventory for equipment slot ${currentSlotNumber}`);
+    } else if (equipmentSlot.classList.contains('jutsu-slot')) {
+      currentSlotType = 'jutsu';
+      currentSlotNumber = equipmentSlot.dataset.slot;
+      console.log(`[Jutsu Equipment] Opening inventory for jutsu slot ${currentSlotNumber}`);
+    } else if (equipmentSlot.classList.contains('ultimate-slot')) {
+      currentSlotType = 'ultimate';
+      currentSlotNumber = null;
+      console.log('[Jutsu Equipment] Opening inventory for ultimate slot');
+    } else {
+      currentSlotType = 'equipment';
+      currentSlotNumber = equipmentSlot.dataset.slot;
+      console.log('[Jutsu Equipment] Opening inventory (default to equipment)');
+    }
 
     // Get character's base ID to check eligibility
     const charInstance = window.InventoryChar?.getByUid(uid);
@@ -2040,6 +2102,8 @@
   function closeCardInventory() {
     CARD_MODAL.setAttribute('aria-hidden', 'true');
     currentCharacterUid = null;
+    currentSlotType = null;
+    currentSlotNumber = null;
     console.log('[Jutsu Equipment] Card inventory closed');
   }
 
@@ -2071,11 +2135,27 @@
 
     const equipped = getEquippedJutsu(uid);
 
+    // Handle equipment slot clicks
+    if (currentSlotType === 'equipment' && currentSlotNumber) {
+      const slotName = `equipment${currentSlotNumber}`;
+      equipCard(uid, cardId, slotName);
+      closeCardInventory();
+      return;
+    }
+
+    // Handle jutsu/ultimate slots
     if (card.type === 'ultimate') {
       // Equip to ultimate slot
       equipCard(uid, cardId, 'ultimate');
       closeCardInventory();
     } else if (card.type === 'jutsu') {
+      // If clicking from jutsu slot directly, equip to that slot
+      if (currentSlotType === 'jutsu' && currentSlotNumber) {
+        equipCard(uid, cardId, currentSlotNumber);
+        closeCardInventory();
+        return;
+      }
+
       // Find empty jutsu slot
       const emptySlot = findEmptyJutsuSlot(uid);
 
