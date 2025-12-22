@@ -11,15 +11,33 @@
     "dev:frontend": "python3 -m http.server 8080",
     "dev:backend": "cd backend && npm run dev",
     "dev:all": "concurrently \"npm run dev:frontend\" \"npm run dev:backend\"",
+    "build:web": "mkdir -p www && cp -r *.html js css assets data www/",
+    "build:mobile": "bash scripts/build-mobile.sh",
+    "open:android": "npx cap open android",
+    "open:ios": "npx cap open ios",
+    "mobile:sync": "npx cap sync",
     "test": "npm run validate",
     "prepare": "husky install"
   },
   "devDependencies": {
+    "concurrently": "^8.2.2",
     "husky": "^8.0.3",
-    "nodemon": "^3.0.1",
-    "concurrently": "^8.2.2"
+    "nodemon": "^3.0.1"
   },
   "engines": {
     "node": ">=16.0.0"
+  },
+  "dependencies": {
+    "@capacitor/android": "^8.0.0",
+    "@capacitor/app": "^8.0.0",
+    "@capacitor/cli": "^8.0.0",
+    "@capacitor/core": "^8.0.0",
+    "@capacitor/filesystem": "^8.0.0",
+    "@capacitor/haptics": "^8.0.0",
+    "@capacitor/ios": "^8.0.0",
+    "@capacitor/preferences": "^8.0.0",
+    "@capacitor/screen-orientation": "^8.0.0",
+    "@capacitor/splash-screen": "^8.0.0",
+    "@capacitor/status-bar": "^8.0.0"
   }
 }

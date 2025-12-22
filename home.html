@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#000000">
+  <title>Naruto Blazing</title>
+  <link rel="stylesheet" href="css/home-screen.css">
+</head>
+<body>
+  <div class="game-canvas-wrapper">
+    <div class="game-canvas">
+      <div class="game-content">
+        <!-- Home Screen Container -->
+        <div class="home-screen" id="homeScreen">
+          <!-- Background -->
+          <div class="home-background"></div>
+
+          <!-- Logo -->
+          <div class="home-logo">
+            <h1 class="game-title">NARUTO</h1>
+            <h2 class="game-subtitle">BLAZING</h2>
+          </div>
+
+          <!-- Start Button -->
+          <div class="home-start-container">
+            <button class="home-start-btn" id="startBtn">
+              <span class="start-text">TAP TO START</span>
+            </button>
+          </div>
+
+          <!-- Download Progress (only shown on first launch for mobile) -->
+          <div class="download-container" id="downloadContainer" style="display: none;">
+            <div class="download-text">Downloading assets...</div>
+            <div class="download-progress-bar">
+              <div class="download-progress-fill" id="downloadProgress"></div>
+            </div>
+            <div class="download-percentage" id="downloadPercentage">0%</div>
+          </div>
+
+          <!-- Version Info -->
+          <div class="home-version">v1.0.0</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script type="module" src="js/platform-detector.js"></script>
+  <script type="module" src="js/asset-download-manager.js"></script>
+  <script type="module" src="js/home-screen.js"></script>
+</body>
+</html>

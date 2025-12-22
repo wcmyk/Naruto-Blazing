@@ -1,1 +1,29 @@
 data/backups/
+
+# Dependencies
+node_modules/
+package-lock.json
+
+# Capacitor Build Output
+www/
+android/
+ios/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+
+# Environment
+.env
+.env.local
