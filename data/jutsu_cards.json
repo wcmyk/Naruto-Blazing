@@ -1055,7 +1055,7 @@
     {
       "id": "chidori_sasuke",
       "name": "Chidori",
-      "type": "jutsu",
+      "type": "ultimate",
       "element": "lightning",
       "fullArt": "assets/jutsu/cards/chidori_full.png",
       "icon": "assets/jutsu/cards/chidori_icon.png",
