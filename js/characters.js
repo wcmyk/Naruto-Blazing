@@ -409,7 +409,7 @@
           <img src="assets/Stats/equipdiv.png" alt="" onerror="this.style.display='none';" />
         </div>
         <div class="equipment-grid">
-          ${Array(10).fill(0).map((_, i) => `<div class="equipment-slot" data-slot="${i + 1}"><img src="assets/Stats/emptyslot.png" alt="Empty Slot ${i + 1}" onerror="this.style.display='none';" /></div>`).join('')}
+          ${Array(5).fill(0).map((_, i) => `<div class="equipment-slot" data-slot="${i + 1}"><img src="assets/Stats/emptyslot.png" alt="Empty Slot ${i + 1}" onerror="this.style.display='none';" /></div>`).join('')}
         </div>`;
 
       // Render power holder under character art
@@ -471,7 +471,7 @@
           <img src="assets/Stats/equipdiv.png" alt="" onerror="this.style.display='none';" />
         </div>
         <div class="equipment-grid">
-          ${Array(10).fill(0).map((_, i) => `<div class="equipment-slot" data-slot="${i + 1}"><img src="assets/Stats/emptyslot.png" alt="Empty Slot ${i + 1}" onerror="this.style.display='none';" /></div>`).join('')}
+          ${Array(5).fill(0).map((_, i) => `<div class="equipment-slot" data-slot="${i + 1}"><img src="assets/Stats/emptyslot.png" alt="Empty Slot ${i + 1}" onerror="this.style.display='none';" /></div>`).join('')}
         </div>`;
 
       // Render power holder under character art
