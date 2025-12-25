@@ -408,6 +408,10 @@
         });
       }
 
+      // Calculate Legacy Bonus
+      const legacyBonus = this.calculateLegacyBonus(slot1, slot2, fusion);
+      console.log("[Fusion] Legacy Bonus Steps:", legacyBonus);
+
       // Fusion Bug A & B fix: Use correct method names
       // Remove the two units from inventory
       window.InventoryChar?.removeOneByUid(slot1.uid);
@@ -421,19 +425,40 @@
         fusion.result.tier
       );
 
-      if (newChar && fusion.result.level > 1) {
-        newChar.level = fusion.result.level;
+      if (newChar) {
+        if (fusion.result.level > 1) {
+          newChar.level = fusion.result.level;
+        }
+
+        // Store legacy bonus count for cumulative stat bonuses
+        newChar.fusionLegacySteps = legacyBonus;
+        newChar.fusionPath = fusion.fusionPath || null;
+
         window.InventoryChar?.save();
       }
 
       console.log("[Fusion] ✅ Fusion successful:", newChar);
 
       // Show success modal
-      this.showSuccessModal(fusion, newChar);
+      this.showSuccessModal(fusion, newChar, legacyBonus);
+    },
+
+    // Calculate legacy bonus based on fusion path
+    calculateLegacyBonus(unit1, unit2, fusion) {
+      // If this fusion is not part of a legacy path, return 0
+      if (!fusion.fusionPath) return 0;
+
+      // Count legacy steps from both input units (same path only)
+      const unit1Steps = (unit1.fusionPath === fusion.fusionPath) ? (unit1.fusionLegacySteps || 0) : 0;
+      const unit2Steps = (unit2.fusionPath === fusion.fusionPath) ? (unit2.fusionLegacySteps || 0) : 0;
+
+      // Take the maximum from either unit, then add 1 for this fusion
+      const maxSteps = Math.max(unit1Steps, unit2Steps);
+      return maxSteps + 1;
     },
 
     // Show success modal
-    showSuccessModal(fusion, newChar) {
+    showSuccessModal(fusion, newChar, legacyBonus) {
       const modal = document.getElementById('fusion-success-modal');
       const resultEl = document.getElementById('success-result');
 
@@ -441,11 +466,19 @@
       const tierData = charData?.artByTier?.[fusion.result.tier] || {};
       const portrait = tierData.portrait || charData?.portrait || 'assets/characters/common/silhouette.png';
 
+      const legacyBonusPercent = (legacyBonus * this.fusionsData.fusionRules.legacyBonusPerStep * 100).toFixed(1);
+      const legacyBonusDisplay = legacyBonus > 0 ? `
+        <div style="font-size: 1rem; color: rgba(255, 215, 0, 0.9); margin-top: 12px; padding: 8px; background: rgba(217, 179, 98, 0.1); border-radius: 8px;">
+          <strong>⭐ Legacy Bonus:</strong> ${legacyBonus} step${legacyBonus !== 1 ? 's' : ''} (+${legacyBonusPercent}% to all stats)
+        </div>
+      ` : '';
+
       resultEl.innerHTML = `
         <img src="${portrait}" style="width: 200px; height: 200px; object-fit: cover; border-radius: 12px; margin: 20px auto; display: block;" alt="${charData?.name || 'Unknown'}">
         <div style="font-size: 1.5rem; color: var(--gold); font-weight: 600; margin-bottom: 10px;">${charData?.name || 'Unknown'}</div>
         <div style="font-size: 1rem; color: rgba(238,230,209,0.8);">Tier: ${fusion.result.tier}</div>
         <div style="font-size: 1rem; color: rgba(238,230,209,0.8);">Level: ${fusion.result.level}</div>
+        ${legacyBonusDisplay}
       `;
 
       modal.classList.add('open');
@@ -512,7 +545,6 @@
                 <img src="${char1Portrait}" alt="${char1?.name || 'Unknown'}" class="fusion-preview-icon">
                 <div class="fusion-preview-name">${char1?.name || 'Unknown'}</div>
                 <div class="fusion-preview-version">${char1?.version || ''}</div>
-                <div class="fusion-preview-tier">Needs: ${char1?.starMaxCode || 'MAX'}</div>
               </div>
 
               <div class="fusion-preview-plus">+</div>
@@ -521,7 +553,6 @@
                 <img src="${char2Portrait}" alt="${char2?.name || 'Unknown'}" class="fusion-preview-icon">
                 <div class="fusion-preview-name">${char2?.name || 'Unknown'}</div>
                 <div class="fusion-preview-version">${char2?.version || ''}</div>
-                <div class="fusion-preview-tier">Needs: ${char2?.starMaxCode || 'MAX'}</div>
               </div>
 
               <div class="fusion-preview-arrow">→</div>
@@ -530,7 +561,6 @@
                 <img src="${resultPortrait}" alt="${result?.name || 'Unknown'}" class="fusion-preview-icon">
                 <div class="fusion-preview-name">${result?.name || 'Unknown'}</div>
                 <div class="fusion-preview-version">${result?.version || ''}</div>
-                <div class="fusion-preview-tier">${fusion.result.tier}</div>
               </div>
             </div>
 
