@@ -42,7 +42,7 @@
   background-image: url("../assets/Main Background/Background.gif");
 }
 
-.page-characters #full-bg {
+.page-characters #char-bg {
   background-image: url("../assets/Main Background/character_background.png");
   background-size: cover;
   background-position: center;
