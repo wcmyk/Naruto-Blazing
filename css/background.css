@@ -47,6 +47,11 @@
   filter: brightness(0.95);
 }
 
+.page-fusion #fusion-bg {
+  background: url("../assets/Main Background/fusion_background1.png") center top / 110% auto no-repeat;
+  filter: brightness(0.95);
+}
+
 /* ==========================================
    HUD & Button Layout (PERFECT CIRCLES)
    ========================================== */
