@@ -43,7 +43,7 @@
 }
 
 .page-characters #char-bg {
-  background: url("../assets/Main Background/character_background.png") center bottom / cover no-repeat;
+  background: url("../assets/Main Background/character_background.png") center top / cover no-repeat;
   filter: brightness(0.95);
 }
 
