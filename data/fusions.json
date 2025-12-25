@@ -539,5 +539,19 @@
     "costMultiplier": 1.5,
     "successRate": 100,
     "legacyBonusPerStep": 0.005
+  },
+  "fusionPaths": {
+    "kakashi_legacy": {
+      "maxSteps": 6,
+      "bonusPerStep": 0.0333
+    },
+    "naruto_legacy": {
+      "maxSteps": 4,
+      "bonusPerStep": 0.05
+    },
+    "sasuke_legacy": {
+      "maxSteps": 4,
+      "bonusPerStep": 0.05
+    }
   }
 }

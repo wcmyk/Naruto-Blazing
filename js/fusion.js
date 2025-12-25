@@ -224,6 +224,8 @@
 
     // Calculate unit stats
     calculateUnitStats(unit) {
+      let stats = {};
+
       if (window.Progression?.computeEffectiveStatsLoreTier) {
         const result = window.Progression.computeEffectiveStatsLoreTier(
           unit.charData,
@@ -231,10 +233,26 @@
           unit.tierCode || '3S',
           { normalize: true }
         );
-        return result.stats || {};
+        stats = result.stats || {};
+      } else {
+        stats = unit.charData?.statsMax || unit.charData?.statsBase || {};
       }
 
-      return unit.charData?.statsMax || unit.charData?.statsBase || {};
+      // Apply fusion legacy bonus if present
+      if (unit.fusionLegacySteps && unit.fusionPath && this.fusionsData?.fusionPaths) {
+        const pathConfig = this.fusionsData.fusionPaths[unit.fusionPath];
+        if (pathConfig) {
+          const bonusMultiplier = 1 + (unit.fusionLegacySteps * pathConfig.bonusPerStep);
+          stats = {
+            hp: Math.round(stats.hp * bonusMultiplier),
+            atk: Math.round(stats.atk * bonusMultiplier),
+            def: Math.round(stats.def * bonusMultiplier),
+            speed: Math.round(stats.speed * bonusMultiplier)
+          };
+        }
+      }
+
+      return stats;
     },
 
     // Validate fusion requirements
@@ -466,7 +484,13 @@
       const tierData = charData?.artByTier?.[fusion.result.tier] || {};
       const portrait = tierData.portrait || charData?.portrait || 'assets/characters/common/silhouette.png';
 
-      const legacyBonusPercent = (legacyBonus * this.fusionsData.fusionRules.legacyBonusPerStep * 100).toFixed(1);
+      // Get path-specific bonus or fall back to global
+      let bonusPerStep = this.fusionsData.fusionRules.legacyBonusPerStep;
+      if (fusion.fusionPath && this.fusionsData.fusionPaths?.[fusion.fusionPath]) {
+        bonusPerStep = this.fusionsData.fusionPaths[fusion.fusionPath].bonusPerStep;
+      }
+
+      const legacyBonusPercent = (legacyBonus * bonusPerStep * 100).toFixed(1);
       const legacyBonusDisplay = legacyBonus > 0 ? `
         <div style="font-size: 1rem; color: rgba(255, 215, 0, 0.9); margin-top: 12px; padding: 8px; background: rgba(217, 179, 98, 0.1); border-radius: 8px;">
           <strong>⭐ Legacy Bonus:</strong> ${legacyBonus} step${legacyBonus !== 1 ? 's' : ''} (+${legacyBonusPercent}% to all stats)
