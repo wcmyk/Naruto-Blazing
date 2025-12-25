@@ -428,6 +428,99 @@ body.page-fusion {
   color: var(--gold);
 }
 
+/* ---------- Fusion Preview in Cards ---------- */
+.fusion-preview {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin: 16px 0;
+  padding: 16px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
+}
+
+.fusion-preview-unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  flex: 0 0 auto;
+}
+
+.fusion-preview-unit.result {
+  background: linear-gradient(135deg, rgba(217, 179, 98, 0.1) 0%, rgba(217, 179, 98, 0.05) 100%);
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid rgba(217, 179, 98, 0.3);
+}
+
+.fusion-preview-icon {
+  width: 80px;
+  height: 80px;
+  border-radius: 8px;
+  border: 2px solid rgba(217, 179, 98, 0.2);
+  object-fit: cover;
+  transition: all 0.2s ease;
+}
+
+.fusion-preview-unit:hover .fusion-preview-icon {
+  transform: scale(1.05);
+  border-color: rgba(217, 179, 98, 0.4);
+}
+
+.fusion-preview-name {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--gold);
+  text-align: center;
+  max-width: 90px;
+  line-height: 1.2;
+}
+
+.fusion-preview-version {
+  font-size: 0.65rem;
+  color: rgba(238, 230, 209, 0.6);
+  text-align: center;
+  max-width: 90px;
+  line-height: 1.1;
+}
+
+.fusion-preview-tier {
+  font-size: 0.7rem;
+  color: rgba(255, 215, 0, 0.8);
+  font-weight: 600;
+  background: rgba(0, 0, 0, 0.4);
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.fusion-preview-plus,
+.fusion-preview-arrow {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--gold);
+  flex: 0 0 auto;
+}
+
+/* Responsive adjustments for fusion preview */
+@media (max-width: 768px) {
+  .fusion-preview {
+    flex-wrap: wrap;
+  }
+
+  .fusion-preview-icon {
+    width: 60px;
+    height: 60px;
+  }
+
+  .fusion-preview-name,
+  .fusion-preview-version {
+    font-size: 0.65rem;
+    max-width: 70px;
+  }
+}
+
 /* ---------- Modals ---------- */
 .modal {
   position: fixed;

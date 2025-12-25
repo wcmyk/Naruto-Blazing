@@ -267,6 +267,30 @@
       const resources = window.Resources?.get() || {};
       const requirements = [];
 
+      // Check tier requirements - units must be at max awakening
+      const char1Data = this.charactersData.find(c => c.id === fusion.requirements.unit1);
+      const char2Data = this.charactersData.find(c => c.id === fusion.requirements.unit2);
+
+      if (char1Data) {
+        const maxTier = char1Data.starMaxCode;
+        const met = slot1.tierCode === maxTier;
+        requirements.push({
+          label: `${char1Data.name} at ${maxTier}`,
+          value: met ? '✓' : `${slot1.tierCode} (Awaken to ${maxTier})`,
+          met
+        });
+      }
+
+      if (char2Data) {
+        const maxTier = char2Data.starMaxCode;
+        const met = slot2.tierCode === maxTier;
+        requirements.push({
+          label: `${char2Data.name} at ${maxTier}`,
+          value: met ? '✓' : `${slot2.tierCode} (Awaken to ${maxTier})`,
+          met
+        });
+      }
+
       // Minimum level check
       if (reqs.minLevel) {
         const met = (slot1.level >= reqs.minLevel) && (slot2.level >= reqs.minLevel);
@@ -469,21 +493,120 @@
         const char2 = this.charactersData.find(c => c.id === fusion.requirements.unit2);
         const result = this.charactersData.find(c => c.id === fusion.result.characterId);
 
+        // Get portraits - use base tier first, then max tier
+        const char1Portrait = this.getCharacterPortrait(char1, char1?.starMinCode || '3S');
+        const char2Portrait = this.getCharacterPortrait(char2, char2?.starMinCode || '3S');
+        const resultPortrait = this.getCharacterPortrait(result, fusion.result.tier);
+
         const materials = Object.entries(fusion.requirements.materials || {})
           .map(([mat, amt]) => `<div class="material-tag">${mat}: ${amt}</div>`)
           .join('');
 
         return `
-          <div class="fusion-card">
+          <div class="fusion-card" data-fusion-id="${fusion.id}">
             <div class="fusion-card-title">${fusion.name || 'Unknown Fusion'}</div>
-            <div class="fusion-card-description">
-              ${char1?.name || 'Unknown'} + ${char2?.name || 'Unknown'} → ${result?.name || 'Unknown'}
+
+            <!-- Fusion Preview with Icons -->
+            <div class="fusion-preview">
+              <div class="fusion-preview-unit">
+                <img src="${char1Portrait}" alt="${char1?.name || 'Unknown'}" class="fusion-preview-icon">
+                <div class="fusion-preview-name">${char1?.name || 'Unknown'}</div>
+                <div class="fusion-preview-version">${char1?.version || ''}</div>
+                <div class="fusion-preview-tier">Needs: ${char1?.starMaxCode || 'MAX'}</div>
+              </div>
+
+              <div class="fusion-preview-plus">+</div>
+
+              <div class="fusion-preview-unit">
+                <img src="${char2Portrait}" alt="${char2?.name || 'Unknown'}" class="fusion-preview-icon">
+                <div class="fusion-preview-name">${char2?.name || 'Unknown'}</div>
+                <div class="fusion-preview-version">${char2?.version || ''}</div>
+                <div class="fusion-preview-tier">Needs: ${char2?.starMaxCode || 'MAX'}</div>
+              </div>
+
+              <div class="fusion-preview-arrow">→</div>
+
+              <div class="fusion-preview-unit result">
+                <img src="${resultPortrait}" alt="${result?.name || 'Unknown'}" class="fusion-preview-icon">
+                <div class="fusion-preview-name">${result?.name || 'Unknown'}</div>
+                <div class="fusion-preview-version">${result?.version || ''}</div>
+                <div class="fusion-preview-tier">${fusion.result.tier}</div>
+              </div>
             </div>
+
             <div class="fusion-card-description">${fusion.description || ''}</div>
             <div class="fusion-card-materials">${materials}</div>
           </div>
         `;
       }).join('');
+
+      // Add click handlers to auto-populate fusion slots
+      grid.querySelectorAll('.fusion-card').forEach(card => {
+        card.addEventListener('click', () => {
+          const fusionId = card.dataset.fusionId;
+          this.autoPopulateFusion(fusionId);
+        });
+      });
+    },
+
+    // Get character portrait by tier
+    getCharacterPortrait(charData, tier) {
+      if (!charData) return 'assets/characters/common/silhouette.png';
+
+      const tierData = charData.artByTier?.[tier] || {};
+      return tierData.portrait || charData.portrait || 'assets/characters/common/silhouette.png';
+    },
+
+    // Auto-populate fusion slots from recipe
+    autoPopulateFusion(fusionId) {
+      const fusion = this.fusionsData.fusions.find(f => f.id === fusionId);
+      if (!fusion) return;
+
+      console.log("[Fusion] Auto-populating fusion:", fusion.name);
+
+      // Get user's inventory
+      const inventory = window.InventoryChar?.allInstances() || [];
+
+      // Find matching units in inventory (must be at max tier)
+      const char1Data = this.charactersData.find(c => c.id === fusion.requirements.unit1);
+      const char2Data = this.charactersData.find(c => c.id === fusion.requirements.unit2);
+
+      const unit1 = inventory.find(inst =>
+        inst.charId === fusion.requirements.unit1 &&
+        inst.tierCode === char1Data?.starMaxCode
+      );
+
+      const unit2 = inventory.find(inst =>
+        inst.charId === fusion.requirements.unit2 &&
+        inst.tierCode === char2Data?.starMaxCode &&
+        inst.uid !== unit1?.uid  // Don't select the same unit twice
+      );
+
+      // Clear previous selection
+      this.clearSelection();
+
+      // Populate slots if units are found
+      if (unit1) {
+        const tierData = char1Data?.artByTier?.[unit1.tierCode] || {};
+        const portrait = tierData.portrait || char1Data?.portrait || 'assets/characters/common/silhouette.png';
+
+        this.selectedUnits.slot1 = { ...unit1, portrait, charData: char1Data };
+        this.updateSlotDisplay(1);
+      }
+
+      if (unit2) {
+        const tierData = char2Data?.artByTier?.[unit2.tierCode] || {};
+        const portrait = tierData.portrait || char2Data?.portrait || 'assets/characters/common/silhouette.png';
+
+        this.selectedUnits.slot2 = { ...unit2, portrait, charData: char2Data };
+        this.updateSlotDisplay(2);
+      }
+
+      // Validate and show preview
+      this.validateFusion();
+
+      // Scroll to fusion area
+      document.querySelector('.fusion-container')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
   };
 
