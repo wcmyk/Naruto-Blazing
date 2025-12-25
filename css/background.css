@@ -43,7 +43,7 @@
 }
 
 .page-characters #full-bg {
-  background-image: url("../assets/Main Background/Characters Background/2.png");
+  background-image: url("../assets/Main Background/character_background.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
