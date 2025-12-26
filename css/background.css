@@ -52,6 +52,11 @@
   filter: brightness(0.95);
 }
 
+.page-teams #team-bg {
+  background: url("../assets/teams/teamsbackground.png") center top / 110% auto no-repeat;
+  filter: brightness(0.95);
+}
+
 /* ==========================================
    HUD & Button Layout (PERFECT CIRCLES)
    ========================================== */
