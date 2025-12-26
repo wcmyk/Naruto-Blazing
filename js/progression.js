@@ -307,6 +307,39 @@ function canAwaken(inst, character) {
   return level >= cap && canPromoteTier(inst, character);
 }
 
+/* ==========================================
+ * Apply Fusion Legacy Bonus
+ * Applies cumulative stat bonus from fusion chains
+ * ========================================== */
+async function applyFusionLegacyBonus(stats, instance) {
+  if (!instance || !stats) return stats;
+  if (!instance.fusionLegacySteps || !instance.fusionPath) return stats;
+
+  try {
+    // Load fusion data to get path configuration
+    const response = await fetch('data/fusions.json');
+    if (!response.ok) return stats;
+
+    const fusionsData = await response.json();
+    const pathConfig = fusionsData.fusionPaths?.[instance.fusionPath];
+
+    if (!pathConfig) return stats;
+
+    // Apply multiplicative bonus
+    const bonusMultiplier = 1 + (instance.fusionLegacySteps * pathConfig.bonusPerStep);
+
+    return {
+      hp: Math.round(stats.hp * bonusMultiplier),
+      atk: Math.round(stats.atk * bonusMultiplier),
+      def: Math.round(stats.def * bonusMultiplier),
+      speed: Math.round(stats.speed * bonusMultiplier)
+    };
+  } catch (error) {
+    console.error('[Progression] Failed to apply fusion legacy bonus:', error);
+    return stats;
+  }
+}
+
 /* ============
  * Public API
  * ============ */
@@ -322,6 +355,7 @@ const Progression = {
 
   // compute
   computeEffectiveStatsLoreTier,
+  applyFusionLegacyBonus,
 
   // inventory-safe ops
   clampInstanceToTier,

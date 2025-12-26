@@ -1,9 +1,167 @@
 {
   "fusions": [
     {
+      "id": "kakashi_step1",
+      "name": "Lost Comrade",
+      "description": "Remember a fallen friend",
+      "fusionPath": "kakashi_legacy",
+      "stepNumber": 1,
+      "requirements": {
+        "unit1": "kakashi_673",
+        "unit2": "rin_251",
+        "minLevel": 40,
+        "materials": {
+          "ryo": 40000,
+          "scrolls": 5
+        }
+      },
+      "result": {
+        "characterId": "kakashi_2051",
+        "tier": "1S",
+        "level": 1,
+        "bonusStats": {
+          "hp": 250,
+          "atk": 120,
+          "def": 60
+        }
+      }
+    },
+    {
+      "id": "kakashi_step2",
+      "name": "Into the Light",
+      "description": "Emerge from the darkness",
+      "fusionPath": "kakashi_legacy",
+      "stepNumber": 2,
+      "requirements": {
+        "unit1": "kakashi_2052",
+        "unit2": "might_707",
+        "minLevel": 45,
+        "materials": {
+          "ryo": 60000,
+          "scrolls": 7
+        }
+      },
+      "result": {
+        "characterId": "kakashi_048",
+        "tier": "1S",
+        "level": 1,
+        "bonusStats": {
+          "hp": 300,
+          "atk": 140,
+          "def": 70
+        }
+      }
+    },
+    {
+      "id": "kakashi_step3",
+      "name": "Battle of the Sharingan",
+      "description": "Test your Sharingan against the Uchiha",
+      "fusionPath": "kakashi_legacy",
+      "stepNumber": 3,
+      "requirements": {
+        "unit1": "kakashi_049",
+        "unit2": "itachi_089",
+        "minLevel": 50,
+        "materials": {
+          "ryo": 75000,
+          "scrolls": 9
+        }
+      },
+      "result": {
+        "characterId": "kakashi_147",
+        "tier": "1S",
+        "level": 1,
+        "bonusStats": {
+          "hp": 350,
+          "atk": 160,
+          "def": 80
+        }
+      }
+    },
+    {
+      "id": "kakashi_step4",
+      "name": "Kamui Unlocked",
+      "description": "Master the space-time ninjutsu",
+      "fusionPath": "kakashi_legacy",
+      "stepNumber": 4,
+      "requirements": {
+        "unit1": "kakashi_147",
+        "unit2": "deidara_731",
+        "minLevel": 55,
+        "materials": {
+          "ryo": 90000,
+          "scrolls": 11
+        }
+      },
+      "result": {
+        "characterId": "kakashi_704",
+        "tier": "1S",
+        "level": 1,
+        "bonusStats": {
+          "hp": 400,
+          "atk": 180,
+          "def": 90
+        }
+      }
+    },
+    {
+      "id": "kakashi_step5",
+      "name": "Past Rivalry",
+      "description": "Confront the legendary Uchiha",
+      "fusionPath": "kakashi_legacy",
+      "stepNumber": 5,
+      "requirements": {
+        "unit1": "kakashi_705",
+        "unit2": "madara_646",
+        "minLevel": 60,
+        "materials": {
+          "ryo": 110000,
+          "scrolls": 13
+        }
+      },
+      "result": {
+        "characterId": "kakashi_854",
+        "tier": "1S",
+        "level": 1,
+        "bonusStats": {
+          "hp": 450,
+          "atk": 200,
+          "def": 100
+        }
+      }
+    },
+    {
+      "id": "kakashi_step6",
+      "name": "Entrusted Hope",
+      "description": "Carry the will of your friend",
+      "fusionPath": "kakashi_legacy",
+      "stepNumber": 6,
+      "requirements": {
+        "unit1": "kakashi_855",
+        "unit2": "obito_856",
+        "minLevel": 65,
+        "materials": {
+          "ryo": 130000,
+          "scrolls": 15
+        }
+      },
+      "result": {
+        "characterId": "kakashi_2091",
+        "tier": "1S",
+        "level": 1,
+        "bonusStats": {
+          "hp": 550,
+          "atk": 240,
+          "def": 120
+        }
+      }
+    },
+    {
       "id": "naruto_step1",
       "name": "Nine Tails Awakening",
       "description": "Harness the power of the Nine Tails",
+      "fusionPath": "naruto_legacy",
+      "stepNumber": 1,
       "requirements": {
         "unit1": "naruto_179",
         "unit2": "naruto_241",
@@ -15,7 +173,7 @@
       },
       "result": {
         "characterId": "naruto_453",
-        "tier": "5S",
+        "tier": "1S",
         "level": 1,
         "bonusStats": {
           "hp": 300,
@@ -28,6 +186,8 @@
       "id": "naruto_step2",
       "name": "Rasengan Evolution",
       "description": "Master the legendary Rasengan technique",
+      "fusionPath": "naruto_legacy",
+      "stepNumber": 2,
       "requirements": {
         "unit1": "naruto_453",
         "unit2": "naruto_161",
@@ -38,8 +198,8 @@
         }
       },
       "result": {
-        "characterId": "naruto_891",
-        "tier": "6S",
+        "characterId": "naruto_2000",
+        "tier": "1S",
         "level": 1,
         "bonusStats": {
           "hp": 400,
@@ -52,8 +212,10 @@
       "id": "naruto_step3",
       "name": "Unbreakable Bonds",
       "description": "Forge an unbreakable will through friendship",
+      "fusionPath": "naruto_legacy",
+      "stepNumber": 3,
       "requirements": {
-        "unit1": "naruto_891",
+        "unit1": "naruto_2000",
         "unit2": "naruto_237",
         "minLevel": 60,
         "materials": {
@@ -63,7 +225,7 @@
       },
       "result": {
         "characterId": "naruto_2036",
-        "tier": "6S",
+        "tier": "1S",
         "level": 1,
         "bonusStats": {
           "hp": 500,
@@ -76,6 +238,8 @@
       "id": "naruto_step4",
       "name": "Sage's Inheritance",
       "description": "Inherit the power of the Sage of Six Paths",
+      "fusionPath": "naruto_legacy",
+      "stepNumber": 4,
       "requirements": {
         "unit1": "naruto_2036",
         "unit2": "naruto_665",
@@ -87,7 +251,7 @@
       },
       "result": {
         "characterId": "naruto_2089",
-        "tier": "7S",
+        "tier": "1S",
         "level": 1,
         "bonusStats": {
           "hp": 700,
@@ -100,6 +264,8 @@
       "id": "sasuke_step1",
       "name": "Curse Mark Evolution",
       "description": "Awaken the power of the Curse Mark",
+      "fusionPath": "sasuke_legacy",
+      "stepNumber": 1,
       "requirements": {
         "unit1": "sasuke_175",
         "unit2": "sasuke_177",
@@ -111,7 +277,7 @@
       },
       "result": {
         "characterId": "sasuke_261",
-        "tier": "6S",
+        "tier": "1S",
         "level": 1,
         "bonusStats": {
           "hp": 300,
@@ -124,6 +290,8 @@
       "id": "sasuke_step2",
       "name": "Path of the Avenger",
       "description": "Walk the path of revenge",
+      "fusionPath": "sasuke_legacy",
+      "stepNumber": 2,
       "requirements": {
         "unit1": "sasuke_261",
         "unit2": "sasuke_046",
@@ -135,7 +303,7 @@
       },
       "result": {
         "characterId": "sasuke_302",
-        "tier": "6S",
+        "tier": "1S",
         "level": 1,
         "bonusStats": {
           "hp": 400,
@@ -148,6 +316,8 @@
       "id": "sasuke_step3",
       "name": "Seeking Truth",
       "description": "Discover the truth behind the Uchiha massacre",
+      "fusionPath": "sasuke_legacy",
+      "stepNumber": 3,
       "requirements": {
         "unit1": "sasuke_302",
         "unit2": "sasuke_244",
@@ -159,7 +329,7 @@
       },
       "result": {
         "characterId": "sasuke_389",
-        "tier": "6S",
+        "tier": "1S",
         "level": 1,
         "bonusStats": {
           "hp": 500,
@@ -172,6 +342,8 @@
       "id": "sasuke_step4",
       "name": "Sole Friend",
       "description": "Accept friendship and forge a new path",
+      "fusionPath": "sasuke_legacy",
+      "stepNumber": 4,
       "requirements": {
         "unit1": "sasuke_389",
         "unit2": "sasuke_661",
@@ -183,7 +355,7 @@
       },
       "result": {
         "characterId": "sasuke_2116",
-        "tier": "7S",
+        "tier": "1S",
         "level": 1,
         "bonusStats": {
           "hp": 700,
@@ -207,7 +379,7 @@
       },
       "result": {
         "characterId": "naruto_660",
-        "tier": "6S",
+        "tier": "1S",
         "level": 1,
         "bonusStats": {
           "hp": 500,
@@ -231,36 +403,12 @@
       },
       "result": {
         "characterId": "naruto_665",
-        "tier": "6S",
+        "tier": "1S",
         "level": 1,
         "bonusStats": {
           "hp": 450,
           "atk": 190,
           "def": 90
-        }
-      }
-    },
-    {
-      "id": "jinchuriki_perfect",
-      "name": "Perfect Jinchuriki",
-      "description": "Master the perfect balance with a tailed beast",
-      "requirements": {
-        "unit1": "killer_2065",
-        "unit2": "naruto_135",
-        "minLevel": 50,
-        "materials": {
-          "ryo": 80000,
-          "scrolls": 8
-        }
-      },
-      "result": {
-        "characterId": "killer_354",
-        "tier": "5S",
-        "level": 1,
-        "bonusStats": {
-          "hp": 400,
-          "atk": 170,
-          "def": 80
         }
       }
     },
@@ -279,7 +427,7 @@
       },
       "result": {
         "characterId": "obito_856",
-        "tier": "6S",
+        "tier": "1S",
         "level": 1,
         "bonusStats": {
           "hp": 500,
@@ -303,108 +451,12 @@
       },
       "result": {
         "characterId": "itachi_308",
-        "tier": "6S",
+        "tier": "1S",
         "level": 1,
         "bonusStats": {
           "hp": 550,
           "atk": 220,
           "def": 110
-        }
-      }
-    },
-    {
-      "id": "lost_comrade",
-      "name": "Lost Comrade",
-      "description": "Remember a fallen friend",
-      "requirements": {
-        "unit1": "kakashi_008",
-        "unit2": "rin_251",
-        "minLevel": 50,
-        "materials": {
-          "ryo": 75000,
-          "scrolls": 8
-        }
-      },
-      "result": {
-        "characterId": "kakashi_664",
-        "tier": "5S",
-        "level": 1,
-        "bonusStats": {
-          "hp": 400,
-          "atk": 180,
-          "def": 75
-        }
-      }
-    },
-    {
-      "id": "kakashi_resolve",
-      "name": "Kakashi's Resolve",
-      "description": "The resolve of the Copy Ninja",
-      "requirements": {
-        "unit1": "kakashi_146",
-        "unit2": "kakashi_048",
-        "minLevel": 55,
-        "materials": {
-          "ryo": 85000,
-          "scrolls": 9
-        }
-      },
-      "result": {
-        "characterId": "kakashi_2091",
-        "tier": "6S",
-        "level": 1,
-        "bonusStats": {
-          "hp": 450,
-          "atk": 190,
-          "def": 90
-        }
-      }
-    },
-    {
-      "id": "sharingan_mastery",
-      "name": "Sharingan Mastery",
-      "description": "Master the Sharingan's full power",
-      "requirements": {
-        "unit1": "kakashi_313",
-        "unit2": "obito_2071",
-        "minLevel": 60,
-        "materials": {
-          "ryo": 100000,
-          "scrolls": 10
-        }
-      },
-      "result": {
-        "characterId": "kakashi_2051",
-        "tier": "6S",
-        "level": 1,
-        "bonusStats": {
-          "hp": 500,
-          "atk": 200,
-          "def": 100
-        }
-      }
-    },
-    {
-      "id": "medical_legacy",
-      "name": "Medical Legacy",
-      "description": "Inherit the medical ninja legacy",
-      "requirements": {
-        "unit1": "tsunade_2068",
-        "unit2": "sakura_235",
-        "minLevel": 55,
-        "materials": {
-          "ryo": 85000,
-          "scrolls": 9
-        }
-      },
-      "result": {
-        "characterId": "sakura_364",
-        "tier": "5S",
-        "level": 1,
-        "bonusStats": {
-          "hp": 450,
-          "atk": 170,
-          "def": 90
         }
       }
     },
@@ -423,7 +475,7 @@
       },
       "result": {
         "characterId": "sakura_398",
-        "tier": "5S",
+        "tier": "1S",
         "level": 1,
         "bonusStats": {
           "hp": 400,
@@ -447,36 +499,12 @@
       },
       "result": {
         "characterId": "pain_676",
-        "tier": "6S",
+        "tier": "1S",
         "level": 1,
         "bonusStats": {
           "hp": 500,
           "atk": 200,
           "def": 100
-        }
-      }
-    },
-    {
-      "id": "surpass_master",
-      "name": "Surpassing the Master",
-      "description": "Honor your teacher's final words",
-      "requirements": {
-        "unit1": "asuma_848",
-        "unit2": "shikamaru_010",
-        "minLevel": 50,
-        "materials": {
-          "ryo": 75000,
-          "scrolls": 8
-        }
-      },
-      "result": {
-        "characterId": "shikamaru_846",
-        "tier": "5S",
-        "level": 1,
-        "bonusStats": {
-          "hp": 400,
-          "atk": 170,
-          "def": 85
         }
       }
     },
@@ -495,60 +523,12 @@
       },
       "result": {
         "characterId": "gaara_283",
-        "tier": "5S",
+        "tier": "1S",
         "level": 1,
         "bonusStats": {
           "hp": 450,
           "atk": 160,
           "def": 100
-        }
-      }
-    },
-    {
-      "id": "shikamaru_growth",
-      "name": "Shikamaru's Growth",
-      "description": "Develop a new resolve",
-      "requirements": {
-        "unit1": "shikamaru_291",
-        "unit2": "shikamaru_181",
-        "minLevel": 45,
-        "materials": {
-          "ryo": 60000,
-          "scrolls": 6
-        }
-      },
-      "result": {
-        "characterId": "shikamaru_807",
-        "tier": "5S",
-        "level": 1,
-        "bonusStats": {
-          "hp": 350,
-          "atk": 150,
-          "def": 70
-        }
-      }
-    },
-    {
-      "id": "gaara_bonds",
-      "name": "Gaara's Bonds",
-      "description": "Form many bonds through friendship",
-      "requirements": {
-        "unit1": "gaara_834",
-        "unit2": "naruto_237",
-        "minLevel": 55,
-        "materials": {
-          "ryo": 85000,
-          "scrolls": 9
-        }
-      },
-      "result": {
-        "characterId": "gaara_436",
-        "tier": "5S",
-        "level": 1,
-        "bonusStats": {
-          "hp": 400,
-          "atk": 170,
-          "def": 90
         }
       }
     }
@@ -557,6 +537,21 @@
     "preserveHighestLevel": true,
     "transferAbilities": true,
     "costMultiplier": 1.5,
-    "successRate": 100
+    "successRate": 100,
+    "legacyBonusPerStep": 0.005
+  },
+  "fusionPaths": {
+    "kakashi_legacy": {
+      "maxSteps": 6,
+      "bonusPerStep": 0.0333
+    },
+    "naruto_legacy": {
+      "maxSteps": 4,
+      "bonusPerStep": 0.05
+    },
+    "sasuke_legacy": {
+      "maxSteps": 4,
+      "bonusPerStep": 0.05
+    }
   }
 }
