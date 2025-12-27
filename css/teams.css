@@ -17,14 +17,6 @@ body.page-teams {
   padding: 0;
 }
 
-#team-bg {
-  position: fixed;
-  inset: 0;
-  background: url('../assets/backgrounds/team_bg.jpg') center/cover no-repeat;
-  opacity: 0.15;
-  z-index: 0;
-}
-
 .team-content {
   position: relative;
   z-index: 2;
