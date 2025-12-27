@@ -30,8 +30,8 @@ body {
   top: 50%;
   right: 2%;
   transform: translateY(-50%);
-  width: 48%;
-  max-width: 700px;
+  width: 55%;
+  max-width: 850px;
   max-height: 72vh;
   padding: 30px;
   background: rgba(40, 40, 40, 0.6);
@@ -107,11 +107,12 @@ body {
 /* Mission Banner — FIX */
 .mission-banner {
   width: 100%;
-  height: 120px;
-  object-fit: cover;
+  height: 140px;
+  object-fit: contain;
+  object-position: center;
   border-radius: 8px;
   border: 2px solid rgba(130, 130, 130, 0.6);
-  background: transparent !important;
+  background: rgba(20, 20, 20, 0.6) !important;
 }
 
 /* Difficulty icon row */
