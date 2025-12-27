@@ -53,8 +53,13 @@
 }
 
 .page-teams #team-bg {
+  position: fixed;
+  inset: 0;
   background: url("../assets/teams/teamsbackground.png") center top / 110% auto no-repeat;
   filter: brightness(0.95);
+  opacity: 1;
+  z-index: 0;
+  pointer-events: none;
 }
 
 /* ==========================================
