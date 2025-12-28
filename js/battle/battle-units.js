@@ -206,10 +206,13 @@
       const unitEl = core.dom.scene?.querySelector(`[data-unit-id="${unit.id}"]`);
       if (!unitEl) return;
 
-      // Update HP bar
+      // Update HP bar on battlefield
       const hpBar = unitEl.querySelector(".unit-hp-fill");
-      const hpPercent = (unit.stats.hp / unit.stats.maxHP) * 100;
-      if (hpBar) hpBar.style.width = `${hpPercent}%`;
+      const hpPercent = Math.max(0, Math.min(100, (unit.stats.hp / unit.stats.maxHP) * 100));
+      if (hpBar) {
+        hpBar.style.width = `${hpPercent}%`;
+        hpBar.style.transition = 'width 0.3s ease-out'; // Smooth transition
+      }
 
       // Update chakra bar
       if (core.chakra) {
@@ -222,11 +225,48 @@
         }
       }
 
-      // Update visual state for dead units
+      // Also update team holder HP bar if this is a player unit
+      if (unit.isPlayer && core.dom.teamHolder) {
+        const teamCard = core.dom.teamHolder.querySelector(`[data-unit-id="${unit.id}"]`);
+        if (teamCard) {
+          const teamHpBar = teamCard.querySelector(".unit-hp-fill");
+          if (teamHpBar) {
+            teamHpBar.style.width = `${hpPercent}%`;
+            teamHpBar.style.transition = 'width 0.3s ease-out';
+          }
+        }
+      }
+
+      // Update visual state for dead units - make them disappear
       if (unit.stats.hp <= 0) {
-        unitEl.style.opacity = "0.35";
-        unitEl.style.filter = "grayscale(100%)";
+        unitEl.style.transition = 'opacity 0.5s ease-out, transform 0.5s ease-out';
+        unitEl.style.opacity = "0";
+        unitEl.style.transform = "scale(0.8)";
         unitEl.style.pointerEvents = "none";
+
+        // Remove from DOM after animation
+        setTimeout(() => {
+          if (unitEl.parentNode) {
+            unitEl.remove();
+          }
+        }, 500);
+
+        // Also remove from team holder if player unit
+        if (unit.isPlayer && core.dom.teamHolder) {
+          const teamCard = core.dom.teamHolder.querySelector(`[data-unit-id="${unit.id}"]`);
+          if (teamCard) {
+            const unitCard = teamCard.closest('.unit-card');
+            if (unitCard) {
+              unitCard.style.transition = 'opacity 0.5s ease-out';
+              unitCard.style.opacity = "0";
+              setTimeout(() => {
+                if (unitCard.parentNode) {
+                  unitCard.remove();
+                }
+              }, 500);
+            }
+          }
+        }
       }
     },
 

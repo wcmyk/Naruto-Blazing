@@ -16,6 +16,78 @@
   }
 
   /**
+   * Battle Formation Patterns
+   * Returns positions for up to 4 units in various tactical formations
+   */
+  const BattleFormations = {
+    // Standard 2x2 grid
+    standard: (baseX) => [
+      { x: baseX, y: 25 },
+      { x: baseX + 15, y: 25 },
+      { x: baseX, y: 50 },
+      { x: baseX + 15, y: 50 }
+    ],
+
+    // Triangle formation (3 front, 1 back)
+    triangle: (baseX) => [
+      { x: baseX - 10, y: 35 },
+      { x: baseX + 10, y: 35 },
+      { x: baseX + 25, y: 35 },
+      { x: baseX + 7.5, y: 55 }
+    ],
+
+    // Inverted triangle (1 front, 3 back)
+    invertedTriangle: (baseX) => [
+      { x: baseX + 7.5, y: 25 },
+      { x: baseX - 10, y: 50 },
+      { x: baseX + 10, y: 50 },
+      { x: baseX + 25, y: 50 }
+    ],
+
+    // Corners spread out
+    corners: (baseX) => [
+      { x: baseX - 5, y: 20 },
+      { x: baseX + 25, y: 20 },
+      { x: baseX - 5, y: 60 },
+      { x: baseX + 25, y: 60 }
+    ],
+
+    // Line formation (horizontal)
+    line: (baseX) => [
+      { x: baseX - 10, y: 40 },
+      { x: baseX + 5, y: 40 },
+      { x: baseX + 15, y: 40 },
+      { x: baseX + 30, y: 40 }
+    ],
+
+    // Diamond formation
+    diamond: (baseX) => [
+      { x: baseX + 7.5, y: 25 },
+      { x: baseX - 5, y: 40 },
+      { x: baseX + 20, y: 40 },
+      { x: baseX + 7.5, y: 55 }
+    ],
+
+    // Wide 2x2 (more spread out)
+    wide: (baseX) => [
+      { x: baseX - 10, y: 25 },
+      { x: baseX + 25, y: 25 },
+      { x: baseX - 10, y: 50 },
+      { x: baseX + 25, y: 50 }
+    ]
+  };
+
+  /**
+   * Get random formation for a team
+   */
+  function getRandomFormation(baseX) {
+    const formations = Object.keys(BattleFormations);
+    const randomKey = formations[Math.floor(Math.random() * formations.length)];
+    console.log(`[BattleCore] 🎯 Selected formation: ${randomKey}`);
+    return BattleFormations[randomKey](baseX);
+  }
+
+  /**
    * BattleCore Module
    * Central manager that coordinates all battle modules
    * Handles initialization, data loading, and module orchestration
@@ -232,6 +304,9 @@
       const frontSlots = ["front-1", "front-2", "front-3", "front-4"];
       const backSlots = ["back-1", "back-2", "back-3", "back-4"];
 
+      // Get random formation positions for player team
+      const playerFormation = getRandomFormation(20);
+
       this.activeTeam = frontSlots.map((slotId, i) => {
         const slot = teamSlots[slotId];
         if (!slot?.uid) return null;
@@ -264,7 +339,7 @@
             positionId: i + 1,
             isActive: true,
             stats,
-            pos: { x: 20 + (i % 2 * 15), y: 25 + Math.floor(i / 2) * 25 }
+            pos: playerFormation[i] || { x: 20, y: 25 + i * 15 }
           }) :
           this.createCombatantFallback({
             ...base,
@@ -274,7 +349,7 @@
             positionId: i + 1,
             isActive: true,
             stats,
-            pos: { x: 20 + (i % 2 * 15), y: 25 + Math.floor(i / 2) * 25 }
+            pos: playerFormation[i] || { x: 20, y: 25 + i * 15 }
           });
 
         unit._ref = { base, inst, tier };
@@ -790,6 +865,8 @@
 
   // Export to window
   window.BattleCore = BattleCore;
+  window.BattleFormations = BattleFormations;
+  window.getRandomFormation = getRandomFormation;
 
   console.log("[BattleCore] Module loaded ✅");
 })();
