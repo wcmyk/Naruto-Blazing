@@ -251,6 +251,8 @@ body.page-characters::-webkit-scrollbar {
   align-items: flex-start;
   text-align: left;
   z-index: 1;
+  position: relative;
+  left: -50%;
 }
 .nameplate-name {
   font-size: 24px;
@@ -270,8 +272,8 @@ body.page-characters::-webkit-scrollbar {
 /* ---------- Stars (overlapping nameplate) ---------- */
 .nameplate-stars {
   position: absolute;
-  top: 1px;
-  left: 50%;
+  top: -1px;
+  left: 60%;
   transform: translateX(-50%);
   text-align: left;
   z-index: 10;
@@ -283,7 +285,7 @@ body.page-characters::-webkit-scrollbar {
   height: 150px;
   display: inline-block;
   filter: drop-shadow(0 2px 3px rgba(0,0,0,.8));
-  margin-left: -110px;
+  margin-left: -130px;
   position: relative;
 }
 .nameplate-stars .star:first-child {
@@ -761,7 +763,8 @@ body.page-characters::-webkit-scrollbar {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  background: url('../assets/ui/slab_holder.png') center/contain no-repeat;
+  background: url('../assets/ui/slab_holder.png') center/cover no-repeat;
+  background-size: 200%;
   padding: 20px;
   min-height: 120px;
 }
