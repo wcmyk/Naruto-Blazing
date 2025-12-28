@@ -276,7 +276,18 @@ class CharacterDupeAbilitiesSystem {
 
     // Increment unlocked count
     const newUnlockedCount = currentUnlocked + 1;
-    window.InventoryChar.updateInstance(uid, { dupeUnlocks: newUnlockedCount });
+
+    // Update cost and luck based on dupes
+    const currentCost = instance.cost || 50;
+    const currentLuck = instance.luck || 50;
+    const newCost = Math.max(28, currentCost - 2); // Min cost of 28
+    const newLuck = Math.min(100, currentLuck + 10); // Max luck of 100
+
+    window.InventoryChar.updateInstance(uid, {
+      dupeUnlocks: newUnlockedCount,
+      cost: newCost,
+      luck: newLuck
+    });
 
     const unlockedAbility = baseChar.abilities[currentUnlocked];
 

@@ -63,6 +63,8 @@
       level: Number(level) || 1,
       tierCode: tierCode || null,
       dupeUnlocks: 0, // Track unlocked abilities (starts at 0)
+      cost: 50, // Default cost (reduces with dupes)
+      luck: 50, // Default luck (increases with dupes)
     };
     _instances.push(inst);
     save();
