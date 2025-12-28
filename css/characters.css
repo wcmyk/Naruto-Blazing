@@ -1537,8 +1537,8 @@ body.page-characters::-webkit-scrollbar {
 
 .tools-equipment-slot {
   position: relative;
-  width: 60px;
-  height: 60px;
+  width: 48px;
+  height: 48px;
   background: rgba(10, 10, 15, 0.8);
   border: 2px solid rgba(217, 179, 98, 0.2);
   border-radius: 8px;
