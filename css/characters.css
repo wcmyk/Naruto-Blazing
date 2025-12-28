@@ -211,8 +211,8 @@ body.page-characters::-webkit-scrollbar {
 
 /* ---------- Close Button (Using backbtn.png) ---------- */
 .char-close-btn {
-  width: 120px;
-  height: 50px;
+  width: 240px;
+  height: 100px;
   background-image: url('../assets/ui/backbtn.png');
   background-size: contain;
   background-position: center;
@@ -1865,8 +1865,8 @@ body.page-characters::-webkit-scrollbar {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 60%;
-  height: 60%;
+  width: 90%;
+  height: 90%;
   object-fit: contain;
   pointer-events: none;
   filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
