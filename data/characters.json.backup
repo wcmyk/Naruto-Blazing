@@ -609,9 +609,9 @@
           "3S": {
             "chakraCost": 5,
             "hits": null,
-            "shape": "\u2014",
-            "range": "\u2014",
-            "position": "\u2014",
+            "shape": "—",
+            "range": "—",
+            "position": "—",
             "description": "Gives you 3 perfect dodge(s) for 3 turn(s)."
           }
         }
@@ -706,9 +706,9 @@
           "4S": {
             "chakraCost": 4,
             "hits": null,
-            "shape": "\u2014",
-            "range": "\u2014",
-            "position": "\u2014",
+            "shape": "—",
+            "range": "—",
+            "position": "—",
             "description": "Gives you 3 perfect dodge(s) for 3 turn(s)."
           }
         }
@@ -1427,9 +1427,9 @@
           "3S": {
             "chakraCost": 5,
             "hits": null,
-            "shape": "\u2014",
-            "range": "\u2014",
-            "position": "\u2014",
+            "shape": "—",
+            "range": "—",
+            "position": "—",
             "description": "Gives you an attack boost of 25% for 8 turn(s)."
           }
         }
@@ -1524,9 +1524,9 @@
           "4S": {
             "chakraCost": 4,
             "hits": null,
-            "shape": "\u2014",
-            "range": "\u2014",
-            "position": "\u2014",
+            "shape": "—",
+            "range": "—",
+            "position": "—",
             "description": "Gives you an attack boost of 25% for 10 turn(s)."
           }
         }
@@ -2033,9 +2033,9 @@
           "3S": {
             "chakraCost": 5,
             "hits": null,
-            "shape": "\u2014",
-            "range": "\u2014",
-            "position": "\u2014",
+            "shape": "—",
+            "range": "—",
+            "position": "—",
             "description": "Gives you 3 perfect dodge(s) for 3 turn(s)."
           }
         }
@@ -2130,9 +2130,9 @@
           "4S": {
             "chakraCost": 4,
             "hits": null,
-            "shape": "\u2014",
-            "range": "\u2014",
-            "position": "\u2014",
+            "shape": "—",
+            "range": "—",
+            "position": "—",
             "description": "Gives you 3 perfect dodge(s) for 3 turn(s)."
           }
         }
@@ -2433,9 +2433,9 @@
           "3S": {
             "chakraCost": 4,
             "hits": null,
-            "shape": "\u2014",
-            "range": "\u2014",
-            "position": "\u2014",
+            "shape": "—",
+            "range": "—",
+            "position": "—",
             "description": "Gives you 3 perfect dodge(s) for 3 turns."
           }
         }
@@ -2627,9 +2627,9 @@
           "3S": {
             "chakraCost": 4,
             "hits": null,
-            "shape": "\u2014",
-            "range": "\u2014",
-            "position": "\u2014",
+            "shape": "—",
+            "range": "—",
+            "position": "—",
             "description": "Gives you 3 perfect dodge(s) for 3 turn(s)."
           }
         }
@@ -2724,9 +2724,9 @@
           "3S": {
             "chakraCost": 4,
             "hits": null,
-            "shape": "\u2014",
-            "range": "\u2014",
-            "position": "\u2014",
+            "shape": "—",
+            "range": "—",
+            "position": "—",
             "description": "Gives you 3 perfect dodge(s) for 3 turn(s)."
           }
         }
@@ -2821,9 +2821,9 @@
           "3S": {
             "chakraCost": 4,
             "hits": null,
-            "shape": "\u2014",
-            "range": "\u2014",
-            "position": "\u2014",
+            "shape": "—",
+            "range": "—",
+            "position": "—",
             "description": "Gives you 3 perfect dodge(s) for 3 turn(s)."
           }
         }
@@ -2918,9 +2918,9 @@
           "3S": {
             "chakraCost": 4,
             "hits": null,
-            "shape": "\u2014",
-            "range": "\u2014",
-            "position": "\u2014",
+            "shape": "—",
+            "range": "—",
+            "position": "—",
             "description": "Gives you 3 perfect dodge(s) for 3 turn(s)."
           }
         }
@@ -3015,9 +3015,9 @@
           "3S": {
             "chakraCost": 4,
             "hits": null,
-            "shape": "\u2014",
-            "range": "\u2014",
-            "position": "\u2014",
+            "shape": "—",
+            "range": "—",
+            "position": "—",
             "description": "Gives you 3 perfect dodge(s) for 3 turn(s)."
           }
         }
@@ -3599,9 +3599,9 @@
           "3S": {
             "chakraCost": 4,
             "hits": null,
-            "shape": "\u2014",
-            "range": "\u2014",
-            "position": "\u2014",
+            "shape": "—",
+            "range": "—",
+            "position": "—",
             "description": "Gives you 3 perfect dodge(s) for 3 turn(s)."
           }
         }
@@ -3696,9 +3696,9 @@
           "3S": {
             "chakraCost": 4,
             "hits": null,
-            "shape": "\u2014",
-            "range": "\u2014",
-            "position": "\u2014",
+            "shape": "—",
+            "range": "—",
+            "position": "—",
             "description": "Gives you 3 perfect dodge(s) for 3 turn(s)."
           }
         }
@@ -3793,9 +3793,9 @@
           "3S": {
             "chakraCost": 4,
             "hits": null,
-            "shape": "\u2014",
-            "range": "\u2014",
-            "position": "\u2014",
+            "shape": "—",
+            "range": "—",
+            "position": "—",
             "description": "Gives you 3 perfect dodge(s) for 3 turn(s)."
           }
         }
@@ -6095,9 +6095,9 @@
           "4S": {
             "chakraCost": 6,
             "hits": null,
-            "shape": "\u2014",
-            "range": "\u2014",
-            "position": "\u2014",
+            "shape": "—",
+            "range": "—",
+            "position": "—",
             "description": "Puts up a barrier that protects you from 1000 damage worth of attacks for 5 turn(s).",
             "nwusDescription": "Puts up a barrier that protects you from 5000 damage worth of attacks for 5 turn(s)."
           }
@@ -6197,9 +6197,9 @@
           "5S": {
             "chakraCost": 5,
             "hits": null,
-            "shape": "\u2014",
-            "range": "\u2014",
-            "position": "\u2014",
+            "shape": "—",
+            "range": "—",
+            "position": "—",
             "description": "Puts up a barrier that protects you from 1000 damage worth of attacks for 6 turn(s).",
             "nwusDescription": "Puts up a barrier that protects you from 5000 damage worth of attacks for 6 turn(s)."
           }
@@ -8203,9 +8203,9 @@
           "4S": {
             "chakraCost": 6,
             "hits": null,
-            "shape": "\u2014",
-            "range": "\u2014",
-            "position": "\u2014",
+            "shape": "—",
+            "range": "—",
+            "position": "—",
             "description": "Puts up a barrier that protects you from 1000 damage worth of attacks for 6 turn(s).",
             "nwusDescription": "Puts up a barrier that protects you from 5000 damage worth of attacks for 6 turn(s)."
           }
@@ -8305,9 +8305,9 @@
           "5S": {
             "chakraCost": 5,
             "hits": null,
-            "shape": "\u2014",
-            "range": "\u2014",
-            "position": "\u2014",
+            "shape": "—",
+            "range": "—",
+            "position": "—",
             "description": "Puts up a barrier that protects you from 1000 damage worth of attacks for 7 turn(s).",
             "nwusDescription": "Puts up a barrier that protects you from 5000 damage worth of attacks for 7 turn(s)."
           }
@@ -10075,9 +10075,9 @@
           "3S": {
             "chakraCost": 5,
             "hits": null,
-            "shape": "\u2014",
-            "range": "\u2014",
-            "position": "\u2014",
+            "shape": "—",
+            "range": "—",
+            "position": "—",
             "description": "Gives you 3 perfect dodge(s) for 3 turn(s)."
           }
         }
@@ -10172,9 +10172,9 @@
           "4S": {
             "chakraCost": 4,
             "hits": null,
-            "shape": "\u2014",
-            "range": "\u2014",
-            "position": "\u2014",
+            "shape": "—",
+            "range": "—",
+            "position": "—",
             "description": "Gives you 3 perfect dodge(s) for 3 turn(s)."
           }
         }
@@ -12793,9 +12793,9 @@
           "1S": {
             "chakraCost": 4,
             "hits": null,
-            "shape": "\u2014",
-            "range": "\u2014",
-            "position": "\u2014",
+            "shape": "—",
+            "range": "—",
+            "position": "—",
             "description": "Gives you 3 perfect dodge(s) for 3 turn(s)."
           }
         }
@@ -15732,9 +15732,9 @@
           "4S": {
             "chakraCost": 5,
             "hits": null,
-            "shape": "\u2014",
-            "range": "\u2014",
-            "position": "\u2014",
+            "shape": "—",
+            "range": "—",
+            "position": "—",
             "description": "Gives you an attack boost of 25% for 10 turn(s)."
           }
         }
@@ -15833,9 +15833,9 @@
           "5S": {
             "chakraCost": 4,
             "hits": null,
-            "shape": "\u2014",
-            "range": "\u2014",
-            "position": "\u2014",
+            "shape": "—",
+            "range": "—",
+            "position": "—",
             "description": "Gives you an attack boost of 25% for 10 turn(s)."
           }
         }
@@ -15942,9 +15942,9 @@
           "4S": {
             "chakraCost": 5,
             "hits": null,
-            "shape": "\u2014",
-            "range": "\u2014",
-            "position": "\u2014",
+            "shape": "—",
+            "range": "—",
+            "position": "—",
             "description": "Gives you 3 perfect dodge(s) for 3 turn(s)."
           }
         }
@@ -16043,9 +16043,9 @@
           "5S": {
             "chakraCost": 4,
             "hits": null,
-            "shape": "\u2014",
-            "range": "\u2014",
-            "position": "\u2014",
+            "shape": "—",
+            "range": "—",
+            "position": "—",
             "description": "Gives you 3 perfect dodge(s) for 3 turn(s)."
           }
         }
@@ -17327,9 +17327,9 @@
           "4S": {
             "chakraCost": 5,
             "hits": null,
-            "shape": "\u2014",
-            "range": "\u2014",
-            "position": "\u2014",
+            "shape": "—",
+            "range": "—",
+            "position": "—",
             "description": "Restores 1420 of own health.",
             "nwusDescription": "Restores 7100 of own health."
           }
@@ -17429,9 +17429,9 @@
           "5S": {
             "chakraCost": 4,
             "hits": null,
-            "shape": "\u2014",
-            "range": "\u2014",
-            "position": "\u2014",
+            "shape": "—",
+            "range": "—",
+            "position": "—",
             "description": "Restores 2020 of own health.",
             "nwusDescription": "Restores 10100 of own health."
           }
@@ -19035,9 +19035,9 @@
           "4S": {
             "chakraCost": 6,
             "hits": null,
-            "shape": "\u2014",
-            "range": "\u2014",
-            "position": "\u2014",
+            "shape": "—",
+            "range": "—",
+            "position": "—",
             "description": "Puts up a barrier that protects you from 1500 damage worth of attacks for 3 turn(s).",
             "nwusDescription": "Puts up a barrier that protects you from 7500 damage worth of attacks for 3 turn(s)."
           }
@@ -19137,9 +19137,9 @@
           "5S": {
             "chakraCost": 5,
             "hits": null,
-            "shape": "\u2014",
-            "range": "\u2014",
-            "position": "\u2014",
+            "shape": "—",
+            "range": "—",
+            "position": "—",
             "description": "Puts up a barrier that protects you from 1500 damage worth of attacks for 3 turn(s).",
             "nwusDescription": "Puts up a barrier that protects you from 7500 damage worth of attacks for 3 turn(s)."
           }
@@ -19984,9 +19984,9 @@
           "4S": {
             "chakraCost": 6,
             "hits": null,
-            "shape": "\u2014",
-            "range": "\u2014",
-            "position": "\u2014",
+            "shape": "—",
+            "range": "—",
+            "position": "—",
             "description": "Gives you 2 perfect dodge(s) for 3 turn(s), then allow you to block up to 1000 damage for any remaining turns after the perfect dodge(s) run out.",
             "nwusDescription": "Gives you 2 perfect dodge(s) for 3 turn(s), then allow you to block up to 5000 damage for any remaining turns after the perfect dodge(s) run out."
           }
@@ -20086,9 +20086,9 @@
           "5S": {
             "chakraCost": 5,
             "hits": null,
-            "shape": "\u2014",
-            "range": "\u2014",
-            "position": "\u2014",
+            "shape": "—",
+            "range": "—",
+            "position": "—",
             "description": "Gives you 2 perfect dodge(s) for 3 turn(s), then allow you to block up to 1000 damage for any remaining turns after the perfect dodge(s) run out.",
             "nwusDescription": "Gives you 2 perfect dodge(s) for 3 turn(s), then allow you to block up to 5000 damage for any remaining turns after the perfect dodge(s) run out."
           }
@@ -21151,9 +21151,9 @@
           "4S": {
             "chakraCost": 7,
             "hits": null,
-            "shape": "\u2014",
-            "range": "\u2014",
-            "position": "\u2014",
+            "shape": "—",
+            "range": "—",
+            "position": "—",
             "description": "Puts up a barrier that protects you from 1500 damage worth of attacks for 2 turn(s).",
             "nwusDescription": "Puts up a barrier that protects you from 7500 damage worth of attacks for 2 turn(s)."
           }
@@ -21249,9 +21249,9 @@
           "5S": {
             "chakraCost": 6,
             "hits": null,
-            "shape": "\u2014",
-            "range": "\u2014",
-            "position": "\u2014",
+            "shape": "—",
+            "range": "—",
+            "position": "—",
             "description": "Puts up a barrier that protects you from 2000 damage worth of attacks for 3 turn(s).",
             "nwusDescription": "Puts up a barrier that protects you from 10000 damage worth of attacks for 3 turn(s)."
           }
@@ -21351,9 +21351,9 @@
           "6S": {
             "chakraCost": 5,
             "hits": null,
-            "shape": "\u2014",
-            "range": "\u2014",
-            "position": "\u2014",
+            "shape": "—",
+            "range": "—",
+            "position": "—",
             "description": "Puts up a barrier that protects you from 2500 damage worth of attacks for 4 turn(s).",
             "nwusDescription": "Puts up a barrier that protects you from 12500 damage worth of attacks for 4 turn(s)."
           }
@@ -23502,9 +23502,9 @@
           "5S": {
             "chakraCost": 7,
             "hits": null,
-            "shape": "\u2014",
-            "range": "\u2014",
-            "position": "\u2014",
+            "shape": "—",
+            "range": "—",
+            "position": "—",
             "description": "Puts up a barrier that protects you from 1500 damage worth of attacks for 4 turn(s).",
             "nwusDescription": "Puts up a barrier that protects you from 7500 damage worth of attacks for 4 turn(s)."
           }
@@ -23608,9 +23608,9 @@
           "6S": {
             "chakraCost": 6,
             "hits": null,
-            "shape": "\u2014",
-            "range": "\u2014",
-            "position": "\u2014",
+            "shape": "—",
+            "range": "—",
+            "position": "—",
             "description": "Puts up a barrier that protects you from 2000 damage worth of attacks for 5 turn(s).",
             "nwusDescription": "Puts up a barrier that protects you from 10000 damage worth of attacks for 5 turn(s)."
           }
@@ -25141,9 +25141,9 @@
           "5S": {
             "chakraCost": 4,
             "hits": null,
-            "shape": "\u2014",
-            "range": "\u2014",
-            "position": "\u2014",
+            "shape": "—",
+            "range": "—",
+            "position": "—",
             "description": "Increases your chance to dodge by 10% for 4 turn(s) and puts up a barrier blocking 1000 damage for 4 turn(s).",
             "nwusDescription": "Increases your chance to dodge by 10% for 4 turn(s) and puts up a barrier blocking 5000 damage for 4 turn(s)."
           }
@@ -25247,9 +25247,9 @@
           "6S": {
             "chakraCost": 3,
             "hits": null,
-            "shape": "\u2014",
-            "range": "\u2014",
-            "position": "\u2014",
+            "shape": "—",
+            "range": "—",
+            "position": "—",
             "description": "Increases your chance to dodge by 20% for 5 turn(s) and puts up a barrier blocking 1000 damage for 5 turn(s).",
             "nwusDescription": "Increases your chance to dodge by 20% for 5 turn(s) and puts up a barrier blocking 5000 damage for 5 turn(s)."
           }
@@ -26997,9 +26997,9 @@
           "5S": {
             "chakraCost": 5,
             "hits": null,
-            "shape": "\u2014",
-            "range": "\u2014",
-            "position": "\u2014",
+            "shape": "—",
+            "range": "—",
+            "position": "—",
             "description": "Gives you an attack boost of 50%, for 6 turn(s), restores Chakra Gauge by 2."
           }
         }
@@ -27102,9 +27102,9 @@
           "6S": {
             "chakraCost": 4,
             "hits": null,
-            "shape": "\u2014",
-            "range": "\u2014",
-            "position": "\u2014",
+            "shape": "—",
+            "range": "—",
+            "position": "—",
             "description": "Gives you an attack boost of 50%, for 9 turn(s), restores Chakra Gauge by 2."
           }
         }
@@ -27215,9 +27215,9 @@
           "5S": {
             "chakraCost": 6,
             "hits": null,
-            "shape": "\u2014",
-            "range": "\u2014",
-            "position": "\u2014",
+            "shape": "—",
+            "range": "—",
+            "position": "—",
             "description": "Gives you 2 perfect dodge(s) for 3 turn(s), and restores your Chakra Gauge by 5."
           }
         }
@@ -27320,9 +27320,9 @@
           "6S": {
             "chakraCost": 5,
             "hits": null,
-            "shape": "\u2014",
-            "range": "\u2014",
-            "position": "\u2014",
+            "shape": "—",
+            "range": "—",
+            "position": "—",
             "description": "Gives you 2 perfect dodge(s) for 3 turn(s), and restores your Chakra Gauge by 7."
           }
         }
@@ -27871,9 +27871,9 @@
           "5S": {
             "chakraCost": 6,
             "hits": null,
-            "shape": "\u2014",
-            "range": "\u2014",
-            "position": "\u2014",
+            "shape": "—",
+            "range": "—",
+            "position": "—",
             "description": "Puts up a barrier that protects you from 2000 damage worth of attacks for 5 turn(s).",
             "nwusDescription": "Puts up a barrier that protects you from 10000 damage worth of attacks for 5 turn(s)."
           }
@@ -27977,9 +27977,9 @@
           "6S": {
             "chakraCost": 5,
             "hits": null,
-            "shape": "\u2014",
-            "range": "\u2014",
-            "position": "\u2014",
+            "shape": "—",
+            "range": "—",
+            "position": "—",
             "description": "Puts up a barrier that protects you from 2000 damage worth of attacks for 6 turn(s).",
             "nwusDescription": "Puts up a barrier that protects you from 10000 damage worth of attacks for 6 turn(s)."
           }
@@ -29834,9 +29834,9 @@
           "5S": {
             "chakraCost": 6,
             "hits": null,
-            "shape": "\u2014",
-            "range": "\u2014",
-            "position": "\u2014",
+            "shape": "—",
+            "range": "—",
+            "position": "—",
             "description": "Gives you 3 perfect dodge(s) for 3 turn(s)."
           }
         }
@@ -29939,9 +29939,9 @@
           "6S": {
             "chakraCost": 5,
             "hits": null,
-            "shape": "\u2014",
-            "range": "\u2014",
-            "position": "\u2014",
+            "shape": "—",
+            "range": "—",
+            "position": "—",
             "description": "Gives you 4 perfect dodge(s) for 3 turn(s)."
           }
         }
@@ -34208,9 +34208,9 @@
           "5S": {
             "chakraCost": 6,
             "hits": null,
-            "shape": "\u2014",
-            "range": "\u2014",
-            "position": "\u2014",
+            "shape": "—",
+            "range": "—",
+            "position": "—",
             "description": "Gives you an attack boost of 25% for 8 turn(s)."
           }
         }
@@ -34313,9 +34313,9 @@
           "6S": {
             "chakraCost": 5,
             "hits": null,
-            "shape": "\u2014",
-            "range": "\u2014",
-            "position": "\u2014",
+            "shape": "—",
+            "range": "—",
+            "position": "—",
             "description": "Gives you an attack boost of 25% for 10 turn(s)."
           }
         }
@@ -34644,9 +34644,9 @@
           "5S": {
             "chakraCost": 5,
             "hits": null,
-            "shape": "\u2014",
-            "range": "\u2014",
-            "position": "\u2014",
+            "shape": "—",
+            "range": "—",
+            "position": "—",
             "description": "Puts up a barrier that protects you from 5000 damage worth of attacks for 4 turn(s).",
             "nwusDescription": "Puts up a barrier that protects you from 30000 damage worth of attacks for 4 turn(s)."
           }
@@ -34750,9 +34750,9 @@
           "6S": {
             "chakraCost": 4,
             "hits": null,
-            "shape": "\u2014",
-            "range": "\u2014",
-            "position": "\u2014",
+            "shape": "—",
+            "range": "—",
+            "position": "—",
             "description": "Puts up a barrier that protects you from 5000 damage worth of attacks for 5 turn(s).",
             "nwusDescription": "Puts up a barrier that protects you from 30000 damage worth of attacks for 5 turn(s)."
           }
@@ -38237,9 +38237,9 @@
           "5S": {
             "chakraCost": 6,
             "hits": null,
-            "shape": "\u2014",
-            "range": "\u2014",
-            "position": "\u2014",
+            "shape": "—",
+            "range": "—",
+            "position": "—",
             "description": "Restores 2700 of own health.",
             "nwusDescription": "Restores 13500 of own health."
           }
@@ -38343,9 +38343,9 @@
           "6S": {
             "chakraCost": 5,
             "hits": null,
-            "shape": "\u2014",
-            "range": "\u2014",
-            "position": "\u2014",
+            "shape": "—",
+            "range": "—",
+            "position": "—",
             "description": "Restores 3400 of own health.",
             "nwusDescription": "Restores 17000 of own health."
           }
@@ -39658,9 +39658,9 @@
           "5S": {
             "chakraCost": 5,
             "hits": null,
-            "shape": "\u2014",
-            "range": "\u2014",
-            "position": "\u2014",
+            "shape": "—",
+            "range": "—",
+            "position": "—",
             "description": "Restores 2600 health and gives you an attack boost of 25% for 10 turn(s).",
             "nwusDescription": "Restores 13000 health and gives you an attack boost of 25% for 10 turn(s)."
           }
@@ -39764,9 +39764,9 @@
           "6S": {
             "chakraCost": 4,
             "hits": null,
-            "shape": "\u2014",
-            "range": "\u2014",
-            "position": "\u2014",
+            "shape": "—",
+            "range": "—",
+            "position": "—",
             "description": "Restores 3400 health and gives you an attack boost of 25% for 10 turn(s).",
             "nwusDescription": "Restores 17000 health and gives you an attack boost of 25% for 10 turn(s)."
           }
@@ -47154,9 +47154,9 @@
           "5S": {
             "chakraCost": 7,
             "hits": null,
-            "shape": "\u2014",
-            "range": "\u2014",
-            "position": "\u2014",
+            "shape": "—",
+            "range": "—",
+            "position": "—",
             "description": "Puts up a barrier that protects you from 3500 damage worth of attacks for 5 turn(s), and restores own Chakra Gauge by 2.",
             "nwusDescription": "Puts up a barrier that protects you from 21000 damage worth of attacks for 5 turn(s), and restores own Chakra Gauge by 2."
           }
@@ -47260,9 +47260,9 @@
           "6S": {
             "chakraCost": 6,
             "hits": null,
-            "shape": "\u2014",
-            "range": "\u2014",
-            "position": "\u2014",
+            "shape": "—",
+            "range": "—",
+            "position": "—",
             "description": "Puts up a barrier that protects you from 4000 damage worth of attacks for 5 turn(s), and restores own Chakra Gauge by 2.",
             "nwusDescription": "Puts up a barrier that protects you from 24000 damage worth of attacks for 5 turn(s), and restores own Chakra Gauge by 2."
           }
@@ -49998,9 +49998,9 @@
           "5S": {
             "chakraCost": 5,
             "hits": null,
-            "shape": "\u2014",
-            "range": "\u2014",
-            "position": "\u2014",
+            "shape": "—",
+            "range": "—",
+            "position": "—",
             "description": "Boosts your own attack by 25% for 8 turn(s), and puts up a barrier that protects you from 1500 damage worth of attacks for 3 turn(s).",
             "nwusDescription": "Boosts your own attack by 25% for 8 turn(s), and puts up a barrier that protects you from 10000 damage worth of attacks for 3 turn(s)."
           }
@@ -50104,9 +50104,9 @@
           "6S": {
             "chakraCost": 4,
             "hits": null,
-            "shape": "\u2014",
-            "range": "\u2014",
-            "position": "\u2014",
+            "shape": "—",
+            "range": "—",
+            "position": "—",
             "description": "Boosts your own attack by 25% for 9 turn(s), and puts up a barrier that protects you from 1500 damage worth of attacks for 4 turn(s).",
             "nwusDescription": "Boosts your own attack by 25% for 9 turn(s), and puts up a barrier that protects you from 10000 damage worth of attacks for 4 turn(s)."
           }
@@ -54391,9 +54391,9 @@
           "5S": {
             "chakraCost": 4,
             "hits": null,
-            "shape": "\u2014",
-            "range": "\u2014",
-            "position": "\u2014",
+            "shape": "—",
+            "range": "—",
+            "position": "—",
             "description": "Gives you 90% chance of jutsu sealing resistance and immobilization resistance for 2 turn(s) each, and restores 1600 health of own health for 2 turn(s).",
             "nwusDescription": "Gives you 90% chance of jutsu sealing resistance and immobilization resistance for 2 turn(s) each, and restores 4500 health of own health for 2 turn(s)."
           }
@@ -54501,9 +54501,9 @@
           "6S": {
             "chakraCost": 3,
             "hits": null,
-            "shape": "\u2014",
-            "range": "\u2014",
-            "position": "\u2014",
+            "shape": "—",
+            "range": "—",
+            "position": "—",
             "description": "Gives you 90% chance of jutsu sealing resistance and immobilization resistance for 2 turn(s) each, and restores 2500 health of own health for 2 turn(s).",
             "nwusDescription": "Gives you 90% chance of jutsu sealing resistance and immobilization resistance for 2 turn(s) each, and restores 7000 health of own health for 2 turn(s)."
           }
@@ -55166,9 +55166,9 @@
           "5S": {
             "chakraCost": 6,
             "hits": null,
-            "shape": "\u2014",
-            "range": "\u2014",
-            "position": "\u2014",
+            "shape": "—",
+            "range": "—",
+            "position": "—",
             "description": "Gives you 3 perfect dodge(s) for 3 turn(s), then allow you to block up to 1500 damage for any remaining turns after the perfect dodge(s) run out.",
             "nwusDescription": "Gives you 3 perfect dodge(s) for 3 turn(s), then allow you to block up to 7500 damage for any remaining turns after the perfect dodge(s) run out."
           }
@@ -55272,9 +55272,9 @@
           "6S": {
             "chakraCost": 5,
             "hits": null,
-            "shape": "\u2014",
-            "range": "\u2014",
-            "position": "\u2014",
+            "shape": "—",
+            "range": "—",
+            "position": "—",
             "description": "Gives you 4 perfect dodge(s) for 3 turn(s), then allow you to block up to 2000 damage for any remaining turns after the perfect dodge(s) run out.",
             "nwusDescription": "Gives you 4 perfect dodge(s) for 3 turn(s), then allow you to block up to 10000 damage for any remaining turns after the perfect dodge(s) run out."
           }
@@ -63304,9 +63304,9 @@
           "5S": {
             "chakraCost": 6,
             "hits": null,
-            "shape": "\u2014",
-            "range": "\u2014",
-            "position": "\u2014",
+            "shape": "—",
+            "range": "—",
+            "position": "—",
             "description": "Gives you an attack boost of 100% for 5 turn(s), restores Chakra Gauge by 2, but depletes your remaining health by 10%."
           }
         }
@@ -63409,9 +63409,9 @@
           "6S": {
             "chakraCost": 5,
             "hits": null,
-            "shape": "\u2014",
-            "range": "\u2014",
-            "position": "\u2014",
+            "shape": "—",
+            "range": "—",
+            "position": "—",
             "description": "Gives you an attack boost of 100% for 7 turn(s), restores Chakra Gauge by 2, but depletes your remaining health by 10%."
           }
         }
@@ -70927,6 +70927,7 @@
       "hitCount": 0
     }
   },
+
   {
     "id": "sasuke_661",
     "name": "Sasuke Uchiha",
@@ -71602,7 +71603,7 @@
     "element": null,
     "rarity": 1,
     "starMinCode": "1S",
-    "starMaxCode": "6SB",
+    "starMaxCode": "6S",
     "lbEligible": false,
     "portrait": "assets/characters/sasuke_667/portrait_6S.png",
     "full": "assets/characters/sasuke_667/full_6S.png",
@@ -75464,7 +75465,7 @@
     "element": null,
     "rarity": 1,
     "starMinCode": "1S",
-    "starMaxCode": "6SB",
+    "starMaxCode": "6S",
     "lbEligible": false,
     "portrait": "assets/characters/sasuke_702/portrait_6S.png",
     "full": "assets/characters/sasuke_702/full_6S.png",
@@ -77334,7 +77335,7 @@
     "element": null,
     "rarity": 1,
     "starMinCode": "1S",
-    "starMaxCode": "6SB",
+    "starMaxCode": "6S",
     "lbEligible": false,
     "portrait": "assets/characters/kisame_719/portrait_6S.png",
     "full": "assets/characters/kisame_719/full_6S.png",
@@ -79216,7 +79217,7 @@
     "element": null,
     "rarity": 1,
     "starMinCode": "1S",
-    "starMaxCode": "6SB",
+    "starMaxCode": "6S",
     "lbEligible": false,
     "portrait": "assets/characters/obito_736/portrait_6S.png",
     "full": "assets/characters/obito_736/full_6S.png",
@@ -80279,9 +80280,9 @@
           "5S": {
             "chakraCost": 5,
             "hits": 4,
-            "shape": "\u2014",
+            "shape": "—",
             "range": "Whole Map",
-            "position": "\u2014",
+            "position": "—",
             "description": "5x attack toward all enemies, 80% chance of health recovery sealing for 6 turn(s). 60% chance of attack weakened for 5 turn(s). Also nullifies damage you receive from Ninjutsu or Secret Techniques for 3 turn(s).",
             "nwusDescription": "3.5x attack toward all enemies, 80% chance of health recovery sealing for 6 turn(s). 60% chance of attack weakened for 5 turn(s)."
           }
@@ -80389,9 +80390,9 @@
           "6S": {
             "chakraCost": 4,
             "hits": 4,
-            "shape": "\u2014",
+            "shape": "—",
             "range": "Whole Map",
-            "position": "\u2014",
+            "position": "—",
             "description": "5.7x attack toward all enemies, 90% chance of health recovery sealing for 6 turn(s). 70% chance of attack weakened for 5 turn(s). Also nullifies damage you receive from Ninjutsu or Secret Techniques for 3 turn(s).",
             "nwusDescription": "4x attack toward all enemies, 90% chance of health recovery sealing for 6 turn(s). 70% chance of attack weakened for 5 turn(s)."
           }
@@ -80663,7 +80664,7 @@
     "element": null,
     "rarity": 1,
     "starMinCode": "1S",
-    "starMaxCode": "6SB",
+    "starMaxCode": "6S",
     "lbEligible": false,
     "portrait": "assets/characters/kaguya_749/portrait_6S.png",
     "full": "assets/characters/kaguya_749/full_6S.png",
@@ -82096,7 +82097,7 @@
     "element": null,
     "rarity": 1,
     "starMinCode": "1S",
-    "starMaxCode": "6SB",
+    "starMaxCode": "6S",
     "lbEligible": false,
     "portrait": "assets/characters/tobirama_762/portrait_6S.png",
     "full": "assets/characters/tobirama_762/full_6S.png",
@@ -82499,9 +82500,9 @@
           "5S": {
             "chakraCost": 6,
             "hits": null,
-            "shape": "\u2014",
-            "range": "\u2014",
-            "position": "\u2014",
+            "shape": "—",
+            "range": "—",
+            "position": "—",
             "description": "Gives you an attack boost of 25% for 8 turn(s), restores Chakra Gauge by 1. Changes your range to \"Long\" for 4 turn(s)."
           }
         }
@@ -82604,9 +82605,9 @@
           "6S": {
             "chakraCost": 5,
             "hits": null,
-            "shape": "\u2014",
-            "range": "\u2014",
-            "position": "\u2014",
+            "shape": "—",
+            "range": "—",
+            "position": "—",
             "description": "Gives you an attack boost of 25% for 10 turn(s), restores Chakra Gauge by 1. Changes your range to \"Long\" for 6 turn(s)."
           }
         }
@@ -85061,7 +85062,7 @@
     "element": null,
     "rarity": 1,
     "starMinCode": "1S",
-    "starMaxCode": "6SB",
+    "starMaxCode": "6S",
     "lbEligible": false,
     "portrait": "assets/characters/ashura_789/portrait_6S.png",
     "full": "assets/characters/ashura_789/full_6S.png",
@@ -88391,7 +88392,7 @@
     "element": null,
     "rarity": 1,
     "starMinCode": "1S",
-    "starMaxCode": "6SB",
+    "starMaxCode": "6S",
     "lbEligible": false,
     "portrait": "assets/characters/naruto_819/portrait_6S.png",
     "full": "assets/characters/naruto_819/full_6S.png",
@@ -90261,7 +90262,7 @@
     "element": null,
     "rarity": 1,
     "starMinCode": "1S",
-    "starMaxCode": "6SB",
+    "starMaxCode": "6S",
     "lbEligible": false,
     "portrait": "assets/characters/deidara_836/portrait_6S.png",
     "full": "assets/characters/deidara_836/full_6S.png",
@@ -91591,7 +91592,7 @@
     "element": null,
     "rarity": 1,
     "starMinCode": "1S",
-    "starMaxCode": "6SB",
+    "starMaxCode": "6S",
     "lbEligible": false,
     "portrait": "assets/characters/asuma_848/portrait_6S.png",
     "full": "assets/characters/asuma_848/full_6S.png",
@@ -92825,7 +92826,7 @@
     "element": null,
     "rarity": 1,
     "starMinCode": "1S",
-    "starMaxCode": "6SB",
+    "starMaxCode": "6S",
     "lbEligible": false,
     "portrait": "assets/characters/madara_859/portrait_6S.png",
     "full": "assets/characters/madara_859/full_6S.png",
@@ -93913,9 +93914,9 @@
           "5S": {
             "chakraCost": 5,
             "hits": null,
-            "shape": "\u2014",
-            "range": "\u2014",
-            "position": "\u2014",
+            "shape": "—",
+            "range": "—",
+            "position": "—",
             "description": "Gives you an attack boost of 25% for 2 turn(s). Changes your range to \"Long\" for 2 turn(s). Restores 500 of own health for 2 turn(s).",
             "nwusDescription": "Gives you an attack boost of 25% for 2 turn(s). Changes your range to \"Long\" for 2 turn(s)."
           }
@@ -94019,9 +94020,9 @@
           "6S": {
             "chakraCost": 4,
             "hits": null,
-            "shape": "\u2014",
-            "range": "\u2014",
-            "position": "\u2014",
+            "shape": "—",
+            "range": "—",
+            "position": "—",
             "description": "Gives you an attack boost of 25% for 3 turn(s). Changes your range to \"Long\" for 3 turn(s). Restores 500 of own health for 3 turn(s).",
             "nwusDescription": "Gives you an attack boost of 25% for 3 turn(s). Changes your range to \"Long\" for 3 turn(s)."
           }
@@ -96051,7 +96052,7 @@
     "element": null,
     "rarity": 1,
     "starMinCode": "1S",
-    "starMaxCode": "6SB",
+    "starMaxCode": "6S",
     "lbEligible": false,
     "portrait": "assets/characters/orochimaru_888/portrait_6S.png",
     "full": "assets/characters/orochimaru_888/full_6S.png",
@@ -98697,7 +98698,7 @@
     "element": null,
     "rarity": 1,
     "starMinCode": "1S",
-    "starMaxCode": "6SB",
+    "starMaxCode": "6S",
     "lbEligible": false,
     "portrait": "assets/characters/killer_1155/portrait_6S.png",
     "full": "assets/characters/killer_1155/full_6S.png",
@@ -102153,7 +102154,7 @@
     "element": null,
     "rarity": 1,
     "starMinCode": "1S",
-    "starMaxCode": "6SB",
+    "starMaxCode": "6S",
     "lbEligible": false,
     "portrait": "assets/characters/neji_2004/portrait_6S.png",
     "full": "assets/characters/neji_2004/full_6S.png",
@@ -103591,7 +103592,7 @@
     "element": null,
     "rarity": 1,
     "starMinCode": "1S",
-    "starMaxCode": "6SB",
+    "starMaxCode": "6S",
     "lbEligible": false,
     "portrait": "assets/characters/hashirama_2017/portrait_6S.png",
     "full": "assets/characters/hashirama_2017/full_6S.png",
@@ -105477,7 +105478,7 @@
     "element": null,
     "rarity": 1,
     "starMinCode": "1S",
-    "starMaxCode": "6SB",
+    "starMaxCode": "6S",
     "lbEligible": false,
     "portrait": "assets/characters/danzo_2034/portrait_6S.png",
     "full": "assets/characters/danzo_2034/full_6S.png",
@@ -106585,7 +106586,7 @@
     "element": null,
     "rarity": 1,
     "starMinCode": "1S",
-    "starMaxCode": "6SB",
+    "starMaxCode": "6S",
     "lbEligible": false,
     "portrait": "assets/characters/hagoromo_2044/portrait_6S.png",
     "full": "assets/characters/hagoromo_2044/full_6S.png",
@@ -108243,7 +108244,7 @@
     "element": null,
     "rarity": 1,
     "starMinCode": "1S",
-    "starMaxCode": "6SB",
+    "starMaxCode": "6S",
     "lbEligible": false,
     "portrait": "assets/characters/madara_2059/portrait_6S.png",
     "full": "assets/characters/madara_2059/full_6S.png",
@@ -109571,7 +109572,7 @@
     "element": null,
     "rarity": 1,
     "starMinCode": "1S",
-    "starMaxCode": "6SB",
+    "starMaxCode": "6S",
     "lbEligible": false,
     "portrait": "assets/characters/obito_2071/portrait_6S.png",
     "full": "assets/characters/obito_2071/full_6S.png",
@@ -112853,8 +112854,8 @@
           "5S": {
             "chakraCost": 5,
             "hits": 8,
-            "shape": "\u2014",
-            "range": "\u2014",
+            "shape": "—",
+            "range": "—",
             "position": "Whole Map",
             "description": "3.5x attack to all enemies (5x attack if they are Attack Weakened).",
             "nwusDescription": "2.5x attack to all enemies (4x attack if they are Attack Weakened)."
@@ -112963,8 +112964,8 @@
           "6S": {
             "chakraCost": 43,
             "hits": 8,
-            "shape": "\u2014",
-            "range": "\u2014",
+            "shape": "—",
+            "range": "—",
             "position": "Whole Map",
             "description": "4.5x attack to all enemies (6x attack if they are Attack Weakened).",
             "nwusDescription": "3.5x attack to all enemies (5x attack if they are Attack Weakened)."
@@ -113011,7 +113012,7 @@
     "element": null,
     "rarity": 1,
     "starMinCode": "1S",
-    "starMaxCode": "6SB",
+    "starMaxCode": "6S",
     "lbEligible": false,
     "portrait": "assets/characters/masked_2102/portrait_6S.png",
     "full": "assets/characters/masked_2102/full_6S.png",
@@ -113741,9 +113742,9 @@
           "6S": {
             "chakraCost": 4,
             "hits": 6,
-            "shape": "\u2014",
+            "shape": "—",
             "range": "Whole Map",
-            "position": "\u2014",
+            "position": "—",
             "description": "6x attack toward all enemies, 45% chance of slip damage and/or attack weakened for 4 turn(s) each.",
             "nwusDescription": "5.5x attack toward all enemies, 45% chance of slip damage and/or attack weakened for 4 turn(s) each."
           }
@@ -114009,7 +114010,7 @@
     "element": null,
     "rarity": 1,
     "starMinCode": "1S",
-    "starMaxCode": "6SB",
+    "starMaxCode": "6S",
     "lbEligible": false,
     "portrait": "assets/characters/indra_2111/portrait_6S.png",
     "full": "assets/characters/indra_2111/full_6S.png",
@@ -116971,7 +116972,7 @@
           "5S": {
             "chakraCost": 54,
             "hits": 6,
-            "shape": "\u2014",
+            "shape": "—",
             "range": "Whole Map",
             "position": "Right",
             "description": "4.5x attack toward all enemies in range, 75% chance of attack weakened for 6 turn(s), and 65% chance of immobilization for 4 turn(s).",
@@ -117081,7 +117082,7 @@
           "6S": {
             "chakraCost": 43,
             "hits": 6,
-            "shape": "\u2014",
+            "shape": "—",
             "range": "Whole Map",
             "position": "Right",
             "description": "5.5x attack toward all enemies in range, 85% chance of attack weakened for 6 turn(s), and 75% chance of immobilization for 4 turn(s).",
@@ -117199,7 +117200,7 @@
           "5S": {
             "chakraCost": 4,
             "hits": 7,
-            "shape": "\u2014",
+            "shape": "—",
             "range": "Whole Map",
             "position": "Right",
             "description": "Removes Perfect Dodge and Barrier for 1 enemy(s) in range and ignores Substitution with 4.5x attack toward them. The enemy receives increased damage from their non-effective elemental affinities by 30% for 8 turn(s).",
@@ -117305,7 +117306,7 @@
           "6S": {
             "chakraCost": 3,
             "hits": 7,
-            "shape": "\u2014",
+            "shape": "—",
             "range": "Whole Map",
             "position": "Right",
             "description": "Removes Perfect Dodge and Barrier for 1 enemy(s) in range and ignores Substitution with 5.5x attack toward them. The enemy receives increased damage from their non-effective elemental affinities by 30% for 8 turn(s).",
@@ -117342,249 +117343,250 @@
       "hitCount": 0
     }
   },
-  {
-    "id": "itachi_2199",
-    "name": "Itachi Uchiha",
-    "version": "Talent and Burden",
-    "element": "Heart",
-    "rarity": 1,
-    "starMinCode": "1S",
-    "starMaxCode": "7S",
-    "lbEligible": true,
-    "portrait": "assets/characters/itachi_2199/portrait_6S.png",
-    "full": "assets/characters/itachi_2199/full_6S.png",
-    "ultimateAnimation": null,
-    "secretAnimation": null,
-    "artByTier": {
-      "6S": {
-        "portrait": "assets/characters/itachi_2199/portrait_6S.png",
-        "full": "assets/characters/itachi_2199/full_6S.png"
-      },
-      "7S": {
-        "portrait": "assets/characters/itachi_2200/portrait_7S.png",
-        "full": "assets/characters/itachi_2200/full_7S.mp4"
-      }
+
+{
+  "id": "itachi_2199",
+  "name": "Itachi Uchiha",
+  "version": "Talent and Burden",
+  "element": "Heart",
+  "rarity": 1,
+  "starMinCode": "1S",
+  "starMaxCode": "7S",
+  "lbEligible": true,
+  "portrait": "assets/characters/itachi_2199/portrait_6S.png",
+  "full": "assets/characters/itachi_2199/full_6S.png",
+  "ultimateAnimation": null,
+  "secretAnimation": null,
+  "artByTier": {
+    "6S": {
+      "portrait": "assets/characters/itachi_2199/portrait_6S.png",
+      "full": "assets/characters/itachi_2199/full_6S.png"
     },
-    "statsBase": {
-      "hp": 41850,
-      "atk": 3472,
-      "speed": 360
-    },
-    "statsMax": {
-      "hp": 83700,
-      "atk": 6942,
-      "speed": 720
-    },
-    "growthCurve": {
-      "hp": 1,
-      "atk": 1,
-      "def": 1,
-      "speed": 1,
-      "chakra": 1
-    },
-    "powerRank": 16000,
-    "powerWeights": {
-      "hp": 0.3,
-      "atk": 0.4,
-      "def": 0.1,
-      "speed": 0.15,
-      "chakra": 0.05
-    },
-    "range": "Short",
-    "luck": {
-      "base": 0,
-      "max": 0
-    },
-    "cost": {
-      "base": 0,
-      "max": 0
-    },
-    "affiliation": [
-      "Hidden Leaf",
-      "Uchiha Clan",
-      "Akatsuki"
-    ],
-    "passiveIcons": {},
-    "skills": {
-      "fieldSkill": {
-        "name": "Field Skill",
-        "type": "Field",
-        "description": "Boosts Heart attacks by 15-750."
-      },
-      "buddySkill": {
-        "name": "Buddy Skill",
-        "type": "Buddy",
-        "description": "Reduces the chance of receiving immobilization by 50% (Not Field Skills)."
-      },
-      "jutsu": {
-        "name": "Susano'o: Destruction",
-        "type": "Jutsu",
-        "byTier": {
-          "6S": {
-            "chakraCost": 4,
-            "hits": 6,
-            "shape": "Circle",
-            "range": "Vast",
-            "position": "Center",
-            "description": "Removes Perfect Dodge and Barrier for all enemies in range and ignores Substitution with 3.5x attack toward them.",
-            "nwusDescription": "Removes Perfect Dodge and Barrier for all enemies in range and ignores Substitution, changing their element to Skill for 3 turn(s) with 4x attack toward them. 50% chance of immobilization for 1 second(s)."
-          },
-          "7S": {
-            "chakraCost": 4,
-            "hits": 6,
-            "shape": "Circle",
-            "range": "Vast",
-            "position": "Center",
-            "description": "Removes Perfect Dodge and Barrier for all enemies in range and ignores Substitution with 3.5x attack toward them.",
-            "nwusDescription": "Removes Perfect Dodge and Barrier for all enemies in range and ignores Substitution, changing their element to Skill for 3 turn(s) with 4x attack toward them. 50% chance of immobilization for 1 second(s)."
-          }
-        }
-      }
-    },
-    "abilities": [
-      {
-        "name": "0 Chakra Required for Ninjutsu",
-        "description": "35% chance to reduce chakra consumed by Ninjutsu to 0."
-      },
-      {
-        "name": "Speed Boost",
-        "description": "Boosts speed by 40."
-      },
-      {
-        "name": "0 Chakra Required for Ninjutsu",
-        "description": "Another 35% chance to reduce chakra consumed by Ninjutsu to 0."
-      },
-      {
-        "name": "Reduce Damage/Substitution Jutsu",
-        "description": "Reduces damage taken by 30% and gives a 30% chance to dodge a physical attack (not slip damage)."
-      },
-      {
-        "name": "Speed Boost When Health Drops",
-        "description": "Boosts speed by 1.5x when health reaches 50% or less."
-      }
-    ],
-    "metadata": {
-      "cardNumber": 2199,
-      "maxLevel": null,
-      "hitCount": 0
+    "7S": {
+      "portrait": "assets/characters/itachi_2200/portrait_7S.png",
+      "full": "assets/characters/itachi_2200/full_7S.mp4"
     }
   },
-  {
-    "id": "itachi_2200",
-    "name": "Itachi Uchiha",
-    "version": "Talent and Burden",
-    "element": "heart",
-    "rarity": 7,
-    "starMinCode": "1S",
-    "starMaxCode": "7S",
-    "lbEligible": true,
-    "portrait": "assets/characters/itachi_2200/portrait_7S.png",
-    "full": "assets/characters/itachi_2200/full_7S.png",
-    "ultimateAnimation": null,
-    "secretAnimation": null,
-    "artByTier": {
-      "7S": {
-        "portrait": "assets/characters/itachi_2200/portrait_7S.png",
-        "full": "assets/characters/itachi_2200/full_7S.png"
-      }
+  "statsBase": {
+    "hp": 41850,
+    "atk": 3472,
+    "speed": 360
+  },
+  "statsMax": {
+    "hp": 83700,
+    "atk": 6942,
+    "speed": 720
+  },
+  "growthCurve": {
+    "hp": 1,
+    "atk": 1,
+    "def": 1,
+    "speed": 1,
+    "chakra": 1
+  },
+  "powerRank": 16000,
+  "powerWeights": {
+    "hp": 0.3,
+    "atk": 0.4,
+    "def": 0.1,
+    "speed": 0.15,
+    "chakra": 0.05
+  },
+  "range": "Short",
+  "luck": {
+    "base": 0,
+    "max": 0
+  },
+  "cost": {
+    "base": 0,
+    "max": 0
+  },
+  "affiliation": [
+    "Hidden Leaf",
+    "Uchiha Clan",
+    "Akatsuki"
+  ],
+  "passiveIcons": {},
+  "skills": {
+    "fieldSkill": {
+      "name": "Field Skill",
+      "type": "Field",
+      "description": "Boosts Heart attacks by 15-750."
     },
-    "statsBase": {
-      "hp": 40925,
-      "atk": 4736,
-      "speed": 180
+    "buddySkill": {
+      "name": "Buddy Skill",
+      "type": "Buddy",
+      "description": "Reduces the chance of receiving immobilization by 50% (Not Field Skills)."
     },
-    "statsMax": {
-      "hp": 83700,
-      "atk": 6942,
-      "speed": 320
-    },
-    "growthCurve": {
-      "hp": 1,
-      "atk": 1,
-      "def": 1,
-      "speed": 1,
-      "chakra": 1
-    },
-    "powerRank": 16000,
-    "powerWeights": {
-      "hp": 0.3,
-      "atk": 0.4,
-      "def": 0.1,
-      "speed": 0.15,
-      "chakra": 0.05
-    },
-    "range": "Short",
-    "luck": {
-      "base": 0,
-      "max": 0
-    },
-    "cost": {
-      "base": 0,
-      "max": 0
-    },
-    "affiliation": [
-      "Hidden Leaf",
-      "Uchiha Clan",
-      "Akatsuki"
-    ],
-    "passiveIcons": {},
-    "skills": {
-      "fieldSkill": {
-        "name": "Field Skill",
-        "type": "Field",
-        "description": "Boosts Heart attacks by 15-750."
-      },
-      "buddySkill": {
-        "name": "Buddy Skill",
-        "type": "Buddy",
-        "description": "Reduces the chance of receiving immobilization by 50% (Not Field Skills)."
-      },
-      "jutsu": {
-        "name": "Susano'o: Destruction",
-        "type": "Jutsu",
-        "byTier": {
-          "7S": {
-            "chakraCost": 4,
-            "hits": 6,
-            "shape": "Circle",
-            "range": "Vast",
-            "position": "Center",
-            "description": "Removes Perfect Dodge and Barrier for all enemies in range and ignores Substitution with 3.5x attack toward them.",
-            "nwusDescription": "Removes Perfect Dodge and Barrier for all enemies in range and ignores Substitution, changing their element to Skill for 3 turn(s) with 4x attack toward them. 50% chance of immobilization for 1 second(s)."
-          }
+    "jutsu": {
+      "name": "Susano'o: Destruction",
+      "type": "Jutsu",
+      "byTier": {
+        "6S": {
+          "chakraCost": 4,
+          "hits": 6,
+          "shape": "Circle",
+          "range": "Vast",
+          "position": "Center",
+          "description": "Removes Perfect Dodge and Barrier for all enemies in range and ignores Substitution with 3.5x attack toward them.",
+          "nwusDescription": "Removes Perfect Dodge and Barrier for all enemies in range and ignores Substitution, changing their element to Skill for 3 turn(s) with 4x attack toward them. 50% chance of immobilization for 1 second(s)."
+        },
+        "7S": {
+          "chakraCost": 4,
+          "hits": 6,
+          "shape": "Circle",
+          "range": "Vast",
+          "position": "Center",
+          "description": "Removes Perfect Dodge and Barrier for all enemies in range and ignores Substitution with 3.5x attack toward them.",
+          "nwusDescription": "Removes Perfect Dodge and Barrier for all enemies in range and ignores Substitution, changing their element to Skill for 3 turn(s) with 4x attack toward them. 50% chance of immobilization for 1 second(s)."
         }
       }
-    },
-    "abilities": [
-      {
-        "name": "0 Chakra Required for Ninjutsu",
-        "description": "35% chance to reduce chakra consumed by Ninjutsu to 0."
-      },
-      {
-        "name": "Speed Boost",
-        "description": "Boosts speed by 40."
-      },
-      {
-        "name": "0 Chakra Required for Ninjutsu",
-        "description": "Another 35% chance to reduce chakra consumed by Ninjutsu to 0."
-      },
-      {
-        "name": "Reduce Damage/Substitution Jutsu",
-        "description": "Reduces damage taken by 30% and gives a 30% chance to dodge a physical attack (not slip damage)."
-      },
-      {
-        "name": "Speed Boost When Health Drops",
-        "description": "Boosts speed by 1.5x when health reaches 50% or less."
-      }
-    ],
-    "metadata": {
-      "cardNumber": 2200,
-      "maxLevel": null,
-      "hitCount": 0
     }
   },
-  {
-    "id": "sasuke_2141",
+  "abilities": [
+    {
+      "name": "0 Chakra Required for Ninjutsu",
+      "description": "35% chance to reduce chakra consumed by Ninjutsu to 0."
+    },
+    {
+      "name": "Speed Boost",
+      "description": "Boosts speed by 40."
+    },
+    {
+      "name": "0 Chakra Required for Ninjutsu",
+      "description": "Another 35% chance to reduce chakra consumed by Ninjutsu to 0."
+    },
+    {
+      "name": "Reduce Damage/Substitution Jutsu",
+      "description": "Reduces damage taken by 30% and gives a 30% chance to dodge a physical attack (not slip damage)."
+    },
+    {
+      "name": "Speed Boost When Health Drops",
+      "description": "Boosts speed by 1.5x when health reaches 50% or less."
+    }
+  ],
+  "metadata": {
+    "cardNumber": 2199,
+    "maxLevel": null,
+    "hitCount": 0
+  }
+},
+{
+  "id": "itachi_2200",
+  "name": "Itachi Uchiha",
+  "version": "Talent and Burden",
+  "element": "heart",
+  "rarity": 7,
+  "starMinCode": "1S",
+  "starMaxCode": "7S",
+  "lbEligible": true,
+  "portrait": "assets/characters/itachi_2200/portrait_7S.png",
+  "full": "assets/characters/itachi_2200/full_7S.png",
+  "ultimateAnimation": null,
+  "secretAnimation": null,
+  "artByTier": {
+    "7S": {
+      "portrait": "assets/characters/itachi_2200/portrait_7S.png",
+      "full": "assets/characters/itachi_2200/full_7S.png"
+    }
+  },
+  "statsBase": {
+    "hp": 40925,
+    "atk": 4736,
+    "speed": 180
+  },
+  "statsMax": {
+    "hp": 83700,
+    "atk": 6942,
+    "speed": 320
+  },
+  "growthCurve": {
+    "hp": 1,
+    "atk": 1,
+    "def": 1,
+    "speed": 1,
+    "chakra": 1
+  },
+  "powerRank": 16000,
+  "powerWeights": {
+    "hp": 0.3,
+    "atk": 0.4,
+    "def": 0.1,
+    "speed": 0.15,
+    "chakra": 0.05
+  },
+  "range": "Short",
+  "luck": {
+    "base": 0,
+    "max": 0
+  },
+  "cost": {
+    "base": 0,
+    "max": 0
+  },
+  "affiliation": [
+    "Hidden Leaf",
+    "Uchiha Clan",
+    "Akatsuki"
+  ],
+  "passiveIcons": {},
+  "skills": {
+    "fieldSkill": {
+      "name": "Field Skill",
+      "type": "Field",
+      "description": "Boosts Heart attacks by 15-750."
+    },
+    "buddySkill": {
+      "name": "Buddy Skill",
+      "type": "Buddy",
+      "description": "Reduces the chance of receiving immobilization by 50% (Not Field Skills)."
+    },
+    "jutsu": {
+      "name": "Susano'o: Destruction",
+      "type": "Jutsu",
+      "byTier": {
+        "7S": {
+          "chakraCost": 4,
+          "hits": 6,
+          "shape": "Circle",
+          "range": "Vast",
+          "position": "Center",
+          "description": "Removes Perfect Dodge and Barrier for all enemies in range and ignores Substitution with 3.5x attack toward them.",
+          "nwusDescription": "Removes Perfect Dodge and Barrier for all enemies in range and ignores Substitution, changing their element to Skill for 3 turn(s) with 4x attack toward them. 50% chance of immobilization for 1 second(s)."
+        }
+      }
+    }
+  },
+  "abilities": [
+    {
+      "name": "0 Chakra Required for Ninjutsu",
+      "description": "35% chance to reduce chakra consumed by Ninjutsu to 0."
+    },
+    {
+      "name": "Speed Boost",
+      "description": "Boosts speed by 40."
+    },
+    {
+      "name": "0 Chakra Required for Ninjutsu",
+      "description": "Another 35% chance to reduce chakra consumed by Ninjutsu to 0."
+    },
+    {
+      "name": "Reduce Damage/Substitution Jutsu",
+      "description": "Reduces damage taken by 30% and gives a 30% chance to dodge a physical attack (not slip damage)."
+    },
+    {
+      "name": "Speed Boost When Health Drops",
+      "description": "Boosts speed by 1.5x when health reaches 50% or less."
+    }
+  ],
+  "metadata": {
+    "cardNumber": 2200,
+    "maxLevel": null,
+    "hitCount": 0
+  }
+},
+{
+  "id": "sasuke_2141",
     "name": "Sasuke Uchiha",
     "version": "Desired Future",
     "element": null,
@@ -117656,7 +117658,7 @@
           "6S": {
             "chakraCost": 3,
             "hits": 7,
-            "shape": "\u2014",
+            "shape": "—",
             "range": "Whole Map",
             "position": "Right",
             "description": "4.4x attack toward all enemies in range, 70% chance of sealing jutsu for 6 turn(s).",

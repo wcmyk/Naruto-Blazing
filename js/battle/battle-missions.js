@@ -70,12 +70,35 @@
 
       // Create enemy team
       bm.enemyTeam = (waveData.enemies || []).map((enemyId, i) => {
-        const base = bm.enemiesData.find(e => e.id === enemyId) || {
-          id: enemyId,
-          name: enemyId,
-          portrait: "assets/characters/common/silhouette.png",
-          stats: { hp: 800, atk: 80, def: 30, speed: 90, chakra: 5 }
-        };
+        // First try to find in enemiesData, then fallback to charactersData
+        let base = bm.enemiesData.find(e => e.id === enemyId);
+
+        if (!base) {
+          // Try to find character data for this enemy
+          const charData = bm.charactersData.find(c => c.id === enemyId);
+          if (charData) {
+            base = {
+              id: charData.id,
+              name: charData.name,
+              portrait: charData.portrait || "assets/characters/common/silhouette.png",
+              stats: {
+                hp: charData.statsMax?.hp || 800,
+                atk: charData.statsMax?.atk || 80,
+                def: 30,
+                speed: charData.statsMax?.speed || 90,
+                chakra: 5
+              }
+            };
+          } else {
+            // Fallback to generic enemy
+            base = {
+              id: enemyId,
+              name: enemyId,
+              portrait: "assets/characters/common/silhouette.png",
+              stats: { hp: 800, atk: 80, def: 30, speed: 90, chakra: 5 }
+            };
+          }
+        }
 
         // Convert sprite to portrait for compatibility
         const portrait = base.portrait || base.sprite || "assets/characters/common/silhouette.png";
