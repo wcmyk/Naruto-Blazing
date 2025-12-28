@@ -59,8 +59,12 @@
 /* Individual Ability Item */
 .ability-item {
   position: relative;
-  background: linear-gradient(135deg, rgba(0, 0, 0, 0.88), rgba(20, 20, 30, 0.85));
-  border: 2px solid rgba(139, 101, 8, 0.3);
+  background-color: transparent;
+  background-image: url('../assets/ui/slab_holder.png');
+  background-size: 100% 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  border: none;
   border-radius: 10px;
   padding: 14px 16px 14px 56px;
   display: flex;
@@ -80,7 +84,6 @@
 /* Unlocked Ability State */
 .ability-item.unlocked {
   border-color: rgba(139, 101, 8, 0.8);
-  background: linear-gradient(135deg, rgba(30, 25, 5, 0.88), rgba(40, 35, 10, 0.85));
 }
 
 .ability-item.unlocked:hover {
@@ -96,7 +99,6 @@
 /* Locked Ability State */
 .ability-item.locked {
   border-color: rgba(80, 80, 80, 0.5);
-  background: linear-gradient(135deg, rgba(10, 10, 10, 0.85), rgba(25, 25, 25, 0.82));
   opacity: 0.7;
   position: relative;
 }
