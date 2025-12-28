@@ -446,6 +446,8 @@ body.page-fusion {
   align-items: center;
   gap: 6px;
   flex: 0 0 auto;
+  width: 120px;
+  min-height: 150px;
 }
 
 .fusion-preview-unit.result {
@@ -482,8 +484,14 @@ body.page-fusion {
   font-size: 0.7rem;
   color: rgba(238, 230, 209, 0.6);
   text-align: center;
-  max-width: 110px;
+  width: 110px;
   line-height: 1.1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  word-break: break-word;
 }
 
 .fusion-preview-tier {
