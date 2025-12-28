@@ -203,15 +203,24 @@
      * Update unit display (HP, chakra, status)
      */
     updateUnitDisplay(unit, core) {
+      console.log(`[BattleUnits] Updating display for ${unit.name}, HP: ${unit.stats.hp}/${unit.stats.maxHP}`);
+
       const unitEl = core.dom.scene?.querySelector(`[data-unit-id="${unit.id}"]`);
-      if (!unitEl) return;
+      if (!unitEl) {
+        console.warn(`[BattleUnits] Could not find unit element for ${unit.id}`);
+        return;
+      }
 
       // Update HP bar on battlefield
       const hpBar = unitEl.querySelector(".unit-hp-fill");
       const hpPercent = Math.max(0, Math.min(100, (unit.stats.hp / unit.stats.maxHP) * 100));
+
+      console.log(`[BattleUnits] HP%: ${hpPercent.toFixed(1)}%, HP bar element:`, !!hpBar);
+
       if (hpBar) {
         hpBar.style.width = `${hpPercent}%`;
-        hpBar.style.transition = 'width 0.3s ease-out'; // Smooth transition
+        hpBar.style.transition = 'width 0.3s ease-out';
+        console.log(`[BattleUnits] ✅ Updated HP bar to ${hpPercent}%`);
       }
 
       // Update chakra bar
@@ -233,12 +242,16 @@
           if (teamHpBar) {
             teamHpBar.style.width = `${hpPercent}%`;
             teamHpBar.style.transition = 'width 0.3s ease-out';
+            console.log(`[BattleUnits] ✅ Updated team holder HP bar to ${hpPercent}%`);
           }
+        } else {
+          console.warn(`[BattleUnits] Could not find team card for ${unit.id}`);
         }
       }
 
       // Update visual state for dead units - make them disappear
       if (unit.stats.hp <= 0) {
+        console.log(`[BattleUnits] 💀 Unit ${unit.name} is dead, removing from battlefield`);
         unitEl.style.transition = 'opacity 0.5s ease-out, transform 0.5s ease-out';
         unitEl.style.opacity = "0";
         unitEl.style.transform = "scale(0.8)";
