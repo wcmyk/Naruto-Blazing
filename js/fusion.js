@@ -319,9 +319,13 @@
         });
       }
 
-      // Material checks
+      // Material checks (scrolls removed per user request)
       if (reqs.materials) {
         Object.entries(reqs.materials).forEach(([material, amount]) => {
+          // Skip scroll requirements
+          if (material.toLowerCase().includes('scroll')) {
+            return;
+          }
           const have = resources[material] || 0;
           const met = have >= amount;
           requirements.push({
