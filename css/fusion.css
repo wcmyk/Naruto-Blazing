@@ -486,6 +486,7 @@ body.page-fusion {
   text-align: center;
   width: 110px;
   line-height: 1.1;
+  height: 2.2em;
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
