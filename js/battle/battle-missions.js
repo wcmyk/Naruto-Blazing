@@ -68,6 +68,9 @@
       if (bm.dom.waveCurrent) bm.dom.waveCurrent.textContent = waveIndex + 1;
       if (bm.dom.waveTotal) bm.dom.waveTotal.textContent = waves.length;
 
+      // Get random formation for enemies
+      const enemyFormation = window.getRandomFormation ? window.getRandomFormation(70) : null;
+
       // Create enemy team
       bm.enemyTeam = (waveData.enemies || []).map((enemyId, i) => {
         // First try to find in enemiesData, then fallback to charactersData
@@ -104,6 +107,8 @@
         const portrait = base.portrait || base.sprite || "assets/characters/common/silhouette.png";
 
         // Use modular units.createCombatant or fallback
+        const enemyPos = enemyFormation ? enemyFormation[i] : { x: 70 + (i % 2 * 15), y: 25 + Math.floor(i / 2) * 25 };
+
         const unit = bm.units ?
           bm.units.createCombatant({
             id: base.id,
@@ -113,7 +118,7 @@
             isActive: true,
             isBench: false,
             stats: { ...base.stats, maxHP: base.stats.hp },
-            pos: { x: 70 + (i % 2 * 15), y: 25 + Math.floor(i / 2) * 25 }
+            pos: enemyPos
           }) :
           {
             id: base.id,
@@ -123,7 +128,7 @@
             isActive: true,
             isBench: false,
             stats: { ...base.stats, maxHP: base.stats.hp },
-            pos: { x: 70 + (i % 2 * 15), y: 25 + Math.floor(i / 2) * 25 },
+            pos: enemyPos,
             chakra: 0,
             maxChakra: 10,
             speedGauge: 1100 + Math.floor(Math.random() * 80), // Enemies start at 1100-1180 (almost ready)
