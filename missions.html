@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Select Mission</title>
+  <title>Missions</title>
 
   <!-- CSS -->
   <link rel="stylesheet" href="css/missions.css">
@@ -30,7 +30,7 @@
 
   <!-- Mission Container -->
   <div class="mission-page-container">
-    <h1 class="page-title">Select Mission</h1>
+    <h1 class="page-title">Missions</h1>
 
     <!-- Tab container (CSS tabs will work now) -->
     <div class="mission-tabs"></div>
@@ -109,11 +109,8 @@
       console.log('[Music] Initializing background music...');
 
       const startMusic = () => {
-        if (!window.AudioManager.currentBGM) {
-          const bgm = window.AudioManager.playBGM('assets/music/general.mp3');
-          if (bgm) {
-            console.log('[Music] Background music started');
-          }
+        if (!window.AudioManager.musicPlaying) {
+          window.AudioManager.playBattleMusic();
         }
       };
 

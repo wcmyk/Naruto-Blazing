@@ -605,24 +605,21 @@
 
         // Try to play after user interaction
         const startMusic = () => {
-          const bgm = window.AudioManager.playBGM('assets/music/general.mp3');
-          if (bgm) {
-            console.log('🎵 Background music started successfully');
-          } else {
+          window.AudioManager.playBattleMusic();
             console.log('⚠️ Background music failed to start');
           }
         };
 
         // Add one-time click listener to start music
         document.addEventListener('click', () => {
-          if (!window.AudioManager.currentBGM) {
+          if (!window.AudioManager.musicPlaying) {
             startMusic();
           }
         }, { once: true });
 
         // Also try immediately (may be blocked by browser autoplay policy)
         setTimeout(() => {
-          if (!window.AudioManager.currentBGM) {
+          if (!window.AudioManager.musicPlaying) {
             startMusic();
           }
         }, 1000);
