@@ -265,17 +265,13 @@
   border-radius: 2px;
 }
 
-/* HP Bar Color States */
-.unit-hp-fill {
-  background: linear-gradient(90deg, #2ecc71, #27ae60); /* High HP - Green */
+/* HP Bar Color States - Player vs Enemy */
+.battle-unit.player .unit-hp-fill {
+  background: linear-gradient(90deg, #d4af37, #ff8c00); /* Ally - Gold to Orange */
 }
 
-.battle-unit[data-hp-percent="medium"] .unit-hp-fill {
-  background: linear-gradient(90deg, #f39c12, #e67e22); /* Medium HP - Orange */
-}
-
-.battle-unit[data-hp-percent="low"] .unit-hp-fill {
-  background: linear-gradient(90deg, #e74c3c, #c0392b); /* Low HP - Red */
+.battle-unit.enemy .unit-hp-fill {
+  background: linear-gradient(90deg, #dc143c, #8b0000); /* Enemy - Red gradient */
 }
 
 /* Chakra Bar - BELOW HP bar */

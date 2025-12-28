@@ -113,7 +113,7 @@
 
 .unit-hp-fill {
   height: 100%;
-  background: linear-gradient(90deg, #a07f50, #d4af37);
+  background: linear-gradient(90deg, #d4af37, #ff8c00); /* Gold to Orange */
   transition: width 0.3s ease;
 }
 
