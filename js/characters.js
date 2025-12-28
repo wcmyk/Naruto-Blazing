@@ -1,7 +1,7 @@
 /* ============================================
    js/characters.js  — CLEAN, FINAL VERSION
    - Characters grid + Blazing-style modal
-   - Tabs: Status • Ninjutsu • F/B Skills
+   - Tabs: Status • Ninjutsu • Passives
    - Level Up / Add / Remove / Awaken wired
    - Stars moved BELOW the name tube
    - Uses InventoryChar + (optional) Progression
@@ -26,7 +26,7 @@
 
   const BTN_LVUP      = document.getElementById("btn-levelup");
   const BTN_FEEDDUPE  = document.getElementById("btn-feeddupe");
-  const BTN_REMOVE    = document.getElementById("btn-removecopy");
+  // const BTN_REMOVE    = document.getElementById("btn-removecopy"); // Removed per user request
   const BTN_AWAKEN    = document.getElementById("btn-awaken");
   const BTN_LIMITBREAK = document.getElementById("btn-limitbreak");
 
@@ -55,7 +55,7 @@
   const requiredElements = {
     GRID, MODAL, MODAL_IMG, NP_NAME, NP_VERSION, NP_STARS,
     STATS_WRAP, LV_VALUE_EL, LV_CAP_EL, BTN_LVUP, BTN_FEEDDUPE,
-    BTN_REMOVE, BTN_AWAKEN, SKILLS_WRAP, SUPPORT_WRAP, ABILITIES_WRAP
+    /* BTN_REMOVE, */ BTN_AWAKEN, SKILLS_WRAP, SUPPORT_WRAP, ABILITIES_WRAP
   };
 
   const missingElements = Object.entries(requiredElements)
@@ -1066,11 +1066,13 @@
       }
     };
 
+    /* Remove Copy button removed per user request
     BTN_REMOVE.onclick = () => {
       window.InventoryChar.removeOneByUid(inst.uid);
       renderGrid();
       closeModal();
     };
+    */
 
     // Feed Dupe button
     if (BTN_FEEDDUPE) {
