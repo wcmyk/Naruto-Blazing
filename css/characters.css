@@ -252,7 +252,7 @@ body.page-characters::-webkit-scrollbar {
   text-align: left;
   z-index: 1;
   position: relative;
-  left: -50%;
+  left: -21%;
 }
 .nameplate-name {
   font-size: 24px;
@@ -272,8 +272,8 @@ body.page-characters::-webkit-scrollbar {
 /* ---------- Stars (overlapping nameplate) ---------- */
 .nameplate-stars {
   position: absolute;
-  top: -1px;
-  left: 60%;
+  top: -2px;
+  left: 53%;
   transform: translateX(-50%);
   text-align: left;
   z-index: 10;
