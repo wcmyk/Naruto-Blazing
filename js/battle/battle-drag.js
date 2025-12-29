@@ -25,6 +25,7 @@
     targetMarkers: new Map(), // Store target marker elements
     lastUpdateTime: 0, // For throttling drag updates
     throttleDelay: 16, // ~60fps update rate
+    DEBUG_DRAG: false, // Debug logging flag (disable for performance)
 
     /* ===== Targeting Markers ===== */
 
@@ -196,7 +197,7 @@
       e.dataTransfer.setData("text/plain", unit.id);
       e.currentTarget.style.opacity = "0.7";
 
-      console.log(`[Drag] Dragging ${unit.name}, action: ${this.dragAction}`);
+      if (this.DEBUG_DRAG) console.log(`[Drag] Dragging ${unit.name}, action: ${this.dragAction}`);
     },
 
     /**
@@ -216,7 +217,7 @@
 
       // Bug #13: Validate scene element exists before getBoundingClientRect
       if (!core.dom || !core.dom.scene) {
-        console.error("[Drag] Scene element not found");
+        if (this.DEBUG_DRAG) console.error("[Drag] Scene element not found");
         return;
       }
 
@@ -256,8 +257,10 @@
       const dropXPercent = (dropX / rect.width) * 100;
       const dropYPercent = (dropY / rect.height) * 100;
 
-      console.log(`[Drag] 🎯 Drop at (${dropXPercent.toFixed(1)}%, ${dropYPercent.toFixed(1)}%), action: ${this.dragAction}`);
-      console.log(`[Drag] 🔍 DEBUGGING ENABLED - If you don't see more debug messages below, you're loading cached code!`);
+      if (this.DEBUG_DRAG) {
+        console.log(`[Drag] 🎯 Drop at (${dropXPercent.toFixed(1)}%, ${dropYPercent.toFixed(1)}%), action: ${this.dragAction}`);
+        console.log(`[Drag] 🔍 DEBUGGING ENABLED - If you don't see more debug messages below, you're loading cached code!`);
+      }
 
       // Update position
       this.draggingUnit.pos = {
@@ -267,39 +270,39 @@
 
       // If no action was queued, check if we're dropping on enemies
       let effectiveAction = this.dragAction;
-      console.log(`[Drag] Initial dragAction: ${this.dragAction}`);
+      if (this.DEBUG_DRAG) console.log(`[Drag] Initial dragAction: ${this.dragAction}`);
 
       if (effectiveAction === "move") {
-        console.log(`[Drag] Checking for enemy at drop position (${dropX.toFixed(1)}, ${dropY.toFixed(1)})`);
+        if (this.DEBUG_DRAG) console.log(`[Drag] Checking for enemy at drop position (${dropX.toFixed(1)}, ${dropY.toFixed(1)})`);
         const enemyTarget = this.findUnitAtPosition(dropX, dropY, false, core);
-        console.log(`[Drag] Enemy found:`, enemyTarget ? enemyTarget.name : "none");
+        if (this.DEBUG_DRAG) console.log(`[Drag] Enemy found:`, enemyTarget ? enemyTarget.name : "none");
 
         // Bug #1: Validate enemy target has stats before using
         if (enemyTarget && enemyTarget.stats && enemyTarget.stats.hp > 0) {
           effectiveAction = "attack"; // Default to attack when dropping on enemy
-          console.log(`[Drag] ✅ Auto-detected enemy target, defaulting to attack`);
+          if (this.DEBUG_DRAG) console.log(`[Drag] ✅ Auto-detected enemy target, defaulting to attack`);
         } else {
-          console.log(`[Drag] ❌ No enemy detected at drop position, will just reposition`);
+          if (this.DEBUG_DRAG) console.log(`[Drag] ❌ No enemy detected at drop position, will just reposition`);
         }
       }
 
-      console.log(`[Drag] Effective action: ${effectiveAction}`);
+      if (this.DEBUG_DRAG) console.log(`[Drag] Effective action: ${effectiveAction}`);
 
       // Handle different drag actions
       if (effectiveAction === "attack" || effectiveAction === "jutsu") {
         // Find targets in range
-        console.log(`[Drag] Finding targets in range for ${effectiveAction}...`);
+        if (this.DEBUG_DRAG) console.log(`[Drag] Finding targets in range for ${effectiveAction}...`);
         const targets = this.findUnitsInRange(dropX, dropY, effectiveAction, core);
-        console.log(`[Drag] Found ${targets.length} targets:`, targets.map(t => t.name));
+        if (this.DEBUG_DRAG) console.log(`[Drag] Found ${targets.length} targets:`, targets.map(t => t.name));
 
         if (targets.length > 0) {
-          console.log(`[Drag] ⚔️ Multi-hit: ${this.draggingUnit.name} hits ${targets.length} targets`);
+          if (this.DEBUG_DRAG) console.log(`[Drag] ⚔️ Multi-hit: ${this.draggingUnit.name} hits ${targets.length} targets`);
 
           // Check for proximity combo attacks
           const proximityTargets = this.findProximityTargets(targets, core);
 
           if (effectiveAction === "jutsu" && window.BattleCombat) {
-            console.log(`[Drag] 🔵 Calling performMultiJutsu`);
+            if (this.DEBUG_DRAG) console.log(`[Drag] 🔵 Calling performMultiJutsu`);
             window.BattleCombat.performMultiJutsu(this.draggingUnit, targets, core);
             // Trigger proximity combo attacks after jutsu
             if (proximityTargets.length > 0) {
@@ -308,7 +311,7 @@
               }, 600);
             }
           } else if (window.BattleCombat) {
-            console.log(`[Drag] ⚔️ Calling performMultiAttack with ${targets.length} targets`);
+            if (this.DEBUG_DRAG) console.log(`[Drag] ⚔️ Calling performMultiAttack with ${targets.length} targets`);
             window.BattleCombat.performMultiAttack(this.draggingUnit, targets, core);
             // Trigger proximity combo attacks
             if (proximityTargets.length > 0) {
@@ -317,7 +320,7 @@
               }, 400);
             }
           } else {
-            console.log(`[Drag] ⚠️ BattleCombat not available!`);
+            if (this.DEBUG_DRAG) console.log(`[Drag] ⚠️ BattleCombat not available!`);
           }
 
           if (core.turns) core.turns.endTurn(core);
@@ -466,18 +469,20 @@
         args = { radius: 400 }; // Increased to 400 for much more forgiving targeting
       }
 
-      console.log(`[Drag] findUnitsInRange: center=(${x.toFixed(1)}, ${y.toFixed(1)}), shape=${shape}, radius=${args.radius || args.w || 'N/A'}`);
+      if (this.DEBUG_DRAG) {
+        console.log(`[Drag] findUnitsInRange: center=(${x.toFixed(1)}, ${y.toFixed(1)}), shape=${shape}, radius=${args.radius || args.w || 'N/A'}`);
+      }
 
       const targets = [];
       for (const unit of core.enemyTeam) {
         if (unit.stats.hp <= 0) {
-          console.log(`[Drag]   - ${unit.name}: DEAD, skipping`);
+          if (this.DEBUG_DRAG) console.log(`[Drag]   - ${unit.name}: DEAD, skipping`);
           continue;
         }
 
         const unitEl = core.dom.scene?.querySelector(`[data-unit-id="${unit.id}"]`);
         if (!unitEl) {
-          console.log(`[Drag]   - ${unit.name}: NO ELEMENT, skipping`);
+          if (this.DEBUG_DRAG) console.log(`[Drag]   - ${unit.name}: NO ELEMENT, skipping`);
           continue;
         }
 
@@ -491,14 +496,16 @@
 
         // Use shape-specific collision detection
         const inShape = this.isUnitInShape(unitCenterX, unitCenterY, x, y, shape, args);
-        console.log(`[Drag]   - ${unit.name}: center=(${unitCenterX.toFixed(1)}, ${unitCenterY.toFixed(1)}), dist=${dist.toFixed(1)}, inShape=${inShape}`);
+        if (this.DEBUG_DRAG) {
+          console.log(`[Drag]   - ${unit.name}: center=(${unitCenterX.toFixed(1)}, ${unitCenterY.toFixed(1)}), dist=${dist.toFixed(1)}, inShape=${inShape}`);
+        }
 
         if (inShape) {
           targets.push(unit);
         }
       }
 
-      console.log(`[Drag] findUnitsInRange result: ${targets.length} targets`);
+      if (this.DEBUG_DRAG) console.log(`[Drag] findUnitsInRange result: ${targets.length} targets`);
       return targets;
     },
 
