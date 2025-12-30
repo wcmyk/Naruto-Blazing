@@ -255,6 +255,13 @@ body.page-characters::-webkit-scrollbar {
   position: relative;
   left: -21%;
 }
+
+/* Special positioning for Gojo & Minato card */
+#nameplate-name[data-shift-right="true"] ~ .nameplate-main,
+.nameplate-main.shift-right {
+  left: -10%;
+}
+
 .nameplate-name {
   font-size: 24px;
   font-weight: 700;
@@ -275,16 +282,15 @@ body.page-characters::-webkit-scrollbar {
 /* ---------- Stars (overlapping nameplate) ---------- */
 .nameplate-stars {
   position: absolute;
-  top: 0;
-  right: -550px;
+  top: 50%;
+  left: calc(100% + 20px);
+  transform: translateY(-50%);
   text-align: left;
   z-index: 10;
   display: flex;
   justify-content: flex-start;
   white-space: nowrap;
   pointer-events: none;
-  height: 100%;
-  align-items: center;
 }
 .nameplate-stars .star {
   width: 100px;
@@ -313,8 +319,9 @@ body.page-characters::-webkit-scrollbar {
 :-webkit-full-screen .nameplate-stars,
 :-moz-full-screen .nameplate-stars,
 :-ms-fullscreen .nameplate-stars {
-  top: 0;
-  right: -550px;
+  top: 50%;
+  left: calc(100% + 20px);
+  transform: translateY(-50%);
 }
 
 /* ---------- Tabs ---------- */
