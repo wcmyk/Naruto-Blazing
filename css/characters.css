@@ -244,6 +244,7 @@ body.page-characters::-webkit-scrollbar {
   position: relative;
   max-width: 80%;
   right: -105px;
+  overflow: visible;
 }
 .nameplate-main {
   display: flex;
@@ -253,8 +254,7 @@ body.page-characters::-webkit-scrollbar {
   z-index: 1;
   position: relative;
   left: -21%;
-  white-space: nowrap;
-  overflow: visible;
+  max-width: 400px;
 }
 .nameplate-name {
   font-size: 24px;
@@ -262,6 +262,9 @@ body.page-characters::-webkit-scrollbar {
   color: #ffffff;
   text-shadow: 0 2px 4px rgba(0,0,0,0.9), 0 0 8px rgba(0,0,0,0.5);
   letter-spacing: 0.5px;
+  max-width: 100%;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 .nameplate-version {
   font-size: 13px;
@@ -275,20 +278,21 @@ body.page-characters::-webkit-scrollbar {
 .nameplate-stars {
   position: absolute;
   top: 50%;
-  right: -15%;
+  left: 105%;
   transform: translateY(-50%);
   text-align: left;
   z-index: 10;
   display: flex;
   justify-content: flex-start;
   white-space: nowrap;
+  pointer-events: none;
 }
 .nameplate-stars .star {
-  width: 150px;
-  height: 150px;
+  width: 100px;
+  height: 100px;
   display: inline-block;
   filter: drop-shadow(0 2px 3px rgba(0,0,0,.8));
-  margin-left: -130px;
+  margin-left: -85px;
   position: relative;
 }
 .nameplate-stars .star:first-child {
@@ -311,7 +315,7 @@ body.page-characters::-webkit-scrollbar {
 :-moz-full-screen .nameplate-stars,
 :-ms-fullscreen .nameplate-stars {
   top: 50%;
-  right: -15%;
+  left: 105%;
   transform: translateY(-50%);
 }
 
@@ -909,6 +913,7 @@ body.page-characters::-webkit-scrollbar {
   flex-direction: column;
   min-height: 0;                        /* allow child to scroll */
   padding-bottom: 16px;                 /* ensure close button has space */
+  overflow: visible;                    /* allow stars to show outside */
 }
 .tab-panels{
   flex: 1 1 auto;
