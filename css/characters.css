@@ -254,7 +254,6 @@ body.page-characters::-webkit-scrollbar {
   z-index: 1;
   position: relative;
   left: -21%;
-  max-width: 400px;
 }
 .nameplate-name {
   font-size: 24px;
@@ -262,9 +261,8 @@ body.page-characters::-webkit-scrollbar {
   color: #ffffff;
   text-shadow: 0 2px 4px rgba(0,0,0,0.9), 0 0 8px rgba(0,0,0,0.5);
   letter-spacing: 0.5px;
-  max-width: 100%;
-  word-wrap: break-word;
-  overflow-wrap: break-word;
+  white-space: nowrap;
+  overflow: visible;
 }
 .nameplate-version {
   font-size: 13px;
@@ -277,22 +275,23 @@ body.page-characters::-webkit-scrollbar {
 /* ---------- Stars (overlapping nameplate) ---------- */
 .nameplate-stars {
   position: absolute;
-  top: 50%;
-  left: 105%;
-  transform: translateY(-50%);
+  top: 0;
+  right: -550px;
   text-align: left;
   z-index: 10;
   display: flex;
   justify-content: flex-start;
   white-space: nowrap;
   pointer-events: none;
+  height: 100%;
+  align-items: center;
 }
 .nameplate-stars .star {
   width: 100px;
   height: 100px;
   display: inline-block;
   filter: drop-shadow(0 2px 3px rgba(0,0,0,.8));
-  margin-left: -85px;
+  margin-left: -80px;
   position: relative;
 }
 .nameplate-stars .star:first-child {
@@ -314,9 +313,8 @@ body.page-characters::-webkit-scrollbar {
 :-webkit-full-screen .nameplate-stars,
 :-moz-full-screen .nameplate-stars,
 :-ms-fullscreen .nameplate-stars {
-  top: 50%;
-  left: 105%;
-  transform: translateY(-50%);
+  top: 0;
+  right: -550px;
 }
 
 /* ---------- Tabs ---------- */
