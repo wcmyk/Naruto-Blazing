@@ -35,15 +35,17 @@
 
 .bottom-bar-content {
   width: 100%;
-  max-width: 1200px; /* Increased to accommodate all buttons */
+  max-width: 900px;
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 30px;
+  gap: 20px;
   border: 0px solid transparent !important;
   outline: 0px solid transparent !important;
   pointer-events: auto !important;
-  z-index: 1001 !important; /* Above parent to ensure clickability */
+  z-index: 1001 !important;
+  margin: 0 auto;
+  padding: 0 20px;
 }
 
 .hud-button {
