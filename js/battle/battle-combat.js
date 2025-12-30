@@ -120,6 +120,19 @@
         return { damage: 0, isCritical: false };
       }
 
+      // Check for Perfect Dodge (unless attacker has Ignore Perfect Dodge)
+      if (defender.passives?.perfectDodge) {
+        if (!attacker.passives?.ignoresPerfectDodge) {
+          console.log(`[Combat] ✨ ${defender.name} used PERFECT DODGE!`);
+          if (window.BattleEffects) {
+            window.BattleEffects.showEffectIndicator(defender, 'PERFECT DODGE', '#ffaa00', { dom: window.BattleManager?.dom || {} });
+          }
+          return { damage: 0, isCritical: false, perfectDodge: true };
+        } else {
+          console.log(`[Combat] 🎯 ${attacker.name} IGNORES ${defender.name}'s perfect dodge!`);
+        }
+      }
+
       // Check for dodge/immunity (unless attacker has Ignore Substitution)
       if (window.BattleEffects?.hasDamageImmunity(defender)) {
         if (!attacker.passives?.ignoreSubstitution) {
