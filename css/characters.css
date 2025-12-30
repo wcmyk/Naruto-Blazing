@@ -272,9 +272,9 @@ body.page-characters::-webkit-scrollbar {
 /* ---------- Stars (overlapping nameplate) ---------- */
 .nameplate-stars {
   position: absolute;
-  top: 0;
+  top: 8px;
   left: 53%;
-  transform: translateX(-50%) translateY(-2px);
+  transform: translateX(-50%);
   text-align: left;
   z-index: 10;
   display: flex;
@@ -307,8 +307,8 @@ body.page-characters::-webkit-scrollbar {
 :-webkit-full-screen .nameplate-stars,
 :-moz-full-screen .nameplate-stars,
 :-ms-fullscreen .nameplate-stars {
-  top: 0;
-  transform: translateX(-50%) translateY(-2px);
+  top: 8px;
+  transform: translateX(-50%);
 }
 
 /* ---------- Tabs ---------- */
