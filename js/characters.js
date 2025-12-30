@@ -295,6 +295,16 @@
     NP_VERSION.textContent = safeStr(c.version, "");
     NP_STARS.innerHTML     = renderStars(starsFromTier(tier));
 
+    // Special positioning for Gojo & Minato
+    const nameplateMain = document.querySelector('.nameplate-main');
+    if (nameplateMain) {
+      if (c.name && c.name.includes('Gojo') && c.name.includes('Minato')) {
+        nameplateMain.classList.add('shift-right');
+      } else {
+        nameplateMain.classList.remove('shift-right');
+      }
+    }
+
     MODAL_IMG.src = safeStr(art.full, art.portrait);
     MODAL_IMG.alt = `${c.name} full artwork`;
 

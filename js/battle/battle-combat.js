@@ -122,7 +122,7 @@
 
       // Check for Perfect Dodge (unless attacker has Ignore Perfect Dodge)
       if (defender.passives?.perfectDodge) {
-        if (!attacker.passives?.ignoresPerfectDodge) {
+        if (!attacker.passives?.ignorePerfectDodge) {
           console.log(`[Combat] ✨ ${defender.name} used PERFECT DODGE!`);
           if (window.BattleEffects) {
             window.BattleEffects.showEffectIndicator(defender, 'PERFECT DODGE', '#ffaa00', { dom: window.BattleManager?.dom || {} });
