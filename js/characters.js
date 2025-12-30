@@ -105,11 +105,9 @@
   function getPowerGradeElement(grade) {
     const gradeLower = grade.toLowerCase();
 
-    // Use video for LR and UR (if available), with PNG fallback
+    // Use GIF for LR and UR (animated), with error fallback
     if (grade === 'LR' || grade === 'UR') {
-      return `<video class="power-grade-video" autoplay loop muted playsinline>
-          <source src="assets/icons/pow_${gradeLower}.mp4" type="video/mp4">
-        </video>`;
+      return `<img class="power-grade-img" src="assets/icons/pow_${gradeLower}.gif" alt="${grade}" onerror="this.innerHTML='${grade}'; this.style.display='flex'; this.style.alignItems='center'; this.style.justifyContent='center'; this.style.fontSize='48px'; this.style.fontWeight='900'; this.style.color='#ffd700';" />`;
     }
 
     // Use PNG for other grades
