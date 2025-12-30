@@ -123307,5 +123307,155 @@
       "maxLevel": null,
       "hitCount": 0
     }
+  },
+  {
+    "id": "satoruminato_2222",
+    "name": "Satoru Gojo & Minato Namikaze",
+    "version": "Spacetime Limitless",
+    "element": "skill",
+    "rarity": 9,
+    "starMinCode": "9S",
+    "starMaxCode": "9S",
+    "lbEligible": true,
+    "portrait": "assets/characters/satoruminato_2222/5.png",
+    "full": "assets/characters/satoruminato_2222/full_6S.png",
+    "ultimateAnimation": "assets/ultimates/domain_senko_rasengan.mp4",
+    "secretAnimation": "assets/ultimates/domain_senko_rasengan.mp4",
+    "artByTier": {
+      "9S": {
+        "portrait": "assets/characters/satoruminato_2222/5.png",
+        "full": "assets/characters/satoruminato_2222/full_6S.png"
+      }
+    },
+    "statsBase": {
+      "hp": 100000,
+      "atk": 20000,
+      "speed": 100
+    },
+    "statsMax": {
+      "hp": 750000,
+      "atk": 150000,
+      "speed": 500
+    },
+    "growthCurve": {
+      "hp": 1,
+      "atk": 1,
+      "def": 1,
+      "speed": 1,
+      "chakra": 1
+    },
+    "powerRank": 999999,
+    "powerWeights": {
+      "hp": 0.3,
+      "atk": 0.4,
+      "def": 0.1,
+      "speed": 0.15,
+      "chakra": 0.05
+    },
+    "range": "Whole Map",
+    "luck": {
+      "base": 100,
+      "max": 100
+    },
+    "cost": {
+      "base": 100,
+      "max": 100
+    },
+    "affiliation": ["Leaf", "Jujutsu Sorcerers"],
+    "passiveIcons": {
+      "1": "perfect_dodge",
+      "2": "nullifies_immobilization",
+      "3": "ignores_perfect_dodge",
+      "4": "ninjutsu_damage_boost",
+      "5": "ninjutsu_damage_boost",
+      "6": "immobilization_resistance",
+      "7": "jutsu_sealing_resistance",
+      "8": "ignore_substitution",
+      "9": "substitution_jutsu",
+      "10": "jutsu_sealing_rate_boost",
+      "11": "jutsu_sealing_rate_boost",
+      "12": "chakra_recovery_when_dealing_direct_attacks"
+    },
+    "skills": {
+      "fieldSkill": {
+        "name": "Spacetime Domination",
+        "type": "Field",
+        "description": "Reduces damage taken by 50% and boosts attack by 500-1000."
+      },
+      "buddySkill": {
+        "name": "Limitless Technique",
+        "type": "Buddy",
+        "description": "Boosts attack by 1000 and critical rate by 5x."
+      },
+      "jutsu": {
+        "name": "Spacetime Hurricane Flash: Infinite Void Serial Zero",
+        "type": "Ultimate Jutsu",
+        "byTier": {
+          "9S": {
+            "chakraCost": 3,
+            "hits": 20,
+            "shape": "Circle",
+            "range": "Whole Map",
+            "position": "Center",
+            "description": "100x attack toward all enemies in range. Applies knockback, immobilization, slip damage, speed reduction, and 50% jutsu sealing."
+          }
+        }
+      }
+    },
+    "abilities": [
+      {
+        "name": "Perfect Dodge",
+        "description": "20% chance to dodge attacks."
+      },
+      {
+        "name": "Nullifies Immobilization",
+        "description": "Nullifies immobilization (excluding Field Effects)."
+      },
+      {
+        "name": "Ignores Perfect Dodge",
+        "description": "Ignores enemy's perfect dodge."
+      },
+      {
+        "name": "Ninjutsu Damage Boost",
+        "description": "Boosts ninjutsu damage by 10%."
+      },
+      {
+        "name": "Ninjutsu Damage Boost",
+        "description": "Boosts ninjutsu damage by 10%."
+      },
+      {
+        "name": "Immobilization Resistance",
+        "description": "Reduces immobilization duration by 35%."
+      },
+      {
+        "name": "Jutsu Sealing Resistance",
+        "description": "Reduces jutsu sealing duration by 35%."
+      },
+      {
+        "name": "Ignore Substitution",
+        "description": "Ignores enemy substitution jutsu."
+      },
+      {
+        "name": "Substitution Jutsu",
+        "description": "Can use substitution to avoid attacks."
+      },
+      {
+        "name": "Jutsu Sealing Rate Boost",
+        "description": "Boosts jutsu sealing rate by 25%."
+      },
+      {
+        "name": "Jutsu Sealing Rate Boost",
+        "description": "Boosts jutsu sealing rate by 25%."
+      },
+      {
+        "name": "Chakra Recovery When Dealing Direct Attacks",
+        "description": "Restores 2 chakra when dealing direct attacks."
+      }
+    ],
+    "metadata": {
+      "cardNumber": 2222,
+      "maxLevel": 200,
+      "hitCount": 20
+    }
   }
 ]
