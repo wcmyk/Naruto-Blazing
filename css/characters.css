@@ -272,9 +272,9 @@ body.page-characters::-webkit-scrollbar {
 /* ---------- Stars (overlapping nameplate) ---------- */
 .nameplate-stars {
   position: absolute;
-  top: -2px;
+  top: 0;
   left: 53%;
-  transform: translateX(-50%);
+  transform: translateX(-50%) translateY(-2px);
   text-align: left;
   z-index: 10;
   display: flex;
@@ -301,6 +301,15 @@ body.page-characters::-webkit-scrollbar {
 .nameplate-stars .star:nth-child(8) { z-index: 3; }
 .nameplate-stars .star:nth-child(9) { z-index: 2; }
 .nameplate-stars .star:nth-child(10) { z-index: 1; }
+
+/* Fix stars positioning in fullscreen mode */
+:fullscreen .nameplate-stars,
+:-webkit-full-screen .nameplate-stars,
+:-moz-full-screen .nameplate-stars,
+:-ms-fullscreen .nameplate-stars {
+  top: 0;
+  transform: translateX(-50%) translateY(-2px);
+}
 
 /* ---------- Tabs ---------- */
 .char-tabs {

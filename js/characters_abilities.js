@@ -111,17 +111,32 @@ class CharacterAbilitiesSystem {
   getPassiveIconsForTier() {
     if (!this.currentCharacter?.passiveIcons) return null;
 
-    const tier = this.currentTier;
     const passiveIcons = this.currentCharacter.passiveIcons;
 
-    // Try current tier first
-    if (passiveIcons[tier]) {
-      return passiveIcons[tier];
+    // Check if passiveIcons uses numbered keys (1, 2, 3, ...) or tier-based keys
+    // If it's an object with numbered keys, convert to array
+    if (typeof passiveIcons === 'object' && !Array.isArray(passiveIcons)) {
+      // Check if keys are numbers
+      const keys = Object.keys(passiveIcons);
+      const isNumbered = keys.every(k => !isNaN(k));
+
+      if (isNumbered) {
+        // Return array of icon names in order
+        return keys.sort((a, b) => parseInt(a) - parseInt(b)).map(k => passiveIcons[k]);
+      }
+
+      // Otherwise try tier-based lookup
+      const tier = this.currentTier;
+      if (passiveIcons[tier]) {
+        return passiveIcons[tier];
+      }
+
+      // Fallback to lowest tier
+      const minTier = this.currentCharacter.starMinCode;
+      return passiveIcons[minTier] || null;
     }
 
-    // Fallback to lowest tier
-    const minTier = this.currentCharacter.starMinCode;
-    return passiveIcons[minTier] || null;
+    return passiveIcons;
   }
 
   createIconContainer() {
@@ -174,13 +189,12 @@ class CharacterAbilitiesSystem {
       iconElement.setAttribute('data-tooltip', this.getIconTooltip(iconId));
 
       const img = document.createElement('img');
-      img.src = `assets/icons/passives/${iconId}.png`;
+      img.src = `assets/passive_icons/${iconId}.png`;
       img.alt = iconId;
 
       // Fallback to default icon on error
       img.onerror = () => {
-        console.log(`⚠️ Icon not found: ${iconId}.png, using default`);
-        img.src = 'assets/icons/passives/default.png';
+        console.log(`⚠️ Icon not found: ${iconId}.png`);
         iconElement.classList.add('error');
       };
 
