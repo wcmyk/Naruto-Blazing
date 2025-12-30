@@ -1,6 +1,6 @@
 /* Bottom HUD - DEFINITIVE NO BORDER VERSION */
 .bottom-bar {
-  position: fixed !important;
+  position: absolute !important;
   bottom: 0 !important;
   left: 0 !important;
   width: 100% !important;
