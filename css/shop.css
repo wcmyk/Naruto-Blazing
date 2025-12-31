@@ -37,7 +37,7 @@
   display: flex;
   gap: 20px;
   z-index: 100;
-  background: rgba(20, 25, 35, 0.95);
+  background: rgba(40, 40, 45, 0.95);
   backdrop-filter: blur(10px);
   padding: 12px 20px;
   border-radius: 12px;
@@ -106,7 +106,7 @@
   font-size: 1.1rem;
   font-weight: 600;
   padding: 12px 30px;
-  background: rgba(30, 35, 45, 0.6);
+  background: rgba(50, 50, 55, 0.6);
   border: 2px solid rgba(212, 175, 55, 0.3);
   border-radius: 8px;
   color: #b8986d;
@@ -170,7 +170,7 @@
 
 /* Shop Item Card */
 .shop-item {
-  background: linear-gradient(145deg, rgba(30, 35, 45, 0.8), rgba(20, 25, 35, 0.9));
+  background: linear-gradient(145deg, rgba(50, 50, 55, 0.8), rgba(40, 40, 45, 0.9));
   border: 2px solid rgba(212, 175, 55, 0.3);
   border-radius: 12px;
   padding: 20px;
@@ -306,7 +306,7 @@
 }
 
 .modal-content {
-  background: linear-gradient(145deg, #1e232d, #14181f);
+  background: linear-gradient(145deg, #323237, #28282d);
   border: 3px solid #8b7355;
   border-radius: 16px;
   padding: 30px;

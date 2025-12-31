@@ -1,66 +1,31 @@
 {
   "shop": {
     "ramen": [
-      {
-        "id": "ramen_1star",
-        "name": "Ichiraku Ramen",
-        "tier": "1★",
-        "description": "Basic training ramen. Grants 100 EXP.",
-        "icon": "assets/icons/level/ramen_1star.png",
-        "exp": 100,
-        "cost": {
-          "ryo": 500
-        },
-        "stock": "unlimited"
-      },
-      {
-        "id": "ramen_2star",
-        "name": "Special Miso Ramen",
-        "tier": "2★",
-        "description": "Quality training ramen. Grants 500 EXP.",
-        "icon": "assets/icons/level/ramen_2star.png",
-        "exp": 500,
-        "cost": {
-          "ryo": 2000
-        },
-        "stock": "unlimited"
-      },
-      {
-        "id": "ramen_3star",
-        "name": "Premium Tonkotsu Ramen",
-        "tier": "3★",
-        "description": "Premium training ramen. Grants 2,000 EXP.",
-        "icon": "assets/icons/level/ramen_3star.png",
-        "exp": 2000,
-        "cost": {
-          "ryo": 8000
-        },
-        "stock": "unlimited"
-      },
-      {
-        "id": "ramen_4star",
-        "name": "Legendary Cup Ramen",
-        "tier": "4★",
-        "description": "Legendary training ramen. Grants 10,000 EXP.",
-        "icon": "assets/icons/level/ramen_4star.png",
-        "exp": 10000,
-        "cost": {
-          "ryo": 30000
-        },
-        "stock": "unlimited"
-      },
-      {
-        "id": "ramen_5star",
-        "name": "Sage's Secret Ramen",
-        "tier": "5★",
-        "description": "Ultimate training ramen. Grants 50,000 EXP.",
-        "icon": "assets/icons/level/ramen_5star.png",
-        "exp": 50000,
-        "cost": {
-          "pearls": 5
-        },
-        "stock": "unlimited"
-      }
+      {"id": "ramen_heart_1star", "name": "1★ Heart Ichiraku Ramen", "tier": "1★", "description": "Heart element ramen. Provides 500 EXP.", "icon": "assets/characters/heart_915/portrait_1S.png", "element": "heart", "exp": 500, "cost": {"ryo": 1000}, "stock": "unlimited"},
+      {"id": "ramen_heart_2star", "name": "2★ Heart Ichiraku Ramen", "tier": "2★", "description": "Heart element ramen. Provides 1,500 EXP.", "icon": "assets/characters/heart_916/portrait_2S.png", "element": "heart", "exp": 1500, "cost": {"ryo": 3000}, "stock": "unlimited"},
+      {"id": "ramen_heart_3star", "name": "3★ Heart Ichiraku Ramen", "tier": "3★", "description": "Heart element ramen. Provides 5,000 EXP.", "icon": "assets/characters/heart_917/portrait_3S.png", "element": "heart", "exp": 5000, "cost": {"ryo": 10000}, "stock": "unlimited"},
+      {"id": "ramen_heart_4star", "name": "4★ Heart Ichiraku Ramen", "tier": "4★", "description": "Heart element ramen. Provides 15,000 EXP.", "icon": "assets/characters/heart_967/portrait_4S.png", "element": "heart", "exp": 15000, "cost": {"ryo": 30000}, "stock": "unlimited"},
+      {"id": "ramen_heart_5star", "name": "5★ Heart Ichiraku Ramen", "tier": "5★", "description": "Heart element ramen. Provides 50,000 EXP.", "icon": "assets/characters/heart_1071/portrait_5S.png", "element": "heart", "exp": 50000, "cost": {"pearls": 5}, "stock": "unlimited"},
+      {"id": "ramen_skill_1star", "name": "1★ Skill Ichiraku Ramen", "tier": "1★", "description": "Skill element ramen. Provides 500 EXP.", "icon": "assets/characters/skill_918/portrait_1S.png", "element": "skill", "exp": 500, "cost": {"ryo": 1000}, "stock": "unlimited"},
+      {"id": "ramen_skill_2star", "name": "2★ Skill Ichiraku Ramen", "tier": "2★", "description": "Skill element ramen. Provides 1,500 EXP.", "icon": "assets/characters/skill_919/portrait_2S.png", "element": "skill", "exp": 1500, "cost": {"ryo": 3000}, "stock": "unlimited"},
+      {"id": "ramen_skill_3star", "name": "3★ Skill Ichiraku Ramen", "tier": "3★", "description": "Skill element ramen. Provides 5,000 EXP.", "icon": "assets/characters/skill_920/portrait_3S.png", "element": "skill", "exp": 5000, "cost": {"ryo": 10000}, "stock": "unlimited"},
+      {"id": "ramen_skill_4star", "name": "4★ Skill Ichiraku Ramen", "tier": "4★", "description": "Skill element ramen. Provides 15,000 EXP.", "icon": "assets/characters/skill_968/portrait_4S.png", "element": "skill", "exp": 15000, "cost": {"ryo": 30000}, "stock": "unlimited"},
+      {"id": "ramen_skill_5star", "name": "5★ Skill Ichiraku Ramen", "tier": "5★", "description": "Skill element ramen. Provides 50,000 EXP.", "icon": "assets/characters/skill_1074/portrait_5S.png", "element": "skill", "exp": 50000, "cost": {"pearls": 5}, "stock": "unlimited"},
+      {"id": "ramen_body_1star", "name": "1★ Body Ichiraku Ramen", "tier": "1★", "description": "Body element ramen. Provides 500 EXP.", "icon": "assets/characters/body_921/portrait_1S.png", "element": "body", "exp": 500, "cost": {"ryo": 1000}, "stock": "unlimited"},
+      {"id": "ramen_body_2star", "name": "2★ Body Ichiraku Ramen", "tier": "2★", "description": "Body element ramen. Provides 1,500 EXP.", "icon": "assets/characters/body_922/portrait_2S.png", "element": "body", "exp": 1500, "cost": {"ryo": 3000}, "stock": "unlimited"},
+      {"id": "ramen_body_3star", "name": "3★ Body Ichiraku Ramen", "tier": "3★", "description": "Body element ramen. Provides 5,000 EXP.", "icon": "assets/characters/body_923/portrait_3S.png", "element": "body", "exp": 5000, "cost": {"ryo": 10000}, "stock": "unlimited"},
+      {"id": "ramen_body_4star", "name": "4★ Body Ichiraku Ramen", "tier": "4★", "description": "Body element ramen. Provides 15,000 EXP.", "icon": "assets/characters/body_969/portrait_4S.png", "element": "body", "exp": 15000, "cost": {"ryo": 30000}, "stock": "unlimited"},
+      {"id": "ramen_body_5star", "name": "5★ Body Ichiraku Ramen", "tier": "5★", "description": "Body element ramen. Provides 50,000 EXP.", "icon": "assets/characters/body_1077/portrait_5S.png", "element": "body", "exp": 50000, "cost": {"pearls": 5}, "stock": "unlimited"},
+      {"id": "ramen_bravery_1star", "name": "1★ Bravery Ichiraku Ramen", "tier": "1★", "description": "Bravery element ramen. Provides 500 EXP.", "icon": "assets/characters/bravery_924/portrait_1S.png", "element": "bravery", "exp": 500, "cost": {"ryo": 1000}, "stock": "unlimited"},
+      {"id": "ramen_bravery_2star", "name": "2★ Bravery Ichiraku Ramen", "tier": "2★", "description": "Bravery element ramen. Provides 1,500 EXP.", "icon": "assets/characters/bravery_925/portrait_2S.png", "element": "bravery", "exp": 1500, "cost": {"ryo": 3000}, "stock": "unlimited"},
+      {"id": "ramen_bravery_3star", "name": "3★ Bravery Ichiraku Ramen", "tier": "3★", "description": "Bravery element ramen. Provides 5,000 EXP.", "icon": "assets/characters/bravery_926/portrait_3S.png", "element": "bravery", "exp": 5000, "cost": {"ryo": 10000}, "stock": "unlimited"},
+      {"id": "ramen_bravery_4star", "name": "4★ Bravery Ichiraku Ramen", "tier": "4★", "description": "Bravery element ramen. Provides 15,000 EXP.", "icon": "assets/characters/bravery_970/portrait_4S.png", "element": "bravery", "exp": 15000, "cost": {"ryo": 30000}, "stock": "unlimited"},
+      {"id": "ramen_bravery_5star", "name": "5★ Bravery Ichiraku Ramen", "tier": "5★", "description": "Bravery element ramen. Provides 50,000 EXP.", "icon": "assets/characters/bravery_1080/portrait_5S.png", "element": "bravery", "exp": 50000, "cost": {"pearls": 5}, "stock": "unlimited"},
+      {"id": "ramen_wisdom_1star", "name": "1★ Wisdom Ichiraku Ramen", "tier": "1★", "description": "Wisdom element ramen. Provides 500 EXP.", "icon": "assets/characters/wisdom_927/portrait_1S.png", "element": "wisdom", "exp": 500, "cost": {"ryo": 1000}, "stock": "unlimited"},
+      {"id": "ramen_wisdom_2star", "name": "2★ Wisdom Ichiraku Ramen", "tier": "2★", "description": "Wisdom element ramen. Provides 1,500 EXP.", "icon": "assets/characters/wisdom_928/portrait_2S.png", "element": "wisdom", "exp": 1500, "cost": {"ryo": 3000}, "stock": "unlimited"},
+      {"id": "ramen_wisdom_3star", "name": "3★ Wisdom Ichiraku Ramen", "tier": "3★", "description": "Wisdom element ramen. Provides 5,000 EXP.", "icon": "assets/characters/wisdom_929/portrait_3S.png", "element": "wisdom", "exp": 5000, "cost": {"ryo": 10000}, "stock": "unlimited"},
+      {"id": "ramen_wisdom_4star", "name": "4★ Wisdom Ichiraku Ramen", "tier": "4★", "description": "Wisdom element ramen. Provides 15,000 EXP.", "icon": "assets/characters/wisdom_971/portrait_4S.png", "element": "wisdom", "exp": 15000, "cost": {"ryo": 30000}, "stock": "unlimited"},
+      {"id": "ramen_wisdom_5star", "name": "5★ Wisdom Ichiraku Ramen", "tier": "5★", "description": "Wisdom element ramen. Provides 50,000 EXP.", "icon": "assets/characters/wisdom_1083/portrait_5S.png", "element": "wisdom", "exp": 50000, "cost": {"pearls": 5}, "stock": "unlimited"}
     ],
     "materials": [
       {
@@ -184,42 +149,12 @@
         "stock": "unlimited"
       },
       {
-        "id": "book_victor_6",
-        "name": "★6 Book of Victor",
-        "description": "Ultra-rare awakening material for ★6 characters.",
-        "icon": "assets/items/book_victor_6.png",
-        "cost": {
-          "granny_coin": 250
-        },
-        "stock": "unlimited"
-      },
-      {
-        "id": "book_victor_5",
-        "name": "★5 Book of Victor",
-        "description": "Rare awakening material for ★5 characters.",
-        "icon": "assets/items/book_victor_5.png",
-        "cost": {
-          "granny_coin": 180
-        },
-        "stock": "unlimited"
-      },
-      {
         "id": "awakening_charm",
         "name": "Awakening Charm",
         "description": "Legendary charm used for special awakenings.",
         "icon": "assets/items/awakening_charm.png",
         "cost": {
           "granny_coin": 300
-        },
-        "stock": "unlimited"
-      },
-      {
-        "id": "dupe_crystal",
-        "name": "Dupe Crystal",
-        "description": "Obtained from duplicate characters.",
-        "icon": "assets/items/dupe_crystal.png",
-        "cost": {
-          "granny_coin": 120
         },
         "stock": "unlimited"
       }
