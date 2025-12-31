@@ -4,7 +4,7 @@
 
 /* === Body Padding to Prevent Cutoff === */
 body {
-  padding-top: 70px; /* Top bar height (60px) + spacing (10px) */
+  padding-top: 130px; /* Top bar height (120px) + spacing (10px) */
   box-sizing: border-box;
 }
 
@@ -14,16 +14,16 @@ body {
   top: 0;
   left: 0;
   width: 100%;
-  height: 60px;
-  background: linear-gradient(180deg, rgba(10, 10, 15, 0.95), rgba(10, 10, 15, 0.85));
-  border-bottom: 2px solid rgba(139, 115, 85, 0.6);
+  height: 120px;
+  background-image: url("../assets/ui/top_hud_overlay.png");
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
   padding: 0 20px;
   z-index: 1000;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(8px);
   font-family: "Cinzel", serif;
 }
 
@@ -42,30 +42,27 @@ body {
 }
 
 .ninja-rank-label {
-  font-size: 14px;
-  color: #b8985f;
-  font-weight: 600;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9);
-  letter-spacing: 0.5px;
+  display: none; /* Hide the "Ninja Rank:" label */
 }
 
 .ninja-rank-value {
-  font-size: 18px;
-  color: #8b6914;
+  font-size: 20px;
+  color: #000000;
   font-weight: 700;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9);
+  text-shadow: 0 2px 4px rgba(255, 255, 255, 0.5);
   min-width: 40px;
   text-align: center;
-  background: rgba(212, 175, 55, 0.1);
+  background: transparent;
   padding: 4px 12px;
-  border-radius: 6px;
-  border: 1px solid rgba(212, 175, 55, 0.3);
+  border: none;
+  position: relative;
+  left: 80px;
+  top: -5px;
 }
 
 /* === Level Progress Bar === */
 .level-progress-bar-container {
-  width: 150px;
-  min-width: 150px;
+  display: none; /* Hide progress bar with new overlay */
 }
 
 .level-progress-bar {
@@ -142,8 +139,9 @@ body {
   justify-content: center;
   align-items: center;
   position: relative;
-  min-width: 221px;
-  max-width: 340px;
+  min-width: 300px;
+  max-width: 400px;
+  top: -10px;
 }
 
 .username-holder {
@@ -151,23 +149,14 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 28px 27px;
-  min-width: 204px;
+  padding: 10px 30px;
+  min-width: 250px;
+  background: transparent;
 }
 
-/* Name Holder Background PNG */
+/* Name Holder Background PNG - Hide original, use overlay scroll */
 .username-holder::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: url("../assets/ui/name_holder.png");
-  background-size: 100% 100%;
-  background-position: center;
-  background-repeat: no-repeat;
-  opacity: 0.9;
-  z-index: 1;
-  pointer-events: none;
-  border-radius: 20px;
+  display: none;
 }
 
 .username-text {
@@ -176,23 +165,19 @@ body {
   font-size: 18px;
   font-weight: 700;
   color: #000000;
-  text-shadow:
-    0 2px 4px rgba(0, 0, 0, 0.9),
-    0 0 10px rgba(212, 175, 55, 0.3);
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.3);
   letter-spacing: 1px;
   text-align: center;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 255px;
+  max-width: 300px;
   transition: all 0.3s ease;
 }
 
 .username-holder:hover .username-text {
-  color: #d4af37;
-  text-shadow:
-    0 2px 6px rgba(0, 0, 0, 0.9),
-    0 0 15px rgba(212, 175, 55, 0.6);
+  color: #8b6914;
+  text-shadow: 0 2px 3px rgba(255, 255, 255, 0.5);
   transform: scale(1.05);
 }
 
@@ -202,26 +187,25 @@ body {
   display: flex;
   gap: 20px;
   align-items: center;
-  margin-right: 20px; /* Add space from edge */
-  padding-right: 10px; /* Additional padding to prevent cutoff */
+  margin-right: 40px;
+  padding-right: 10px;
+  position: relative;
+  top: -10px;
 }
 
 .currency-item {
   display: flex;
   align-items: center;
-  gap: 12px; /* Increased gap between icon and amount */
-  background: rgba(20, 20, 30, 0.8);
+  gap: 12px;
+  background: transparent;
   padding: 6px 14px;
   border-radius: 20px;
-  border: 1px solid rgba(139, 115, 85, 0.4);
+  border: none;
   transition: all 0.2s ease;
 }
 
 .currency-item:hover {
-  background: rgba(30, 30, 40, 0.9);
-  border-color: rgba(212, 175, 55, 0.6);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+  transform: scale(1.05);
 }
 
 .currency-icon {
@@ -233,9 +217,9 @@ body {
 
 .currency-amount {
   font-size: 16px;
-  color: #ffffff; /* Changed to pure white */
-  font-weight: 600;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9);
+  color: #000000;
+  font-weight: 700;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5);
   min-width: 50px;
   text-align: right;
   letter-spacing: 0.3px;
@@ -257,25 +241,22 @@ body {
 /* === Responsive Design === */
 @media (max-width: 768px) {
   body {
-    padding-top: 60px; /* Reduced padding for tablet */
+    padding-top: 110px;
   }
 
   .top-bar {
-    height: 50px;
+    height: 100px;
     padding: 0 12px;
-  }
-
-  .ninja-rank-label {
-    font-size: 12px;
   }
 
   .ninja-rank-value {
     font-size: 16px;
-    padding: 3px 10px;
+    left: 60px;
   }
 
   .currency-hud {
     gap: 12px;
+    margin-right: 20px;
   }
 
   .currency-item {
@@ -291,24 +272,36 @@ body {
     font-size: 14px;
     min-width: 40px;
   }
+
+  .username-container {
+    min-width: 200px;
+  }
+
+  .username-text {
+    font-size: 16px;
+    max-width: 200px;
+  }
 }
 
 @media (max-width: 480px) {
   body {
-    padding-top: 100px; /* More padding for collapsed mobile view */
+    padding-top: 140px;
   }
 
   .top-bar {
-    flex-direction: column;
-    height: auto;
+    height: 120px;
     padding: 8px 12px;
-    gap: 8px;
+    background-size: contain;
+  }
+
+  .ninja-rank-value {
+    font-size: 14px;
+    left: 40px;
   }
 
   .currency-hud {
     gap: 8px;
-    flex-wrap: wrap;
-    justify-content: center;
+    margin-right: 10px;
   }
 
   .currency-item {
@@ -323,5 +316,14 @@ body {
   .currency-amount {
     font-size: 12px;
     min-width: 35px;
+  }
+
+  .username-container {
+    min-width: 150px;
+  }
+
+  .username-text {
+    font-size: 14px;
+    max-width: 150px;
   }
 }
