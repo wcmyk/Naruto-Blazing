@@ -123365,7 +123365,7 @@
     "passiveIcons": {
       "1": "perfect_dodge",
       "2": "nullifies_immobilization",
-      "3": "ignores_perfect_dodge",
+      "3": "ignore_perfect_dodge",
       "4": "ninjutsu_damage_boost",
       "5": "ninjutsu_damage_boost",
       "6": "immobilization_resistance",

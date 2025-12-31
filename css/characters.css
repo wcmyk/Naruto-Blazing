@@ -259,7 +259,7 @@ body.page-characters::-webkit-scrollbar {
 /* Special positioning for Gojo & Minato card */
 #nameplate-name[data-shift-right="true"] ~ .nameplate-main,
 .nameplate-main.shift-right {
-  left: -10%;
+  left: -5%;
 }
 
 .nameplate-name {
@@ -281,9 +281,10 @@ body.page-characters::-webkit-scrollbar {
 
 /* ---------- Stars (overlapping nameplate) ---------- */
 .nameplate-stars {
-  position: absolute;
-  top: 50%;
-  left: calc(100% + 20px);
+  position: relative;
+  top: -9%;
+  right: -130px;
+  left: calc(95% + px);
   transform: translateY(-50%);
   text-align: left;
   z-index: 10;
