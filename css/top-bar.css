@@ -16,7 +16,7 @@ body {
   width: 100%;
   height: 120px;
   background-image: url("../assets/ui/top_hud_overlay.png");
-  background-size: cover;
+  background-size: 100% auto;
   background-position: center top;
   background-repeat: no-repeat;
   display: grid;
@@ -291,7 +291,7 @@ body {
   .top-bar {
     height: 120px;
     padding: 8px 12px;
-    background-size: contain;
+    background-size: 100% auto;
   }
 
   .ninja-rank-value {
