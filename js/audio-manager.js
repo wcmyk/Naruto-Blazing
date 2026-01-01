@@ -252,6 +252,46 @@
     },
 
     /**
+     * Pause background music (HTML5 Page Visibility API support)
+     */
+    pauseMusic() {
+      if (!this.sounds.battleBGM || !this.sounds.battleBGM.playing()) return;
+
+      console.log('[AudioManager] Pausing music');
+      this.sounds.battleBGM.pause();
+    },
+
+    /**
+     * Resume background music (HTML5 Page Visibility API support)
+     */
+    resumeMusic() {
+      if (!this.sounds.battleBGM) return;
+
+      // Only resume if music was previously playing
+      if (this.musicPlaying && !this.sounds.battleBGM.playing()) {
+        console.log('[AudioManager] Resuming music');
+        this.sounds.battleBGM.play();
+      }
+    },
+
+    /**
+     * Pause all audio (music + SFX)
+     */
+    pauseAll() {
+      this.pauseMusic();
+      // Howler automatically manages SFX instances
+      Howler.mute(true);
+    },
+
+    /**
+     * Resume all audio (music + SFX)
+     */
+    resumeAll() {
+      this.resumeMusic();
+      Howler.mute(false);
+    },
+
+    /**
      * Save volume settings to localStorage
      */
     saveVolumeSettings() {
